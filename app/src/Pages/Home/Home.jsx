@@ -7,7 +7,7 @@ import { ExpandableCardDemo } from "../../Components/Home/CardDemo";
 import { CarsCalc } from "../../Components/Home/CarsModels/CarsCalc";
 // import { TestCharts } from "../../Components/Home/TestCharts";
 import LogoLoop from "../../Components/UI/Border/LogoLoop";
-
+import trackloader from "../../Components/Loads/trackloader";
 ///Logos
 import { SiFerrari } from "react-icons/si";
 import { SiF1 } from "react-icons/si";
@@ -37,7 +37,7 @@ const techLogos = [
 
 export const Home = () => {
   return (
-    <div className="h-[10000px] flex flex-col gap-20 text-white text-3xl">
+    <div className=" flex flex-col gap-20 text-white text-3xl">
       <WorldMapDemo />
       {/* <MapTabsDemo /> */}
       <div className="">

@@ -4,18 +4,18 @@
 import React, { useEffect, useId, useState } from "react";
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import "../Loads/load.css";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-
+import Trackloader from "../Loads/trackloader";
 // import required modules
 import { Pagination } from "swiper/modules";
 import { useFetchData } from "../../Hooks/useFetchData";
 // import ElectricBorder from "../UI/Border/ElectricBorder";
 
 export function ExpandableCardDemo() {
-  const [data] = useFetchData(
+  const [data, error, isLoading] = useFetchData(
     // "http://localhost:5000/server/gettracks"
     "https://strategyplanner.onrender.com/server/gettracks"
   );
@@ -31,132 +31,164 @@ export function ExpandableCardDemo() {
   const id = useId();
 
   return (
-    <div>
-      <div className="max-w-8xl  p-2 mx-auto">
-        {/* Swiper */}
-        <Swiper
-          rewind={true}
-          slidesPerView={4}
-          // pagination={{ clickable: true }}
-          spaceBetween={20}
-          modules={[Pagination]}
-          className="mySwiper"
-        >
-          {data.map((card) => (
-            <SwiperSlide key={card.name}>
-              {/* <ElectricBorder
+    <>
+      {isLoading ? (
+        <div>
+          <Trackloader />
+
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+            <div className="flex items-center justify-center gap-6">
+              <div className="load">
+                <svg viewBox="0 0 80 80">
+                  <circle cx="40" cy="40" r="32" />
+                </svg>
+              </div>
+
+              <div className="load triangle">
+                <svg viewBox="0 0 86 80">
+                  <polygon points="43 8 79 72 7 72" />
+                </svg>
+              </div>
+
+              <div className="load">
+                <svg viewBox="0 0 80 80">
+                  <rect x="8" y="8" width="64" height="64" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <div className="max-w-8xl  p-2 mx-auto">
+            {/* Swiper */}
+            <Swiper
+              rewind={true}
+              slidesPerView={4}
+              // pagination={{ clickable: true }}
+              spaceBetween={20}
+              modules={[Pagination]}
+              className="mySwiper"
+            >
+              {data.map((card) => (
+                <SwiperSlide key={card.name}>
+                  {/* <ElectricBorder
                 color="#7df9ff"
                 speed={0.3}
                 chaos={0.5}
                 thickness={2}
                 style={{ borderRadius: 10 }}
               > */}
-              {/* <ElectricBorder
+                  {/* <ElectricBorder
                 color="#7df9ff"
                 speed={1}
                 chaos={0.5}
                 thickness={2}
                 style={{ borderRadius: 16 }}
               > */}
-              <motion.div
-                layoutId={`card-${card.name}-${id}`}
-                onClick={() => setActive(card)}
-                className={`p-4 cursor-target flex flex-col h-[400px] rounded-sm cursor-pointer transition ${
-                  active?.name === card.name ? "" : ""
-                }`}
-              >
-                <div className="flex gap-4 flex-col w-full">
-                  <motion.div layoutId={`image-${card.name}-${id}`}>
-                    <img
-                      src={card.src}
-                      alt={card.name}
-                      className="h-60 w-full rounded-lg object-contain"
-                    />
+                  <motion.div
+                    layoutId={`card-${card.name}-${id}`}
+                    onClick={() => setActive(card)}
+                    className={`p-4 cursor-target flex flex-col h-[400px] rounded-sm cursor-pointer transition ${
+                      active?.name === card.name ? "" : ""
+                    }`}
+                  >
+                    <div className="flex gap-4 flex-col w-full">
+                      <motion.div layoutId={`image-${card.name}-${id}`}>
+                        <img
+                          src={card.src}
+                          alt={card.name}
+                          className="h-60 w-full rounded-lg object-contain"
+                        />
+                      </motion.div>
+                      <div className="flex justify-center items-center flex-col">
+                        <motion.h3
+                          layoutId={`title-${card.name}-${id}`}
+                          className="font-panchangSB text-neutral-800 dark:text-neutral-200 text-center text-base"
+                        >
+                          {card.name}
+                        </motion.h3>
+                        <motion.p
+                          layoutId={`description-${card.description}-${id}`}
+                          className="text-neutral-600 dark:text-neutral-400 text-center text-sm font-satosIT"
+                        >
+                          {card.descr}
+                        </motion.p>
+                      </div>
+                    </div>
                   </motion.div>
-                  <div className="flex justify-center items-center flex-col">
-                    <motion.h3
-                      layoutId={`title-${card.name}-${id}`}
-                      className="font-panchangSB text-neutral-800 dark:text-neutral-200 text-center text-base"
-                    >
-                      {card.name}
-                    </motion.h3>
-                    <motion.p
-                      layoutId={`description-${card.description}-${id}`}
-                      className="text-neutral-600 dark:text-neutral-400 text-center text-sm font-satosIT"
-                    >
-                      {card.descr}
-                    </motion.p>
+                  {/* </ElectricBorder> */}
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+
+          {/* Active card info (ქვემოთ) */}
+          <div className=" w-full  mt-20   ">
+            {active && (
+              <motion.div
+                key={active.name}
+                layoutId={`info-${active.name}-${id}`}
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }} // გასწორებულია
+                exit={{ opacity: 0, y: 5 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                className="mt-8 flex gap-6 flex-row mx-auto shadow p-6 rounded-xl"
+              >
+                <img
+                  src={active.src}
+                  alt={active.name}
+                  className=" w-2/4 h-full pr-10 object-contain border-r-[1px] border-zinc-800 "
+                />
+                <div className="w-1/2 flex flex-col gap-8 p-10 font-mono font-bold">
+                  <div className="flex flex-col md:flex-row justify-between  border-b p-10 border-zinc-700">
+                    <div className="flex flex-col gap-6 text-left ">
+                      <h3 className="text-lg font-panchang text-gray-400  ">
+                        Track Name
+                      </h3>
+                      <h3 className="text-xl text-neutral-800 font-panchang dark:text-neutral-200">
+                        {active.name} / {active.country}
+                      </h3>
+                    </div>
+                    <div className="flex flex-col gap-4 relative right-40">
+                      <h3 className="text-lg text-gray-400 font-panchang">
+                        First race
+                      </h3>
+                      <h3 className="text-2xl pl-2 font-panchang text-neutral-800 dark:text-neutral-200">
+                        In {active.firstGP}
+                      </h3>
+                    </div>
                   </div>
+                  <div className="flex flex-col md:flex-row justify-between border-b p-10 border-zinc-700">
+                    <div className="flex flex-col gap-4 text-left ">
+                      <h3 className="text-lg text-gray-400 font-panchang  ">
+                        Fastest lap time
+                      </h3>
+                      <h3 className="text-2xl text-neutral-800 font-panchang dark:text-neutral-200">
+                        {active.fastestlap}
+                      </h3>
+                      <h3 className="text-sm  text-gray-400 font-satosIT">
+                        {active.fastestmn}
+                      </h3>
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <h3 className="text-lg text-gray-400 font-panchang">
+                        Circuit Length
+                      </h3>
+                      <h3 className="text-5xl font-panchang">
+                        {active.lenght}
+                      </h3>
+                    </div>
+                  </div>
+                  <h3 className="text-neutral-600 font-array dark:text-neutral-400 text-xl mt-2">
+                    {active.descr}
+                  </h3>
                 </div>
               </motion.div>
-              {/* </ElectricBorder> */}
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-
-      {/* Active card info (ქვემოთ) */}
-      <div className=" w-full  mt-20   ">
-        {active && (
-          <motion.div
-            key={active.name}
-            layoutId={`info-${active.name}-${id}`}
-            initial={{ opacity: 0, y: 5 }}
-            animate={{ opacity: 1, y: 0 }} // გასწორებულია
-            exit={{ opacity: 0, y: 5 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            className="mt-8 flex gap-6 flex-row mx-auto shadow p-6 rounded-xl"
-          >
-            <img
-              src={active.src}
-              alt={active.name}
-              className=" w-2/4 h-full pr-10 object-contain border-r-[1px] border-zinc-800 "
-            />
-            <div className="w-1/2 flex flex-col gap-8 p-10 font-mono font-bold">
-              <div className="flex flex-col md:flex-row justify-between  border-b p-10 border-zinc-700">
-                <div className="flex flex-col gap-6 text-left ">
-                  <h3 className="text-lg font-panchang text-gray-400  ">
-                    Track Name
-                  </h3>
-                  <h3 className="text-xl text-neutral-800 font-panchang dark:text-neutral-200">
-                    {active.name} / {active.country}
-                  </h3>
-                </div>
-                <div className="flex flex-col gap-4 relative right-40">
-                  <h3 className="text-lg text-gray-400 font-panchang">
-                    First race
-                  </h3>
-                  <h3 className="text-2xl pl-2 font-panchang text-neutral-800 dark:text-neutral-200">
-                    In {active.firstGP}
-                  </h3>
-                </div>
-              </div>
-              <div className="flex flex-col md:flex-row justify-between border-b p-10 border-zinc-700">
-                <div className="flex flex-col gap-4 text-left ">
-                  <h3 className="text-lg text-gray-400 font-panchang  ">
-                    Fastest lap time
-                  </h3>
-                  <h3 className="text-2xl text-neutral-800 font-panchang dark:text-neutral-200">
-                    {active.fastestlap}
-                  </h3>
-                  <h3 className="text-sm  text-gray-400 font-satosIT">
-                    {active.fastestmn}
-                  </h3>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <h3 className="text-lg text-gray-400 font-panchang">
-                    Circuit Length
-                  </h3>
-                  <h3 className="text-5xl font-panchang">{active.lenght}</h3>
-                </div>
-              </div>
-              <h3 className="text-neutral-600 font-array dark:text-neutral-400 text-xl mt-2">
-                {active.descr}
-              </h3>
-            </div>
-          </motion.div>
-        )}
-      </div>
-    </div>
+            )}
+          </div>
+        </div>
+      )}
+    </>
   );
 }

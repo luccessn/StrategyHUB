@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { PlaceholdersAndVanishInput } from "../UI/PlaceholdersForAi/PlaceHoldersForAI";
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -14,28 +14,44 @@ export const AICard = () => {
     "What lap time did you achieve? ",
     "What is your goal or purpose?",
   ];
-
   const handleChange = (e) => {
     setinputValue(e.target.value);
   };
+  const handleScroll = useRef(false);
   const onSubmit = async (e) => {
+    e.preventDefault();
+    // if (!handleScroll.current) {
+    //   window.scrollTo({
+    //     top: window.scrollY + 800,
+    //     behavior: "smooth",
+    //   });
+    //   handleScroll.current = true;
+    // }
+    if (!inputValue.trim()) return;
+    window.scrollTo({
+      top: window.scrollY + 200,
+      behavior: "smooth",
+    });
     setSubmittedText((prev) => [
       ...prev,
       { role: "user", content: inputValue },
     ]);
-    e.preventDefault();
-    console.log("submitted");
+
     setinputValue("");
+
     try {
       const response = await fetch("http://127.0.0.1:8000/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: inputValue }),
       });
+
       if (!response.ok) {
         throw new Error("Network response was not ok.");
       }
+
       const data = await response.json();
+
       setSubmittedText((prev) => [
         ...prev,
         { role: "Bot", content: data.reply },
@@ -44,8 +60,9 @@ export const AICard = () => {
       console.log("dadada", error);
     }
   };
+
   return (
-    <div className="  flex flex-col justify-center  items-center px-4">
+    <div className="  flex flex-col justify-center mt-10 mb-40  items-center px-4">
       <h2 className=" font-panchangSB mb-10 sm:mb-20 text-3xl text-center sm:text-5xl dark:text-white text-black">
         Ask For Your Strategy Hub
       </h2>
@@ -55,11 +72,17 @@ export const AICard = () => {
             initial={{ opacity: 0, y: 40, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 40, scale: 0.95 }}
-            transition={{
-              duration: 1.4,
-              ease: [0.22, 1, 0.36, 1],
+            transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+            onAnimationComplete={() => {
+              if (!handleScroll.current) {
+                window.scrollTo({
+                  top: window.scrollY + 800,
+                  behavior: "smooth",
+                });
+                handleScroll.current = true;
+              }
             }}
-            className="w-[1200px] h-[950px]  justify-between bg-zinc-900 text-white px-5 py-3 rounded-lg shadow-lg flex flex-col gap-4"
+            className="w-[1200px] h-[950px] justify-between bg-zinc-900 text-white px-5 py-3 rounded-lg shadow-lg flex flex-col gap-4"
           >
             <div className="flex  flex-col gap-8  overflow-y-auto">
               {submittedText.map((data, index) => (

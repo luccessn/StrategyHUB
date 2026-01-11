@@ -1,16 +1,16 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
 import os
-from groq import Groq
 from dotenv import load_dotenv
+from pymongo import MongoClient
+from bson import ObjectId
+from models import StrategyRequest, StrategyResponse
+from strategy_engine import calculate_strategy
+from explain import explain_with_groq
+
+from chat import get_bot_response, ChatRequest
 load_dotenv()
 
-client = Groq(
-        api_key=os.environ.get("GROQ_API_KEY"),
-    )
-class ChatRequest(BaseModel):
-    message: str
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
@@ -20,21 +20,35 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-def get_bot_response(user_message):
-    message = user_message.lower()
-    chat_completion = client.chat.completions.create(
-        messages=[
-            {
-                "role": "user",
-                "content": message,
-            }
-        ],
-        model="llama-3.3-70b-versatile",
-        stream = False,
-    )
-    return chat_completion.choices[0].message.content
+mongo  = MongoClient(os.environ.get("MONGO_URI"))
+db = mongo["Data"]
+cars_collection = db["cars"]
+tracks_collection = db["tracks"]
+
+
+@app.post("/strategy", response_model=StrategyResponse)
+def get_strategy(req: StrategyRequest):
+    car = cars_collection.find_one({"_id": ObjectId(req.car_id)})
+    track = tracks_collection.find_one({"_id": ObjectId(req.track_id)})
+
+    if not car:
+        return {"strategy": {}, "explanation": f"car {req.car_id} not found"}
+
+    if not track:
+        return {"strategy": {}, "explanation": f"track {req.track_id} not found"}
+
+    strategy = calculate_strategy(car, track, req)
+    explanation = explain_with_groq(strategy, req)
+
+    return {
+        "strategy": strategy,
+        "explanation": explanation
+    }
+## second post chat
+
 
 @app.post("/chat")
 def chat(request:ChatRequest):
    reply=get_bot_response(request.message)
    return {"reply":reply}
+
