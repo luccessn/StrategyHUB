@@ -19,7 +19,7 @@ export const car3DConfig = {
 
 export const CarsFetch = () => {
   const [data, error, isLoading] = useFetchData(
-    "http://localhost:5000/server/getCars"
+    "https://strategyhub.onrender.com/server/getcars"
   );
   // console.log(data);
   const carsWith3d = data.map((car) => ({

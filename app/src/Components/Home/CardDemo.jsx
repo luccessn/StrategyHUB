@@ -17,7 +17,7 @@ import { useFetchData } from "../../Hooks/useFetchData";
 export function ExpandableCardDemo() {
   const [data, error, isLoading] = useFetchData(
     // "http://localhost:5000/server/gettracks"
-    "https://strategyplanner.onrender.com/server/gettracks"
+    "https://strategyhub.onrender.com/server/gettracks"
   );
   console.log(data);
   const [active, setActive] = useState(null);
