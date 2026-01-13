@@ -40,11 +40,14 @@ export const AICard = () => {
     setinputValue("");
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: inputValue }),
-      });
+      const response = await fetch(
+        "https://pythonestrategyhub.onrender.com/chat",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: inputValue }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Network response was not ok.");
