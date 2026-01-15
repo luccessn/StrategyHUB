@@ -96,7 +96,7 @@ export function WorldMapDemo() {
       <div className="top-shadow absolute left-0 top-2 w-full h-[180px] bg-gradient-to-b from-black to-transparent"></div>
 
       <div className="max-w-7xl mx-auto text-center" ref={ref}>
-        <p className="font-panchangSB text-xl md:text-4xl dark:text-white text-black">
+        <p className="font-panchangSB text-xl md:text-4xl text-white ">
           Welcome to{" "}
           <span className="text-neutral-400">
             {"Strategy Hub".split("").map((letter, idx) => (

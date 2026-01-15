@@ -104,13 +104,13 @@ export function ExpandableCardDemo() {
                       <div className="flex justify-center items-center flex-col">
                         <motion.h3
                           layoutId={`title-${card.name}-${id}`}
-                          className="font-panchangSB text-neutral-800 dark:text-neutral-200 text-center text-base"
+                          className="font-panchangSB text-neutral-200 text-center text-base"
                         >
                           {card.name}
                         </motion.h3>
                         <motion.p
                           layoutId={`description-${card.description}-${id}`}
-                          className="text-neutral-600 dark:text-neutral-400 text-center text-sm font-satosIT"
+                          className="text-neutral-400 text-center text-sm font-satosIT"
                         >
                           {card.descr}
                         </motion.p>
@@ -146,7 +146,7 @@ export function ExpandableCardDemo() {
                       <h3 className="text-lg font-panchang text-gray-400  ">
                         Track Name
                       </h3>
-                      <h3 className="text-xl text-neutral-800 font-panchang dark:text-neutral-200">
+                      <h3 className="text-xl  font-panchang text-neutral-200">
                         {active.name} / {active.country}
                       </h3>
                     </div>
@@ -154,7 +154,7 @@ export function ExpandableCardDemo() {
                       <h3 className="text-lg text-gray-400 font-panchang">
                         First race
                       </h3>
-                      <h3 className="text-2xl pl-2 font-panchang text-neutral-800 dark:text-neutral-200">
+                      <h3 className="text-2xl pl-2 font-panchang text-neutral-200">
                         In {active.firstGP}
                       </h3>
                     </div>
@@ -164,7 +164,7 @@ export function ExpandableCardDemo() {
                       <h3 className="text-lg text-gray-400 font-panchang  ">
                         Fastest lap time
                       </h3>
-                      <h3 className="text-2xl text-neutral-800 font-panchang dark:text-neutral-200">
+                      <h3 className="text-2xl  font-panchang text-neutral-200">
                         {active.fastestlap}
                       </h3>
                       <h3 className="text-sm  text-gray-400 font-satosIT">
@@ -180,7 +180,7 @@ export function ExpandableCardDemo() {
                       </h3>
                     </div>
                   </div>
-                  <h3 className="text-neutral-600 font-array dark:text-neutral-400 text-xl mt-2">
+                  <h3 className=" font-array text-neutral-400 text-xl mt-2">
                     {active.descr}
                   </h3>
                 </div>
