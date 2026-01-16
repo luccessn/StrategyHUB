@@ -5,9 +5,9 @@ node_modules
 # Ignore env files everywhere
 **/.env
 
-# Python
-venv/
-__pycache__/
+# # Python
+# venv/
+# __pycache__/
 
 # Nodedada
 node_modules/
