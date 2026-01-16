@@ -67,7 +67,7 @@ export const Home = () => {
           hoverSpeed={80}
           scaleOnHover
           fadeOut
-          // fadeOutColor="#ffffff"
+          // fadeOutColor="#000000"
           ariaLabel="Technology partners"
         />
 

@@ -370,14 +370,14 @@ export const CarsCalc = () => {
                   onClick={() => setactive(card)}
                   className={`p-4 flex flex-col backdrop-blur-md  cursor-target rounded-xl cursor-pointer transition ${
                     active?.title === card.title
-                      ? "bg-neutral-100 dark:bg-neutral-800"
-                      : "hover:bg-neutral-50 dark:hover:bg-neutral-800"
+                      ? "bg-neutral-800"
+                      : "hover:bg-neutral-800"
                   }`}
                 >
                   <div className="flex justify-center items-center flex-col">
                     <motion.h3
                       layoutId={`title-${card.title}-${id}`}
-                      className="font-panchang text-neutral-800 dark:text-neutral-200 text-center text-base"
+                      className="font-panchang text-neutral-200 text-center text-base"
                     >
                       {card.title}
                     </motion.h3>

@@ -66,7 +66,7 @@ export const AICard = () => {
 
   return (
     <div className="  flex flex-col justify-center mt-10 mb-40  items-center px-4">
-      <h2 className=" font-panchangSB mb-10 sm:mb-20 text-3xl text-center sm:text-5xl dark:text-white text-black">
+      <h2 className=" font-panchangSB mb-10 sm:mb-20 text-3xl text-center sm:text-5xl text-white ">
         Ask For Your Strategy Hub
       </h2>
       {submittedText.length > 0 && (
