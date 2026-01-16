@@ -1,1 +1,13 @@
 node_modules
+# Ignore all env files
+.env
+
+# Ignore env files everywhere
+**/.env
+
+# Python
+venv/
+__pycache__/
+
+# Node
+node_modules/
