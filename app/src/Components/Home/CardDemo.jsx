@@ -10,13 +10,13 @@ import "swiper/css";
 import "swiper/css/pagination";
 import Trackloader from "../Loads/trackloader";
 // import required modules
-import { Pagination } from "swiper/modules";
+import { Pagination, Navigation } from "swiper/modules";
 import { useFetchData } from "../../Hooks/useFetchData";
 // import ElectricBorder from "../UI/Border/ElectricBorder";
 
 export function ExpandableCardDemo() {
   const [data, error, isLoading] = useFetchData(
-    // "http://localhost:5000/server/gettracks"
+    // "http://localhost:5000/server/gettracks",
     "https://strategyhub.onrender.com/server/gettracks",
   );
   console.log(data);
@@ -61,66 +61,117 @@ export function ExpandableCardDemo() {
       ) : (
         <div>
           <div className="max-w-8xl  p-2 mx-auto">
+            <div className="ml-4 z-50  relative top-48 ">
+              <button
+                class="cursor-pointer cursor-target  swiper-button-prev-custom  duration-200 hover:scale-125 active:scale-100"
+                title="Go Back"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="70px"
+                  height="70px"
+                  viewBox="0 0 24 24"
+                  class="stroke-blue-300"
+                >
+                  <path
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                    d="M11 6L5 12M5 12L11 18M5 12H19"
+                  ></path>
+                </svg>
+              </button>
+            </div>
             {/* Swiper */}
-            <Swiper
-              rewind={true}
-              slidesPerView={4}
-              // pagination={{ clickable: true }}
-              spaceBetween={20}
-              modules={[Pagination]}
-              className="mySwiper"
-            >
-              {data.map((card) => (
-                <SwiperSlide key={card.name}>
-                  {/* <ElectricBorder
+            <div className="">
+              <Swiper
+                rewind={true}
+                slidesPerView={4}
+                // pagination={{ clickable: true }}
+
+                spaceBetween={10}
+                modules={[Pagination, Navigation]}
+                navigation={{
+                  nextEl: ".swiper-button-next-custom",
+                  prevEl: ".swiper-button-prev-custom",
+                }}
+                className="mySwiper"
+              >
+                {data.map((card) => (
+                  <SwiperSlide key={card.name}>
+                    {/* <ElectricBorder
                 color="#7df9ff"
                 speed={0.3}
                 chaos={0.5}
                 thickness={2}
                 style={{ borderRadius: 10 }}
               > */}
-                  {/* <ElectricBorder
+                    {/* <ElectricBorder
                 color="#7df9ff"
                 speed={1}
                 chaos={0.5}
                 thickness={2}
                 style={{ borderRadius: 16 }}
               > */}
-                  <motion.div
-                    layoutId={`card-${card.name}-${id}`}
-                    onClick={() => setActive(card)}
-                    className={`p-4 cursor-target flex flex-col h-[400px] rounded-sm cursor-pointer transition ${
-                      active?.name === card.name ? "" : ""
-                    }`}
-                  >
-                    <div className="flex gap-4 flex-col w-full">
-                      <motion.div layoutId={`image-${card.name}-${id}`}>
-                        <img
-                          src={card.src}
-                          alt={card.name}
-                          className="h-60 w-full rounded-lg object-contain"
-                        />
-                      </motion.div>
-                      <div className="flex justify-center items-center flex-col">
-                        <motion.h3
-                          layoutId={`title-${card.name}-${id}`}
-                          className="font-panchangSB text-neutral-200 text-center text-base"
-                        >
-                          {card.name}
-                        </motion.h3>
-                        <motion.p
-                          layoutId={`description-${card.description}-${id}`}
-                          className="text-neutral-400 text-center text-sm font-satosIT"
-                        >
-                          {card.descr}
-                        </motion.p>
+                    <motion.div
+                      layoutId={`card-${card.name}-${id}`}
+                      onClick={() => setActive(card)}
+                      className={`p-4 cursor-target flex flex-col h-[400px] rounded-sm cursor-pointer transition ${
+                        active?.name === card.name ? "" : ""
+                      }`}
+                    >
+                      <div className="flex gap-4 flex-col w-full">
+                        <motion.div layoutId={`image-${card.name}-${id}`}>
+                          <img
+                            src={card.src}
+                            alt={card.name}
+                            className="h-60 w-full rounded-lg object-contain"
+                          />
+                        </motion.div>
+                        <div className="flex justify-center items-center flex-col">
+                          <motion.h3
+                            layoutId={`title-${card.name}-${id}`}
+                            className="font-panchangSB text-neutral-200 text-center text-base"
+                          >
+                            {card.name}
+                          </motion.h3>
+                          <motion.p
+                            layoutId={`description-${card.description}-${id}`}
+                            className="text-neutral-400 text-center text-sm font-satosIT"
+                          >
+                            {card.descr}
+                          </motion.p>
+                        </div>
                       </div>
-                    </div>
-                  </motion.div>
-                  {/* </ElectricBorder> */}
-                </SwiperSlide>
-              ))}
-            </Swiper>
+                    </motion.div>
+                    {/* </ElectricBorder> */}
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+            <div className="flex justify-end mr-4 relative bottom-72">
+              <button
+                class=" swiper-button-next-custom 
+         cursor-pointer cursor-target  rotate-180
+         z-50 duration-200 hover:scale-125 active:scale-100"
+                title="Go Back"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="70px"
+                  height="70px"
+                  viewBox="0 0 24 24"
+                  class="stroke-blue-300"
+                >
+                  <path
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                    d="M11 6L5 12M5 12L11 18M5 12H19"
+                  ></path>
+                </svg>
+              </button>
+            </div>
           </div>
 
           {/* Active card info (ქვემოთ) */}

@@ -18,7 +18,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "../Loads/load.css";
 import "swiper/css";
 import "swiper/css/pagination";
-import { Pagination, Navigation } from "swiper/modules";
+import { Pagination, Navigation, Autoplay } from "swiper/modules";
 // TYres Images
 import soft from "../../Images/Tyres/soft.webp";
 import medium from "../../Images/Tyres/medium.webp";
@@ -118,14 +118,63 @@ export const TyresModels = () => {
   }, [tyreData]);
   const id = useId();
   return (
-    <div>
+    <div className="w-full h-full ">
       <div className="w-full relative left-4    mx-auto justify-center items-center ">
+        {/* <div className="ml-4 z-50  relative translate-y-96  top-5">
+          <button
+            className="cursor-pointer cursor-target  swiper-button-prev-custom  duration-200 hover:scale-125 active:scale-100"
+            title="Go Back"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="70px"
+              height="70px"
+              viewBox="0 0 24 24"
+              className="stroke-blue-300"
+            >
+              <path
+                stroke-linejoin="round"
+                stroke-linecap="round"
+                stroke-width="1.5"
+                d="M11 6L5 12M5 12L11 18M5 12H19"
+              ></path>
+            </svg>
+          </button>
+        </div>
+        <div className="flex justify-end mr-4 right-6 z-50 relative translate-y-80 top-6 ">
+          <button
+            className=" swiper-button-next-custom 
+         cursor-pointer cursor-target  rotate-180
+         z-50 duration-200 hover:scale-125 active:scale-100"
+            title="Go Back"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="70px"
+              height="70px"
+              viewBox="0 0 24 24"
+              className="stroke-blue-300"
+            >
+              <path
+                stroke-linejoin="round"
+                stroke-linecap="round"
+                stroke-width="1.5"
+                d="M11 6L5 12M5 12L11 18M5 12H19"
+              ></path>
+            </svg>
+          </button>
+        </div> */}
+
         <Swiper
           loop={true}
           centeredSlides={true}
           slidesPerView={3}
           spaceBetween={60}
-          modules={[Pagination, Navigation]}
+          modules={[Pagination, Navigation, Autoplay]}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+          }}
           onSlideChange={(swiper) => {
             setActiveIndex(swiper.realIndex);
             setactive(tyreData[swiper.realIndex]);
@@ -147,7 +196,10 @@ export const TyresModels = () => {
                     scale: isActive ? 1.1 : 0.9,
                     opacity: isActive ? 1 : 0.6,
                   }}
-                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  transition={{
+                    duration: 1.1,
+                    ease: [0.4, 0.0, 0.2, 1],
+                  }}
                   className="p-4 flex flex-col bg-black/20 h-[700px] w-[650px]  rounded-sm cursor-pointer"
                 >
                   <div className="flex gap-4 flex-col  w-full">
@@ -174,11 +226,32 @@ export const TyresModels = () => {
         </Swiper>
       </div>
       {active && (
-        <div className=" m-20 flex items-center justify-center text-center w-full ">
+        <motion.div
+          key={active.title}
+          //   onClick={() => setactive(card)} cursor-target
+          // animate={{
+          //   scale: isActive ? 1.1 : 0.9,
+          //   opacity: isActive ? 1 : 0.6,
+          // }}
+          // transition={{
+          //   duration: 1.1,
+          //   ease: [0.4, 0.0, 0.2, 1],
+          // }}
+          // className=" m-20 flex items-center justify-center text-center w-full "
+          // initial={{ opacity: 0, y: 30 }}
+          // animate={{ opacity: 1, y: 0 }}
+          // exit={{ opacity: 0, y: 30 }}
+          // transition={{ duration: 0.5, ease: "easeOut" }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: -20 }}
+          exit={{ opacity: 0, y: 30 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="m-16 flex items-center justify-center text-center w-full"
+        >
           <h1 className="text-2xl opacity-75 transition-all w-3/4 p-10   ">
             {active.description}
           </h1>
-        </div>
+        </motion.div>
       )}
     </div>
   );
