@@ -1,13 +1,14 @@
-node_modules
-# Ignore all env files
+# Environment files
 .env
-
-# Ignore env files everywhere
 **/.env
 
-# # Python
+# Python
 # venv/
 # __pycache__/
+# *.pyc
 
-# Nodedada
+# Node
 node_modules/
+
+# Editors
+.vscode/

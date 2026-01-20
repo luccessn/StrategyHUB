@@ -44,7 +44,7 @@ const TextType = ({
 
     const observer = new IntersectionObserver(
       ([entry]) => entry.isIntersecting && setIsVisible(true),
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     observer.observe(containerRef.current);
@@ -61,7 +61,7 @@ const TextType = ({
         setDisplayedText((prev) => prev + finalText[currentCharIndex]);
         setCurrentCharIndex((prev) => prev + 1);
       },
-      currentCharIndex === 0 ? initialDelay : typingSpeed
+      currentCharIndex === 0 ? initialDelay : typingSpeed,
     );
 
     return () => clearTimeout(timeout);
@@ -71,17 +71,20 @@ const TextType = ({
     Component,
     {
       ref: containerRef,
-      className: `inline-block whitespace-pre-wrap ${className}`,
+      className: `whitespace-pre-wrap break-words ${className}`,
+      style: { lineHeight: 1.4 }, // გაზარდე აქ ზომები
       ...props,
     },
     <>
-      <span>{displayedText}</span>
+      <div style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>
+        {displayedText}
+      </div>
       {showCursor && (
         <span ref={cursorRef} className={`ml-1 ${cursorClassName}`}>
           {cursorCharacter}
         </span>
       )}
-    </>
+    </>,
   );
 };
 

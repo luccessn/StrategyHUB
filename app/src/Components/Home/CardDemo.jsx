@@ -17,7 +17,7 @@ import { useFetchData } from "../../Hooks/useFetchData";
 export function ExpandableCardDemo() {
   const [data, error, isLoading] = useFetchData(
     // "http://localhost:5000/server/gettracks"
-    "https://strategyhub.onrender.com/server/gettracks"
+    "https://strategyhub.onrender.com/server/gettracks",
   );
   console.log(data);
   const [active, setActive] = useState(null);
@@ -142,8 +142,8 @@ export function ExpandableCardDemo() {
                 />
                 <div className="w-1/2 flex flex-col gap-8 p-10 font-mono font-bold">
                   <div className="flex flex-col md:flex-row justify-between  border-b p-10 border-zinc-700">
-                    <div className="flex flex-col gap-6 text-left ">
-                      <h3 className="text-lg font-panchang text-gray-400  ">
+                    <div className="flex flex-col gap-6 max-w-[500px] text-left ">
+                      <h3 className="text-lg font-panchang  text-gray-400  ">
                         Track Name
                       </h3>
                       <h3 className="text-xl  font-panchang text-neutral-200">

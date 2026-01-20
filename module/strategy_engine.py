@@ -4,10 +4,17 @@ from models import StrategyRequest, StrategyResponse
 def calculate_strategy(car:dict, track:dict, req:StrategyRequest):
     strategy = {}
     strategy["about"] = (
-    f"{car['forai']['name']} ({car['forai']['engine']['type']}, {car['forai']['engine']['maxPowerHP']} HP) "
-    f"on {track['name']} in {track['forai']['country']} track, length {track['lenght']} km. "
-    f"Driver goal: {req.goal}, Weather: {req.weather}, Tyres: {req.tyre}"
-    )
+    f"{car['forai']['name']} "
+    f"({car['forai']['engine']['type']}, {car['forai']['engine']['maxPowerHP']} HP) "
+    f"on {track['name']} in {track['forai']['country']} track, lenght {track['lenght']} km. "
+    f"Driver experience was in {req.weather}, using {req.tyre} tyres, "
+    f"and achieved a lap time of {req.lap_time}. "
+    f"Driver goal: {req.goal} with this car: {car['forai']['name']}"
+    )    # strategy["lastLapTime"] = (f"Drivers last lapTime : {req.lap_time} in {req.weather} weather with {req.tyre}")
+    strategy["goal"] = (
+    "Let's provide an optimal strategy for both weather conditions, "
+    "including wet and sunny weather."
+    )    
     if track["forai"]["characteristics"]["downforceDemand"] > 0.7 :  # ეს არის რეალურად ობიექტის ელენმენტს ვწვდებიტრ ანუ charat.downforceDemadn
         strategy["aero"] = f"High Downforce {track["forai"]["characteristics"]["downforceDemand"]} "
     else:
@@ -23,13 +30,12 @@ def calculate_strategy(car:dict, track:dict, req:StrategyRequest):
     else:
         strategy["brakingStyle"] = "Aggressive braking, late apex"
         strategy["brakingBias"] = "Front biased"
-
-    if req.tyre.lower() == "soft":
-        strategy["tyreManagement"] = f"Push first laps, fast wear ({tyre_deg:.2f})"
-    elif req.tyre.lower() == "medium":
-        strategy["tyreManagement"] = f"Balanced pace, moderate wear ({tyre_deg:.2f})"
-    else:
-        strategy["tyreManagement"] = f"Long stint, stable pace, low wear ({tyre_deg:.2f})"
+    tyre_map = {
+        "soft": f"Push first laps, fast wear ({tyre_deg:.2f})",
+        "medium": f"Balanced pace, moderate wear ({tyre_deg:.2f})",
+        "hard": f"Long stint, stable pace, low wear ({tyre_deg:.2f})"
+    }
+    strategy["tyreManagement"] = tyre_map.get(req.tyre.lower(), f"Unknown tyre ({tyre_deg:.2f})")
 
     # tyre menegmant
     tyre_deg = car["forai"]["tyres"]["degradationRate"]
@@ -48,17 +54,15 @@ def calculate_strategy(car:dict, track:dict, req:StrategyRequest):
     #     strategy["pushMode"] = "Adaptive pace, respond to race conditions"
 
     
-    # risk and pace
-    if  req.weather.lower() == "wet" and car["forai"]["tyres"]["wetPerformance"] < 0.7:
-        strategy["risk"] = "High risk - avoid kerbs and aggresive cornering"
+    # Braking & Risk
+    wet_perf = car["forai"]["tyres"]["wetPerformance"]
+    if req.weather.lower() == "wet" and wet_perf < 0.7:
+        strategy["risk"] = "High - avoid kerbs, smooth braking"
+        strategy["brakingStyle"] = "Smooth braking, early entry"
     else:
         strategy["risk"] = "Normal"
+        strategy["brakingStyle"] = "Aggressive braking, late apex"
     
-
-    # car perfrman analyc
-    power_to_weight = car["forai"]["performance"]["powerToWeight"]
-    strategy["powerToWeight"] = f"{power_to_weight:.2f} HP/kg"
-
     # Engine stress tolerance
     engine_stress = car["forai"]["reliability"]["engineStressTolerance"]
     strategy["engineStressTolerance"] = f"{engine_stress*100:.0f}%"
@@ -77,10 +81,16 @@ def calculate_strategy(car:dict, track:dict, req:StrategyRequest):
         strategy["aero"] = f"High downforce needed ({downforce_demand:.2f}), balance with drag sensitivity {drag_sensitivity:.2f}"
     else:
         strategy["aero"] = f"Medium downforce ({downforce_demand:.2f})"
-
-    ##Race Goal 
-    if req.goal.lower() == "qualifying":
-        strategy["pushMode"] = "Max attack, minimal fuel saving for qualifying "
-    else:
-        strategy["pushMode"] = "Balanced pace, conserve tyres for race"
+   # Push mode
+    push_map = {
+        "qualifying": "Max attack, minimal fuel saving",
+        "race": "Balanced pace, conserve tyres",
+        "fastest lap": "All out pace, high risk for lap time"
+    }
+    strategy["pushMode"] = push_map.get(req.goal.lower(), "Adaptive pace")
+       # Engine & performance
+    strategy["powerToWeight"] = f"{car['forai']['performance']['powerToWeight']:.2f} HP/kg"
+    strategy["engineStressTolerance"] = f"{car['forai']['reliability']['engineStressTolerance']*100:.0f}%"
+    strategy["maxBrakingG"] = f"{car['forai']['brakes']['maxBrakingG']}G"
+    strategy["maxLateralG"] = f"{car['forai']['gForce']['lateralMax']}G"
     return strategy
