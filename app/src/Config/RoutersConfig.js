@@ -1,4 +1,14 @@
 import { routes } from "../Constants/Routes";
 import { Home } from "../Pages/Home/Home";
+import { LogIn } from "../Pages/User/Login/LogIn";
+import { SignUp } from "../Pages/User/Signup/SignUp";
 
-export const RoutersConfig = [{ path: routes.Home, Component: Home }];
+import { Products } from "../Pages/Products/Products";
+import { AboutMe } from "../Pages/About/AboutMe";
+export const RoutersConfig = [
+  { path: routes.Home, Component: Home },
+  { path: routes.SignUp, Component: SignUp },
+  { path: routes.LogIn, Component: LogIn },
+  { path: routes.Products, Component: Products },
+  { path: routes.About, Component: AboutMe },
+];

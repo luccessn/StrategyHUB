@@ -14,27 +14,37 @@ import {
   MobileNavMenu,
 } from "./Components/UI/ResizableNavbar";
 import { StarsBackground } from "./Components/UI/Stars-background";
-import { AppRouters } from "./AppRouters";
+// import { AppRouters } from "./AppRouters";
 import TargetCursor from "./Components/UI/Cursor/targetCursor";
+import { AppRoutes } from "./AppRoutes";
+import { routes } from "./Constants/Routes";
+import { useNavigate } from "react-router-dom";
 
 function App() {
-  const navItems = [
-    {
-      name: "Home",
-      link: "#features",
-    },
-    {
-      name: "Pricing",
-      link: "#pricing",
-    },
-    {
-      name: "Contact",
-      link: "#contact",
-    },
+  // const navItems = [
+  //   {
+  //     name: "Home",
+  //     link: "#features",
+  //   },
+  //   {f
+  //     name: "Pricing",
+  //     link: "#pricing",
+  //   },
+  //   {
+  //     name: "Contact",
+  //     link: "#contact",
+  //   },
+  // ];
+  const navbarRT = [
+    { name: "Home", path: routes.Home },
+    // { name: "SignUp", path: routes.SignUp },
+    // { name: "LogIn", path: routes.LogIn },
+    { name: "Products", path: routes.Products },
+    { name: "About", path: routes.About },
   ];
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
+  const navigate = useNavigate();
   return (
     <>
       <div className="relative  w-screen ">
@@ -52,10 +62,20 @@ function App() {
           {/* Desktop Navigation */}
           <NavBody>
             <NavbarLogo />
-            <NavItems items={navItems} />
+            <NavItems items={navbarRT} />
             <div className="flex items-center gap-4">
-              <NavbarButton variant="secondary">Login</NavbarButton>
-              <NavbarButton variant="primary">Book a call</NavbarButton>
+              <NavbarButton
+                variant="secondary"
+                onClick={() => navigate(routes.SignUp)}
+              >
+                SignUp
+              </NavbarButton>
+              <NavbarButton
+                onClick={() => navigate(routes.LogIn)}
+                variant="primary"
+              >
+                Log In
+              </NavbarButton>
             </div>
           </NavBody>
 
@@ -73,15 +93,16 @@ function App() {
               isOpen={isMobileMenuOpen}
               onClose={() => setIsMobileMenuOpen(false)}
             >
-              {navItems.map((item, idx) => (
-                <a
-                  key={`mobile-link-${idx}`}
-                  href={item.link}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="relative text-neutral-600 dark:text-neutral-300"
+              {navbarRT.map((item, idx) => (
+                <button
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    navigate(item.path);
+                  }}
+                  className="relative text-neutral-300"
                 >
-                  <span className="block">{item.name}</span>
-                </a>
+                  <span className="block">{item.name} </span>
+                </button>
               ))}
               <div className="flex w-full flex-col gap-4">
                 <NavbarButton
@@ -105,7 +126,8 @@ function App() {
 
         {/* Main App Content */}
         <div className="">
-          <AppRouters />
+          {/* <AppRouters /> */}
+          <AppRoutes />
         </div>
       </div>
     </>

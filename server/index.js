@@ -2,8 +2,10 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const TracksModel = require("./Models/tracks");
-const CarModel = require("./Models/cars");
+// const TracksModel = require("./Models/tracks");
+// const CarModel = require("./Models/cars");
+const cron = require("node-cron");
+const axios = require("axios");
 
 const app = express();
 
@@ -29,15 +31,30 @@ app.get("/server", (req, res) => {
   res.send("ForMula Strategy Server IS RUNNING ");
 });
 //Get Tracks
-app.get("/server/getTracks", (req, res) => {
-  TracksModel.find()
-    .then((track) => res.json(track))
-    .catch((err) => res.status(500).json({ message: err }));
-});
-app.get("/server/getCars", (req, res) => {
-  CarModel.find()
-    .then((car) => res.json(car))
-    .catch((err) => res.status(500).json({ message: err }));
+// app.get("/server/getTracks", (req, res) => {
+//   TracksModel.find()
+//     .then((track) => res.json(track))
+//     .catch((err) => res.status(500).json({ message: err }));
+// });
+app.use("/server", require("./Routes/Tracks/getTracks"));
+// app.get("/server/getCars", (req, res) => {
+//   CarModel.find()
+//     .then((car) => res.json(car))
+//     .catch((err) => res.status(500).json({ message: err }));
+// });
+app.use("/server", require("./Routes/Cars/getCars"));
+//printful and his restart timeline
+app.use("/server/printful", require("./Routes/PrintFull/getPrintfull"));
+cron.schedule("*/5 * * * *", async () => {
+  console.log("Printful ის სიქრონიზაცია დაიწყო>>>");
+  try {
+    const response = await axios.get(
+      "http://localhost:5000/server/printful/sync",
+    );
+    console.log("Printful სინქრონიზაცია წარმატებულია:", response.data.message);
+  } catch (error) {
+    console.error("სინქრონიზაციის შეცდომა:", error.message);
+  }
 });
 const PORT = 5000;
 app.listen(PORT, () => {
