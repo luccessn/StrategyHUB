@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 // const TracksModel = require("./Models/tracks");
-// const CarModel = require("./Models/cars");
+const CarModel = require("./Models/cars");
 const cron = require("node-cron");
 const axios = require("axios");
 
@@ -37,7 +37,7 @@ app.get("/server", (req, res) => {
 //     .catch((err) => res.status(500).json({ message: err }));
 // });
 app.use("/server", require("./Routes/Tracks/getTracks"));
-// app.get("/server/getCars", (req, res) => {
+// app.get("/server/getcar", (req, res) => {
 //   CarModel.find()
 //     .then((car) => res.json(car))
 //     .catch((err) => res.status(500).json({ message: err }));

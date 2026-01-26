@@ -48,7 +48,6 @@ function App() {
   return (
     <>
       <div className="relative  w-screen ">
-        {/* Stars Background positioned behind everything */}
         <div className="fixed inset-0 -z-10 w-screen h-screen overflow-hidden">
           <StarsBackground />
         </div>

@@ -121,6 +121,7 @@ router.get("/get", async (req, res) => {
           .status(400)
           .json({ error: "oops something wront in printfulGet Funtional" });
       }
+      return res.json(Merch);
     } else {
       const allMerchs = await merch.find();
       return res.json(allMerchs);
