@@ -13,7 +13,7 @@ const MainDTLCard = () => {
   //case ის
   const [data, error, isLoading] = useFetchData(
     // "http://localhost:3001/server/api/printful/get"
-    "http://localhost:5000/server/printful/get",
+    "https://strategyhub.onrender.com/server/printful/get",
   );
   if (error) {
     return <h1>Erro: {error}</h1>;

@@ -6,7 +6,7 @@ import { GridPlaceHolder } from "../../Components/Loads/PlaceHolder/GridPlaceHol
 
 export const Products = () => {
   const [data, error, isLoading] = useFetchData(
-    "http://localhost:5000/server/printful/get",
+    "https://strategyhub.onrender.com/server/printful/get",
   );
   if (error) {
     return <ErrorLoader error={error} />;

@@ -154,7 +154,7 @@ export const CarsCalc = () => {
               // value={selectedCard.title}
               onChange={(e) => {
                 const chosen = carsConsta.find(
-                  (c) => c.title === e.target.value
+                  (c) => c.title === e.target.value,
                 );
                 setSelectedCard(chosen);
               }}
@@ -240,7 +240,7 @@ export const CarsCalc = () => {
                         <OrbitControls
                           target={[0, -0.6, 0]}
                           enableRotate={true}
-                          enableZoom={false}
+                          enableZoom={true}
                           enablePan={false}
                         />
                       </Canvas>
