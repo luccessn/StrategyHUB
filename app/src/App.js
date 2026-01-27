@@ -21,20 +21,6 @@ import { routes } from "./Constants/Routes";
 import { useNavigate } from "react-router-dom";
 
 function App() {
-  // const navItems = [
-  //   {
-  //     name: "Home",
-  //     link: "#features",
-  //   },
-  //   {f
-  //     name: "Pricing",
-  //     link: "#pricing",
-  //   },
-  //   {
-  //     name: "Contact",
-  //     link: "#contact",
-  //   },
-  // ];
   const navbarRT = [
     { name: "Home", path: routes.Home },
     // { name: "SignUp", path: routes.SignUp },
@@ -65,11 +51,13 @@ function App() {
             <div className="flex items-center gap-4">
               <NavbarButton
                 variant="secondary"
+                className="cursor-target"
                 onClick={() => navigate(routes.SignUp)}
               >
                 SignUp
               </NavbarButton>
               <NavbarButton
+                className="cursor-target"
                 onClick={() => navigate(routes.LogIn)}
                 variant="primary"
               >
@@ -98,7 +86,7 @@ function App() {
                     setIsMobileMenuOpen(false);
                     navigate(item.path);
                   }}
-                  className="relative text-neutral-300"
+                  className="relative cursor-target text-neutral-300"
                 >
                   <span className="block">{item.name} </span>
                 </button>

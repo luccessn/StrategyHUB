@@ -79,11 +79,11 @@ const TextType = ({
       <div style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>
         {displayedText}
       </div>
-      {showCursor && (
+      {/* {showCursor && (
         <span ref={cursorRef} className={`ml-1 ${cursorClassName}`}>
           {cursorCharacter}
         </span>
-      )}
+      )} */}
     </>,
   );
 };

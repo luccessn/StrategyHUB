@@ -92,9 +92,8 @@ export const NavItems = ({ items, className, onItemClick }) => {
             // onItemClick;
             navigate(item.path);
           }}
-          className="relative px-4 py-2 text-neutral-300"
+          className="relative font-panchangSB  cursor-target px-4 py-2 text-neutral-300"
           // key={`link-${idx}`}
-          href={item.path}
         >
           {hovered === idx && (
             <motion.div
@@ -193,7 +192,7 @@ export const NavbarLogo = () => {
         width={43}
         height={43}
       />
-      <span className="font-medium text-white">Strategy Hub</span>
+      <span className=" font-satosIT font-bold  text-white">Strategy Hub</span>
     </a>
   );
 };

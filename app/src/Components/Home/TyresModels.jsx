@@ -119,7 +119,7 @@ export const TyresModels = () => {
   const id = useId();
   return (
     <div className="w-full h-full ">
-      <div className="w-full relative left-4    mx-auto justify-center items-center ">
+      <div className="w-full relative right-4    mx-auto justify-center items-center ">
         {/* <div className="ml-4 z-50  relative translate-y-96  top-5">
           <button
             className="cursor-pointer cursor-target  swiper-button-prev-custom  duration-200 hover:scale-125 active:scale-100"

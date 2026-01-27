@@ -31,17 +31,9 @@ app.get("/server", (req, res) => {
   res.send("ForMula Strategy Server IS RUNNING ");
 });
 //Get Tracks
-// app.get("/server/getTracks", (req, res) => {
-//   TracksModel.find()
-//     .then((track) => res.json(track))
-//     .catch((err) => res.status(500).json({ message: err }));
-// });
+
 app.use("/server", require("./Routes/Tracks/getTracks"));
-// app.get("/server/getcar", (req, res) => {
-//   CarModel.find()
-//     .then((car) => res.json(car))
-//     .catch((err) => res.status(500).json({ message: err }));
-// });
+
 app.use("/server", require("./Routes/Cars/getCars"));
 //printful and his restart timeline
 app.use("/server/printful", require("./Routes/PrintFull/getPrintfull"));

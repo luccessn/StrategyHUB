@@ -15,8 +15,8 @@ import {
 } from "@react-three/drei";
 import * as THREE from "three";
 import "./switches.css";
-
-/// robots
+import { CiChat1 } from "react-icons/ci";
+import { PiStrategy } from "react-icons/pi"; /// robots
 
 import { RiRobot3Fill } from "react-icons/ri";
 import TextType from "../UI/tx/TextType";
@@ -114,11 +114,11 @@ const steps = [
   },
   {
     key: "goal",
-    label: "What was your goal?",
+    label: "What is your goal?",
     options: [
       { name: "Fast lap", id: "1" },
       { name: "Win race", id: "2" },
-      { name: "Qualifaing", id: "2" },
+      { name: "Qualifaing", id: "3" },
     ],
   },
 ];
@@ -294,20 +294,18 @@ export const AICard = () => {
                 <div key={index}>
                   {/* BOT MESSAGE */}
                   {data.role === "Bot" && (
-                    <div className="flex flex-col gap-3">
-                      <div>
-                        <div className="flex items-center justify-center w-11 h-11 bg-blue-600/80 rounded-full shadow-md">
-                          <RiRobot3Fill className="text-3xl text-white" />
-                        </div>
+                    <div className="flex flex-row  gap-3">
+                      <div className="flex items-center justify-center w-11 h-11 bg-blue-600/80 rounded-full shadow-md">
+                        <RiRobot3Fill className="text-3xl text-white" />
+                      </div>
 
-                        <div className="bg-blue-600 max-w-[550px] text-zinc-100 p-3 px-4 rounded-2xl rounded-bl-none shadow-lg">
-                          <TextType
-                            as="p"
-                            className="text-lg font-satosIT font-bold leading-relaxed"
-                            text={data.content}
-                            typingSpeed={10}
-                          />
-                        </div>
+                      <div className="bg-blue-600 max-w-[550px] text-zinc-100 p-3 px-4 rounded-2xl rounded-bl-none shadow-lg">
+                        <TextType
+                          as="p"
+                          className="text-lg font-satosIT font-bold leading-relaxed"
+                          text={data.content}
+                          typingSpeed={10}
+                        />
                       </div>
                       {/* {showStrategyResult && selectedCar && (
                         <motion.div
@@ -496,7 +494,7 @@ active:border-b-[2px] active:brightness-90 active:translate-y-[2px]  ${currentSt
               <div
                 className={`cyber-signboard  ${switchs === "strategy" ? "relative top-10" : "top-0"}`}
               >
-                <div className="cyber-switch">
+                <div className="cyber-switch ">
                   <input
                     type="radio"
                     id="cyber-opt-1"
@@ -508,8 +506,9 @@ active:border-b-[2px] active:brightness-90 active:translate-y-[2px]  ${currentSt
                     className="cyber-label"
                     onClick={() => setswitchs("chat")}
                   >
-                    <svg
-                      class="icon"
+                    <CiChat1 />
+                    {/* <svg
+                      className="icon"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -518,7 +517,7 @@ active:border-b-[2px] active:brightness-90 active:translate-y-[2px]  ${currentSt
                       stroke-linejoin="round"
                     >
                       <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                    </svg>
+                    </svg> */}
                     <span class="glare"></span>
                   </label>
 
@@ -528,8 +527,8 @@ active:border-b-[2px] active:brightness-90 active:translate-y-[2px]  ${currentSt
                     className="cyber-label"
                     onClick={() => setswitchs("strategy")}
                   >
-                    <svg
-                      class="icon"
+                    {/* <svg
+                      className="icon"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -541,7 +540,8 @@ active:border-b-[2px] active:brightness-90 active:translate-y-[2px]  ${currentSt
                       <rect x="14" y="3" width="7" height="5"></rect>
                       <rect x="14" y="12" width="7" height="9"></rect>
                       <rect x="3" y="16" width="7" height="5"></rect>
-                    </svg>
+                    </svg> */}
+                    <PiStrategy />
                     <span class="glare"></span>
                   </label>
 
