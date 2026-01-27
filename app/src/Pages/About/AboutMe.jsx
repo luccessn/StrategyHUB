@@ -16,7 +16,7 @@ const links = [
     icon: (
       <FaGithub className="h-full w-full text-neutral-500 dark:text-neutral-300" />
     ),
-    href: "#",
+    href: "https://github.com/luccessn",
   },
 
   {
@@ -24,14 +24,14 @@ const links = [
     icon: (
       <FaLinkedinIn className="h-full w-full text-neutral-500 dark:text-neutral-300" />
     ),
-    href: "#",
+    href: "https://www.linkedin.com/in/luka-gulua-679041319/",
   },
   {
     title: "Youtube",
     icon: (
       <FaYoutube className="h-full w-full text-neutral-500 dark:text-neutral-300" />
     ),
-    href: "#",
+    href: "https://www.youtube.com/@sseny17.42",
   },
 ];
 ///
