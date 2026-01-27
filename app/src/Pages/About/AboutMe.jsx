@@ -88,7 +88,7 @@ export const AboutMe = () => {
     <div className="flex m-20  flex-row gap-5">
       <div className=" w-[400px] flex flex-col gap-5">
         <ProfileCard
-          name="Lucca Sseny"
+          name="Lucca Gulua"
           title="Developer"
           handle="javicodes"
           status="Online"
