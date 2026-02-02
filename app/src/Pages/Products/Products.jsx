@@ -16,7 +16,7 @@ export const Products = () => {
     <>
       {isLoading ? (
         <div>
-          <GridPlaceHolder lenght={data.length} />
+          <GridPlaceHolder lenght={3} />
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
             <div className="flex items-center justify-center gap-6">
               <div className="load">
