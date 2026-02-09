@@ -1,5 +1,6 @@
 import React, { useEffect, Suspense } from "react";
 import { WorldMapDemo } from "../../Components/Home/WorldMapDemo";
+import { motion } from "framer-motion";
 // import { MapTabsDemo } from "../../Components/Home/MapTabs/MapTabsDemo";
 import { ExpandableCardDemo } from "../../Components/Home/CardDemo";
 // import { WindTunnelDemo } from "../../Components/Home/CarsModels/FullWind";
@@ -58,25 +59,36 @@ export const Home = () => {
         <CarsModels />
       </div> */}
       <div className="flex flex-col ">
-        <div
-          style={{ height: "200px", position: "relative", overflow: "hidden" }}
+        <motion.idv
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3, ease: "linear" }}
+          viewport={{ once: true, amount: 0.2 }}
         >
-          {/* Basic horizontal loop */}
-          <LogoLoop
-            logos={techLogos}
-            speed={120}
-            direction="left"
-            logoHeight={55}
-            gap={45}
-            hoverSpeed={80}
-            scaleOnHover
-            fadeOut
-            // fadeOutColor="#000000"
-            ariaLabel="Technology partners"
-          />
+          <div
+            style={{
+              height: "200px",
+              position: "relative",
+              overflow: "hidden",
+            }}
+          >
+            {/* Basic horizontal loop */}
+            <LogoLoop
+              logos={techLogos}
+              speed={120}
+              direction="left"
+              logoHeight={55}
+              gap={45}
+              hoverSpeed={80}
+              scaleOnHover
+              fadeOut
+              // fadeOutColor="#000000"
+              ariaLabel="Technology partners"
+            />
 
-          {/* Vertical loop with deceleration on hover */}
-        </div>
+            {/* Vertical loop with deceleration on hover */}
+          </div>
+        </motion.idv>
         <div>
           <TyresModels />
         </div>

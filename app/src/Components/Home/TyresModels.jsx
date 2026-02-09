@@ -118,9 +118,15 @@ export const TyresModels = () => {
   }, [tyreData]);
   const id = useId();
   return (
-    <div className="w-full h-full ">
-      <div className="w-full relative right-4    mx-auto justify-center items-center ">
-        {/* <div className="ml-4 z-50  relative translate-y-96  top-5">
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5, ease: "linear" }}
+      viewport={{ once: false, amount: 0.4 }}
+    >
+      <div className="w-full h-full ">
+        <div className="w-full relative right-4    mx-auto justify-center items-center ">
+          {/* <div className="ml-4 z-50  relative translate-y-96  top-5">
           <button
             className="cursor-pointer cursor-target  swiper-button-prev-custom  duration-200 hover:scale-125 active:scale-100"
             title="Go Back"
@@ -165,95 +171,96 @@ export const TyresModels = () => {
           </button>
         </div> */}
 
-        <Swiper
-          loop={true}
-          centeredSlides={true}
-          slidesPerView={3}
-          spaceBetween={60}
-          modules={[Pagination, Navigation, Autoplay]}
-          autoplay={{
-            delay: 3000,
-            disableOnInteraction: false,
-          }}
-          onSlideChange={(swiper) => {
-            setActiveIndex(swiper.realIndex);
-            setactive(tyreData[swiper.realIndex]);
-          }}
-          className="mySwiper "
-          navigation={{
-            nextEl: ".swiper-button-next-custom",
-            prevEl: ".swiper-button-prev-custom",
-          }}
-        >
-          {tyreData.map((card, index) => {
-            const isActive = index === activeIndex;
-            return (
-              <SwiperSlide key={card.title}>
-                <motion.div
-                  layoutId={`card-${card.title}-${id}`}
-                  //   onClick={() => setactive(card)} cursor-target
-                  animate={{
-                    scale: isActive ? 1.1 : 0.9,
-                    opacity: isActive ? 1 : 0.6,
-                  }}
-                  transition={{
-                    duration: 1.1,
-                    ease: [0.4, 0.0, 0.2, 1],
-                  }}
-                  className="p-4 flex flex-col bg-black/20 h-[700px] w-[650px]  rounded-sm cursor-pointer"
-                >
-                  <div className="flex gap-4 flex-col  w-full">
-                    <motion.div layoutId={`image-${card.title}-${id}`}>
-                      <img
-                        src={card.src}
-                        alt={card.title}
-                        className=" h-[600px] w-full rounded-lg"
-                      />
-                    </motion.div>
-                    <div className="flex justify-center items-center flex-col">
-                      <motion.h3
-                        layoutId={`title-${card.title}-${id}`}
-                        className="font-panchangSB text-neutral-200 text-center text-base"
-                      >
-                        {card.title}
-                      </motion.h3>
+          <Swiper
+            loop={true}
+            centeredSlides={true}
+            slidesPerView={3}
+            spaceBetween={60}
+            modules={[Pagination, Navigation, Autoplay]}
+            autoplay={{
+              delay: 3000,
+              disableOnInteraction: false,
+            }}
+            onSlideChange={(swiper) => {
+              setActiveIndex(swiper.realIndex);
+              setactive(tyreData[swiper.realIndex]);
+            }}
+            className="mySwiper "
+            navigation={{
+              nextEl: ".swiper-button-next-custom",
+              prevEl: ".swiper-button-prev-custom",
+            }}
+          >
+            {tyreData.map((card, index) => {
+              const isActive = index === activeIndex;
+              return (
+                <SwiperSlide key={card.title}>
+                  <motion.div
+                    layoutId={`card-${card.title}-${id}`}
+                    //   onClick={() => setactive(card)} cursor-target
+                    animate={{
+                      scale: isActive ? 1.1 : 0.9,
+                      opacity: isActive ? 1 : 0.6,
+                    }}
+                    transition={{
+                      duration: 1.1,
+                      ease: [0.4, 0.0, 0.2, 1],
+                    }}
+                    className="p-4 flex flex-col bg-black/20 h-[700px] w-[650px]  rounded-sm cursor-pointer"
+                  >
+                    <div className="flex gap-4 flex-col  w-full">
+                      <motion.div layoutId={`image-${card.title}-${id}`}>
+                        <img
+                          src={card.src}
+                          alt={card.title}
+                          className=" h-[600px] w-full rounded-lg"
+                        />
+                      </motion.div>
+                      <div className="flex justify-center items-center flex-col">
+                        <motion.h3
+                          layoutId={`title-${card.title}-${id}`}
+                          className="font-panchangSB text-neutral-200 text-center text-base"
+                        >
+                          {card.title}
+                        </motion.h3>
+                      </div>
                     </div>
-                  </div>
-                </motion.div>
-              </SwiperSlide>
-            );
-          })}
-        </Swiper>
+                  </motion.div>
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+        </div>
+        {active && (
+          <motion.div
+            key={active.title}
+            //   onClick={() => setactive(card)} cursor-target
+            // animate={{
+            //   scale: isActive ? 1.1 : 0.9,
+            //   opacity: isActive ? 1 : 0.6,
+            // }}
+            // transition={{
+            //   duration: 1.1,
+            //   ease: [0.4, 0.0, 0.2, 1],
+            // }}
+            // className=" m-20 flex items-center justify-center text-center w-full "
+            // initial={{ opacity: 0, y: 30 }}
+            // animate={{ opacity: 1, y: 0 }}
+            // exit={{ opacity: 0, y: 30 }}
+            // transition={{ duration: 0.5, ease: "easeOut" }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: -20 }}
+            exit={{ opacity: 0, y: 30 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="m-16 flex items-center justify-center text-center w-full"
+          >
+            <h1 className="text-2xl opacity-75 transition-all w-3/4 p-10   ">
+              {active.description}
+            </h1>
+          </motion.div>
+        )}
       </div>
-      {active && (
-        <motion.div
-          key={active.title}
-          //   onClick={() => setactive(card)} cursor-target
-          // animate={{
-          //   scale: isActive ? 1.1 : 0.9,
-          //   opacity: isActive ? 1 : 0.6,
-          // }}
-          // transition={{
-          //   duration: 1.1,
-          //   ease: [0.4, 0.0, 0.2, 1],
-          // }}
-          // className=" m-20 flex items-center justify-center text-center w-full "
-          // initial={{ opacity: 0, y: 30 }}
-          // animate={{ opacity: 1, y: 0 }}
-          // exit={{ opacity: 0, y: 30 }}
-          // transition={{ duration: 0.5, ease: "easeOut" }}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: -20 }}
-          exit={{ opacity: 0, y: 30 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="m-16 flex items-center justify-center text-center w-full"
-        >
-          <h1 className="text-2xl opacity-75 transition-all w-3/4 p-10   ">
-            {active.description}
-          </h1>
-        </motion.div>
-      )}
-    </div>
+    </motion.div>
   );
 };
 

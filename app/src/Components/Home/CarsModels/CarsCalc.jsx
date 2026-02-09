@@ -183,10 +183,10 @@ export const CarsCalc = () => {
                   layoutId={`card-${selectedCard.title}-${id}`}
                   key={selectedCard.title}
                   className="flex h-full flex-col  cursor-target cursor-pointer bg-cover bg-center bg-no-repeat p-0"
-                  style={{
-                    backgroundImage:
-                      "url('https://img.freepik.com/free-photo/glass-background-with-frosted-pattern_53876-139919.jpg?semt=ais_hybrid&w=740&q=80')",
-                  }}
+                  // style={{
+                  //   backgroundImage:
+                  //     "url('https://img.freepik.com/free-photo/glass-background-with-frosted-pattern_53876-139919.jpg?semt=ais_hybrid&w=740&q=80')",
+                  // }}
                 >
                   <div className="flex gap-0  flex-col w-full h-full  ">
                     <div className="flex flex-col pl-5 gap-2">
