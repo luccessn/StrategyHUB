@@ -59,11 +59,11 @@ export const Home = () => {
         <CarsModels />
       </div> */}
       <div className="flex flex-col ">
-        <motion.idv
-          initial={{ opacity: 0, scale: 0.95 }}
+        <motion.div
+          initial={{ opacity: 0.2, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3, ease: "linear" }}
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: false, amount: 0.2 }}
         >
           <div
             style={{
@@ -88,7 +88,7 @@ export const Home = () => {
 
             {/* Vertical loop with deceleration on hover */}
           </div>
-        </motion.idv>
+        </motion.div>
         <div>
           <TyresModels />
         </div>
@@ -101,20 +101,26 @@ export const Home = () => {
         <div
           style={{ height: "200px", position: "relative", overflow: "hidden" }}
         >
-          {/* Basic horizontal loop */}
-          <LogoLoop
-            logos={techLogos}
-            speed={120}
-            direction="left"
-            logoHeight={55}
-            gap={45}
-            hoverSpeed={80}
-            scaleOnHover
-            fadeOut
-            // fadeOutColor="#ffffff"
-            ariaLabel="Technology partners"
-          />
-
+          <motion.div
+            initial={{ opacity: 0.2, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3, ease: "linear" }}
+            viewport={{ once: false, amount: 0.2 }}
+          >
+            {/* Basic horizontal loop */}
+            <LogoLoop
+              logos={techLogos}
+              speed={120}
+              direction="left"
+              logoHeight={55}
+              gap={45}
+              hoverSpeed={80}
+              scaleOnHover
+              fadeOut
+              // fadeOutColor="#ffffff"
+              ariaLabel="Technology partners"
+            />
+          </motion.div>
           {/* Vertical loop with deceleration on hover */}
         </div>
         <div className="">

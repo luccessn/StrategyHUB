@@ -133,235 +133,153 @@ export const CarsCalc = () => {
   return (
     <>
       <div className=" flex flex-col gap-2">
-        <div className="w-full flex flex-col items-center my-6 ">
-          <div className="relative inline-block group">
-            {/* Border effect */}
-            <select
-              className=" cursor-target
-    w-[600px] px-5 py-3 
-    text-xl uppercase font-bold text-white
-    appearance-none cursor-pointer
-    focus:outline-none
-    font-panchangMD
-    bg-[#0f1923]
-    bg-[linear-gradient(120deg,#ff4655_0%,#ff4655_50%,#0f1923_50%)]
-    bg-[length:0%_100%]
-    bg-no-repeat
-    transition-[background-size] duration-700
-    hover:bg-[length:220%_100%]
-    hover: rounded-tl-lg rounded-br-lg
-  "
-              // value={selectedCard.title}
-              onChange={(e) => {
-                const chosen = carsConsta.find(
-                  (c) => c.title === e.target.value,
-                );
-                setSelectedCard(chosen);
-              }}
-            >
-              {carsConsta.map((card) => (
-                <option
-                  key={card._id}
-                  value={card.title}
-                  className="bg-[#0f1923]  font-satosIT text-white"
-                >
-                  {card.title}
-                </option>
-              ))}
-            </select>
-            <span className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-white">
-              ▼
-            </span>
+        <motion.div
+          initial={{ opacity: 0, scale: 1 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4, ease: "linear" }}
+          viewport={{ once: false, amount: 0.2 }}
+        >
+          <div className="w-full flex flex-col items-center my-6 ">
+            <div className="relative inline-block group">
+              <select
+                className="cursor-target w-[600px] px-5 py-3 text-xl uppercase font-bold text-white appearance-none cursor-pointer focus:outline-none font-panchangMD bg-[#0f1923]"
+                onChange={(e) => {
+                  const chosen = carsConsta.find(
+                    (c) => c.title === e.target.value,
+                  );
+                  setSelectedCard(chosen);
+                }}
+              >
+                {carsConsta.map((card) => (
+                  <option
+                    key={card._id}
+                    value={card.title}
+                    className="bg-[#0f1923] font-satosIT text-white"
+                  >
+                    {card.title}
+                  </option>
+                ))}
+              </select>
+              <span className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-white">
+                ▼
+              </span>
+            </div>
           </div>
-        </div>
 
-        <div className="flex flex-col h-full gap-20 ">
-          <div className="w-full flex h-[800px]  flex-row gap-2">
-            <div className="  w-full  h-[800px] ">
-              {selectedCard && (
-                <motion.div
-                  layoutId={`card-${selectedCard.title}-${id}`}
-                  key={selectedCard.title}
-                  className="flex h-full flex-col  cursor-target cursor-pointer bg-cover bg-center bg-no-repeat p-0"
-                  // style={{
-                  //   backgroundImage:
-                  //     "url('https://img.freepik.com/free-photo/glass-background-with-frosted-pattern_53876-139919.jpg?semt=ais_hybrid&w=740&q=80')",
-                  // }}
-                >
-                  <div className="flex gap-0  flex-col w-full h-full  ">
-                    <div className="flex flex-col pl-5 gap-2">
-                      {selectedCard && (
+          <div className="flex flex-col h-full gap-20 ">
+            <div className="w-full flex h-[800px] flex-row gap-2">
+              <div className="w-full h-[800px]">
+                {selectedCard && (
+                  <motion.div
+                    layoutId={`card-${selectedCard.title}-${id}`}
+                    key={selectedCard.title}
+                    className="flex h-full flex-col cursor-target cursor-pointer bg-cover bg-center bg-no-repeat p-0"
+                  >
+                    <div className="flex flex-col w-full h-full">
+                      <div className="flex flex-col pl-5 gap-2">
                         <h1 className="font-panchangMD text-2xl tracking-wide">
                           {selectedCard.title}
                         </h1>
-                      )}
-                      {/* <p className="text-xl font-serif tracking-wider pl-2 text-gray-200">
-                      {selectedCard.description}
-                    </p> */}
-                    </div>
-                    <div className=" w-full  h-full ">
-                      <Canvas
-                        key={selectedCard.title}
-                        shadows
-                        dpr={[1, 2]}
-                        gl={{
-                          antialias: true,
-                          physicallyCorrectLights: true,
-                          outputColorSpace: THREE.SRGBColorSpace,
-                          toneMappingExposure: 1,
-                        }}
-                        camera={{ position: [-25, 10, 0], fov: 45 }}
-                      >
-                        <Suspense fallback={<Loader />}>
-                          {selectedCard?.src && (
-                            <Model
-                              url={selectedCard.src}
-                              scale={selectedCard.scale}
-                              position={selectedCard.position}
-                              rotation={selectedCard.rotation}
+                      </div>
+
+                      <div className="w-full h-full">
+                        <Canvas
+                          key={selectedCard.title}
+                          shadows
+                          dpr={[1, 2]}
+                          gl={{
+                            antialias: true,
+                            physicallyCorrectLights: true,
+                            outputColorSpace: THREE.SRGBColorSpace,
+                            toneMappingExposure: 1,
+                          }}
+                          camera={{ position: [-25, 10, 0], fov: 45 }}
+                        >
+                          <Suspense fallback={<Loader />}>
+                            {selectedCard?.src && (
+                              <Model
+                                url={selectedCard.src}
+                                scale={selectedCard.scale}
+                                position={selectedCard.position}
+                                rotation={selectedCard.rotation}
+                              />
+                            )}
+                            <ambientLight intensity={0.3} />
+                            <directionalLight
+                              castShadow
+                              position={[5, 10, 5]}
+                              intensity={1.2}
                             />
-                          )}
-                          <ambientLight intensity={0.3} />
-                          <directionalLight
-                            castShadow
-                            position={[5, 10, 5]}
-                            intensity={1.2}
-                            shadow-mapSize-width={2048}
-                            shadow-mapSize-height={2048}
+                            <spotLight
+                              castShadow
+                              position={[-5, 8, -5]}
+                              intensity={0.8}
+                              angle={0.3}
+                            />
+                            <Environment preset="sunset" background={false} />
+                          </Suspense>
+                          <OrbitControls
+                            target={[0, -0.6, 0]}
+                            enableRotate
+                            enableZoom
+                            enablePan={false}
                           />
-                          <spotLight
-                            castShadow
-                            position={[-5, 8, -5]}
-                            intensity={0.8}
-                            angle={0.3}
-                          />
-                          <Environment preset="sunset" background={false} />
-                        </Suspense>
-                        <OrbitControls
-                          target={[0, -0.6, 0]}
-                          enableRotate={true}
-                          enableZoom={true}
-                          enablePan={false}
-                        />
-                      </Canvas>
+                        </Canvas>
+                      </div>
                     </div>
-                  </div>
-                </motion.div>
-              )}
-            </div>
-            <div className="backdrop-blur-0 w-8/12 text-white h-full flex flex-col gap-5 p-10">
-              {/* <div>
-                <TextType
-                  text={["Text typing effect"]}
-                  typingSpeed={75}
-                  pauseDuration={1500}
-                  showCursor={true}
-                  cursorCharacter="|"
-                />
-                <h1 className="text-4xl"> About the {selectedCard.title}</h1>
-                <p className="text-xl">{selectedCard.about}</p>
-              </div>
-              {selectedCard.about2 && (
-                <div>
-                  <hr className="border-white" />
-                  <h1 className="text-4xl">Historical Moments</h1>
-                  <p className="text-xl">{selectedCard.about2}</p>
-                </div>
-              )} */}
-              {/* <DecryptedText text="Hover me!" /> */}
-
-              {/* <DecryptedText
-                text="Customize me"
-                speed={100}
-                maxIterations={20}
-                characters="ABCD1234!?"
-                className="revealed"
-                parentClassName="all-letters"
-                encryptedClassName="encrypted"
-              /> */}
-
-              {/* Example 3: Animate on view (runs once) */}
-              {/* <div className="flex flex-col gap-6">
-                <DecryptedText
-                  as="h1"
-                  className="text-4xl"
-                  text={`About the ${selectedCard.title}`}
-                  animateOn="view"
-                  revealDirection="center"
-                />
-
-                <DecryptedText
-                  as="p"
-                  className="text-xl"
-                  text={selectedCard.about}
-                  animateOn="view"
-                  revealDirection="center"
-                />
-
-                {selectedCard.about2 && (
-                  <>
-                    <hr className="border-white" />
-
-                    <DecryptedText
-                      as="h1"
-                      className="text-4xl"
-                      text="Historical Moments"
-                      animateOn="view"
-                      revealDirection="center"
-                    />
-
-                    <DecryptedText
-                      as="p"
-                      className="text-xl"
-                      text={selectedCard.about2}
-                      animateOn="view"
-                      revealDirection="center"
-                    />
-                  </>
+                  </motion.div>
                 )}
-              </div> */}
-              {selectedCard && (
-                <div className="flex flex-col gap-6">
-                  <TextType
-                    key={`about-title-${selectedCard.title}`}
-                    as="h1"
-                    className="text-5xl font-array"
-                    text={`About the ${selectedCard.title}`}
-                    typingSpeed={40}
-                  />
+              </div>
 
-                  <TextType
-                    key={`about-title-${selectedCard.about.about1}`}
-                    as="p"
-                    className="text-xl font-array"
-                    text={`${selectedCard.about.about1}\n${selectedCard.about.about2}`}
-                    typingSpeed={10}
-                  />
+              <div className="w-8/12 text-white h-full flex flex-col gap-5 p-10">
+                {selectedCard && (
+                  <div className="flex flex-col gap-6">
+                    <TextType
+                      key={`about-title-${selectedCard.title}`}
+                      as="h1"
+                      className="text-5xl font-array"
+                      text={`About the ${selectedCard.title}`}
+                      typingSpeed={40}
+                    />
 
-                  {selectedCard.about2 && (
-                    <>
-                      <hr className="border-white" />
+                    <TextType
+                      key={`about-title-${selectedCard.about.about1}`}
+                      as="p"
+                      className="text-xl font-array"
+                      text={`${selectedCard.about.about1}\n${selectedCard.about.about2}`}
+                      typingSpeed={10}
+                    />
 
-                      <TextType
-                        as="h1"
-                        className="text-4xl"
-                        text="Historical Moments"
-                        typingSpeed={40}
-                      />
-
-                      <TextType
-                        key={`about-title-${selectedCard.about2}`}
-                        as="p"
-                        className="text-xl"
-                        text={selectedCard.about2}
-                        typingSpeed={10}
-                      />
-                    </>
-                  )}
-                </div>
-              )}
+                    {selectedCard.about2 && (
+                      <>
+                        <hr className="border-white" />
+                        <TextType
+                          as="h1"
+                          className="text-4xl"
+                          text="Historical Moments"
+                          typingSpeed={40}
+                        />
+                        <TextType
+                          key={`about-title-${selectedCard.about2}`}
+                          as="p"
+                          className="text-xl"
+                          text={selectedCard.about2}
+                          typingSpeed={10}
+                        />
+                      </>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0.2, scale: 0.98 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.35, ease: "linear" }}
+          viewport={{ once: false, amount: 0.13 }}
+        >
           <div className="flex flex-row gap-5 bg-black w-4/4  mx-auto p-5 rounded-sm h-[800px] ">
             <div className="">
               {data.map((card) => (
@@ -414,7 +332,8 @@ export const CarsCalc = () => {
               </div>
             )}
           </div>
-          {/* <div className="flex flex-row gap-10 bg-red-400 w-full ">
+        </motion.div>
+        {/* <div className="flex flex-row gap-10 bg-red-400 w-full ">
             <select
               className="w-[200px] max-w-md p-3 rounded-xl border bg-red-400 text-neutral-800 dark:text-neutral-200"
               value={selectedCard.title}
@@ -438,8 +357,89 @@ export const CarsCalc = () => {
               />
             </div>
           </div> */}
-        </div>
       </div>
     </>
   );
 };
+//
+//
+{
+  /* <div>
+                <TextType
+                  text={["Text typing effect"]}
+                  typingSpeed={75}
+                  pauseDuration={1500}
+                  showCursor={true}
+                  cursorCharacter="|"
+                />
+                <h1 className="text-4xl"> About the {selectedCard.title}</h1>
+                <p className="text-xl">{selectedCard.about}</p>
+              </div>
+              {selectedCard.about2 && (
+                <div>
+                  <hr className="border-white" />
+                  <h1 className="text-4xl">Historical Moments</h1>
+                  <p className="text-xl">{selectedCard.about2}</p>
+                </div>
+              )} */
+}
+{
+  /* <DecryptedText text="Hover me!" /> */
+}
+
+{
+  /* <DecryptedText
+                text="Customize me"
+                speed={100}
+                maxIterations={20}
+                characters="ABCD1234!?"
+                className="revealed"
+                parentClassName="all-letters"
+                encryptedClassName="encrypted"
+              /> */
+}
+
+{
+  /* Example 3: Animate on view (runs once) */
+}
+{
+  /* <div className="flex flex-col gap-6">
+                <DecryptedText
+                  as="h1"
+                  className="text-4xl"
+                  text={`About the ${selectedCard.title}`}
+                  animateOn="view"
+                  revealDirection="center"
+                />
+
+                <DecryptedText
+                  as="p"
+                  className="text-xl"
+                  text={selectedCard.about}
+                  animateOn="view"
+                  revealDirection="center"
+                />
+
+                {selectedCard.about2 && (
+                  <>
+                    <hr className="border-white" />
+
+                    <DecryptedText
+                      as="h1"
+                      className="text-4xl"
+                      text="Historical Moments"
+                      animateOn="view"
+                      revealDirection="center"
+                    />
+
+                    <DecryptedText
+                      as="p"
+                      className="text-xl"
+                      text={selectedCard.about2}
+                      animateOn="view"
+                      revealDirection="center"
+                    />
+                  </>
+                )}
+              </div> */
+}

@@ -119,10 +119,10 @@ export const TyresModels = () => {
   const id = useId();
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
+      initial={{ opacity: 0, scale: 0.98 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5, ease: "linear" }}
-      viewport={{ once: false, amount: 0.4 }}
+      transition={{ duration: 0.4, ease: "linear" }}
+      viewport={{ once: false, amount: 0.12 }}
     >
       <div className="w-full h-full ">
         <div className="w-full relative right-4    mx-auto justify-center items-center ">

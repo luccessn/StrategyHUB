@@ -3,6 +3,7 @@
 import { useRef, useMemo, useState } from "react";
 import { useTheme } from "next-themes";
 import DottedMap from "dotted-map";
+import { AnimatePresence, motion } from "framer-motion";
 
 export function WorldMap({ dots = [], lineColor = "#0ea5e9" }) {
   const svgRef = useRef(null);
@@ -149,16 +150,26 @@ export function WorldMap({ dots = [], lineColor = "#0ea5e9" }) {
         })}
       </svg>
 
-      {/* ✅ Tooltip overlay */}
-      {tooltip && (
-        <div
-          className="absolute z-50 bg-white dark:bg-neutral-900 text-sm text-neutral-700 dark:text-neutral-300 px-3 py-2 rounded-md shadow-lg pointer-events-none"
-          style={{ top: tooltip.y, left: tooltip.x }}
-        >
-          <img src={tooltip.src} className="w-16 h-16 rounded-md" />
-          <p>{tooltip.label}</p>
-        </div>
-      )}
+      <AnimatePresence>
+        {tooltip && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: 10 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="absolute z-50 pointer-events-none mt-5"
+            style={{ top: tooltip.y, left: tooltip.x }}
+          >
+            <div className="bg-black/80 backdrop-blur-md text-white text-sm px-3 py-2 rounded-xl shadow-xl border border-white/10">
+              <p className="font-semibold mb-2">{tooltip.label}</p>
+              <img
+                src={tooltip.src}
+                className="w-56 h-32 rounded-lg object-cover"
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

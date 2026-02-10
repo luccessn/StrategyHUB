@@ -34,38 +34,45 @@ export function ExpandableCardDemo() {
   return (
     <>
       {isLoading ? (
-        <div>
-          <Trackloader />
+        <motion.div
+          initial={{ opacity: 0, scale: 0.98 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4, ease: "linear" }}
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          <div>
+            <Trackloader />
 
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-            <div className="flex items-center justify-center gap-6">
-              <div className="load">
-                <svg viewBox="0 0 80 80">
-                  <circle cx="40" cy="40" r="32" />
-                </svg>
-              </div>
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+              <div className="flex items-center justify-center gap-6">
+                <div className="load">
+                  <svg viewBox="0 0 80 80">
+                    <circle cx="40" cy="40" r="32" />
+                  </svg>
+                </div>
 
-              <div className="load triangle">
-                <svg viewBox="0 0 86 80">
-                  <polygon points="43 8 79 72 7 72" />
-                </svg>
-              </div>
+                <div className="load triangle">
+                  <svg viewBox="0 0 86 80">
+                    <polygon points="43 8 79 72 7 72" />
+                  </svg>
+                </div>
 
-              <div className="load">
-                <svg viewBox="0 0 80 80">
-                  <rect x="8" y="8" width="64" height="64" />
-                </svg>
+                <div className="load">
+                  <svg viewBox="0 0 80 80">
+                    <rect x="8" y="8" width="64" height="64" />
+                  </svg>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       ) : (
         <div>
           <motion.div
-            initial={{ opacity: 0, scale: 0.98 }}
+            initial={{ opacity: 0.2, scale: 0.98 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, ease: "linear" }}
-            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.35, ease: "linear" }}
+            viewport={{ once: false, amount: 0.2 }}
           >
             <div className="max-w-8xl  p-2 mx-auto">
               <div className="ml-4 z-50  relative top-48 ">
@@ -185,8 +192,8 @@ export function ExpandableCardDemo() {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, ease: "linear" }}
-            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.35, ease: "linear" }}
+            viewport={{ once: false, amount: 0.2 }}
           >
             {/* Active card info (ქვემოთ) */}
             <div className=" w-full   mt-20   ">
