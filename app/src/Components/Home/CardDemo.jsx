@@ -76,8 +76,8 @@ export function ExpandableCardDemo() {
           >
             <div className="max-w-8xl  p-2 mx-auto">
               <div className="ml-4 z-50  relative top-48 ">
-                <button
-                  class="cursor-pointer cursor-target  swiper-button-prev-custom  duration-200 hover:scale-125 active:scale-100"
+                {/* <button
+                  class="cursor-pointer cursor-target    duration-200 hover:scale-125 active:scale-100"
                   title="Go Back"
                 >
                   <svg
@@ -85,7 +85,7 @@ export function ExpandableCardDemo() {
                     width="70px"
                     height="70px"
                     viewBox="0 0 24 24"
-                    class="stroke-blue-300"
+                    class="stroke-blue-300 hover:stroke-red-400"
                   >
                     <path
                       stroke-linejoin="round"
@@ -94,6 +94,19 @@ export function ExpandableCardDemo() {
                       d="M11 6L5 12M5 12L11 18M5 12H19"
                     ></path>
                   </svg>
+                </button> */}
+                <button className="group relative   swiper-button-prev-custom cursor-pointer duration-200 hover:scale-125 active:scale-100">
+                  <div className="relative w-[30px] h-[40px] rotate-180">
+                    {/* Top line */}
+                    <div className="absolute top-1/2 left-[-5px] w-full h-[4px] bg-white rotate-45 origin-bottom-right transition-colors duration-300 group-hover:bg-red-500">
+                      <span className="absolute top-0 left-full w-0 h-full bg-red-500 transition-all duration-150 group-hover:left-0 group-hover:w-full"></span>
+                    </div>
+
+                    {/* Bottom line */}
+                    <div className="absolute top-1/2 left-[-5px] w-full h-[4px] bg-white -rotate-45 origin-top-right transition-colors duration-300 group-hover:bg-red-500">
+                      <span className="absolute top-0 right-full w-0 h-full bg-red-500 transition-all duration-150 delay-150 group-hover:right-0 group-hover:w-full"></span>
+                    </div>
+                  </div>
                 </button>
               </div>
               {/* Swiper */}
