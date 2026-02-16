@@ -119,7 +119,7 @@ export function WorldMapDemo() {
     }
   }, [isInView, hasAnimated]);
   const [data, error, isLoading] = useFetchData(
-    "http://localhost:5000/server/gettracks",
+    "https://strategyhub.onrender.com/server/gettracks",
   );
   return (
     <div className=" relative -top-10   w-full ">

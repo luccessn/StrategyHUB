@@ -254,7 +254,7 @@ export const TyresModels = () => {
             transition={{ duration: 0.7, ease: "easeOut" }}
             className="m-16 flex items-center justify-center text-center w-full"
           >
-            <h1 className="text-2xl opacity-75 transition-all w-3/4 p-10   ">
+            <h1 className="text-2xl h-40 opacity-75 transition-all w-3/4 p-10   ">
               {active.description}
             </h1>
           </motion.div>

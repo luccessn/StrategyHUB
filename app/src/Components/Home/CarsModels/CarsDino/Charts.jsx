@@ -98,7 +98,8 @@ export const Charts = ({ title, dino }) => {
     value: dino.chartData.valueScalesMX[0].sensor,
     scale: {
       min: 0,
-      max: 12000,
+      max: dino.chartData.valueScalesMX[dino.chartData.valueScalesMX.length - 1]
+        .sensor,
       label: {
         color: "#ffffff", // ← თეთრი ციფრები
         fontSize: 10,

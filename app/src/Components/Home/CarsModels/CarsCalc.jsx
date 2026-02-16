@@ -110,14 +110,15 @@ export const CarsCalc = () => {
   console.log(carsConsta);
 
   const [selectedCard, setSelectedCard] = useState(null);
+  const [active, setactive] = useState(null);
   useEffect(() => {
     if (carsConsta.length > 0 && !selectedCard) {
       setSelectedCard(carsConsta[0]);
+      setactive({ ...data[0], card: data[0].card });
     }
   }, [carsConsta, selectedCard]);
 
   const id = useId();
-  const [active, setactive] = useState(null);
   useEffect(() => {
     if (data && data.length > 0) {
       setactive(data[0]);
@@ -130,6 +131,7 @@ export const CarsCalc = () => {
   if (error) {
     return <div className="text-red-500 text-center">{error}</div>;
   }
+
   return (
     <>
       <div className=" flex flex-col gap-2">
@@ -148,6 +150,10 @@ export const CarsCalc = () => {
                     (c) => c.title === e.target.value,
                   );
                   setSelectedCard(chosen);
+                  setactive((prev) => ({
+                    ...prev,
+                    card: prev.card,
+                  }));
                 }}
               >
                 {carsConsta.map((card) => (
@@ -173,7 +179,7 @@ export const CarsCalc = () => {
                   <motion.div
                     layoutId={`card-${selectedCard.title}-${id}`}
                     key={selectedCard.title}
-                    className="flex h-full flex-col cursor-target cursor-pointer bg-cover bg-center bg-no-repeat p-0"
+                    className="flex h-full flex-col  cursor-pointer bg-cover bg-center bg-no-repeat p-0"
                   >
                     <div className="flex flex-col w-full h-full">
                       <div className="flex flex-col pl-5 gap-2">
@@ -313,8 +319,8 @@ export const CarsCalc = () => {
               <div className=" w-full   h-full  ">
                 {active && (
                   <motion.div
-                    key={active.name}
-                    layoutId={`info-${active.name}-${id}`}
+                    key={selectedCard.title}
+                    layoutId={`info-${selectedCard.title}-${id}`}
                     initial={{ opacity: 0, y: 5 }}
                     animate={{ opacity: 1, y: 0 }} // გასწორებულია
                     exit={{ opacity: 0, y: 5 }}

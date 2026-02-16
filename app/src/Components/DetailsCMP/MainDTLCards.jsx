@@ -6,7 +6,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Zoom from "react-medium-image-zoom";
 import "react-medium-image-zoom/dist/styles.css";
 import { motion } from "framer-motion";
@@ -113,7 +113,7 @@ const MainDTLCards = ({ data }) => {
   // }, [data]);
   const navigate = useNavigate();
   console.log(data);
-
+  const mainSwiperRef = useRef(null);
   return (
     <motion.div
       className="text-5xl p-6 text-white"
@@ -162,7 +162,6 @@ const MainDTLCards = ({ data }) => {
                 </Swiper>
               </div>
 
-              {/* მთავარი დიდი სურათი */}
               {imgsChange && (
                 <div className="relative">
                   <Zoom>
@@ -174,6 +173,38 @@ const MainDTLCards = ({ data }) => {
                   </Zoom>
                 </div>
               )}
+
+              {/* {imgsChange && (
+                <div className="relative ">
+                  <Swiper
+                    onSwiper={(swiper) => (mainSwiperRef.current = swiper)}
+                    navigation={true}
+                    pagination={true}
+                    modules={[Navigation, Pagination]}
+                    initialSlide={Object.values(data.images || {}).indexOf(
+                      imgsChange,
+                    )}
+                    onSlideChange={(swiper) => {
+                      const currentImg = Object.values(data.images || {})[
+                        swiper.activeIndex
+                      ];
+                      setImgsChange(currentImg);
+                    }}
+                  >
+                    {Object.values(data.images || {}).map((img, index) => (
+                      <SwiperSlide key={index}>
+                        <Zoom>
+                          <img
+                            src={img}
+                            alt=""
+                            className=" cursor-target  w-[350px] h-[350px]  ssmm:w-[300px]  ssmm:h-[400px] ssm:w-[400px]  ssm:h-[400px] sm:w-[500px] sm:h-[500px] object-cover rounded-lg cursor-zoom-in"
+                          />
+                        </Zoom>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                </div>
+              )} */}
               <div className="flex flex-col  ssm:hidden w-[300px] xsxm:w-[350px] ssmm:w-[400px]  mt-5">
                 <Swiper
                   navigation={true}
