@@ -10,7 +10,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import Trackloader from "../Loads/trackloader";
 // import required modules
-import { Pagination, Navigation } from "swiper/modules";
+import { Pagination, Navigation, Mousewheel } from "swiper/modules";
 import { useFetchData } from "../../Hooks/useFetchData";
 // import ElectricBorder from "../UI/Border/ElectricBorder";
 
@@ -74,7 +74,7 @@ export function ExpandableCardDemo() {
             transition={{ duration: 0.35, ease: "linear" }}
             viewport={{ once: false, amount: 0.2 }}
           >
-            <div className="max-w-8xl  p-2 mx-auto">
+            <div className="max-w-8xl  p-5 mx-auto">
               <div className="ml-4 z-50  relative top-48 ">
                 {/* <button
                   class="cursor-pointer cursor-target    duration-200 hover:scale-125 active:scale-100"
@@ -97,12 +97,10 @@ export function ExpandableCardDemo() {
                 </button> */}
                 <button className="group relative   swiper-button-prev-custom cursor-pointer duration-200 hover:scale-125 active:scale-100">
                   <div className="relative w-[30px] h-[40px] rotate-180">
-                    {/* Top line */}
                     <div className="absolute top-1/2 left-[-5px] w-full h-[4px] bg-white rotate-45 origin-bottom-right transition-colors duration-300 group-hover:bg-red-500">
                       <span className="absolute top-0 left-full w-0 h-full bg-red-500 transition-all duration-150 group-hover:left-0 group-hover:w-full"></span>
                     </div>
 
-                    {/* Bottom line */}
                     <div className="absolute top-1/2 left-[-5px] w-full h-[4px] bg-white -rotate-45 origin-top-right transition-colors duration-300 group-hover:bg-red-500">
                       <span className="absolute top-0 right-full w-0 h-full bg-red-500 transition-all duration-150 delay-150 group-hover:right-0 group-hover:w-full"></span>
                     </div>
@@ -117,6 +115,7 @@ export function ExpandableCardDemo() {
                   // pagination={{ clickable: true }}
 
                   spaceBetween={10}
+                  // mousewheel={true}
                   modules={[Pagination, Navigation]}
                   navigation={{
                     nextEl: ".swiper-button-next-custom",
@@ -179,16 +178,16 @@ export function ExpandableCardDemo() {
               <div className="flex justify-end mr-4 relative bottom-72">
                 <button
                   class=" swiper-button-next-custom 
-         cursor-pointer cursor-target  rotate-180
+         cursor-pointer cursor-target  rotate-180 
          z-50 duration-200 hover:scale-125 active:scale-100"
                   title="Go Back"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="70px"
-                    height="70px"
+                    width="69px"
+                    height="65px"
                     viewBox="0 0 24 24"
-                    class="stroke-blue-300"
+                    className="stroke-white hover:stroke-red-500 duration-300"
                   >
                     <path
                       stroke-linejoin="round"
@@ -206,7 +205,7 @@ export function ExpandableCardDemo() {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.35, ease: "linear" }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: false, amount: 0.1 }}
           >
             {/* Active card info (ქვემოთ) */}
             <div className=" w-full   mt-20   ">
