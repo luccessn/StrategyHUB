@@ -121,7 +121,7 @@ const MainDTLCards = ({ data }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
-      <div className="text-5xl p-6 text-white flex  flex-col gap-20 items-center ">
+      <div className="text-5xl p-6  text-white flex  flex-col gap-20 items-center ">
         <div className="text-white p-6   items-center text-5xl">
           <div className="flex flex-col   mmd:flex-row gap-14">
             {/* სურათების Swiper */}
@@ -316,11 +316,11 @@ const MainDTLCards = ({ data }) => {
                         </button>
                       ))}
                     </div> */}
-                    <div className="w-64">
+                    <div className="w-56">
                       <select
                         value={selectedSize}
                         onChange={(e) => setSelectedSize(e.target.value)}
-                        className="w-full  h-10 ssm:h-14 text-medium rounded bg-black text-white border border-gray-500 px-4"
+                        className="w-full  h-10 ssm:h-14 text-lg rounded bg-black text-white border border-gray-500 px-4"
                       >
                         <option value="" disabled>
                           Choose

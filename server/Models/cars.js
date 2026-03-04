@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { dataDb } = require("../Config/db");
 
 /* ===================== Reusable Schemas ===================== */
 
@@ -252,5 +253,6 @@ const CarSchema = new mongoose.Schema(
   },
   { timestamps: true },
 );
+const CarsModel = dataDb.model("cars", CarSchema);
 
-module.exports = mongoose.model("cars", CarSchema);
+module.exports = CarsModel;

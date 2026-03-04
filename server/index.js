@@ -13,16 +13,16 @@ app.use(cors());
 app.use(express.json());
 
 //
-mongoose
-  .connect(process.env.MONGO_URI, {
-    serverSelectionTimeoutMS: 50000,
-  })
-  .then(() => {
-    console.log("Mongodb სთან კავშირი დამყარებულია");
-  })
-  .catch((err) => {
-    console.error("Mongodb სთან კავშირის ერრორი", err);
-  });
+// mongoose
+//   .connect(process.env.MONGO_URI, {
+//     serverSelectionTimeoutMS: 50000,
+//   })
+//   .then(() => {
+//     console.log("Mongodb სთან კავშირი დამყარებულია");
+//   })
+//   .catch((err) => {
+//     console.error("Mongodb სთან კავშირის ერრორი", err);
+//   });
 //
 app.get("/", (req, res) => {
   res.send("Formula Strategy server is /server");
@@ -30,10 +30,11 @@ app.get("/", (req, res) => {
 app.get("/server", (req, res) => {
   res.send("ForMula Strategy Server IS RUNNING ");
 });
+//Get Users Authentification
+// app.use("/server", require("./Routes/auth"));
+
 //Get Tracks
-
 app.use("/server", require("./Routes/Tracks/getTracks"));
-
 app.use("/server", require("./Routes/Cars/getCars"));
 //printful and his restart timeline
 app.use("/server/printful", require("./Routes/PrintFull/getPrintfull"));

@@ -12,6 +12,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "jsonwebtoken": "^9.0.2",
     "node-cron": "^4.1.0",
     "axios": "^1.9.0",
     "cors": "^2.8.5",

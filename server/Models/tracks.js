@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { dataDb } = require("../Config/db");
 
 const TracksSchema = new mongoose.Schema({
   name: String,
@@ -12,5 +13,5 @@ const TracksSchema = new mongoose.Schema({
   src: String,
 });
 
-const TracksModel = mongoose.model("tracks", TracksSchema);
+const TracksModel = dataDb.model("Tracks", TracksSchema);
 module.exports = TracksModel;
