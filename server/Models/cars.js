@@ -1,7 +1,5 @@
-const mongoose = require("mongoose");
-const { dataDb } = require("../Config/db");
-
-/* ===================== Reusable Schemas ===================== */
+import mongoose from "mongoose";
+import { dataDb } from "../Config/db.js";
 
 const TorquePointSchema = new mongoose.Schema(
   {
@@ -253,6 +251,4 @@ const CarSchema = new mongoose.Schema(
   },
   { timestamps: true },
 );
-const CarsModel = dataDb.model("cars", CarSchema);
-
-module.exports = CarsModel;
+export const CarsModel = dataDb.model("cars", CarSchema);

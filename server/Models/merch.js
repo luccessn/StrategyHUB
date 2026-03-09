@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const { dataDb } = require("../Config/db");
+import mongoose from "mongoose";
+import { dataDb } from "../Config/db.js";
 
 const merchSchema = new mongoose.Schema({
   name: String,
@@ -29,5 +29,4 @@ const merchSchema = new mongoose.Schema({
   maxPrice: String,
   stock: { type: Number, default: 0 }, //  stock
 });
-const merch = dataDb.model("merch", merchSchema);
-module.exports = merch;
+export const merch = dataDb.model("merch", merchSchema);

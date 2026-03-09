@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
-import { userDb } from "../Config/db";
+import { userDb } from "../Config/db.js";
 
-const UserSchema = new mongoose.Schema({
+export const UserSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
   email: String,

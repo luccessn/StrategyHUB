@@ -1,11 +1,11 @@
 import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import UserModel from "../Models/users";
-
+import { UserModel } from "../Models/users.js";
 const router = express.Router();
 
-import userDb from "../Config/db";
+// import userDb from "../Config/db";
+// const UserModel = userDb.model("")
 
 // log In
 router.post("/login", async (req, res) => {
@@ -30,7 +30,7 @@ router.post("/login", async (req, res) => {
         return res.status(401).json({ message: "არასწორი პაროლია" });
       }
 
-      //  აქ გენერირდება ტოკენი
+      //  token generation place
       const payload = {
         id: user._id,
         firstName: user.firstName,
@@ -42,11 +42,11 @@ router.post("/login", async (req, res) => {
         expiresIn: "12h",
       });
 
-      // წარმატებული ავტორიზაცია
+      // success login // response for frontend
       return res.status(200).json({
         message: "Success",
-        token, //  frontend-ს ტოკენი
-        user: payload, // საჭირო ინფო თუ გინდა გადაეცეს
+        token, //  token for Frontend
+        user: payload, // INFO
       });
     })
     .catch((error) => {
@@ -76,3 +76,5 @@ router.post("/register", async (req, res) => {
       .json({ message: "Registration failed. Please try again later.", err });
   }
 });
+
+export default router;

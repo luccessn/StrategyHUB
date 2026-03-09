@@ -1,5 +1,5 @@
-const express = require("express");
-const TracksModel = require("../../Models/tracks");
+import express from "express";
+import { TracksModel } from "../../Models/tracks.js";
 const router = express.Router();
 
 router.get("/gettracks", (req, res) => {
@@ -8,4 +8,4 @@ router.get("/gettracks", (req, res) => {
     .catch((err) => res.status(500).json({ message: err }));
 });
 
-module.exports = router;
+export default router;

@@ -1,7 +1,7 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
-const merch = require("../../Models/merch");
-const printfulAPI = require("../../Utils/printful");
+import { merch } from "../../Models/merch.js";
+import { printfulAPI } from "../../Utils/printful.js";
 
 router.get("/sync", async (req, res) => {
   try {
@@ -131,4 +131,4 @@ router.get("/get", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

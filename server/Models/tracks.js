@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const { dataDb } = require("../Config/db");
+import mongoose from "mongoose";
+import { dataDb } from "../Config/db.js";
 
 const TracksSchema = new mongoose.Schema({
   name: String,
@@ -13,5 +13,4 @@ const TracksSchema = new mongoose.Schema({
   src: String,
 });
 
-const TracksModel = dataDb.model("Tracks", TracksSchema);
-module.exports = TracksModel;
+export const TracksModel = dataDb.model("Tracks", TracksSchema);

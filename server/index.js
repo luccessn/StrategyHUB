@@ -1,17 +1,19 @@
-require("dotenv").config();
-const express = require("express");
-const cors = require("cors");
-const mongoose = require("mongoose");
+import "dotenv/config";
+import express from "express";
+import cors from "cors";
+import mongoose from "mongoose";
+
 // const TracksModel = require("./Models/tracks");
-const CarModel = require("./Models/cars");
-const cron = require("node-cron");
-const axios = require("axios");
-
+import cron from "node-cron";
+import axios from "axios";
 const app = express();
-
 app.use(cors());
 app.use(express.json());
-
+// Imports Routes
+import authRoute from "./Routes/auth.js";
+import getTrackRoute from "./Routes/Tracks/getTracks.js";
+import getCarRoute from "./Routes/Cars/getCars.js";
+import printfulAPI from "./Routes/PrintFull/getPrintfull.js";
 //
 // mongoose
 //   .connect(process.env.MONGO_URI, {
@@ -34,10 +36,11 @@ app.get("/server", (req, res) => {
 // app.use("/server", require("./Routes/auth"));
 
 //Get Tracks
-app.use("/server", require("./Routes/Tracks/getTracks"));
-app.use("/server", require("./Routes/Cars/getCars"));
+app.use("/server", authRoute);
+app.use("/server", getTrackRoute);
+app.use("/server", getCarRoute);
 //printful and his restart timeline
-app.use("/server/printful", require("./Routes/PrintFull/getPrintfull"));
+app.use("/server/printful", printfulAPI);
 cron.schedule("*/5 * * * *", async () => {
   console.log("Printful ის სიქრონიზაცია დაიწყო>>>");
   try {
