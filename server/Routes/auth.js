@@ -22,12 +22,12 @@ router.post("/login", async (req, res) => {
       if (!user) {
         return res
           .status(404)
-          .json({ message: "აქაუნთი არ არსებობს ან არასწორი მონაცემებია" });
+          .json({ message: "Account not exist or invalid credentials" });
       }
 
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
-        return res.status(401).json({ message: "არასწორი პაროლია" });
+        return res.status(401).json({ message: "Invalid password" });
       }
 
       //  token generation place

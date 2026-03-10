@@ -1,6 +1,8 @@
 import { AppActions } from "./AppActions";
 
 const initials = {
+  isAuthenticated: false,
+  user: null,
   cartItems: [],
   counter: 1,
 };
@@ -8,6 +10,9 @@ const initials = {
 const reducer = (state, action) => {
   const { type, payload } = action;
   switch (state) {
+    //User
+
+    // Cart -
     case AppActions.ADD_TO_CART: {
       const existingIndex = state.cartItems.findIndex(
         (item) => item.id === payload.id,

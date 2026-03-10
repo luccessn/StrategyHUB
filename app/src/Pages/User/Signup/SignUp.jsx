@@ -1,11 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import { Label } from "../../../Components/UI/Form/label";
 import { Input } from "../../../Components/UI/Form/input";
 import { cn } from "../../../Lib/utils";
+import { authHandler } from "../../../Api/ApiAuth";
+import { useNavigate } from "react-router-dom";
+import { authActionTypes } from "../../../Constants/auth/authActions";
+import { routes } from "../../../Constants/Routes";
 export const SignUp = () => {
+  const [user, setuser] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+  const Changeinput = (e) => {
+    const { name, value } = e.target;
+    setuser((prev) => ({ ...prev, [name]: value }));
+  };
+  const [isLoading, setisLoading] = useState(false);
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form submitted");
+    setisLoading(true);
+    authHandler(authActionTypes.register, user)
+      .then(() => navigate(routes.LogIn))
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => setisLoading(false));
   };
   return (
     <div className="shadow-input mx-auto mt-20 w-full max-w-xl p-4 rounded-2xl rounded-br-none rounded-tl-none md:p-8 dark:bg-black">
@@ -21,17 +44,32 @@ export const SignUp = () => {
       >
         <div className="mb-4 flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2">
           <LabelInputContainer>
-            <Label htmlFor="firstname">First name</Label>
-            <Input id="firstname" placeholder="Niki" type="text" />
+            <Label htmlFor="firstName">First name</Label>
+            <Input
+              type="text"
+              name="firstName"
+              placeholder="Niki"
+              onChange={Changeinput}
+            />
           </LabelInputContainer>
           <LabelInputContainer>
-            <Label htmlFor="lastname">Last name</Label>
-            <Input id="lastname" placeholder="Lauda" type="text" />
+            <Label htmlFor="lastName">Last name</Label>
+            <Input
+              type="text"
+              name="lastName"
+              placeholder="Lauda"
+              onChange={Changeinput}
+            />
           </LabelInputContainer>
         </div>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email Address</Label>
-          <Input id="email" placeholder="projectmayhem@fc.com" type="email" />
+          <Input
+            type="email"
+            name="email"
+            placeholder="projectmayhem@fc.com"
+            onChange={Changeinput}
+          />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
@@ -85,6 +123,7 @@ export const SignUp = () => {
           </button>
         </div> */}
       </form>
+      {isLoading && <h1>Loading...</h1>}
     </div>
   );
 };
