@@ -34,7 +34,7 @@ export const AppContextProvider = ({ children }) => {
       const Decoded = jwtDecode(token);
       //dispatch
       dispatch(authenticatedAction(Decoded));
-    } else {
+    } else if (token && isTokenValid(token)) {
       toggleLocalStorage(token);
     }
   }, []);
