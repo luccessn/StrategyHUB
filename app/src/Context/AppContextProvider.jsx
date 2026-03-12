@@ -1,30 +1,43 @@
 import React, { createContext, useContext, useEffect, useReducer } from "react";
 import { initials, reducer } from "./Reducer";
-const getInitialState = () => {
-  const token = localStorage.getItem("StrategyHUBCart");
-  let cartItems = [];
-  if (token) {
-    try {
-      const decoded = decodeURIComponent(token); // ვშიფრავთ URL-encoded სტრიქონს
-      cartItems = JSON.parse(decoded); //  JSON parse
-    } catch (err) {
-      // console.error("Failed to decode cart token:", err);
-    }
-  }
-  return {
-    ...initials,
-    cartItems,
-  };
-};
+import { isTokenValid, toggleLocalStorage } from "../Utils/jwt";
+import { jwtDecode } from "jwt-decode";
+import { authenticatedAction } from "./AppActionsCreator";
+// const getInitialState = () => {
+//   const token = localStorage.getItem("StrategyHUBCart");
+//   let cartItems = [];
+//   if (token) {
+//     try {
+//       const decoded = decodeURIComponent(token); // ვშიფრავთ URL-encoded სტრიქონს
+//       cartItems = JSON.parse(decoded); //  JSON parse
+//     } catch (err) {
+//       // console.error("Failed to decode cart token:", err);
+//     }
+//   }
+//   return {
+//     ...initials,
+//     cartItems,
+//   };
+// };
 const AppContext = createContext();
 export const AppContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, getInitialState());
+  const [state, dispatch] = useReducer(reducer, initials);
+  // useEffect(() => {
+  //   try {
+  //     const token = encodeURIComponent(JSON.stringify(state.cartItems));
+  //     localStorage.setItem("StrategyHUBCart", token);
+  //   } catch (err) {}
+  // }, [state.cartItems]);
   useEffect(() => {
-    try {
-      const token = encodeURIComponent(JSON.stringify(state.cartItems));
-      localStorage.setItem("StrategyHUBCart", token);
-    } catch (err) {}
-  }, [state.cartItems]);
+    const token = localStorage.getItem("accesTokenHUB");
+    if (token && isTokenValid(token)) {
+      const Decoded = jwtDecode(token);
+      //dispatch
+      dispatch(authenticatedAction(Decoded));
+    } else {
+      toggleLocalStorage(token);
+    }
+  }, []);
 
   return (
     <AppContext.Provider value={{ state, dispatch }}>

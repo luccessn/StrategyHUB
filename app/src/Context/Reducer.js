@@ -1,9 +1,15 @@
+import {
+  clearUserCart,
+  loadUserCart,
+  saveUserCart,
+} from "../Utils/cartStorage";
+import { toggleLocalStorage } from "../Utils/jwt";
 import { AppActions } from "./AppActions";
 
 const initials = {
   isAuthenticated: false,
   user: null,
-  cartItems: [],
+  cartItems: loadUserCart(null),
   counter: 1,
 };
 
@@ -11,27 +17,54 @@ const reducer = (state, action) => {
   const { type, payload } = action;
   switch (state) {
     //User
-
+    case AppActions.AUTHENTICATED: {
+      const user = payload;
+      const savedCart = loadUserCart(user.id);
+      return {
+        ...state,
+        isAuthenticated: true,
+        user: user,
+        cartItems: saveUserCart,
+      };
+    }
+    case AppActions.LOG_OUT: {
+      toggleLocalStorage();
+      return { ...state, isAuthenticated: false, user: null, cartItems: [] };
+    }
     // Cart -
     case AppActions.ADD_TO_CART: {
       const existingIndex = state.cartItems.findIndex(
         (item) => item.id === payload.id,
       );
-
+      let updatedCartItems;
       if (existingIndex !== -1) {
-        const updatedCartItems = [...state.cartItems];
+        updatedCartItems = [...state.cartItems];
         updatedCartItems[existingIndex].quantity += payload.quantity;
         return { ...state, cartItems: updatedCartItems };
       } else {
-        return { ...state, cartItems: [...state.cartItems, payload] };
+        updatedCartItems = {
+          ...state,
+          cartItems: [...state.cartItems, payload],
+        };
       }
+      saveUserCart(state.user ? state.user.id : null, updatedCartItems);
+      return { ...state, cartItems: updatedCartItems };
     }
     case AppActions.REMOVE_FROM_CART:
+      const updatedCartItems = state.cartItems.filter(
+        (item) => item.id !== payload,
+      );
+      saveUserCart(state.user ? state.user.id : null, updatedCartItems);
       return {
         ...state,
-        cartItems: state.cartItems.filter((item) => item.id !== payload),
+        cartItems: updatedCartItems,
       };
     case AppActions.CLEAR_CART:
+      if (state.user) {
+        clearUserCart(state.user.id);
+      } else {
+        saveUserCart(null, []);
+      }
       return { ...state, cartItems: [] };
     case AppActions.INCREMENT:
       return { ...state, counter: state.counter + payload };

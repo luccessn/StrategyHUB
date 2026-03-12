@@ -1,9 +1,8 @@
 const toBase64 = (str) => btoa(unescape(encodeURIComponent(str)));
 const fromBase64 = (str) => decodeURIComponent(escape(atob(str)));
 
-export const getCartKey = (userId) => {
+export const getCartKey = (userId) =>
   userId ? `StrategyHUB_${userId}` : "StrategyHUB_Guest";
-};
 
 export const saveUserCart = (userId, cartItems) => {
   const key = getCartKey(userId);
@@ -25,4 +24,8 @@ export const loadUserCart = (userId) => {
   } catch (err) {
     console.error(err);
   }
+};
+
+export const clearUserCart = (userId) => {
+  localStorage.removeItem(getCartKey(userId));
 };

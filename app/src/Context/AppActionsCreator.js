@@ -1,5 +1,18 @@
 import { AppActions } from "./AppActions";
 
+//user THNG
+export const authenticatedAction = (Decoded) => {
+  return { type: AppActions.AUTHENTICATED, payload: Decoded };
+};
+
+export const LogInAction = (data) => {
+  return { type: AppActions.LOG_IN, payload: data };
+};
+export const LogOutAction = () => {
+  return { type: AppActions.LOG_OUT };
+};
+
+//cart THNG
 export const addToCart = (item) => {
   return { type: AppActions.ADD_TO_CART, payload: item };
 };
