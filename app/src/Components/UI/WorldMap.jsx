@@ -4,12 +4,15 @@ import { useRef, useMemo, useState } from "react";
 import { useTheme } from "next-themes";
 import DottedMap from "dotted-map";
 import { AnimatePresence, motion } from "framer-motion";
-
-export function WorldMap({ dots = [], lineColor = "#0ea5e9" }) {
+import Trackloader from "../Loads/trackloader";
+import { useFetchData } from "../../Hooks/useFetchData";
+export function WorldMap({ lineColor = "#0ea5e9" }) {
   const svgRef = useRef(null);
   const containerRef = useRef(null);
   const { theme } = useTheme();
-
+  const [data, error, isLoading] = useFetchData(
+    "https://strategyhub.onrender.com/server/gettracks",
+  );
   const [tooltip, setTooltip] = useState(null);
   // tooltip = { x, y, text }
 
@@ -65,7 +68,7 @@ export function WorldMap({ dots = [], lineColor = "#0ea5e9" }) {
   return (
     <div
       ref={containerRef}
-      className="w-full aspect-[2/1] rounded-lg relative font-sans"
+      className="w-full  aspect-[2/1] rounded-lg relative font-sans"
       // onMouseMove={handleMouseMove}
     >
       <img
@@ -74,81 +77,117 @@ export function WorldMap({ dots = [], lineColor = "#0ea5e9" }) {
         alt="world map"
         draggable={false}
       />
+      {isLoading ? (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.98 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4, ease: "linear" }}
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          <div>
+            <Trackloader />
 
-      <svg
-        ref={svgRef}
-        viewBox="0 0 1056 495"
-        className="w-full h-full absolute inset-0 select-none"
-      >
-        <defs>
-          <filter
-            id="point-shadow"
-            x="-50%"
-            y="-50%"
-            width="200%"
-            height="200%"
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+              <div className="flex items-center justify-center gap-6">
+                <div className="load">
+                  <svg viewBox="0 0 80 80">
+                    <circle cx="40" cy="40" r="32" />
+                  </svg>
+                </div>
+
+                <div className="load triangle">
+                  <svg viewBox="0 0 86 80">
+                    <polygon points="43 8 79 72 7 72" />
+                  </svg>
+                </div>
+
+                <div className="load">
+                  <svg viewBox="0 0 80 80">
+                    <rect x="8" y="8" width="64" height="64" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      ) : (
+        <div className="bg-red-400">
+          <svg
+            ref={svgRef}
+            viewBox="0 0 1056 495"
+            className="w-full h-full absolute inset-0 select-none"
           >
-            <feDropShadow
-              dx="0"
-              dy="-1"
-              stdDeviation="1"
-              floodColor={lineColor}
-              floodOpacity="0.6"
-            />
-            <feDropShadow
-              dx="0"
-              dy="1"
-              stdDeviation="1"
-              floodColor={lineColor}
-              floodOpacity="0.6"
-            />
-          </filter>
-        </defs>
-
-        {dots.map((dot, i) => {
-          const p = projectPoint(dot.start.lat, dot.start.lng);
-
-          return (
-            <g
-              key={i}
-              className="cursor-target pointer-events-auto"
-              onMouseEnter={(e) => handleMouseEnter(e, dot)}
-              onMouseLeave={handleMouseLeave}
-            >
-              <circle
-                cx={p.x}
-                cy={p.y}
-                r="4"
-                fill={lineColor}
-                filter="url(#point-shadow)"
-              />
-              <circle
-                cx={p.x}
-                cy={p.y}
-                r="4"
-                fill={lineColor}
-                opacity="0.5"
-                filter="url(#point-shadow)"
+            <defs>
+              <filter
+                id="point-shadow"
+                x="-50%"
+                y="-50%"
+                width="200%"
+                height="200%"
               >
-                <animate
-                  attributeName="r"
-                  from="3"
-                  to="8"
-                  dur="1.5s"
-                  repeatCount="indefinite"
+                <feDropShadow
+                  dx="0"
+                  dy="-1"
+                  stdDeviation="1"
+                  floodColor={lineColor}
+                  floodOpacity="0.6"
                 />
-                <animate
-                  attributeName="opacity"
-                  from="0.5"
-                  to="0"
-                  dur="1.5s"
-                  repeatCount="indefinite"
+                <feDropShadow
+                  dx="0"
+                  dy="1"
+                  stdDeviation="1"
+                  floodColor={lineColor}
+                  floodOpacity="0.6"
                 />
-              </circle>
-            </g>
-          );
-        })}
-      </svg>
+              </filter>
+            </defs>
+
+            {data?.map((dot, i) => {
+              const p = projectPoint(dot.start.lat, dot.start.lng);
+
+              return (
+                <g
+                  key={i}
+                  className="cursor-target pointer-events-auto"
+                  onMouseEnter={(e) => handleMouseEnter(e, dot)}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  <circle
+                    cx={p.x}
+                    cy={p.y}
+                    r="4"
+                    fill={lineColor}
+                    filter="url(#point-shadow)"
+                  />
+                  <circle
+                    cx={p.x}
+                    cy={p.y}
+                    r="4"
+                    fill={lineColor}
+                    opacity="0.5"
+                    filter="url(#point-shadow)"
+                  >
+                    <animate
+                      attributeName="r"
+                      from="3"
+                      to="8"
+                      dur="1.5s"
+                      repeatCount="indefinite"
+                    />
+                    <animate
+                      attributeName="opacity"
+                      from="0.5"
+                      to="0"
+                      dur="1.5s"
+                      repeatCount="indefinite"
+                    />
+                  </circle>
+                </g>
+              );
+            })}
+          </svg>
+        </div>
+      )}
 
       <AnimatePresence>
         {tooltip && (

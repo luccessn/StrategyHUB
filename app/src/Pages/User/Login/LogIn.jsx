@@ -19,18 +19,26 @@ export const LogIn = () => {
   };
   const { dispatch } = useAppContext();
   const navigate = useNavigate();
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setisLoading(true);
-    authHandler(authActionTypes.login, user)
-      .then((response) => {
-        if (response.message === "Success") {
-          navigate("/", { state: { success: true } });
-          dispatch(LogInAction(response));
-        }
-      })
-      .catch((err) => console.log(err))
-      .finally(() => setisLoading(false));
+
+    try {
+      const response = await authHandler(authActionTypes.login, user);
+
+      // response.message აუცილებლად 200 OK უნდა იყოს
+      // if (response.message === "Success") {
+      //   dispatch(LogInAction(response));
+      //   navigate("/", { state: { success: true } });
+      // } else {
+      //   console.warn("Login failed:", response.message);
+      // }
+      console.log(response);
+    } catch (err) {
+      console.error("Login error:", err.message);
+    } finally {
+      setisLoading(false);
+    }
   };
   return (
     <div className="shadow-input mx-auto mt-20 w-full max-w-xl p-4 rounded-2xl rounded-br-none rounded-tl-none md:p-8 dark:bg-black">

@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { useInView } from "framer-motion";
 import { LinkPreview } from "../UI/WorldMap/link-preview";
 import { useFetchData } from "../../Hooks/useFetchData";
+import Trackloader from "../Loads/trackloader";
 const demoDots = [
   {
     start: { lat: -40.8497, lng: 144.968, label: "Australia GP" },
@@ -122,33 +123,35 @@ export function WorldMapDemo() {
     "https://strategyhub.onrender.com/server/gettracks",
   );
   return (
-    <div className=" relative -top-10   w-full ">
-      <WorldMap dots={data} />
-      <div className="top-shadow absolute left-0 top-2 w-full h-[180px] bg-gradient-to-b from-black to-transparent"></div>
+    <>
+      <div className=" relative -top-10   w-full ">
+        <WorldMap dots={data} isLoading={isLoading} />
+        <div className="top-shadow absolute left-0 top-2 w-full h-[180px] bg-gradient-to-b from-black to-transparent"></div>
 
-      <div className="max-w-7xl mx-auto text-center" ref={ref}>
-        <p className="font-panchangSB text-xl md:text-4xl  text-white ">
-          Welcome to
-          <span className="text-neutral-400 px-3">
-            {"Strategy Hub".split("").map((letter, idx) => (
-              <motion.span
-                key={idx}
-                className="inline-block"
-                initial={{ x: -10, opacity: 0 }}
-                animate={hasAnimated ? { x: 0, opacity: 1 } : {}}
-                transition={{ duration: 0.5, delay: idx * 0.04 }}
-              >
-                {letter}
-              </motion.span>
-            ))}
-          </span>
-        </p>
-        <p className="text-sm font-satosIT md:text-lg text-neutral-500 max-w-2xl mx-auto py-4">
-          We are analyzing your car, track, and intentions to build the smartest
-          strategy for your race — from high-pressure competition to laid-back
-          driving.
-        </p>
+        <div className="max-w-7xl mx-auto text-center" ref={ref}>
+          <p className="font-panchangSB text-xl md:text-4xl  text-white ">
+            Welcome to
+            <span className="text-neutral-400 px-3">
+              {"Strategy Hub".split("").map((letter, idx) => (
+                <motion.span
+                  key={idx}
+                  className="inline-block"
+                  initial={{ x: -10, opacity: 0 }}
+                  animate={hasAnimated ? { x: 0, opacity: 1 } : {}}
+                  transition={{ duration: 0.5, delay: idx * 0.04 }}
+                >
+                  {letter}
+                </motion.span>
+              ))}
+            </span>
+          </p>
+          <p className="text-sm font-satosIT md:text-lg text-neutral-500 max-w-2xl mx-auto py-4">
+            We are analyzing your car, track, and intentions to build the
+            smartest strategy for your race — from high-pressure competition to
+            laid-back driving.
+          </p>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
