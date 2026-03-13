@@ -17,20 +17,18 @@ export const UserSchema = new mongoose.Schema({
   // },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
-  address: [
-    {
-      firstName: String,
-      lastName: String,
-      email: String,
-      phone: String,
-      city: String,
-      address: String,
-      address2: String,
-    },
-  ],
+  // address: [
+  //   {
+  //     firstName: String,
+  //     lastName: String,
+  //     email: String,
+  //     phone: String,
+  //     city: String,
+  //     address: String,
+  //     address2: String,
+  //   },
+  // ],
 });
-
-export const UserModel = userDb.model("User", UserSchema);
 
 UserSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
@@ -39,3 +37,5 @@ UserSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, salt);
   next();
 });
+
+export const UserModel = userDb.model("User", UserSchema);

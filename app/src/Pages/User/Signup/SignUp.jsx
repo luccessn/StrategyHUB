@@ -21,7 +21,7 @@ export const SignUp = () => {
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted");
+    console.log("Form submitted", user);
     setisLoading(true);
     authHandler(authActionTypes.register, user)
       .then(() => navigate(routes.LogIn))
@@ -73,7 +73,13 @@ export const SignUp = () => {
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="••••••••" type="password" />
+          <Input
+            id="password"
+            placeholder="••••••••"
+            type="password"
+            name="password"
+            onChange={Changeinput}
+          />
         </LabelInputContainer>
         <LabelInputContainer className="mb-8">
           <Label htmlFor="twitterpassword">Repeat your password</Label>
