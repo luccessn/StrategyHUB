@@ -1,11 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { Label } from "../../../Components/UI/Form/label";
 import { Input } from "../../../Components/UI/Form/input";
 import { cn } from "../../../Lib/utils";
+import { authHandler } from "../../../Api/ApiAuth";
+import { authActionTypes } from "../../../Constants/auth/authActions";
+import { useNavigate } from "react-router-dom";
+import { useAppContext } from "../../../Context/AppContextProvider";
+import { LogInAction } from "../../../Context/AppActionsCreator";
 export const LogIn = () => {
+  const [user, setuser] = useState({
+    email: "",
+    password: "",
+  });
+  const [isLoading, setisLoading] = useState(false);
+  const ChangeInput = (e) => {
+    const { name, value } = e.target;
+    setuser((prev) => ({ ...prev, [name]: value }));
+  };
+  const { dispatch } = useAppContext();
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted");
+    setisLoading(true);
+    authHandler(authActionTypes.login, user)
+      .then((response) => {
+        if (response.message === "Success") {
+          navigate("/", { state: { success: true } });
+          dispatch(LogInAction(response));
+        }
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setisLoading(false));
   };
   return (
     <div className="shadow-input mx-auto mt-20 w-full max-w-xl p-4 rounded-2xl rounded-br-none rounded-tl-none md:p-8 dark:bg-black">
@@ -21,11 +46,23 @@ export const LogIn = () => {
       >
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email Address</Label>
-          <Input id="email" placeholder="projectmayhem@fc.com" type="email" />
+          <Input
+            type="email"
+            name="email"
+            value={setuser.email}
+            onChange={ChangeInput}
+            placeholder="projectmayhem@fc.com"
+          />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="••••••••" type="password" />
+          <Input
+            placeholder="••••••••"
+            type="password"
+            name="password"
+            onChange={ChangeInput}
+            value={user.password}
+          />
         </LabelInputContainer>
 
         <button

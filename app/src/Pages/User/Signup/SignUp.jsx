@@ -49,6 +49,7 @@ export const SignUp = () => {
               type="text"
               name="firstName"
               placeholder="Niki"
+              value={user.firstName}
               onChange={Changeinput}
             />
           </LabelInputContainer>
@@ -58,6 +59,7 @@ export const SignUp = () => {
               type="text"
               name="lastName"
               placeholder="Lauda"
+              value={user.lastName}
               onChange={Changeinput}
             />
           </LabelInputContainer>
@@ -68,16 +70,17 @@ export const SignUp = () => {
             type="email"
             name="email"
             placeholder="projectmayhem@fc.com"
+            value={user.email}
             onChange={Changeinput}
           />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
           <Input
-            id="password"
             placeholder="••••••••"
             type="password"
             name="password"
+            value={user.password}
             onChange={Changeinput}
           />
         </LabelInputContainer>
