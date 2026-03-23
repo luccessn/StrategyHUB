@@ -89,7 +89,7 @@ export const BrakeAccelr = ({ title, dino }) => {
     },
   };
   return (
-    <div className="h-full">
+    <div className="h-full ">
       <h3 className="font-panchangMD text-2xl">
         {title} Brake & Acceleration analyze
       </h3>

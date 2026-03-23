@@ -8,13 +8,13 @@ import { useFetchData } from "../../../../Hooks/useFetchData";
 export const car3DConfig = {
   "mclaren-f1-1991": {
     src: sennamclr1k,
-    scale: [4.1, 3.9, 3.9],
+    scale: [3.9, 3.7, 3.7],
     position: [0, 0, -0.6],
     rotation: [0, -0.7, 0],
   },
   "lotus-49c": {
     src: lotus49c,
-    scale: [2.1, 1.9, 1.9],
+    scale: [1.9, 1.7, 1.7],
     position: [0, 2.5, -2],
     rotation: [0, -0.7, 0],
   },

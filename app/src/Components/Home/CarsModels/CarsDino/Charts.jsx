@@ -210,7 +210,7 @@ export const Charts = ({ title, dino }) => {
   // max value
   const totalSlides = dino.chartData.valueScalesMX.length;
   return (
-    <div className="flex flex-row   gap-5  items-center  ">
+    <div className="flex flex-row   gap-5  items-center   ">
       <div className="    ">
         <AgCharts options={options} />
       </div>
@@ -274,7 +274,7 @@ export const Charts = ({ title, dino }) => {
                 <div className="bg p-5 top-10 rounded-lg w-16 h-10 relative">
                   <div className="loader absolute w-16 h-10"></div>
                 </div>
-                <div className="p-3 font-array text-5xl text-white text-center bg-gray-900 rounded-md shadow-md">
+                <div className="p-3 font-array text-5xl text-white text-center shadow-md">
                   {s.sensorName}
                 </div>
               </SwiperSlide>
