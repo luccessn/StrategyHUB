@@ -8,7 +8,7 @@ export const isTokenValid = (token) => {
 };
 
 export const toggleLocalStorage = (token) => {
-  if (!token) {
+  if (token) {
     localStorage.setItem("accesTokenHUB", token);
   } else {
     localStorage.removeItem("accesTokenHUB");

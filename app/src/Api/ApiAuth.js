@@ -6,7 +6,7 @@ export async function authHandler(action, user) {
   });
   const result = await response.json();
   if (!response.ok) {
-    return result;
+    throw new Error(result.message || "Error ");
   }
-  throw new Error(result.message || "Error ");
+  return result;
 }

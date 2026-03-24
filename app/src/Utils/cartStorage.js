@@ -20,7 +20,7 @@ export const loadUserCart = (userId) => {
   if (!data) return [];
   try {
     const decoded = fromBase64(JSON.parse(data));
-    return JSON.parce(decoded);
+    return JSON.parse(decoded);
   } catch (err) {
     console.error(err);
   }
