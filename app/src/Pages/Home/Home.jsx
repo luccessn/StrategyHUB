@@ -89,7 +89,6 @@ export const Home = () => {
               // fadeOutColor="#000000"
               ariaLabel="Technology partners"
             />
-
             {/* Vertical loop with deceleration on hover */}
           </div>
         </motion.div>
@@ -127,7 +126,7 @@ export const Home = () => {
           </motion.div>
           {/* Vertical loop with deceleration on hover */}
         </div>
-        <div className="">
+        <div>
           <AICard />
         </div>
       </div>

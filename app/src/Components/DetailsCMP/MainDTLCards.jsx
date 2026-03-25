@@ -320,7 +320,7 @@ const MainDTLCards = ({ data }) => {
                       <select
                         value={selectedSize}
                         onChange={(e) => setSelectedSize(e.target.value)}
-                        className="w-full  h-10 ssm:h-14 text-lg rounded bg-black text-white border border-gray-500 px-4"
+                        className="w-full  h-10 ssm:h-14 cursor-target text-lg rounded bg-black text-white border border-gray-500 px-4"
                       >
                         <option value="" disabled>
                           Choose
@@ -329,7 +329,7 @@ const MainDTLCards = ({ data }) => {
                           <option
                             key={size}
                             value={size}
-                            className="text-white"
+                            className="text-white  "
                           >
                             {size}
                           </option>

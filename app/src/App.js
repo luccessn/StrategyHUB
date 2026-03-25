@@ -19,6 +19,9 @@ import TargetCursor from "./Components/UI/Cursor/targetCursor";
 import { AppRoutes } from "./AppRoutes";
 import { routes } from "./Constants/Routes";
 import { useNavigate } from "react-router-dom";
+import { FaRegUser } from "react-icons/fa";
+import { FaShoppingCart } from "react-icons/fa";
+import { useAppContext } from "./Context/AppContextProvider";
 
 function App() {
   const navbarRT = [
@@ -31,6 +34,7 @@ function App() {
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const { state, dispatch } = useAppContext();
   return (
     <>
       <div className="relative  w-screen ">
@@ -48,20 +52,40 @@ function App() {
           <NavBody>
             <NavbarLogo />
             <NavItems items={navbarRT} />
-            <div className="flex items-center gap-4">
+            <div className="flex  items-center gap-1">
+              {state.user ? (
+                <NavbarButton
+                  variant="secondary"
+                  className="cursor-target"
+                  // onClick={() => navigate(routes.SignUp)}
+                >
+                  <FaRegUser className="text-white text-xl font-bold " />
+                </NavbarButton>
+              ) : (
+                <>
+                  <NavbarButton
+                    variant="secondary"
+                    className="cursor-target"
+                    onClick={() => navigate(routes.SignUp)}
+                  >
+                    SignUp
+                  </NavbarButton>
+
+                  <NavbarButton
+                    className="cursor-target"
+                    onClick={() => navigate(routes.LogIn)}
+                    variant="primary"
+                  >
+                    Log In
+                  </NavbarButton>
+                </>
+              )}
               <NavbarButton
                 variant="secondary"
                 className="cursor-target"
-                onClick={() => navigate(routes.SignUp)}
+                // onClick={() => navigate(routes.SignUp)}
               >
-                SignUp
-              </NavbarButton>
-              <NavbarButton
-                className="cursor-target"
-                onClick={() => navigate(routes.LogIn)}
-                variant="primary"
-              >
-                Log In
+                <FaShoppingCart className="text-white text-xl font-bold " />
               </NavbarButton>
             </div>
           </NavBody>
