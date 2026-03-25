@@ -585,3 +585,4 @@ const MainDTLCards = ({ data }) => {
 };
 
 export default MainDTLCards;
+// dadadada
