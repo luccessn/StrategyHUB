@@ -47,7 +47,7 @@ export const Home = () => {
       <div className="">
         <ExpandableCardDemo />
       </div>
-
+      <h1>still people</h1>
       {/* <div class="sketchfab-embed-wrapper">
         {" "}
         <iframe> </iframe>{" "}

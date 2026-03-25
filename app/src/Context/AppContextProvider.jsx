@@ -19,7 +19,8 @@ import { authenticatedAction } from "./AppActionsCreator";
 //     cartItems,
 //   };
 // };
-const AppContext = createContext();
+const context = createContext();
+
 export const AppContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initials);
   // useEffect(() => {
@@ -31,25 +32,23 @@ export const AppContextProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem("accesTokenHUB");
     if (token && isTokenValid(token)) {
-      const Decoded = jwtDecode(token);
-      //dispatch
-      dispatch(authenticatedAction(Decoded));
-    } else if (token && isTokenValid(token)) {
-      toggleLocalStorage(token);
+      const decoded = jwtDecode(token); // ტოკენის დეცოდირება
+      // console.log("Decoded Token:", decoded);
+      dispatch(authenticatedAction(decoded)); // ტოკენიდან გამოვყავით user-ი და გავგზავნეთ დისპეჩერში
+    } else if (token && !isTokenValid(token)) {
+      toggleLocalStorage(); // თუ ტოკენი არ ვარგა, წავშალოთ იგი
     }
   }, []);
 
   return (
-    <AppContext.Provider value={{ state, dispatch }}>
-      {children}
-    </AppContext.Provider>
+    <context.Provider value={{ state, dispatch }}>{children}</context.Provider>
   );
 };
 
 export const useAppContext = () => {
-  const context = useContext(AppContext);
-  if (!context) {
-    throw new Error("AppContext Error");
+  const AppContext = useContext(context);
+  if (AppContext) {
+    return AppContext;
   }
-  return context;
+  throw new Error("Context Error");
 };

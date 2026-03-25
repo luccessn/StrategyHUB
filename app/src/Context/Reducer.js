@@ -1,3 +1,4 @@
+import { jwtDecode } from "jwt-decode";
 import {
   clearUserCart,
   loadUserCart,
@@ -20,16 +21,35 @@ const reducer = (state, action) => {
     case AppActions.AUTHENTICATED: {
       const user = payload;
       const savedCart = loadUserCart(user.id);
+      console.log("Authenticated Payload:", payload); // ნახე, რას იღებ
+      return {
+        ...state,
+        isAuthenticated: true,
+        user: payload,
+        cartItems: savedCart,
+      };
+    }
+    case AppActions.LOG_IN: {
+      const { token } = payload;
+      const user = jwtDecode(token);
+      toggleLocalStorage(token);
+      const savedCart = loadUserCart(user.id);
       return {
         ...state,
         isAuthenticated: true,
         user: user,
-        cartItems: saveUserCart,
+        cartItems: savedCart,
       };
     }
     case AppActions.LOG_OUT: {
       toggleLocalStorage();
-      return { ...state, isAuthenticated: false, user: null, cartItems: [] };
+      return {
+        ...state,
+        isAuthanticated: false,
+        user: null,
+        cartItems: [],
+        adressess: [],
+      };
     }
     // Cart -
     case AppActions.ADD_TO_CART: {
