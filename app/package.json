@@ -5,7 +5,9 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
+    "@gravity-ui/icons": "^2.18.0",
     "@gsap/react": "^2.1.2",
+    "@heroui/react": "^3.0.1",
     "@mui/material": "^7.3.9",
     "@mui/x-charts": "^8.17.0",
     "@mui/x-charts-pro": "^8.16.0",

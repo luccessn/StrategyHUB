@@ -24,6 +24,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import { useAppContext } from "./Context/AppContextProvider";
 import { CartDrawer } from "./Components/DetailsCMP/Cart/CartDrawer";
 import ClickSpark from "./Components/UI/Cursor/ClickSpark";
+import { UserDrawer } from "./Components/NavBar/UserDrawer";
 
 function App() {
   const navbarRT = [
@@ -63,10 +64,11 @@ function App() {
                 {state.user ? (
                   <NavbarButton
                     variant="secondary"
-                    className="cursor-target"
+                    className=""
                     // onClick={() => navigate(routes.SignUp)}
                   >
-                    <FaRegUser className="text-white text-xl font-bold " />
+                    {/* <FaRegUser className="text-white text-xl font-bold " /> */}
+                    <UserDrawer />
                   </NavbarButton>
                 ) : (
                   <>

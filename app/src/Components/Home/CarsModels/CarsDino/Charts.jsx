@@ -22,6 +22,7 @@ export const Charts = ({ title, dino }) => {
       background: { fill: "#000000" },
       title: {
         text: title + " - Torque vs RPM",
+        fontSize: 25,
         color: "#ffffff",
         fontFamily: "panchangMD",
       },

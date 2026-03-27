@@ -197,35 +197,6 @@ export const CarsCalc = () => {
           viewport={{ once: false, amount: 0.2 }}
         >
           <div className="w-full flex flex-col items-center my-6 ">
-            <div className="flex items-center gap-2">
-              <FormControl sx={{ m: 1, width: 300 }}>
-                <InputLabel id="demo-multiple-name-label">
-                  <div className="flex flex-row gap-2">
-                    <SiFerrari className="text-red-500" />
-                    Name
-                  </div>
-                </InputLabel>
-                <Select
-                  labelId="demo-multiple-name-label"
-                  id="demo-multiple-name"
-                  multiple
-                  value={personName}
-                  onChange={handleChange}
-                  input={<OutlinedInput label="Name" />}
-                  MenuProps={MenuProps}
-                >
-                  {names.map((name) => (
-                    <MenuItem
-                      key={name}
-                      value={name}
-                      style={getStyles(name, personName, theme)}
-                    >
-                      {name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </div>
             <div className="relative inline-block group">
               <select
                 className="cursor-target w-[600px] px-5 py-3 text-xl uppercase font-bold text-white appearance-none cursor-pointer focus:outline-none font-panchangMD bg-[#0f1923]"
