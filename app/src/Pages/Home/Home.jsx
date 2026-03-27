@@ -14,13 +14,15 @@ import { SiFerrari } from "react-icons/si";
 import { SiF1 } from "react-icons/si";
 import { SiFord } from "react-icons/si";
 import { SiBmw } from "react-icons/si";
-import { SiMercedes } from "react-icons/si";
+import { TbBrandMercedes } from "react-icons/tb";
+// import { SiMercedes } from "react-icons/si";
 import { GiRallyTheTroops } from "react-icons/gi";
 import { SiNissan } from "react-icons/si";
 import { SiMclaren } from "react-icons/si";
 import { SiRedbull } from "react-icons/si";
 import { SiAudi } from "react-icons/si";
 import { SiHonda } from "react-icons/si";
+import { SiAstonmartin } from "react-icons/si";
 import { AICard } from "../../Components/AI/AICard";
 import { TyresModels } from "../../Components/Home/TyresModels";
 import { useAppContext } from "../../Context/AppContextProvider";
@@ -28,7 +30,7 @@ import { useAppContext } from "../../Context/AppContextProvider";
 
 const techLogos = [
   { node: <SiF1 />, title: "F1" },
-  { node: <SiMercedes />, title: "Mercedes" },
+  { node: <TbBrandMercedes />, title: "Mercedes" },
   { node: <SiFord />, title: "Ford" },
   { node: <SiFerrari />, title: "Ferrari" },
   { node: <SiBmw />, title: "BMW" },
@@ -38,6 +40,7 @@ const techLogos = [
   { node: <SiRedbull />, title: "RedBull" },
   { node: <SiAudi />, title: "Audi" },
   { node: <SiHonda />, title: "Honda" },
+  { node: <SiAstonmartin />, title: "AstonMartin" },
 ];
 
 export const Home = () => {
@@ -51,7 +54,6 @@ export const Home = () => {
       <div className="">
         <ExpandableCardDemo />
       </div>
-      <h1>still people</h1>
       {/* <div class="sketchfab-embed-wrapper">
         {" "}
         <iframe> </iframe>{" "}

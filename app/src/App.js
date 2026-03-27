@@ -55,9 +55,7 @@ function App() {
             hideDefaultCursor={true}
             parallaxOn={true}
           />
-          {/* Navbar */}
           <Navbar>
-            {/* Desktop Navigation */}
             <NavBody>
               <NavbarLogo />
               <NavItems items={navbarRT} />
