@@ -12,21 +12,58 @@ export const SignUp = () => {
     lastName: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
+  const [formErrors, setformErrors] = useState({});
+  const [isLoading, setisLoading] = useState(false);
+  const navigate = useNavigate();
   const Changeinput = (e) => {
     const { name, value } = e.target;
     setuser((prev) => ({ ...prev, [name]: value }));
+    setformErrors((prev) => ({ ...prev, [name]: "" }));
   };
-  const [isLoading, setisLoading] = useState(false);
-  const navigate = useNavigate();
+  const validateForm = () => {
+    const errors = {};
+    if (!user.firstName.trim()) {
+      errors.firstName = "Please Enter Valid Username";
+    }
+    if (!user.lastName.trim()) {
+      errors.lastName = "Please Enter Lastname";
+    }
+    if (!user.email.trim()) {
+      errors.email = "Please Enter Valid Email";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(user.email)) {
+      errors.email = "Email is incorrect";
+    }
+    if (!user.password) {
+      errors.password = "Please Enter the strong password";
+    } else if (user.password.length < 6) {
+      errors.password = "Password must to includes the 6 symbols or more";
+    }
+    if (!user.confirmPassword) {
+      errors.confirmPassword = "Repeat the password";
+    } else if (user.password !== user.confirmPassword) {
+      errors.confirmPassword = "Password dont match";
+    }
+    setformErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!validateForm()) return;
     console.log("Form submitted", user);
     setisLoading(true);
     authHandler(authActionTypes.register, user)
-      .then(() => navigate(routes.LogIn))
+      .then((response) => {
+        console.log(response);
+        navigate(routes.LogIn);
+      })
       .catch((error) => {
         console.log(error);
+
+        setformErrors({
+          general: error.message || "Somethins is wrong , please try again",
+        });
       })
       .finally(() => setisLoading(false));
   };
@@ -51,7 +88,15 @@ export const SignUp = () => {
               placeholder="Niki"
               value={user.firstName}
               onChange={Changeinput}
+              className={`bg-zinc-800 text-zinc-200 ${
+                formErrors.firstName ? "border-2 border-red-500" : ""
+              }`}
             />
+            {formErrors.firstName && (
+              <p className="text-red-500 font-bold text-xs mt-1">
+                {formErrors.firstName}
+              </p>
+            )}
           </LabelInputContainer>
           <LabelInputContainer>
             <Label htmlFor="lastName">Last name</Label>
@@ -61,7 +106,15 @@ export const SignUp = () => {
               placeholder="Lauda"
               value={user.lastName}
               onChange={Changeinput}
+              className={`bg-zinc-800 text-zinc-200 ${
+                formErrors.lastName ? "border-2 text-red-900 font-bold" : ""
+              }`}
             />
+            {formErrors.lastName && (
+              <p className="text-red-500 font-bold text-xs mt-1">
+                {formErrors.lastName}
+              </p>
+            )}
           </LabelInputContainer>
         </div>
         <LabelInputContainer className="mb-4">
@@ -72,7 +125,15 @@ export const SignUp = () => {
             placeholder="projectmayhem@fc.com"
             value={user.email}
             onChange={Changeinput}
+            className={`bg-zinc-800 text-zinc-200 ${
+              formErrors.email ? "border-2 border-red-500" : ""
+            }`}
           />
+          {formErrors.email && (
+            <p className="text-red-500 font-bold text-xs mt-1">
+              {formErrors.email}
+            </p>
+          )}
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
@@ -82,11 +143,33 @@ export const SignUp = () => {
             name="password"
             value={user.password}
             onChange={Changeinput}
+            className={`bg-zinc-800 text-zinc-200 ${
+              formErrors.email ? "border-2 border-red-500" : ""
+            }`}
           />
+          {formErrors.password && (
+            <p className="text-red-500 font-bold text-xs mt-1">
+              {formErrors.password}
+            </p>
+          )}
         </LabelInputContainer>
         <LabelInputContainer className="mb-8">
           <Label htmlFor="twitterpassword">Repeat your password</Label>
-          <Input placeholder="••••••••" type="twitterpassword" />
+          <Input
+            placeholder="••••••••"
+            type="twitterpassword"
+            name="confirmPassword"
+            value={user.confirmPassword}
+            onChange={Changeinput}
+            className={`bg-zinc-800 text-zinc-200 ${
+              formErrors.confirmPassword ? "border-2 border-red-900" : ""
+            }`}
+          />
+          {formErrors.confirmPassword && (
+            <p className="text-red-500 font-bold text-xs mt-1">
+              {formErrors.confirmPassword}
+            </p>
+          )}
         </LabelInputContainer>
 
         <button
@@ -96,7 +179,11 @@ export const SignUp = () => {
           Sign up &rarr;
           <BottomGradient />
         </button>
-
+        {formErrors.general && (
+          <p className="text-red-600 text-sm mt-2 text-center">
+            {formErrors.general}
+          </p>
+        )}
         <div className="my-8 h-[1px] w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-neutral-700" />
 
         {/* <div className="flex flex-col space-y-4">

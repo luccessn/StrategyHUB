@@ -7,7 +7,7 @@ export function isTokenValid(token) {
   return Decode.exp > currentTime;
 }
 export const toggleLocalStorage = (token) => {
-  if (!token) {
+  if (token) {
     localStorage.setItem("accesTokenHUB", token);
   } else {
     localStorage.removeItem("accesTokenHUB");

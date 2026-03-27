@@ -12,33 +12,48 @@ export const LogIn = () => {
     email: "",
     password: "",
   });
+  const [formErrrors, setformErrrors] = useState({});
   const [isLoading, setisLoading] = useState(false);
   const ChangeInput = (e) => {
     const { name, value } = e.target;
     setuser((prev) => ({ ...prev, [name]: value }));
+    setformErrrors((prev) => ({ ...prev, [name]: "" }));
   };
   const { dispatch } = useAppContext();
   const navigate = useNavigate();
+  const validateForm = () => {
+    const errors = {};
+    if (!user.email.trim()) {
+      errors.email = "Please Enter The Email";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(user.email)) {
+      errors.email = "Email format is not correct";
+    }
+    if (!user.password) {
+      errors.password = "Please Enter the password";
+    } else if (user.password.length < 0) {
+      errors.password = "Password must to includes the 6 symbols or more";
+    }
+    setformErrrors(errors);
+    return Object.keys(errors).length === 0;
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     setisLoading(true);
-
-    try {
-      const response = await authHandler(authActionTypes.login, user);
-
-      // response.message აუცილებლად 200 OK უნდა იყოს
-      // if (response.message === "Success") {
-      //   dispatch(LogInAction(response));
-      //   navigate("/", { state: { success: true } });
-      // } else {
-      //   console.warn("Login failed:", response.message);
-      // }
-      console.log(response);
-    } catch (err) {
-      console.error("Login error:", err.message);
-    } finally {
-      setisLoading(false);
-    }
+    if (!validateForm()) return;
+    authHandler(authActionTypes.login, user)
+      .then((response) => {
+        console.log(response);
+        console.log(response.message);
+        if (response.message === "Success") {
+          navigate("/", { state: { success: true } });
+          dispatch(LogInAction(response));
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setformErrrors({ general: err || "ERRAR" });
+      })
+      .finally(() => setisLoading(false));
   };
   return (
     <div className="shadow-input mx-auto mt-20 w-full max-w-xl p-4 rounded-2xl rounded-br-none rounded-tl-none md:p-8 dark:bg-black">
@@ -60,7 +75,15 @@ export const LogIn = () => {
             value={setuser.email}
             onChange={ChangeInput}
             placeholder="projectmayhem@fc.com"
+            className={`bg-zinc-800 text-zinc-200 ${
+              formErrrors.email ? "border-2 border-red-500" : ""
+            }`}
           />
+          {formErrrors.email && (
+            <p className="text-red-600 font-bold text-sm mt-1">
+              {formErrrors.email}
+            </p>
+          )}
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
@@ -70,7 +93,15 @@ export const LogIn = () => {
             name="password"
             onChange={ChangeInput}
             value={user.password}
+            className={`bg-zinc-800 text-zinc-200 ${
+              formErrrors.email ? "border-2 border-red-500" : ""
+            }`}
           />
+          {formErrrors.password && (
+            <p className="text-red-600 font-bold text-sm mt-1">
+              {formErrrors.password}
+            </p>
+          )}
         </LabelInputContainer>
 
         <button

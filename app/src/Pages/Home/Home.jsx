@@ -23,6 +23,7 @@ import { SiAudi } from "react-icons/si";
 import { SiHonda } from "react-icons/si";
 import { AICard } from "../../Components/AI/AICard";
 import { TyresModels } from "../../Components/Home/TyresModels";
+import { useAppContext } from "../../Context/AppContextProvider";
 //
 
 const techLogos = [
@@ -40,6 +41,9 @@ const techLogos = [
 ];
 
 export const Home = () => {
+  const { state } = useAppContext();
+  console.log(state.user);
+
   return (
     <div className=" flex flex-col gap-20 text-white text-3xl">
       <WorldMapDemo />

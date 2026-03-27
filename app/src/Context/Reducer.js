@@ -16,7 +16,7 @@ const initials = {
 
 const reducer = (state, action) => {
   const { type, payload } = action;
-  switch (state) {
+  switch (type) {
     //User
     case AppActions.AUTHENTICATED: {
       const user = payload;
@@ -32,6 +32,8 @@ const reducer = (state, action) => {
     case AppActions.LOG_IN: {
       const { token } = payload;
       const user = jwtDecode(token);
+      console.log("LOG in", user);
+
       toggleLocalStorage(token);
       const savedCart = loadUserCart(user.id);
       return {
@@ -43,13 +45,7 @@ const reducer = (state, action) => {
     }
     case AppActions.LOG_OUT: {
       toggleLocalStorage();
-      return {
-        ...state,
-        isAuthanticated: false,
-        user: null,
-        cartItems: [],
-        adressess: [],
-      };
+      return { ...state, isAuthenticated: false, user: null, cartItems: [] };
     }
     // Cart -
     case AppActions.ADD_TO_CART: {
