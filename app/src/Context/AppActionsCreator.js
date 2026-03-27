@@ -31,3 +31,8 @@ export const CounterDecrement = (payload) => {
 export const CounterReset = () => {
   return { type: AppActions.RESET_COUNTER };
 };
+
+//Crawer Comp
+export const toggleCartDrawer = () => ({ type: AppActions.TOGGLE_CART_DRAWER });
+export const openCartDrawer = () => ({ type: AppActions.OPEN_CART_DRAWER });
+export const closeCartDrawer = () => ({ type: AppActions.CLOSE_CART_DRAWER });

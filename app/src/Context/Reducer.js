@@ -12,6 +12,8 @@ const initials = {
   user: null,
   cartItems: loadUserCart(null),
   counter: 1,
+  isCartDrawerOpen: false, //
+  toast: { visible: false, type: null },
 };
 
 const reducer = (state, action) => {
@@ -97,6 +99,13 @@ const reducer = (state, action) => {
             : item,
         ),
       };
+    // Drawer
+    case AppActions.TOGGLE_CART_DRAWER:
+      return { ...state, isCartDrawerOpen: !state.isCartDrawerOpen };
+    case AppActions.OPEN_CART_DRAWER:
+      return { ...state, isCartDrawerOpen: true };
+    case AppActions.CLOSE_CART_DRAWER:
+      return { ...state, isCartDrawerOpen: false };
     default:
       return state;
   }

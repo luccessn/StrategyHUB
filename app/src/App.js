@@ -22,7 +22,7 @@ import { useNavigate } from "react-router-dom";
 import { FaRegUser } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
 import { useAppContext } from "./Context/AppContextProvider";
-import { CartDrawer } from "./Components/DetailsCMP/Cart/CartDrawer";
+import { CartDrawer } from "./Components/NavBar/CartDrawer";
 import ClickSpark from "./Components/UI/Cursor/ClickSpark";
 import { UserDrawer } from "./Components/NavBar/UserDrawer";
 
