@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 // import { Badge } from "rsuite";
 import { useAppContext } from "../../Context/AppContextProvider";
@@ -19,6 +19,21 @@ import {
   openCartDrawer,
 } from "../../Context/AppActionsCreator";
 import { CartCard } from "./CartCard";
+//
+//
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import Button from "@mui/material/Button";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import { StarsBackground } from "../UI/Stars-background";
+
+//
+//
+
 //
 // import {
 //   Drawer,
@@ -42,105 +57,101 @@ export const CartDrawer = () => {
   };
   const totalItems = state.cartItems.lenght;
   const isOpen = state.isCartDrawerOpen;
+  const [open, setOpen] = useState(false);
+
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
+  };
+  const DrawerContent = (
+    <Box
+      sx={{ width: 450 }}
+      role="presentation"
+      onClick={toggleDrawer(false)}
+      className="flex flex-col h-full bg-black justify-between"
+    >
+      <StarsBackground className="absolute top-0 left-0 w-full h-full z-0" />{" "}
+      {/* Header */}
+      <Box className="bg-orange-600 text-white p-4 flex flex-col gap-2 z-20">
+        <h1 className="text-3xl font-bold">კალათა</h1>
+        <p>თქვენს კალათაში {totalItems} ნივთია</p>
+      </Box>
+      <Divider />
+      {/* Body */}
+      <Box className="flex-1 p-4 overflow-y-auto flex flex-col gap-3">
+        {totalItems === 0 ? (
+          <p className="text-center bg-red-400 text-gray-500">
+            თქვენი კალათა ცარიელია
+          </p>
+        ) : (
+          state.cartItems.map((item) => <CartCard key={item.id} props={item} />)
+        )}
+      </Box>
+      <Divider />
+      {/* Footer */}
+      {/* {totalItems > 0 && ( */}
+      <Box className="bg-orange-600 p-4 flex flex-col gap-3 z-20">
+        <div className="w-full text-white text-xl font-mono flex justify-between">
+          <span>ჯამი:</span>
+          <span>
+            {state.cartItems
+              .reduce((acc, item) => acc + item.price * item.quantity, 0)
+              .toFixed(2)}{" "}
+            ₾
+          </span>
+        </div>
+
+        <div className="flex flex-row w-full justify-between gap-2">
+          <button
+            onClick={goOrder}
+            className="Btn flex-1 bg-green-600 hover:bg-green-700 text-white font-medium py-2 rounded-md transition transform hover:scale-105"
+          >
+            გადახდა
+            <svg className="svgIcon ml-2" viewBox="0 0 576 512">
+              <path d="..." />
+            </svg>
+          </button>
+
+          <button
+            onClick={() => dispatch(clearCart())}
+            className="flex-1 inline-flex items-center justify-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-md transition transform hover:scale-105"
+          >
+            <svg
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              fill="none"
+              className="h-5 w-5 mr-2"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="..."
+                strokeWidth="2"
+                strokeLinejoin="round"
+                strokeLinecap="round"
+              />
+            </svg>
+            გასუფთავება
+          </button>
+        </div>
+      </Box>
+      {/* )} */}
+    </Box>
+  );
   return (
-    <div className="flex gap-4 pt-1">
-      {/* <Badge content={totalItems} overlap="rectangular">
-        <button
-          onClick={() => dispatch(openCartDrawer())}
-          className="cursor-target "
-        >
-          <IconButton aria-label="cart">
-            <Badge badgeContent={4} color="primary">
-              <FaShoppingCart className="text-white w-8 font-bold  hover:scale-110 transition-transform duration-150 " />
-            </Badge>
-          </IconButton>
-        </button>
-      </Badge>
-      <Drawer
-        isOpen={isOpen}
-        onOpenChange={() => dispatch(closeCartDrawer())}
-        motionProps={{
-          variants: {
-            enter: { opacity: 1, x: 0, duration: 0.3 },
-            exit: { x: 100, opacity: 0, duration: 0.3 },
-          },
-        }}
-        size="lg"
+    <div>
+      <IconButton
+        onClick={toggleDrawer(true)}
+        className="relative text-white"
+        aria-label="cart"
       >
-        <DrawerContent className="bg-orange-500 rounded-sm ">
-          <DrawerHeader className="flex  bg-orange-600 gap-1 text-white pr-10 ">
-            <div className="flex flex-col gap-5">
-              <h1 className="text-3xl">კალათა </h1>
-              <p className="text-medium">თქვენს კალათაში {totalItems} ნივთია</p>
-            </div>
-          </DrawerHeader>
-
-          <DrawerBody>
-            <div className="flex flex-col gap-5">
-              {state.cartItems.map((item) => (
-                <CartCard key={item.id} props={item} />
-              ))}
-            </div>
-          </DrawerBody>
-
-          <DrawerFooter className="flex flex-col gap-3 bg-orange-600 shadow-[0_-32px_20px_rgba(0,0,0,0.1)]">
-            <div className="w-full text-white text-xl font-mono flex justify-between px-2">
-              <span>ჯამი:</span>
-              <span>
-                {state.cartItems
-                  .reduce((acc, item) => acc + item.price * item.quantity, 0)
-                  .toFixed(2)}{" "}
-                ₾
-              </span>
-            </div>
-
-            <div className="flex flex-row w-full justify-between">
-              <button className="Btn" onClick={goOrder}>
-                გადახდა
-                <svg className="svgIcon" viewBox="0 0 576 512">
-                  <path d="..." />
-                </svg>
-              </button>
-              <button
-                onClick={() => dispatch(clearCart())}
-                className="inline-flex items-center px-4 py-2 bg-red-600 transition ease-in-out delay-75 hover:bg-red-700 text-white text-sm font-medium rounded-md hover:-translate-y-1 hover:scale-110"
-              >
-                <svg
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  className="h-5 w-5 mr-2"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="..."
-                    strokeWidth="2"
-                    strokeLinejoin="round"
-                    strokeLinecap="round"
-                  />
-                </svg>
-                გასუფთავება
-              </button>
-            </div>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer> */}
+        <Badge badgeContent={totalItems} color="primary">
+          <div className="cursor-target p-2">
+            <FaShoppingCart className="text-white text-xl  font-bold  hover:scale-110 transition-transform duration-150 " />
+          </div>
+        </Badge>
+      </IconButton>
+      <Drawer anchor="right" open={open} onClose={toggleDrawer(false)}>
+        {DrawerContent}
+      </Drawer>
     </div>
   );
 };
-// {/* <div className="flex gap-4  ">
-//       {/* <Badge content={0} overlap="rectangular">
-//         <button>
-//           <FaShoppingCart className="text-white text-xl font-bold  hover:scale-110 transition-transform duration-150 " />
-//         </button>
-//       </Badge> */}
-{
-  /* <div className="cursor-target ">
-  <IconButton aria-label="cart">
-    <Badge badgeContent={4} color="primary">
-      <FaShoppingCart className="text-white w-8 font-bold  hover:scale-110 transition-transform duration-150 " />
-    </Badge>
-  </IconButton>
-      </div> */
-}
-//     </div> */}

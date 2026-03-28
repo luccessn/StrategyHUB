@@ -122,9 +122,11 @@ export function WorldMapDemo() {
   const [data, error, isLoading] = useFetchData(
     "https://strategyhub.onrender.com/server/gettracks",
   );
+
+  // MST TO ADD ERROR TG ! !
   return (
     <>
-      <div className=" relative -top-10   w-full ">
+      <div className=" relative -top-20   w-full ">
         <WorldMap dots={data} isLoading={isLoading} />
         <div className="top-shadow absolute left-0 top-2 w-full h-[180px] bg-gradient-to-b from-black to-transparent"></div>
 

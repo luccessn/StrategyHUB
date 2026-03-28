@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../../../Context/AppContextProvider";
 import { LogInAction } from "../../../Context/AppActionsCreator";
 import { routes } from "../../../Constants/Routes";
+import { Button } from "../../../Components/UI/About/Stateful-Button";
 export const LogIn = () => {
   const [user, setuser] = useState({
     email: "",
@@ -43,10 +44,15 @@ export const LogIn = () => {
     if (!validateForm()) return;
     authHandler(authActionTypes.login, user)
       .then((response) => {
+        return new Promise((resolve) =>
+          setTimeout(() => resolve(response), 3000),
+        );
+      })
+      .then((response) => {
         console.log(response);
         console.log(response.message);
         if (response.message === "Success") {
-          navigate("/", { state: { success: true } });
+          // navigate("/", { state: { success: true } });
           dispatch(LogInAction(response));
         }
       })
@@ -56,6 +62,7 @@ export const LogIn = () => {
       })
       .finally(() => setisLoading(false));
   };
+
   // const goReg = navigate(routes.SignUp);
   return (
     <div className="shadow-input mx-auto mt-20 w-full max-w-xl p-4 rounded-2xl rounded-br-none rounded-tl-none md:p-8 dark:bg-black">
@@ -106,14 +113,19 @@ export const LogIn = () => {
           )}
         </LabelInputContainer>
 
-        <button
+        {/* <button
           className="group/btn relative block h-10 w-full rounded-md bg-gradient-to-br from-black to-neutral-600 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset]"
           type="submit"
         >
           Log In
           <BottomGradient />
+        </button> */}
+        <button type="submit" className="flex    items-center justify-center">
+          <Button isLoading={isLoading}>
+            Log In
+            <BottomGradient />
+          </Button>
         </button>
-
         <p className="text-white text-center">
           Don't have an account?{" "}
           <button
