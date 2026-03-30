@@ -60,7 +60,13 @@ export const LogIn = () => {
         console.log(err);
         setformErrrors({ general: err || "ERRAR" });
       })
-      .finally(() => setisLoading(false));
+      .finally(() => {
+        setuser({
+          email: "",
+          password: "",
+        });
+        setisLoading(false);
+      });
   };
 
   // const goReg = navigate(routes.SignUp);
