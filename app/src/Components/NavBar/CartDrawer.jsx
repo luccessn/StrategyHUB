@@ -30,6 +30,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import { StarsBackground } from "../UI/Stars-background";
+import StaggeredMenu from "../UI/StraggeredMenu";
 
 //
 //
@@ -50,6 +51,7 @@ import { StarsBackground } from "../UI/Stars-background";
 //     padding: "0 4px",
 //   },
 // }));
+
 export const CartDrawer = () => {
   const { state, dispatch } = useAppContext();
   const goOrder = () => {
@@ -155,3 +157,5 @@ export const CartDrawer = () => {
     </div>
   );
 };
+
+// <FaShoppingCart className="text-white text-xl  font-bold  hover:scale-110 transition-transform duration-150 " />; */

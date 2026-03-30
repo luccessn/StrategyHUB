@@ -3,7 +3,7 @@ import { WorldMap } from "../UI/WorldMap";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useInView } from "framer-motion";
-import { LinkPreview } from "../UI/WorldMap/link-preview";
+// import { LinkPreview } from "../UI/WorldMap/link-preview";
 import { useFetchData } from "../../Hooks/useFetchData";
 import Trackloader from "../Loads/trackloader";
 const demoDots = [
