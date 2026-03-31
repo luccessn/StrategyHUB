@@ -14,6 +14,7 @@ const initials = {
   counter: 1,
   isCartDrawerOpen: false, //
   toast: { visible: false, type: null },
+  cursorBlack: false,
 };
 
 const reducer = (state, action) => {
@@ -50,21 +51,39 @@ const reducer = (state, action) => {
       return { ...state, isAuthenticated: false, user: null, cartItems: [] };
     }
     // Cart -
+    // case AppActions.ADD_TO_CART: {
+    //   const existingIndex = state.cartItems.findIndex(
+    //     (item) => item.id === payload.id,
+    //   );
+    //   let updatedCartItems;
+    //   if (existingIndex !== -1) {
+    //     updatedCartItems = [...state.cartItems];
+    //     updatedCartItems[existingIndex].quantity += payload.quantity;
+    //     return { ...state, cartItems: updatedCartItems };
+    //   } else {
+    //     updatedCartItems = {
+    //       ...state,
+    //       cartItems: [...state.cartItems, payload],
+    //     };
+    //   }
+
+    //   saveUserCart(state.user ? state.user.id : null, updatedCartItems);
+    //   return { ...state, cartItems: updatedCartItems };
+    // }
     case AppActions.ADD_TO_CART: {
+      // const items = Array.isArray(state.cartItems) ? state.cartItems : [];
       const existingIndex = state.cartItems.findIndex(
         (item) => item.id === payload.id,
       );
+
       let updatedCartItems;
       if (existingIndex !== -1) {
         updatedCartItems = [...state.cartItems];
         updatedCartItems[existingIndex].quantity += payload.quantity;
-        return { ...state, cartItems: updatedCartItems };
       } else {
-        updatedCartItems = {
-          ...state,
-          cartItems: [...state.cartItems, payload],
-        };
+        updatedCartItems = [...state.cartItems, payload];
       }
+
       saveUserCart(state.user ? state.user.id : null, updatedCartItems);
       return { ...state, cartItems: updatedCartItems };
     }
@@ -106,6 +125,11 @@ const reducer = (state, action) => {
       return { ...state, isCartDrawerOpen: true };
     case AppActions.CLOSE_CART_DRAWER:
       return { ...state, isCartDrawerOpen: false };
+    // Cursor
+    case AppActions.CURSOR_BLACK_ON:
+      return { ...state, cursorBlack: true };
+    case AppActions.CURSOR_BLACK_OFF:
+      return { ...state, cursorBlack: false };
     default:
       return state;
   }

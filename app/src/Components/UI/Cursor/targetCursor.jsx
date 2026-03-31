@@ -1,5 +1,6 @@
 import { useEffect, useRef, useCallback, useMemo } from "react";
 import { gsap } from "gsap";
+import { useAppContext } from "../../../Context/AppContextProvider";
 
 const TargetCursor = ({
   targetSelector = ".cursor-target",
@@ -8,6 +9,7 @@ const TargetCursor = ({
   hoverDuration = 0.2,
   parallaxOn = true,
 }) => {
+  const { state, dispatch } = useAppContext();
   const cursorRef = useRef(null);
   const cornersRef = useRef(null);
   const spinTl = useRef(null);
@@ -34,7 +36,7 @@ const TargetCursor = ({
       borderWidth: 3,
       cornerSize: 12,
     }),
-    []
+    [],
   );
 
   const moveCursor = useCallback((x, y) => {
@@ -247,7 +249,7 @@ const TargetCursor = ({
                 duration: 0.3,
                 ease: "power3.out",
               },
-              0
+              0,
             );
           });
         }
@@ -255,7 +257,7 @@ const TargetCursor = ({
           if (!activeTarget && cursorRef.current && spinTl.current) {
             const currentRotation = gsap.getProperty(
               cursorRef.current,
-              "rotation"
+              "rotation",
             );
             const normalizedRotation = currentRotation % 360;
             spinTl.current.kill();
@@ -329,7 +331,6 @@ const TargetCursor = ({
   if (isMobile) {
     return null;
   }
-
   return (
     <div
       ref={cursorRef}
@@ -338,23 +339,23 @@ const TargetCursor = ({
     >
       <div
         ref={dotRef}
-        className="absolute top-1/2 left-1/2 w-1 h-1 bg-white rounded-full -translate-x-1/2 -translate-y-1/2"
+        className={`absolute top-1/2 left-1/2 w-1 h-1 ${state.cursorBlack ? "bg-black" : "bg-white"} rounded-full -translate-x-1/2 -translate-y-1/2`}
         style={{ willChange: "transform" }}
       />
       <div
-        className="target-cursor-corner absolute top-1/2 left-1/2 w-3 h-3 border-[3px] border-white -translate-x-[150%] -translate-y-[150%] border-r-0 border-b-0"
+        className={`target-cursor-corner absolute top-1/2 left-1/2 w-3 h-3 border-[3px] ${state.cursorBlack ? "border-black" : "border-white"} -translate-x-[150%] -translate-y-[150%] border-r-0 border-b-0`}
         style={{ willChange: "transform" }}
       />
       <div
-        className="target-cursor-corner absolute top-1/2 left-1/2 w-3 h-3 border-[3px] border-white translate-x-1/2 -translate-y-[150%] border-l-0 border-b-0"
+        className={`target-cursor-corner absolute top-1/2 left-1/2 w-3 h-3 border-[3px] ${state.cursorBlack ? "border-black" : "border-white"} translate-x-1/2 -translate-y-[150%] border-l-0 border-b-0`}
         style={{ willChange: "transform" }}
       />
       <div
-        className="target-cursor-corner absolute top-1/2 left-1/2 w-3 h-3 border-[3px] border-white translate-x-1/2 translate-y-1/2 border-l-0 border-t-0"
+        className={`target-cursor-corner absolute top-1/2 left-1/2 w-3 h-3 border-[3px] ${state.cursorBlack ? "border-black" : "border-white"} translate-x-1/2 translate-y-1/2 border-l-0 border-t-0`}
         style={{ willChange: "transform" }}
       />
       <div
-        className="target-cursor-corner absolute top-1/2 left-1/2 w-3 h-3 border-[3px] border-white -translate-x-[150%] translate-y-1/2 border-r-0 border-t-0"
+        className={`target-cursor-corner absolute top-1/2 left-1/2 w-3 h-3 border-[3px] ${state.cursorBlack ? "border-black" : "border-white"} -translate-x-[150%] translate-y-1/2 border-r-0 border-t-0`}
         style={{ willChange: "transform" }}
       />
     </div>

@@ -36,3 +36,6 @@ export const CounterReset = () => {
 export const toggleCartDrawer = () => ({ type: AppActions.TOGGLE_CART_DRAWER });
 export const openCartDrawer = () => ({ type: AppActions.OPEN_CART_DRAWER });
 export const closeCartDrawer = () => ({ type: AppActions.CLOSE_CART_DRAWER });
+//cursor actions
+export const cursorBlackOn = () => ({ type: AppActions.CURSOR_BLACK_ON });
+export const cursorBlackOff = () => ({ type: AppActions.CURSOR_BLACK_OFF });

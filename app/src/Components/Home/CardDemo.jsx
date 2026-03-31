@@ -75,9 +75,9 @@ export function ExpandableCardDemo() {
             viewport={{ once: false, amount: 0.2 }}
           >
             <div className="max-w-8xl  p-5 mx-auto">
-              <div className="ml-4 z-50  relative top-48 ">
-                {/* <button
-                  class="cursor-pointer cursor-target    duration-200 hover:scale-125 active:scale-100"
+              <div className="ml-4 z-20  relative top-48 ">
+                <button
+                  class="cursor-pointer cursor-target swiper-button-prev-custom    duration-200 hover:scale-125 active:scale-100"
                   title="Go Back"
                 >
                   <svg
@@ -94,8 +94,8 @@ export function ExpandableCardDemo() {
                       d="M11 6L5 12M5 12L11 18M5 12H19"
                     ></path>
                   </svg>
-                </button> */}
-                <button className="group relative   swiper-button-prev-custom cursor-pointer duration-200 hover:scale-125 active:scale-100">
+                </button>
+                {/* <button className="group relative   swiper-button-prev-custom cursor-pointer duration-200   hover:scale-125 active:scale-100">
                   <div className="relative w-[30px] h-[40px] rotate-180">
                     <div className="absolute top-1/2 left-[-5px] w-full h-[4px] bg-white rotate-45 origin-bottom-right transition-colors duration-300 group-hover:bg-red-500">
                       <span className="absolute top-0 left-full w-0 h-full bg-red-500 transition-all duration-150 group-hover:left-0 group-hover:w-full"></span>
@@ -105,7 +105,7 @@ export function ExpandableCardDemo() {
                       <span className="absolute top-0 right-full w-0 h-full bg-red-500 transition-all duration-150 delay-150 group-hover:right-0 group-hover:w-full"></span>
                     </div>
                   </div>
-                </button>
+                </button> */}
               </div>
               {/* Swiper */}
               <div className="">
@@ -142,7 +142,7 @@ export function ExpandableCardDemo() {
                       <motion.div
                         layoutId={`card-${card.name}-${id}`}
                         onClick={() => setActive(card)}
-                        className={`p-4 cursor-target flex flex-col h-[400px] rounded-sm cursor-pointer transition ${
+                        className={`p-4 cursor-target flex flex-col h-[350px]  rounded-sm cursor-pointer transition ${
                           active?.name === card.name ? "" : ""
                         }`}
                       >
@@ -161,12 +161,12 @@ export function ExpandableCardDemo() {
                             >
                               {card.name}
                             </motion.h3>
-                            <motion.p
+                            {/* <motion.p
                               layoutId={`description-${card.description}-${id}`}
                               className="text-neutral-400 text-center text-sm font-satosIT"
                             >
                               {card.descr}
-                            </motion.p>
+                            </motion.p> */}
                           </div>
                         </div>
                       </motion.div>

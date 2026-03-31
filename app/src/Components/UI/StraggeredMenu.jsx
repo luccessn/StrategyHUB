@@ -2,6 +2,13 @@ import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { FaShoppingCart } from "react-icons/fa";
 import { useAppContext } from "../../Context/AppContextProvider";
+import { CartCard } from "../NavBar/CartCard";
+import {
+  clearCart,
+  cursorBlackOff,
+  cursorBlackOn,
+} from "../../Context/AppActionsCreator";
+import { CiTrash } from "react-icons/ci";
 
 export const StaggeredMenu = ({
   position = "right",
@@ -23,6 +30,7 @@ export const StaggeredMenu = ({
 }) => {
   const [open, setOpen] = useState(false);
   const openRef = useRef(false);
+  const { state, dispatch } = useAppContext();
 
   const panelRef = useRef(null);
   const preLayersRef = useRef(null);
@@ -337,8 +345,8 @@ export const StaggeredMenu = ({
       ease: "power4.out",
     });
   }, []);
-
   const toggleMenu = useCallback(() => {
+    // dispatch(cursorBlackOn());
     const target = !openRef.current;
     openRef.current = target;
     setOpen(target);
@@ -395,10 +403,9 @@ export const StaggeredMenu = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [closeOnClickAway, open, closeMenu]);
-  const { state, dispatch } = useAppContext();
   return (
     <div
-      className={`sm-scope  z-40 ${isFixed ? "fixed top-0 left-0 w-screen h-screen overflow-hidden" : "w-full h-full"}`}
+      className={`sm-scope   z-50 ${isFixed ? "fixed top-0 left-0 w-screen h-screen overflow-hidden" : "w-full h-full"}`}
     >
       <div
         className={
@@ -435,7 +442,7 @@ export const StaggeredMenu = ({
         </div>
 
         <header
-          className="staggered-menu-header bg-purple-400  absolute top-0 left-0 w-full flex items-center justify-start gap-4 p-[2em] bg-transparent pointer-events-none z-20"
+          className="staggered-menu-header   absolute top-0 left-0 w-full flex items-center justify-start gap-4 p-[2em] bg-transparent pointer-events-none z-20"
           aria-label="Main navigation header"
         >
           {/* <div
@@ -508,9 +515,11 @@ export const StaggeredMenu = ({
             // transform: open ? "translateX(0)" : "translateX(100%)",
           }}
           aria-hidden={!open}
+          onMouseEnter={() => dispatch(cursorBlackOn())}
+          onMouseLeave={() => dispatch(cursorBlackOff())}
         >
-          <div className="sm-panel-inner flex-1 flex flex-col gap-5">
-            <div className="sm-panel-itemWrap  overflow-hidden relative -top-5 leading-none ">
+          <div className="sm-panel-inner overflow-y-hidden flex-1 flex flex-col gap-5">
+            <div className="sm-panel-itemWrap  overflow-hidden relative -top-2 leading-none ">
               <div
                 className="sm-panel-item  p-2  text-black font-semibold cursor-pointer leading-none tracking-[-2px] uppercase transition-[background,color] duration-150 ease-linear inline-block no-underline pr-[1.4em]"
                 style={{
@@ -522,28 +531,31 @@ export const StaggeredMenu = ({
                 </h1>
               </div>
             </div>
-            <ul
-              className="sm-panel-list list-none m-0 p-0 flex flex-col gap-2"
+            <div
+              className={`sm-panel-list  ${state.cartItems.length > 4 ? "max-h-[650px]" : ""} sm-socials-link  overflow-y-auto  list-none m-0 p-0 flex flex-col gap-2`}
               role="list"
               data-numbering={displayItemNumbering || undefined}
             >
               {state.cartItems && state.cartItems.length ? (
-                state.cartItems.map((it, idx) => (
-                  <li
-                    className="sm-panel-itemWrap relative overflow-hidden leading-none"
-                    key={it.label + idx}
-                  >
-                    <a
-                      className="sm-panel-item relative text-black font-semibold text-[4rem] cursor-pointer leading-none tracking-[-2px] uppercase transition-[background,color] duration-150 ease-linear inline-block no-underline pr-[1.4em]"
-                      href={it.link}
-                      aria-label={it.ariaLabel}
-                      data-index={idx + 1}
-                    >
-                      <span className="sm-panel-itemLabel inline-block [transform-origin:50%_100%] will-change-transform">
-                        {it.label}
-                      </span>
-                    </a>
-                  </li>
+                state.cartItems.map((item) => (
+                  <div className="">
+                    <CartCard props={item} />
+                  </div>
+                  // <li
+                  //   className="sm-panel-itemWrap relative overflow-hidden leading-none"
+                  //   key={it.label + idx}
+                  // >
+                  //   <a
+                  //     className="sm-panel-item relative text-black font-semibold text-[4rem] cursor-pointer leading-none tracking-[-2px] uppercase transition-[background,color] duration-150 ease-linear inline-block no-underline pr-[1.4em]"
+                  //     href={it.link}
+                  //     aria-label={it.ariaLabel}
+                  //     data-index={idx + 1}
+                  //   >
+                  //     <span className="sm-panel-itemLabel inline-block [transform-origin:50%_100%] will-change-transform">
+                  //       {it.label}
+                  //     </span>
+                  //   </a>
+                  // </li>
                 ))
               ) : (
                 <li
@@ -557,37 +569,106 @@ export const StaggeredMenu = ({
                   </span>
                 </li>
               )}
-            </ul>
+            </div>
+            {/* // */}
+            {/* // */}
+            {/* // */}
+            {/* // */}
+            <div className=" h-[100px] relative top-3  flex flex-row gap-10 items-center w-full px-4">
+              <button className="rounded-lg cursor-target bg-purple-800 hover:bg-purple-950 pay-btn text-white text-medium ssm:text-xl flex items-center gap-2 px-4 py-2">
+                <span className="btn-text text-sm hidden ssm:block ssm:text-medium  flex items-center gap-2">
+                  Pay Now
+                </span>
 
-            {displaySocials && socialItems && socialItems.length > 0 && (
-              <div
-                className="sm-socials  w-full pt-8 flex flex-col gap-3"
-                aria-label="Social links"
-              >
-                <div className="bg-red-500">
-                  <h3 className="sm-socials-title m-0 text-base font-medium [color:var(--sm-accent,#ff0000)]">
-                    Socials
-                  </h3>
-                  <ul
-                    className="sm-socials-list  list-none m-0 p-0 flex flex-row items-center gap-4 flex-wrap"
-                    role="list"
+                <div className="icon-container">
+                  <svg viewBox="0 0 24 24" className="icon card-icon">
+                    <path
+                      d="M20,8H4V6H20M20,18H4V12H20M20,4H4C2.89,4 2,4.89 2,6V18C2,19.11 2.89,20 4,20H20C21.11,20 22,19.11 22,18V6C22,4.89 21.11,4 20,4Z"
+                      fill="currentColor"
+                    ></path>
+                  </svg>
+                  <svg viewBox="0 0 24 24" className="icon payment-icon">
+                    <path
+                      d="M2,17H22V21H2V17M6.25,7H9V6H6V3H18V6H15V7H17.75L19,17H5L6.25,7M9,10H15V8H9V10M9,13H15V11H9V13Z"
+                      fill="currentColor"
+                    ></path>
+                  </svg>
+                  <svg viewBox="0 0 24 24" className="icon dollar-icon">
+                    <path
+                      d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"
+                      fill="currentColor"
+                    ></path>
+                  </svg>
+
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="icon wallet-icon default-icon"
                   >
-                    {socialItems.map((s, i) => (
-                      <li key={s.label + i} className="sm-socials-item">
-                        <a
-                          href={s.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="sm-socials-link text-[1.2rem] font-medium text-[#111] no-underline relative inline-block py-[2px] transition-[color,opacity] duration-300 ease-linear"
-                        >
-                          {s.label}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
+                    <path
+                      d="M21,18V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V5A2,2 0 0,1 5,3H19A2,2 0 0,1 21,5V6H12C10.89,6 10,6.9 10,8V16A2,2 0 0,0 12,18M12,16H22V8H12M16,13.5A1.5,1.5 0 0,1 14.5,12A1.5,1.5 0 0,1 16,10.5A1.5,1.5 0 0,1 17.5,12A1.5,1.5 0 0,1 16,13.5Z"
+                      fill="currentColor"
+                    ></path>
+                  </svg>
+
+                  <svg viewBox="0 0 24 24" className="icon check-icon">
+                    <path
+                      d="M9,16.17L4.83,12L3.41,13.41L9,19L21,7L19.59,5.59L9,16.17Z"
+                      fill="currentColor"
+                    ></path>
+                  </svg>
                 </div>
-              </div>
-            )}
+              </button>
+              {/* LEFT - PAY NOW */}
+              {/* <button className="rounded-lg cursor-target bg-rose-800 hover:bg-rose-950 pay-btn text-white text-medium ssm:text-xl flex items-center gap-2 px-4 py-2">
+                <span className="btn-text text-sm hidden ssm:block">
+                  Pay Now
+                </span>
+
+                <div className="icon-container flex items-center">
+                  <svg viewBox="0 0 24 24" className="icon card-icon">
+                    <path
+                      d="M20,8H4V6H20M20,18H4V12H20M20,4H4C2.89,4 2,4.89 2,6V18C2,19.11 2.89,20 4,20H20C21.11,20 22,19.11 22,18V6C22,4.89 21.11,4 20,4Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+
+                  <svg viewBox="0 0 24 24" className="icon payment-icon">
+                    <path
+                      d="M2,17H22V21H2V17M6.25,7H9V6H6V3H18V6H15V7H17.75L19,17H5L6.25,7M9,10H15V8H9V10M9,13H15V11H9V13Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+
+                  <svg viewBox="0 0 24 24" className="icon dollar-icon">
+                    <path
+                      d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"
+                      fill="currentColor"
+                    />
+                  </svg>
+
+                  <svg viewBox="0 0 24 24" className="icon wallet-icon">
+                    <path
+                      d="M21,18V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V5A2,2 0 0,1 5,3H19A2,2 0 0,1 21,5V6H12C10.89,6 10,6.9 10,8V16A2,2 0 0,0 12,18M12,16H22V8H12M16,13.5A1.5,1.5 0 0,1 14.5,12A1.5,1.5 0 0,1 16,10.5A1.5,1.5 0 0,1 17.5,12A1.5,1.5 0 0,1 16,13.5Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+
+                  <svg viewBox="0 0 24 24" className="icon check-icon">
+                    <path
+                      d="M9,16.17L4.83,12L3.41,13.41L9,19L21,7L19.59,5.59L9,16.17Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+              </button> */}
+
+              <button className=" cursor-target  hover:scale-110 duration-300  text-medium ssm:text-xl flex items-center gap-2 px-4 py-2">
+                <CiTrash className="text-2xl text-red-700" />
+                <span className="btn-text text-red-600  text-sm hidden ssm:block">
+                  Clear All
+                </span>
+              </button>
+            </div>
           </div>
         </aside>
       </div>

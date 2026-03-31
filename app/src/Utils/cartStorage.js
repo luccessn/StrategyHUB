@@ -19,7 +19,7 @@ export const loadUserCart = (userId) => {
   const data = localStorage.getItem(key);
   if (!data) return [];
   try {
-    const decoded = fromBase64(JSON.parse(data));
+    const decoded = fromBase64(data);
     return JSON.parse(decoded);
   } catch (err) {
     console.error(err);
