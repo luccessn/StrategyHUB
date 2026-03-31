@@ -89,21 +89,21 @@ const MainDTLCards = ({ data }) => {
     );
 
     if (!variant) return alert("ვარიანტი ვერ მოიძებნა");
-    // const itemToAdd = {
-    //   id: `${data._id}-${selectedSize}-${selectedColor.color_code}`,
-    //   sync_variant_id: variant.sync_variant_id,
-    //   variantId: variant.variant_id,
-    //   printfulProductId: data.printfulProductId,
-    //   name: data.name,
-    //   image: data.images?.img1,
-    //   price: variant.retail_price,
-    //   color: selectedColor.color,
-    //   size: selectedSize,
-    //   quantity: state.counter,
-    //   stock: data.stock,
-    // };
-    // dispatch(addToCart(itemToAdd));
-    // ტოსტერი გამოჩნდეს
+    const itemToAdd = {
+      id: `${data._id}-${selectedSize}-${selectedColor.color_code}`,
+      sync_variant_id: variant.sync_variant_id,
+      variantId: variant.variant_id,
+      printfulProductId: data.printfulProductId,
+      name: data.name,
+      image: data.images?.img1,
+      price: variant.retail_price,
+      color: selectedColor.color,
+      size: selectedSize,
+      quantity: state.counter,
+      stock: data.stock,
+    };
+
+    dispatch(addToCart(itemToAdd));
     setShowToaster(true);
     setTimeout(() => setShowToaster(false), 3000);
   };

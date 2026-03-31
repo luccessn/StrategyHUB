@@ -4,11 +4,14 @@ import { ErrorLoader } from "../../Components/Loads/error/ErrorLoader";
 import { MainGridProduct } from "../../Components/Products/MainGridProduct";
 import { GridPlaceHolder } from "../../Components/Loads/PlaceHolder/GridPlaceHolder";
 import StaggeredMenu from "../../Components/UI/StraggeredMenu";
+import { useAppContext } from "../../Context/AppContextProvider";
 
 export const Products = () => {
   const [data, error, isLoading] = useFetchData(
     "https://strategyhub.onrender.com/server/printful/get",
   );
+  const { state } = useAppContext();
+  console.log(state.cartItems);
   if (error) {
     return <ErrorLoader error={error} />;
   }

@@ -12,7 +12,6 @@ export const ProductsDTL = () => {
   if (error) {
     return <div>Error: {error}</div>;
   }
-  console.log("prID:", prID);
   return (
     <>
       {isLoading ? (

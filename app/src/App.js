@@ -128,7 +128,7 @@ function App() {
                   className=""
                   // onClick={() => navigate(routes.SignUp)}
                 >
-                  <CartDrawer />
+                  {/* <CartDrawer /> */}
                   {/* <FaShoppingCart className="text-white text-xl font-bold " /> */}
                 </NavbarButton>
               </div>
