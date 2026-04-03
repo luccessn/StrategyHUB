@@ -22,7 +22,7 @@ export const car3DConfig = {
     src: mclarenmp427,
     scale: [2.1, 1.9, 1.9],
     position: [0, 1, -1.5],
-    rotation: [0, -2.5, 0], //Math.PI
+    rotation: [0, -2.5, 0],
   },
   "sf-2021": {
     src: fr2021,

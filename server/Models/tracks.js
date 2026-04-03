@@ -13,4 +13,4 @@ const TracksSchema = new mongoose.Schema({
   src: String,
 });
 
-export const TracksModel = dataDb.model("Tracks", TracksSchema);
+export const TracksModel = dataDb.model("tracks", TracksSchema);

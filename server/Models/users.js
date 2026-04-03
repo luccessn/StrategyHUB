@@ -38,4 +38,4 @@ UserSchema.pre("save", async function (next) {
   next();
 });
 
-export const UserModel = userDb.model("User", UserSchema);
+export const UserModel = userDb.model("user", UserSchema);
