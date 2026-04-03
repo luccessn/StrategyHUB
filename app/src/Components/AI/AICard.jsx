@@ -331,7 +331,7 @@ export const AICard = () => {
     setcurrentStep((s) => s + 1);
   };
   //
-  //
+  // ragc testi ragaca commits
   const [openBlocked, setopenBlocked] = useState(false);
   return (
     <motion.div
