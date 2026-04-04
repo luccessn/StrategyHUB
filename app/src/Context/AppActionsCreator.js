@@ -39,3 +39,10 @@ export const closeCartDrawer = () => ({ type: AppActions.CLOSE_CART_DRAWER });
 //cursor actions
 export const cursorBlackOn = () => ({ type: AppActions.CURSOR_BLACK_ON });
 export const cursorBlackOff = () => ({ type: AppActions.CURSOR_BLACK_OFF });
+//free acces
+export const freeAccess = () => {
+  return { type: AppActions.FREE_ACCESS };
+};
+export const clearAccessAction = () => {
+  return { type: AppActions.CLEAR_ACCESS };
+};

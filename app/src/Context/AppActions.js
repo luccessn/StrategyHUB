@@ -20,4 +20,7 @@ export const AppActions = {
   //Cursor On/off
   CURSOR_BLACK_ON: "CURSOR_BLACK_ON",
   CURSOR_BLACK_OFF: "CURSOR_BLACK_OFF",
+  //
+  FREE_ACCESS: "FREE_ACCESS",
+  CLEAR_ACCESS: "CLEAR_ACCESS",
 };

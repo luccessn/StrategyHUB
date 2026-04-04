@@ -25,6 +25,9 @@ import { IoChevronBack } from "react-icons/io5";
 import { useFetchData } from "../../Hooks/useFetchData";
 import { CarsFetch } from "../Home/CarsModels/Constants/CarsFetch";
 import { BackgroundLines } from "../UI/Background-lines";
+import { useAppContext } from "../../Context/AppContextProvider";
+import { freeAccess } from "../../Context/AppActionsCreator";
+import { AccessCountDown } from "./AccessCountDown";
 function Loader() {
   const { progress } = useProgress();
   return (
@@ -127,6 +130,7 @@ function Model({ url, scale, position, rotation }) {
 export const AICard = () => {
   const [data] = useFetchData("http://localhost:5000/server/gettracks");
   const [cardata] = useFetchData("http://localhost:5000/server/getcars");
+  const { state, dispatch } = useAppContext();
   const steps = [
     {
       key: "track",
@@ -195,6 +199,8 @@ export const AICard = () => {
   const handleScroll = useRef(false);
   const [isLoading, setisLoading] = useState(false);
   const [switchs, setswitchs] = useState("chat");
+  const [openBlocked, setopenBlocked] = useState(false);
+  const [requestCount, setrequestCount] = useState(0);
   const [postStrategy, setpostStrategy] = useState({
     trackID: "",
     carID: "",
@@ -320,6 +326,14 @@ export const AICard = () => {
             content: data.explanation,
           },
         ]);
+        setrequestCount((prev) => {
+          const newCount = prev + 1;
+          if (newCount >= 2) {
+            setopenBlocked(true);
+          }
+          return newCount;
+        });
+
         // setShowStrategyResult(true);
       } catch (error) {
         console.log("dadada", error);
@@ -330,9 +344,7 @@ export const AICard = () => {
     }
     setcurrentStep((s) => s + 1);
   };
-  //
-  // ragc testi ragaca commits
-  const [openBlocked, setopenBlocked] = useState(false);
+
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.98 }}
@@ -352,9 +364,45 @@ export const AICard = () => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 40, scale: 0.95 }}
               transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-              className="w-[1200px] h-[950px] bg-white/5 backdrop-blur-xl text-white px-5 py-3 rounded-2xl shadow-2xl border border-white/10 flex flex-col"
+              className="w-[1400px] h-[950px]  bg-white/5 backdrop-blur-xl text-white px-5 py-3 rounded-2xl shadow-2xl border border-white/10 flex flex-col"
             >
-              {openBlocked ? (
+              {/* && switchs === "strategy"  */}
+              {state.freeAccess === false ? (
+                <div className="relative top-2 z-50">
+                  <div className="absolute inset-0 pointer-events-none" />
+                  <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 py-20">
+                    <div className="max-w-4xl text-center">
+                      <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm text-white/70 backdrop-blur-sm">
+                        3-Hour Free Access for All Users →
+                      </div>
+
+                      <h1 className="mb-6 text-3xl font-bold tracking-tight text-white sm:text-6xl md:text-8xl">
+                        Enjoy Full Access for 3 Hours — Free.
+                      </h1>
+
+                      <p className="mx-auto mb-10 max-w-2xl text-base text-white/60 sm:text-xl">
+                        Every guest and registered user gets 3 hours of free
+                        access to explore our strategy generation tools.
+                        Experience personalized strategies, expert-level
+                        insights, and powerful planning features — no commitment
+                        required. Upgrade anytime to continue without limits.
+                      </p>
+
+                      <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+                        <button
+                          onClick={() => dispatch(freeAccess())}
+                          className="group cursor-target relative inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-8 text-base font-medium text-black transition-all hover:bg-white/90 hover:scale-105"
+                        >
+                          Get Free Access
+                        </button>
+                        <button className="inline-flex cursor-target h-12 items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-8 text-base font-medium text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/30">
+                          View Documentation
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : state.freeAccess === "used" && switchs === "strategy" ? (
                 <div className="relative top-2 z-50">
                   <div className="absolute inset-0  pointer-events-none" />
                   <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 py-20">
@@ -389,6 +437,7 @@ export const AICard = () => {
                 </div>
               ) : (
                 <div className="flex-1 flex flex-col gap-8 overflow-y-auto pb-28">
+                  <AccessCountDown />
                   {submittedText.map((data, index) => (
                     <div key={index}>
                       {data.role === "Bot" && (
@@ -405,65 +454,6 @@ export const AICard = () => {
                               typingSpeed={10}
                             />
                           </div>
-                          {/* {showStrategyResult && selectedCar && (
-                        <motion.div
-                          layoutId={`card-${selectedCar.title}`}
-                          key={selectedCar.title}
-                          className="flex h-[400px] w-[550px] flex-col cursor-pointer bg-cover bg-center bg-no-repeat p-0"
-                          style={{
-                            backgroundImage:
-                              "url('https://img.freepik.com/free-photo/glass-background-with-frosted-pattern_53876-139919.jpg?semt=ais_hybrid&w=740&q=80')",
-                          }}
-                        >
-                          <div className="flex flex-col pl-5 gap-2">
-                            <h1 className="font-panchangMD text-2xl tracking-wide">
-                              {selectedCar.title}
-                            </h1>
-                          </div>
-                          <Canvas
-                            key={selectedCar.title}
-                            shadows
-                            dpr={[1, 2]}
-                            gl={{
-                              antialias: true,
-                              physicallyCorrectLights: true,
-                              outputColorSpace: THREE.SRGBColorSpace,
-                              toneMappingExposure: 1,
-                            }}
-                            camera={{ position: [-25, 10, 0], fov: 45 }}
-                          >
-                            <Suspense fallback={<Loader />}>
-                              <Model
-                                url={selectedCar.src}
-                                scale={selectedCar.scale}
-                                position={selectedCar.position}
-                                rotation={selectedCar.rotation}
-                              />
-                              <ambientLight intensity={0.3} />
-                              <directionalLight
-                                castShadow
-                                position={[5, 10, 5]}
-                                intensity={1.2}
-                                shadow-mapSize-width={2048}
-                                shadow-mapSize-height={2048}
-                              />
-                              <spotLight
-                                castShadow
-                                position={[-5, 8, -5]}
-                                intensity={0.8}
-                                angle={0.3}
-                              />
-                              <Environment preset="sunset" background={false} />
-                            </Suspense>
-                            <OrbitControls
-                              target={[0, -0.6, 0]}
-                              enableRotate
-                              enableZoom={false}
-                              enablePan={false}
-                            />
-                          </Canvas>
-                        </motion.div>
-                      )} */}
                         </div>
                       )}
                       {/* USER MESSAGE */}
@@ -501,7 +491,7 @@ export const AICard = () => {
               )}
               {/* INPUT (STICKY BOTTOM) */}
               {/* <div className=" bottom-0 z-50 flex  flex-row justify-center gap-4 ml-40  pt-4"> */}
-              <div className="mt-auto bottom-0  z-50 flex flex-row justify-center gap-4 ml-20 pt-4">
+              <div className="  absolute bottom-10  left-1/2 -translate-x-1/2 z-50 flex flex-row gap-4 pt-4 px-6 py-4 bg-white/10  backdrop-blur-xl border border-white/30 rounded-2xl shadow-xl ">
                 <div>
                   {switchs === "chat" ? (
                     <div className="z-50">
@@ -531,7 +521,7 @@ export const AICard = () => {
                             value={postStrategy[step.key]}
                             onChange={ChangeInput}
                             placeholder="Type here..."
-                            className="w-72 p-4 rounded-2xl rounded-br-none text-lg bg-[#302f2f] text-white"
+                            className="w-72 p-4   text-lg bg-[#302f2f] text-white"
                           />
                         ) : (
                           <select
@@ -543,9 +533,9 @@ export const AICard = () => {
                               )?.id || ""
                             }
                             onChange={ChangeInput}
-                            disabled={openBlocked} // <-- ეს გამორთავს select
-                            className={`w-72 p-4 rounded-2xl text-lg 
-    ${openBlocked ? "bg-gray-600 text-gray-300 cursor-not-allowed" : "bg-[#302f2f] text-white"}
+                            disabled={openBlocked}
+                            className={`w-72 p-4 rounded-tl-2xl cursor-target rounded-br-2xl text-lg 
+    ${openBlocked ? "bg-gray-600 text-gray-300 cursor-not-allowed" : "bg-[#202020] text-white"}
   `}
                           >
                             <option value="">Select an option</option>
@@ -601,7 +591,7 @@ active:border-b-[2px] active:brightness-90 active:translate-y-[2px]   ${currentS
                     />
                     <label
                       htmlFor="cyber-opt-1"
-                      className="cyber-label"
+                      className="cyber-label cursor-target"
                       onClick={() => {
                         setswitchs("chat");
                         setopenBlocked(false);
@@ -624,10 +614,10 @@ active:border-b-[2px] active:brightness-90 active:translate-y-[2px]   ${currentS
                     <input type="radio" id="cyber-opt-2" name="cyber-mode" />
                     <label
                       htmlFor="cyber-opt-2"
-                      className="cyber-label "
+                      className="cyber-label cursor-target "
                       onClick={() => {
                         setswitchs("strategy");
-                        setopenBlocked(true);
+                        // setopenBlocked(true);
                       }}
                     >
                       {/* <svg

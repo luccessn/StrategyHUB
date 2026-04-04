@@ -6,6 +6,7 @@ import {
 } from "../Utils/cartStorage";
 import { toggleLocalStorage } from "../Utils/jwt";
 import { AppActions } from "./AppActions";
+import { freeAccess } from "./AppActionsCreator";
 
 const initials = {
   isAuthenticated: false,
@@ -15,6 +16,8 @@ const initials = {
   isCartDrawerOpen: false, //
   toast: { visible: false, type: null },
   cursorBlack: false,
+  freeAccess: false,
+  freeAccessExpiresAt: null,
 };
 
 const reducer = (state, action) => {
@@ -130,6 +133,18 @@ const reducer = (state, action) => {
       return { ...state, cursorBlack: true };
     case AppActions.CURSOR_BLACK_OFF:
       return { ...state, cursorBlack: false };
+    //Free Access
+    case AppActions.FREE_ACCESS: {
+      const accesDuration = 2 * 60 * 1000;
+      const expiresAt = Date.now() + accesDuration;
+      return {
+        ...state,
+        freeAccess: true,
+        freeAccessExpiresAt: expiresAt,
+      };
+    }
+    case AppActions.CLEAR_ACCESS:
+      return { ...state, freeAccess: "used", freeAccessExpiresAt: null };
     default:
       return state;
   }

@@ -2,7 +2,11 @@ import React, { createContext, useContext, useEffect, useReducer } from "react";
 import { initials, reducer } from "./Reducer";
 import { isTokenValid, toggleLocalStorage } from "../Utils/jwt";
 import { jwtDecode } from "jwt-decode";
-import { authenticatedAction } from "./AppActionsCreator";
+import {
+  authenticatedAction,
+  clearAccess,
+  clearAccessAction,
+} from "./AppActionsCreator";
 // const getInitialState = () => {
 //   const token = localStorage.getItem("StrategyHUBCart");
 //   let cartItems = [];
@@ -38,7 +42,21 @@ export const AppContextProvider = ({ children }) => {
     } else if (token && !isTokenValid(token)) {
       toggleLocalStorage(); // თუ ტოკენი არ ვარგა, წავშალოთ იგი
     }
-  }, []);
+    //
+    //
+    let interval;
+    if (state.freeAccess && state.freeAccessExpiresAt) {
+      interval = setInterval(() => {
+        if (Date.now() >= state.freeAccessExpiresAt) {
+          dispatch(clearAccessAction());
+        }
+      }, 1000);
+    }
+
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [dispatch, state.freeAccess, state.freeAccessExpiresAt]);
 
   return (
     <context.Provider value={{ state, dispatch }}>{children}</context.Provider>
