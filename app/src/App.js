@@ -93,7 +93,7 @@ function App() {
           <Navbar>
             <NavBody>
               <NavbarLogo />
-              <NavItems items={navbarRT} />
+              <NavItems />
               <div className="flex  items-center gap-1">
                 {state.user ? (
                   <NavbarButton

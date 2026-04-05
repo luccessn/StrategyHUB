@@ -1,0 +1,81 @@
+import React from "react";
+
+export const subs = () => {
+  const subsOption = [
+    { name: "Starter", price: "$5", duration: "14 days" },
+    { name: "Standard", price: "$15", duration: "1 Month" },
+    { name: "Premium", price: "$45", duration: "3 Months" },
+    { name: "Enterprise", price: "$180", duration: "1 Year" },
+  ];
+  return (
+    <>
+      <div className="flex flex-row mt-28 mx-auto justify-center gap-10 ">
+        {subsOption.map((option) => (
+          <div className="w-full  max-w-[380px]">
+            <div className="max-w-sm lg:max-w-none mx-auto pt-10 px-5 pb-8 bg-gradient-to-b from-zinc-900 to-zinc-800 border border-zinc-700 rounded-3xl shadow-xl">
+              <div className="text-center mb-6">
+                <h5 className="text-2xl font-semibold text-white mb-3">
+                  {option.name}
+                </h5>
+                <span className="block text-5xl font-bold text-white mb-3">
+                  {option.price}
+                </span>
+                <span className="block text-zinc-400 font-medium mb-6">
+                  {option.duration}
+                </span>
+              </div>
+              <div className="flex flex-col gap-5">
+                <p className="ml-2 font-satosIT  text-zinc-500 ">
+                  Unlimited Access to Chat and Strategy Planning Modules Gain
+                  full, unrestricted access to our chat platform and strategy
+                  planning tools for {option.duration}. Use this time to define,
+                  plan, and develop strategies specifically tailored to achieve
+                  your goals, track your progress, and refine your approach for
+                  maximum results.
+                </p>
+                <ul>
+                  {[
+                    { text: "Unlimited Chat Access", active: true },
+                    { text: "Strategy Planner Access", active: true },
+                    { text: "Enhanced Security", active: true },
+                    { text: "Exclusive Access to Modules", active: true },
+                    { text: "Customization Options", active: true },
+                  ].map((item, i) => (
+                    <li key={i} className="flex mb-4 items-center">
+                      <svg
+                        viewBox="0 0 20 20"
+                        className={`w-6 h-6 ${
+                          item.active ? "text-yellow-400" : "text-zinc-600"
+                        }`}
+                        fill="currentColor"
+                      >
+                        <path d="M7.293 13.293l-3-3a1 1 0 011.414-1.414L8 12.586l8.293-8.293a1 1 0 111.414 1.414l-9 9a1 1 0 01-1.414 0z" />
+                      </svg>
+
+                      <span
+                        className={`ml-2 font-mono ${
+                          item.active
+                            ? "text-zinc-200 "
+                            : "text-zinc-500 line-through"
+                        }`}
+                      >
+                        {item.text}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                <button
+                  href="#"
+                  class="relative cursor-target group inline-block w-full py-4 px-6 text-center text-gray-800  bg-yellow-300 font-semibold rounded-md overflow-hidden transition duration-200"
+                >
+                  <div class="absolute top-0 right-full w-full h-full bg-white transform group-hover:translate-x-full group-hover:scale-102 transition duration-500"></div>
+                  <span class="relative font-panchangSB">Get Started</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+};

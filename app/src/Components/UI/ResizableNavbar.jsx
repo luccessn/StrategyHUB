@@ -8,9 +8,11 @@ import {
   useScroll,
   useMotionValueEvent,
 } from "framer-motion";
-
+import CategoryIcon from "@mui/icons-material/Category";
+import LoyaltyIcon from "@mui/icons-material/Loyalty";
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { routes } from "../../Constants/Routes";
 
 export const Navbar = ({ children, className }) => {
   const ref = useRef(null);
@@ -73,36 +75,77 @@ export const NavBody = ({ children, className, visible }) => {
   );
 };
 
-export const NavItems = ({ items, className, onItemClick }) => {
+export const NavItems = ({ className, onItemClick }) => {
   const [hovered, setHovered] = useState(null);
   const navigate = useNavigate();
-
+  const items = [
+    { name: "Home", path: routes.Home },
+    // { name: "SignUp", path: routes.SignUp },
+    // { name: "LogIn", path: routes.LogIn },
+    {
+      name: "Products",
+      children: [
+        { name: "Merch", path: routes.Products, icon: <CategoryIcon /> },
+        {
+          name: "Subscriptions",
+          path: routes.Subscription,
+          icon: <LoyaltyIcon />,
+        },
+      ],
+    },
+    { name: "About", path: routes.About },
+  ];
   return (
     <motion.div
       onMouseLeave={() => setHovered(null)}
       className={cn(
-        "absolute inset-0 hidden flex-1 flex-row items-center justify-center space-x-1 text-sm font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 lg:flex lg:space-x-1",
+        "absolute inset-0 hidden flex-1 flex-row items-center justify-center space-x-1 text-sm font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 lg:flex",
         className,
       )}
     >
       {items.map((item, idx) => (
-        <button
+        <div
+          key={idx}
+          className="relative"
           onMouseEnter={() => setHovered(idx)}
-          onClick={() => {
-            // onItemClick;
-            navigate(item.path);
-          }}
-          className="relative font-panchangSB  cursor-target px-4 py-2 text-neutral-300"
-          // key={`link-${idx}`}
         >
-          {hovered === idx && (
+          <button
+            onClick={() => {
+              if (!item.children) navigate(item.path);
+            }}
+            className="relative font-panchangSB cursor-target px-4 py-2 text-neutral-300"
+          >
+            {hovered === idx && (
+              <motion.div
+                layoutId="hovered"
+                className="absolute inset-0 h-full w-full rounded-full bg-neutral-800"
+              />
+            )}
+
+            <span className="relative z-20">{item.name}</span>
+          </button>
+          {item.children && hovered === idx && (
             <motion.div
-              layoutId="hovered"
-              className="absolute inset-0 h-full w-full rounded-full bg-neutral-800"
-            />
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              className="absolute left-1/2 top-full z-50 mt-2 w-44 -translate-x-1/2 rounded-xl bg-neutral-900 p-2 shadow-lg"
+            >
+              {item.children.map((child, childIndx) => (
+                <button
+                  key={childIndx}
+                  onClick={() => {
+                    navigate(child.path);
+                  }}
+                  className="block font-satosIT font-bold cursor-target w-full rounded-lg px-3 py-2 text-left text-sm text-zinc-300 hover:bg-neutral-800 hover:text-white"
+                >
+                  <span className="mr-2">{child.icon}</span>
+                  {child.name}
+                </button>
+              ))}
+            </motion.div>
           )}
-          <span className="relative z-20">{item.name}</span>
-        </button>
+        </div>
       ))}
     </motion.div>
   );

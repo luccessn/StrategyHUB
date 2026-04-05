@@ -4,6 +4,7 @@ export const routes = {
   LogIn: "/login",
   About: "/about",
   Products: "/products",
+  Subscription: "/subscription",
   ProductsDTL: "/productsdtl/:prID",
   NotFound: "*",
 };
