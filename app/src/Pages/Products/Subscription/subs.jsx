@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
+import { TestModal } from "./TestModal";
+import { Button } from "../../../Components/UI/About/Stateful-Button";
 
-export const subs = () => {
+export const Subs = () => {
   const subsOption = [
     { name: "Free", price: "$0", duration: "7 days" },
     // { name: "Starter", price: "$5", duration: "14 days" },
@@ -8,6 +10,7 @@ export const subs = () => {
     { name: "Premium", price: "$45", duration: "3 Months" },
     { name: "Enterprise", price: "$180", duration: "1 Year" },
   ];
+  // const [ShowModal, setShowModal] = useState(false);
   return (
     <>
       <div className="flex flex-row mt-28 mx-auto justify-center gap-10 ">
@@ -86,10 +89,7 @@ export const subs = () => {
                     </li>
                   ))}
                 </ul>
-                <button
-                  href="#"
-                  class="relative cursor-target group inline-block w-full py-4 px-6 text-center text-gray-800  bg-yellow-300 font-semibold rounded-md overflow-hidden transition duration-200"
-                >
+                <button class="relative cursor-target group inline-block w-full py-4 px-6 text-center text-gray-800  bg-yellow-300 font-semibold rounded-md overflow-hidden transition duration-200">
                   <div class="absolute top-0 right-full w-full h-full bg-white transform group-hover:translate-x-full group-hover:scale-102 transition duration-500"></div>
                   <span class="relative font-panchangSB">Get Started</span>
                 </button>

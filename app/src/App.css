@@ -7,3 +7,7 @@
 .no-visible-scrollbar::-webkit-scrollbar {
   display: none;
 }
+.rs-modal-content {
+  background-color: rgb(231, 163, 120) !important;
+  color: white;
+}

@@ -6,6 +6,7 @@ import { authHandler } from "../../../Api/ApiAuth";
 import { useNavigate } from "react-router-dom";
 import { authActionTypes } from "../../../Constants/auth/authActions";
 import { routes } from "../../../Constants/Routes";
+import { Button } from "../../../Components/UI/About/Stateful-Button";
 export const SignUp = () => {
   const [user, setuser] = useState({
     firstName: "",
@@ -171,14 +172,19 @@ export const SignUp = () => {
             </p>
           )}
         </LabelInputContainer>
-
-        <button
+        <button type="submit" className="flex    items-center justify-center">
+          <Button isLoading={isLoading}>
+            Sign up
+            <BottomGradient />
+          </Button>
+        </button>
+        {/* <button
           className="group/btn relative block h-10 w-full rounded-md bg-gradient-to-br from-black to-neutral-600 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset]"
           type="submit"
         >
           Sign up &rarr;
           <BottomGradient />
-        </button>
+        </button> */}
         {formErrors.general && (
           <p className="text-red-600 text-sm mt-2 text-center">
             {formErrors.general}
