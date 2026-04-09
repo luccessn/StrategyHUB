@@ -7,17 +7,21 @@ import {
 import { toggleLocalStorage } from "../Utils/jwt";
 import { AppActions } from "./AppActions";
 import { freeAccess } from "./AppActionsCreator";
-
+const saved = loadUserCart(null);
 const initials = {
   isAuthenticated: false,
   user: null,
-  cartItems: loadUserCart(null),
+  cartItems: saved.cartItems || [],
   counter: 1,
   isCartDrawerOpen: false, //
   toast: { visible: false, type: null },
   cursorBlack: false,
-  freeAccess: false,
-  freeAccessExpiresAt: null,
+  subscription: {
+    free: {
+      freeAccess: false,
+      freeAccessExpiresAt: null,
+    },
+  },
 };
 
 const reducer = (state, action) => {
@@ -31,8 +35,9 @@ const reducer = (state, action) => {
       return {
         ...state,
         isAuthenticated: true,
-        user: payload,
-        cartItems: savedCart,
+        user: user,
+        cartItems: savedCart.cartItems,
+        subscription: savedCart.subscription,
       };
     }
     case AppActions.LOG_IN: {
@@ -46,7 +51,8 @@ const reducer = (state, action) => {
         ...state,
         isAuthenticated: true,
         user: user,
-        cartItems: savedCart,
+        cartItems: savedCart.cartItems,
+        subscription: savedCart.subscription,
       };
     }
     case AppActions.LOG_OUT: {
@@ -54,27 +60,7 @@ const reducer = (state, action) => {
       return { ...state, isAuthenticated: false, user: null, cartItems: [] };
     }
     // Cart -
-    // case AppActions.ADD_TO_CART: {
-    //   const existingIndex = state.cartItems.findIndex(
-    //     (item) => item.id === payload.id,
-    //   );
-    //   let updatedCartItems;
-    //   if (existingIndex !== -1) {
-    //     updatedCartItems = [...state.cartItems];
-    //     updatedCartItems[existingIndex].quantity += payload.quantity;
-    //     return { ...state, cartItems: updatedCartItems };
-    //   } else {
-    //     updatedCartItems = {
-    //       ...state,
-    //       cartItems: [...state.cartItems, payload],
-    //     };
-    //   }
-
-    //   saveUserCart(state.user ? state.user.id : null, updatedCartItems);
-    //   return { ...state, cartItems: updatedCartItems };
-    // }
     case AppActions.ADD_TO_CART: {
-      // const items = Array.isArray(state.cartItems) ? state.cartItems : [];
       const existingIndex = state.cartItems.findIndex(
         (item) => item.id === payload.id,
       );
@@ -86,26 +72,41 @@ const reducer = (state, action) => {
       } else {
         updatedCartItems = [...state.cartItems, payload];
       }
-
-      saveUserCart(state.user ? state.user.id : null, updatedCartItems);
+      const newData = {
+        cartItems: updatedCartItems,
+        subscription: state.subscription,
+      };
+      saveUserCart(state.user ? state.user.id : null, newData);
       return { ...state, cartItems: updatedCartItems };
     }
-    case AppActions.REMOVE_FROM_CART:
+    case AppActions.REMOVE_FROM_CART: {
       const updatedCartItems = state.cartItems.filter(
         (item) => item.id !== payload,
       );
-      saveUserCart(state.user ? state.user.id : null, updatedCartItems);
+      const newData = {
+        cartItems: updatedCartItems,
+        subscription: state.subscription,
+      };
+
+      saveUserCart(state.user ? state.user.id : null, newData);
       return {
         ...state,
         cartItems: updatedCartItems,
       };
-    case AppActions.CLEAR_CART:
+    }
+    case AppActions.CLEAR_CART: {
+      const newData = {
+        cartItems: [],
+        subscription: state.subscription,
+      };
       if (state.user) {
         clearUserCart(state.user.id);
       } else {
-        saveUserCart(null, []);
+        saveUserCart(state.user ? state.user.id : null, newData);
       }
       return { ...state, cartItems: [] };
+    }
+
     case AppActions.INCREMENT:
       return { ...state, counter: state.counter + payload };
     case AppActions.DECREMENT:
@@ -135,16 +136,52 @@ const reducer = (state, action) => {
       return { ...state, cursorBlack: false };
     //Free Access
     case AppActions.FREE_ACCESS: {
-      const accesDuration = 2 * 60 * 1000;
+      const accesDuration = 7 * 24 * 60 * 60 * 1000; // 1 week
       const expiresAt = Date.now() + accesDuration;
+
+      const updatedSubscription = {
+        ...state.subscription,
+        free: {
+          ...state.subscription.free,
+          freeAccess: true,
+          freeAccessExpiresAt: expiresAt,
+        },
+      };
+
+      const newData = {
+        cartItems: state.cartItems,
+        subscription: updatedSubscription,
+      };
+
+      saveUserCart(state.user ? state.user.id : null, newData);
+
       return {
         ...state,
-        freeAccess: true,
-        freeAccessExpiresAt: expiresAt,
+        subscription: updatedSubscription,
       };
     }
-    case AppActions.CLEAR_ACCESS:
-      return { ...state, freeAccess: "used", freeAccessExpiresAt: null };
+    case AppActions.CLEAR_ACCESS: {
+      const updatedSubscription = {
+        ...state.subscription,
+        free: {
+          ...state.subscription.free,
+          freeAccess: "used",
+          freeAccessExpiresAt: null,
+        },
+      };
+
+      const newData = {
+        cartItems: state.cartItems,
+        subscription: updatedSubscription,
+      };
+
+      saveUserCart(state.user ? state.user.id : null, newData);
+
+      return {
+        ...state,
+        subscription: updatedSubscription,
+      };
+    }
     default:
       return state;
   }

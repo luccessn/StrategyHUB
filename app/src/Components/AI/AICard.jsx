@@ -367,7 +367,7 @@ export const AICard = () => {
               className="w-[1400px] h-[950px]  bg-white/5 backdrop-blur-xl text-white px-5 py-3 rounded-2xl shadow-2xl border border-white/10 flex flex-col"
             >
               {/* && switchs === "strategy"  */}
-              {state.freeAccess === false ? (
+              {state.subscription.free.freeAccess === false ? (
                 <div className="relative top-2 z-50">
                   <div className="absolute inset-0 pointer-events-none" />
                   <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 py-20">
@@ -402,7 +402,8 @@ export const AICard = () => {
                     </div>
                   </div>
                 </div>
-              ) : state.freeAccess === "used" && switchs === "strategy" ? (
+              ) : state.subscription.free.freeAccess === "used" &&
+                switchs === "strategy" ? (
                 <div className="relative top-2 z-50">
                   <div className="absolute inset-0  pointer-events-none" />
                   <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 py-20">

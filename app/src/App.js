@@ -14,6 +14,7 @@ import {
   MobileNavMenu,
 } from "./Components/UI/ResizableNavbar";
 import { StarsBackground } from "./Components/UI/Stars-background";
+import { motion, AnimatePresence } from "framer-motion";
 // import { AppRouters } from "./AppRouters";
 import TargetCursor from "./Components/UI/Cursor/targetCursor";
 import { AppRoutes } from "./AppRoutes";
@@ -26,7 +27,7 @@ import { CartDrawer } from "./Components/NavBar/CartDrawer";
 import ClickSpark from "./Components/UI/Cursor/ClickSpark";
 import { UserDrawer } from "./Components/NavBar/UserDrawer";
 import StaggeredMenu from "./Components/UI/StraggeredMenu";
-
+import { LuTimerReset } from "react-icons/lu";
 function App() {
   const navbarRT = [
     { name: "Home", path: routes.Home },
@@ -39,6 +40,7 @@ function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
   const { state, dispatch } = useAppContext();
+  console.log(state);
   const menuItems = [
     // { label: "Home", ariaLabel: "Go to home page", link: "/" },
     // { label: "About", ariaLabel: "Learn about us", link: "/about" },
@@ -51,7 +53,7 @@ function App() {
     { label: "GitHub", link: "https://github.com" },
     { label: "LinkedIn", link: "https://linkedin.com" },
   ];
-
+  const [onHovered, setOnHovered] = useState(false);
   return (
     <>
       <div className="relative  w-screen ">
@@ -184,6 +186,33 @@ function App() {
             {/* <AppRouters /> */}
             <AppRoutes />
           </div>
+          {state.subscription.free?.freeAccess &&
+            state.subscription.free?.freeAccessExpiresAt && (
+              <div className="fixed left-4 bottom-4 z-30">
+                <img
+                  onMouseEnter={() => setOnHovered(true)}
+                  onMouseLeave={() => setOnHovered(false)}
+                  src="https://i.postimg.cc/bwv0fsRX/waste.png"
+                  alt=""
+                  className="animate-bounce cursor-target w-14"
+                />
+
+                <AnimatePresence>
+                  {onHovered && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      transition={{ duration: 0.25, ease: "easeInOut" }}
+                      className="absolute bottom-20 left-12 w-44 rounded-2xl rounded-bl-none bg-white/10  backdrop-blur-xl border border-white/30  shadow-xl  p-3 text-white shadow-lg"
+                    >
+                      <h1 className="text-sm font-medium">Subscription</h1>
+                      <p className="text-xs mt-1">daysLeft days remaining</p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            )}
         </ClickSpark>
       </div>
     </>

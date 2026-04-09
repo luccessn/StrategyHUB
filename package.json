@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start-server": "cd server && npm start",
-    "start-app": "cd app && npm start",
+    "start-app": "cd app && yarn start",
     "start": "concurrently \"npm run start-server\" \"npm run start-app\""
   },
   "devDependencies": {

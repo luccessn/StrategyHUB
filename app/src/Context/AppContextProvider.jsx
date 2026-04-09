@@ -7,32 +7,17 @@ import {
   clearAccess,
   clearAccessAction,
 } from "./AppActionsCreator";
-// const getInitialState = () => {
-//   const token = localStorage.getItem("StrategyHUBCart");
-//   let cartItems = [];
-//   if (token) {
-//     try {
-//       const decoded = decodeURIComponent(token); // ვშიფრავთ URL-encoded სტრიქონს
-//       cartItems = JSON.parse(decoded); //  JSON parse
-//     } catch (err) {
-//       // console.error("Failed to decode cart token:", err);
-//     }
-//   }
-//   return {
-//     ...initials,
-//     cartItems,
-//   };
-// };
-const context = createContext();
+import { loadUserCart } from "../Utils/cartStorage";
 
+const context = createContext();
+const savedCart = loadUserCart(null);
 export const AppContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initials);
-  // useEffect(() => {
-  //   try {
-  //     const token = encodeURIComponent(JSON.stringify(state.cartItems));
-  //     localStorage.setItem("StrategyHUBCart", token);
-  //   } catch (err) {}
-  // }, [state.cartItems]);
+  const [state, dispatch] = useReducer(reducer, {
+    ...initials,
+    cartItems: savedCart.cartItems,
+    subscription: savedCart.subscription,
+  });
+
   useEffect(() => {
     const token = localStorage.getItem("accesTokenHUB");
     if (token && isTokenValid(token)) {
@@ -45,9 +30,12 @@ export const AppContextProvider = ({ children }) => {
     //
     //
     let interval;
-    if (state.freeAccess && state.freeAccessExpiresAt) {
+    if (
+      state.subscription.free.freeAccess &&
+      state.subscription.free.freeAccessExpiresAt
+    ) {
       interval = setInterval(() => {
-        if (Date.now() >= state.freeAccessExpiresAt) {
+        if (Date.now() >= state.subscription.free.freeAccessExpiresAt) {
           dispatch(clearAccessAction());
         }
       }, 1000);
@@ -56,7 +44,11 @@ export const AppContextProvider = ({ children }) => {
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [dispatch, state.freeAccess, state.freeAccessExpiresAt]);
+  }, [
+    dispatch,
+    state.subscription.free.freeAccess,
+    state.subscription.free.freeAccessExpiresAt,
+  ]);
 
   return (
     <context.Provider value={{ state, dispatch }}>{children}</context.Provider>
