@@ -1,21 +1,42 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { TestModal } from "./TestModal";
-import { Button } from "../../../Components/UI/About/Stateful-Button";
-
+// import { Button } from "../../../Components/UI/About/Stateful-Button";
+import { useAppContext } from "../../../Context/AppContextProvider";
+import { freeAccess } from "../../../Context/AppActionsCreator";
+import { v4 as uuidv4 } from "uuid";
+import { SubsButton } from "./subsButton";
+//
 export const Subs = () => {
-  const subsOption = [
-    { name: "Free", price: "$0", duration: "7 days" },
-    // { name: "Starter", price: "$5", duration: "14 days" },
-    { name: "Standard", price: "$15", duration: "1 Month" },
-    { name: "Premium", price: "$45", duration: "3 Months" },
-    { name: "Enterprise", price: "$180", duration: "1 Year" },
-  ];
+  const subsOption = useMemo(
+    () => [
+      { id: uuidv4(), name: "Free", price: "$0", duration: "7 days" },
+      { id: uuidv4(), name: "Standard", price: "$15", duration: "1 Month" },
+      { id: uuidv4(), name: "Premium", price: "$45", duration: "3 Months" },
+      { id: uuidv4(), name: "Enterprise", price: "$180", duration: "1 Year" },
+    ],
+    [],
+  );
   // const [ShowModal, setShowModal] = useState(false);
+  const [isLoading, setisLoading] = useState(null);
+  const { state, dispatch } = useAppContext();
+
+  const getSubscription = async (id) => {
+    setisLoading(id);
+
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    if (state.user) {
+      console.log("Subscription successful!");
+    } else {
+      dispatch(freeAccess());
+    }
+
+    setisLoading(null);
+  };
   return (
     <>
       <div className="flex flex-row mt-28 mx-auto justify-center gap-10 ">
         {subsOption.map((option) => (
-          <div className="w-full   max-w-[380px]">
+          <div key={option.id} className="w-full   max-w-[380px]">
             <div className="max-w-sm lg:max-w-none mx-auto pt-10 px-5 pb-8 bg-gradient-to-b  from-zinc-900 to-zinc-800 border border-zinc-700 rounded-3xl shadow-xl">
               <div className="text-center mb-6">
                 <h5 className="text-2xl font-semibold text-white mb-3">
@@ -48,7 +69,6 @@ export const Subs = () => {
                     results.
                   </p>
                 )}
-                {/* // Customization options */}
                 <ul>
                   {[
                     { text: "Unlimited Chat Access", active: true },
@@ -70,7 +90,7 @@ export const Subs = () => {
                       <svg
                         viewBox="0 0 20 20"
                         className={`w-6 h-6 ${
-                          item.active ? "text-yellow-400" : "text-zinc-600"
+                          item.active ? "text-purple-600" : "text-zinc-600"
                         }`}
                         fill="currentColor"
                       >
@@ -89,10 +109,22 @@ export const Subs = () => {
                     </li>
                   ))}
                 </ul>
-                <button class="relative cursor-target group inline-block w-full py-4 px-6 text-center text-gray-800  bg-yellow-300 font-semibold rounded-md overflow-hidden transition duration-200">
-                  <div class="absolute top-0 right-full w-full h-full bg-white transform group-hover:translate-x-full group-hover:scale-102 transition duration-500"></div>
-                  <span class="relative font-panchangSB">Get Started</span>
-                </button>
+                {/* <button
+                  onClick={() => getSubscription(option.id)}
+                  disabled={isLoading === option.id}
+                  className="relative cursor-target group inline-block w-full py-4 px-6 text-center bg-yellow-300 text-gray-800  font-semibold rounded-md overflow-hidden transition duration-200"
+                >
+                  <div className="absolute top-0 right-full w-full h-full bg-white transform group-hover:translate-x-full group-hover:scale-102 transition duration-500"></div>
+                  <span className="relative font-panchangSB">
+                    {isLoading === option.id ? "Processing..." : "Get Started"}
+                  </span>{" "}
+                </button> */}
+                <SubsButton
+                  onClick={() => getSubscription(option.id)}
+                  isLoading={isLoading === option.id}
+                >
+                  Get Started
+                </SubsButton>
               </div>
             </div>
           </div>
