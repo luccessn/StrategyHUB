@@ -46,3 +46,10 @@ export const freeAccess = () => {
 export const clearAccessAction = () => {
   return { type: AppActions.CLEAR_ACCESS };
 };
+//Modal
+export const openModalAction = () => {
+  return { type: AppActions.OPEN_MODAL };
+};
+export const closeModalAction = () => {
+  return { type: AppActions.CLOSE_MODAL };
+};

@@ -14,6 +14,7 @@ import authRoute from "./Routes/auth.js";
 import getTrackRoute from "./Routes/Tracks/getTracks.js";
 import getCarRoute from "./Routes/Cars/getCars.js";
 import printfulAPI from "./Routes/PrintFull/getPrintfull.js";
+import freetrial from "./Routes/subscriptions/freetrial.js";
 //
 // mongoose
 //   .connect(process.env.MONGO_URI, {
@@ -52,6 +53,8 @@ cron.schedule("*/5 * * * *", async () => {
     console.error("სინქრონიზაციის შეცდომა:", error.message);
   }
 });
+//subs
+app.use("/server/subscription", freetrial);
 const PORT = 5000;
 app.listen(PORT, () => {
   console.log(`Server is Working on ${PORT} port`);

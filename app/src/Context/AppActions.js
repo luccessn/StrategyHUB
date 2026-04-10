@@ -23,4 +23,7 @@ export const AppActions = {
   //
   FREE_ACCESS: "FREE_ACCESS",
   CLEAR_ACCESS: "CLEAR_ACCESS",
+  //Modal
+  OPEN_MODAL: "OPEN_MODAL",
+  CLOSE_MODAL: "CLOSE_MODAL",
 };

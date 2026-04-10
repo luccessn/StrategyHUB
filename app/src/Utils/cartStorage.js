@@ -13,22 +13,9 @@ export const saveUserCart = (userId, data) => {
     console.error(err);
   }
 };
-
-// export const loadUserCart = (userId) => {
-//   const key = getCartKey(userId);
-//   const data = localStorage.getItem(key);
-//   if (!data) return [];
-//   try {
-//     const decoded = fromBase64(data);
-//     return JSON.parse(decoded);
-//   } catch (err) {
-//     console.error(err);
-//   }
-// };
 export const loadUserCart = (userId) => {
   const key = getCartKey(userId);
   const data = localStorage.getItem(key);
-
   if (!data) {
     return {
       cartItems: [],
@@ -38,14 +25,12 @@ export const loadUserCart = (userId) => {
           freeAccessExpiresAt: null,
         },
       },
+      token: null,
     };
   }
-
   try {
     const decoded = fromBase64(data);
     const parsed = JSON.parse(decoded);
-
-    // Safety check: object must have cartItems + subscription
     return {
       cartItems: parsed.cartItems || [],
       subscription: parsed.subscription || {
@@ -54,7 +39,6 @@ export const loadUserCart = (userId) => {
     };
   } catch (err) {
     console.error(err);
-
     return {
       cartItems: [],
       subscription: {

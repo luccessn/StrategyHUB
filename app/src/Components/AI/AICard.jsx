@@ -26,8 +26,11 @@ import { useFetchData } from "../../Hooks/useFetchData";
 import { CarsFetch } from "../Home/CarsModels/Constants/CarsFetch";
 import { BackgroundLines } from "../UI/Background-lines";
 import { useAppContext } from "../../Context/AppContextProvider";
-import { freeAccess } from "../../Context/AppActionsCreator";
+import { freeAccess, openModalAction } from "../../Context/AppActionsCreator";
 import { AccessCountDown } from "./AccessCountDown";
+import { MainModal } from "../Mod/MainModal";
+import { useNavigate } from "react-router-dom";
+import { routes } from "../../Constants/Routes";
 function Loader() {
   const { progress } = useProgress();
   return (
@@ -199,8 +202,10 @@ export const AICard = () => {
   const handleScroll = useRef(false);
   const [isLoading, setisLoading] = useState(false);
   const [switchs, setswitchs] = useState("chat");
-  const [openBlocked, setopenBlocked] = useState(false);
-  const [requestCount, setrequestCount] = useState(0);
+  const openBlocked =
+    !state.subscription ||
+    state.subscription.free.freeAccess === "false" ||
+    state.subscription.free.freeAccess === "used";
   const [postStrategy, setpostStrategy] = useState({
     trackID: "",
     carID: "",
@@ -326,14 +331,6 @@ export const AICard = () => {
             content: data.explanation,
           },
         ]);
-        setrequestCount((prev) => {
-          const newCount = prev + 1;
-          if (newCount >= 2) {
-            setopenBlocked(true);
-          }
-          return newCount;
-        });
-
         // setShowStrategyResult(true);
       } catch (error) {
         console.log("dadada", error);
@@ -344,7 +341,12 @@ export const AICard = () => {
     }
     setcurrentStep((s) => s + 1);
   };
+  const navigate = useNavigate();
 
+  // state.user ? state.user.trial.isAcitve === false ||  state.subscription?.free?.freeAccess === "used"
+  const userActive =
+    (state.user && state?.user?.trial?.isActive === false) ||
+    (!state.user && state.subscription?.free?.freeAccess === "used");
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.98 }}
@@ -367,7 +369,12 @@ export const AICard = () => {
               className="w-[1400px] h-[950px]  bg-white/5 backdrop-blur-xl text-white px-5 py-3 rounded-2xl shadow-2xl border border-white/10 flex flex-col"
             >
               {/* && switchs === "strategy"  */}
-              {state.subscription.free.freeAccess === false ? (
+              {/* ((state.user && !state.user?.trial?.isActive === false) ||
+                  (!state.user &&
+                    state.subscription?.free?.freeAccess === "used") */}
+
+              {(state.user && !state.user.trial?.isActive) ||
+              (!state.user && !state.subscription.free?.freeAccess) ? (
                 <div className="relative top-2 z-50">
                   <div className="absolute inset-0 pointer-events-none" />
                   <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 py-20">
@@ -395,15 +402,21 @@ export const AICard = () => {
                         >
                           Get Free Access
                         </button>
-                        <button className="inline-flex cursor-target h-12 items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-8 text-base font-medium text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/30">
+                        <button
+                          onClick={() => dispatch(openModalAction())}
+                          className="inline-flex cursor-target h-12 items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-8 text-base font-medium text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/30"
+                        >
                           View Documentation
                         </button>
                       </div>
                     </div>
                   </div>
+                  <MainModal />
                 </div>
-              ) : state.subscription.free.freeAccess === "used" &&
-                switchs === "strategy" ? (
+              ) : switchs === "strategy" &&
+                ((state.user && state.user.trial?.isUsed) ||
+                  (!state.user &&
+                    state.subscription.free?.freeAccess === "used")) ? (
                 <div className="relative top-2 z-50">
                   <div className="absolute inset-0  pointer-events-none" />
                   <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 py-20">
@@ -425,13 +438,20 @@ export const AICard = () => {
                       </p>
 
                       <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-                        <button className="group cursor-target relative inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-8 text-base font-medium text-black transition-all hover:bg-white/90 hover:scale-105">
+                        <button
+                          onClick={() => navigate(routes.Subscription)}
+                          className="group cursor-target relative inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-8 text-base font-medium text-black transition-all hover:bg-white/90 hover:scale-105"
+                        >
                           Get Subscription
                         </button>
 
-                        <button className="inline-flex cursor-target h-12 items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-8 text-base font-medium text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/30">
+                        <button
+                          onClick={() => dispatch(openModalAction())}
+                          className="inline-flex cursor-target h-12 items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-8 text-base font-medium text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/30"
+                        >
                           View Documentation
                         </button>
+                        <MainModal />
                       </div>
                     </div>
                   </div>
@@ -595,7 +615,6 @@ active:border-b-[2px] active:brightness-90 active:translate-y-[2px]   ${currentS
                       className="cyber-label cursor-target"
                       onClick={() => {
                         setswitchs("chat");
-                        setopenBlocked(false);
                       }}
                     >
                       <CiChat1 />
@@ -618,7 +637,6 @@ active:border-b-[2px] active:brightness-90 active:translate-y-[2px]   ${currentS
                       className="cyber-label cursor-target "
                       onClick={() => {
                         setswitchs("strategy");
-                        // setopenBlocked(true);
                       }}
                     >
                       {/* <svg

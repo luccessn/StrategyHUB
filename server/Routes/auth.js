@@ -2,6 +2,7 @@ import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { UserModel } from "../Models/users.js";
+import authMiddleware from "./authmiddleware.js";
 const router = express.Router();
 
 // import userDb from "../Config/db";
@@ -36,6 +37,8 @@ router.post("/login", async (req, res) => {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
+        // trial: user.trial,
+        // subscription: user.subscription,
       };
 
       const token = jwt.sign(payload, process.env.JWT_SECRET, {
@@ -57,24 +60,61 @@ router.post("/login", async (req, res) => {
 // registration
 
 router.post("/register", async (req, res) => {
-  const { email } = req.body;
-  if (!email) return res.status(400).json({ message: "Please Require Email" });
   try {
+    const { email, password, firstName, lastName } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ message: "Email and password required" });
+    }
+
     const existingUser = await UserModel.findOne({ email });
+
     if (existingUser) {
       return res
         .status(400)
         .json({ message: "User with this email already exists" });
     }
-    const newUser = new UserModel(req.body);
+
+    const newUser = new UserModel({
+      firstName,
+      lastName,
+      email,
+      password,
+
+      trial: {
+        isUsed: false,
+        isActive: false,
+        startedAt: null,
+        expiresAt: null,
+      },
+
+      subscription: {
+        plan: "none",
+        isActive: false,
+        startedAt: null,
+        expiresAt: null,
+      },
+    });
+
     await newUser.save();
+
     res.status(201).json({ message: "User registered successfully" });
   } catch (err) {
     console.error("Registration Error:", err);
-    res
-      .status(500)
-      .json({ message: "Registration failed. Please try again later.", err });
+    res.status(500).json({ message: "Registration failed", err });
   }
 });
-
+//
+// refetch me
+router.get("/refresh", authMiddleware, async (req, res) => {
+  const user = await UserModel.findById(req.user.id);
+  res.json({
+    id: user._id,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    trial: user.trial,
+    subscription: user.subscription,
+  });
+});
 export default router;

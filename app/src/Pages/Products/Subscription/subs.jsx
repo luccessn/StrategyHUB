@@ -2,9 +2,10 @@ import React, { useMemo, useState } from "react";
 import { TestModal } from "./TestModal";
 // import { Button } from "../../../Components/UI/About/Stateful-Button";
 import { useAppContext } from "../../../Context/AppContextProvider";
-import { freeAccess } from "../../../Context/AppActionsCreator";
+import { freeAccess, LogInAction } from "../../../Context/AppActionsCreator";
 import { v4 as uuidv4 } from "uuid";
 import { SubsButton } from "./subsButton";
+import { AppActions } from "../../../Context/AppActions";
 //
 export const Subs = () => {
   const subsOption = useMemo(
@@ -19,19 +20,56 @@ export const Subs = () => {
   // const [ShowModal, setShowModal] = useState(false);
   const [isLoading, setisLoading] = useState(null);
   const { state, dispatch } = useAppContext();
-
+  console.log(state.user);
+  // console.log(state);
+  console.log("TOKEN:", state.token);
   const getSubscription = async (id) => {
     setisLoading(id);
 
     await new Promise((resolve) => setTimeout(resolve, 2000));
     if (state.user) {
       console.log("Subscription successful!");
+      try {
+        setisLoading(id);
+        const res = await fetch(
+          "http://localhost:5000/server/subscription/start-trial",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${state.token}`,
+            },
+            body: JSON.stringify({}),
+          },
+        );
+        const data = await res.json();
+        if (!res.ok) {
+          console.log(data.message);
+          return;
+        }
+        //
+        //
+        const token = localStorage.getItem("accesTokenHUB");
+        const userRef = await fetch("http://localhost:5000/server/refresh", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const freshUser = await userRef.json();
+        dispatch({ type: AppActions.AUTHENTICATED, payload: freshUser });
+        console.log("Trial started:", data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setisLoading(null);
+      }
     } else {
       dispatch(freeAccess());
     }
 
     setisLoading(null);
   };
+
   return (
     <>
       <div className="flex flex-row mt-28 mx-auto justify-center gap-10 ">
@@ -122,6 +160,7 @@ export const Subs = () => {
                 <SubsButton
                   onClick={() => getSubscription(option.id)}
                   isLoading={isLoading === option.id}
+                  planName={option.name}
                 >
                   Get Started
                 </SubsButton>

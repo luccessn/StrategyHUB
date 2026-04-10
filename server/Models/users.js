@@ -5,7 +5,11 @@ import { userDb } from "../Config/db.js";
 export const UserSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
-  email: String,
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
   password: {
     type: String,
     required: true,
@@ -17,17 +21,43 @@ export const UserSchema = new mongoose.Schema({
   // },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
-  // address: [
-  //   {
-  //     firstName: String,
-  //     lastName: String,
-  //     email: String,
-  //     phone: String,
-  //     city: String,
-  //     address: String,
-  //     address2: String,
-  //   },
-  // ],
+  trial: {
+    isUsed: {
+      type: Boolean,
+      default: false,
+    },
+    isActive: {
+      type: Boolean,
+      default: false,
+    },
+    startedAt: {
+      type: Date,
+      default: null,
+    },
+    expiresAt: {
+      type: Date,
+      default: null,
+    },
+  },
+  subscription: {
+    plan: {
+      type: String,
+      enum: ["none", "standard", "premium", "enterprise"],
+      default: "none",
+    },
+    isActive: {
+      type: Boolean,
+      default: false,
+    },
+    startedAt: {
+      type: Date,
+      default: null,
+    },
+    expiresAt: {
+      type: Date,
+      default: null,
+    },
+  },
 });
 
 UserSchema.pre("save", async function (next) {

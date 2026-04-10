@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 
 import {
@@ -28,6 +28,8 @@ import ClickSpark from "./Components/UI/Cursor/ClickSpark";
 import { UserDrawer } from "./Components/NavBar/UserDrawer";
 import StaggeredMenu from "./Components/UI/StraggeredMenu";
 import { LuTimerReset } from "react-icons/lu";
+import { AppActions } from "./Context/AppActions";
+
 function App() {
   const navbarRT = [
     { name: "Home", path: routes.Home },
@@ -36,7 +38,6 @@ function App() {
     { name: "Products", path: routes.Products },
     { name: "About", path: routes.About },
   ];
-
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
   const { state, dispatch } = useAppContext();
@@ -54,6 +55,45 @@ function App() {
     { label: "LinkedIn", link: "https://linkedin.com" },
   ];
   const [onHovered, setOnHovered] = useState(false);
+  //
+
+  const userExpiresAt = state?.user?.trial?.expiresAt;
+  const freeExpiresAt = state?.subscription?.free?.freeAccessExpiresAt;
+
+  const finalExpiresAt = userExpiresAt || freeExpiresAt;
+
+  const expiredTime = new Date(finalExpiresAt);
+  const formattedExpiredDate = expiredTime.toLocaleString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+  const timerRef = useRef(null);
+  // useEffect(() => {
+  //   const expiresAt = state?.user?.trial?.expiresAt;
+  //   if (!expiresAt) return;
+  //   const expireTime = new Date(expiresAt).getTime();
+  //   const afterRefresh = async () => {
+  //     if (Date.now() >= expireTime) {
+  //       try {
+  //         const res = await fetch("http://localhost:5000/server/refresh", {
+  //           headers: {
+  //             Authorization: `Bearer ${state.token}`,
+  //           },
+  //         });
+  //         const freshUser = await res.json();
+  //         if (res.ok) {
+  //           dispatch({ type: AppActions.AUTHENTICATED, payload: freshUser });
+  //         }
+  //       } catch (err) {
+  //         console.error(err);
+  //       }
+  //     }
+  //   };
+  // }, []);
+
   return (
     <>
       <div className="relative  w-screen ">
@@ -186,8 +226,8 @@ function App() {
             {/* <AppRouters /> */}
             <AppRoutes />
           </div>
-          {state.subscription.free?.freeAccess &&
-            state.subscription.free?.freeAccessExpiresAt && (
+          {state.subscription.free?.freeAccess ||
+            (state.user?.trial?.isActive ? (
               <div className="fixed left-4 bottom-4 z-30">
                 <img
                   onMouseEnter={() => setOnHovered(true)}
@@ -204,15 +244,15 @@ function App() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
                       transition={{ duration: 0.25, ease: "easeInOut" }}
-                      className="absolute bottom-20 left-12 w-44 rounded-2xl rounded-bl-none bg-white/10  backdrop-blur-xl border border-white/30  shadow-xl  p-3 text-white shadow-lg"
+                      className="absolute bottom-20 left-12 w-44 rounded-2xl rounded-bl-none bg-white/10 backdrop-blur-xl border border-white/30 shadow-xl p-3 text-white"
                     >
                       <h1 className="text-sm font-medium">Subscription</h1>
-                      <p className="text-xs mt-1">daysLeft days remaining</p>
+                      <p className="text-xs mt-1">{formattedExpiredDate}</p>
                     </motion.div>
                   )}
                 </AnimatePresence>
               </div>
-            )}
+            ) : null)}
         </ClickSpark>
       </div>
     </>

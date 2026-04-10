@@ -7,14 +7,17 @@ import {
 import { toggleLocalStorage } from "../Utils/jwt";
 import { AppActions } from "./AppActions";
 import { freeAccess } from "./AppActionsCreator";
+import { modal } from "@heroui/react";
 const saved = loadUserCart(null);
 const initials = {
   isAuthenticated: false,
   user: null,
+  token: localStorage.getItem("accesTokenHUB") || null,
   cartItems: saved.cartItems || [],
   counter: 1,
   isCartDrawerOpen: false, //
   toast: { visible: false, type: null },
+  modal: { isOpen: false },
   cursorBlack: false,
   subscription: {
     free: {
@@ -35,7 +38,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         isAuthenticated: true,
-        user: user,
+        user,
         cartItems: savedCart.cartItems,
         subscription: savedCart.subscription,
       };
@@ -43,21 +46,27 @@ const reducer = (state, action) => {
     case AppActions.LOG_IN: {
       const { token } = payload;
       const user = jwtDecode(token);
-      console.log("LOG in", user);
 
       toggleLocalStorage(token);
       const savedCart = loadUserCart(user.id);
       return {
         ...state,
         isAuthenticated: true,
-        user: user,
+        user,
+        token,
         cartItems: savedCart.cartItems,
         subscription: savedCart.subscription,
       };
     }
     case AppActions.LOG_OUT: {
       toggleLocalStorage();
-      return { ...state, isAuthenticated: false, user: null, cartItems: [] };
+      return {
+        ...state,
+        isAuthenticated: false,
+        user: null,
+        token: null,
+        cartItems: [],
+      };
     }
     // Cart -
     case AppActions.ADD_TO_CART: {
@@ -136,7 +145,8 @@ const reducer = (state, action) => {
       return { ...state, cursorBlack: false };
     //Free Access
     case AppActions.FREE_ACCESS: {
-      const accesDuration = 7 * 24 * 60 * 60 * 1000; // 1 week
+      // const accesDuration = 7 * 24 * 60 * 60 * 1000; // 1 week
+      const accesDuration = 1 * 60 * 1000;
       const expiresAt = Date.now() + accesDuration;
 
       const updatedSubscription = {
@@ -182,6 +192,11 @@ const reducer = (state, action) => {
         subscription: updatedSubscription,
       };
     }
+    //Modal
+    case AppActions.OPEN_MODAL:
+      return { ...state, modal: { isOpen: true } };
+    case AppActions.CLOSE_MODAL:
+      return { ...state, modal: { isOpen: false } };
     default:
       return state;
   }

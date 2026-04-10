@@ -60,7 +60,7 @@ export const SignUp = () => {
         navigate(routes.LogIn);
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.message);
 
         setformErrors({
           general: error.message || "Somethins is wrong , please try again",

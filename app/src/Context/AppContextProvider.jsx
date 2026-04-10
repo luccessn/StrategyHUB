@@ -17,38 +17,58 @@ export const AppContextProvider = ({ children }) => {
     cartItems: savedCart.cartItems,
     subscription: savedCart.subscription,
   });
-
   useEffect(() => {
     const token = localStorage.getItem("accesTokenHUB");
-    if (token && isTokenValid(token)) {
-      const decoded = jwtDecode(token); // ტოკენის დეცოდირება
-      // console.log("Decoded Token:", decoded);
-      dispatch(authenticatedAction(decoded)); // ტოკენიდან გამოვყავით user-ი და გავგზავნეთ დისპეჩერში
-    } else if (token && !isTokenValid(token)) {
-      toggleLocalStorage(); // თუ ტოკენი არ ვარგა, წავშალოთ იგი
-    }
-    //
-    //
-    let interval;
-    if (
-      state.subscription.free.freeAccess &&
-      state.subscription.free.freeAccessExpiresAt
-    ) {
-      interval = setInterval(() => {
-        if (Date.now() >= state.subscription.free.freeAccessExpiresAt) {
-          dispatch(clearAccessAction());
-        }
-      }, 1000);
-    }
 
-    return () => {
-      if (interval) clearInterval(interval);
-    };
-  }, [
-    dispatch,
-    state.subscription.free.freeAccess,
-    state.subscription.free.freeAccessExpiresAt,
-  ]);
+    if (token && isTokenValid(token)) {
+      const decoded = jwtDecode(token);
+      dispatch(authenticatedAction({ user: decoded, token }));
+    } else {
+      toggleLocalStorage();
+    }
+  }, []);
+  useEffect(() => {
+    if (!state.subscription.free.freeAccessExpiresAt) return;
+
+    const interval = setInterval(() => {
+      if (Date.now() >= state.subscription.free.freeAccessExpiresAt) {
+        dispatch(clearAccessAction());
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [state.subscription.free.freeAccessExpiresAt]);
+  // useEffect(() => {
+  //   const token = localStorage.getItem("accesTokenHUB");
+  //   if (token && isTokenValid(token)) {
+  //     const decoded = jwtDecode(token); // ტოკენის დეცოდირება
+  //     // console.log("Decoded Token:", decoded);
+  //     dispatch(authenticatedAction(decoded)); // ტოკენიდან გამოვყავით user-ი და გავგზავნეთ დისპეჩერში
+  //   } else if (token && !isTokenValid(token)) {
+  //     toggleLocalStorage(); // თუ ტოკენი არ ვარგა, წავშალოთ იგი
+  //   }
+  //   //
+  //   //
+  //   let interval;
+  //   if (
+  //     state.subscription.free.freeAccess &&
+  //     state.subscription.free.freeAccessExpiresAt
+  //   ) {
+  //     interval = setInterval(() => {
+  //       if (Date.now() >= state.subscription.free.freeAccessExpiresAt) {
+  //         dispatch(clearAccessAction());
+  //       }
+  //     }, 1000);
+  //   }
+
+  //   return () => {
+  //     if (interval) clearInterval(interval);
+  //   };
+  // }, [
+  //   dispatch,
+  //   state.subscription.free.freeAccess,
+  //   state.subscription.free.freeAccessExpiresAt,
+  // ]);
 
   return (
     <context.Provider value={{ state, dispatch }}>{children}</context.Provider>
