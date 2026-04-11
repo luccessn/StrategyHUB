@@ -45,7 +45,7 @@ const techLogos = [
 
 export const Home = () => {
   const { state } = useAppContext();
-
+  console.log(state);
   return (
     <div className=" flex flex-col gap-20 text-white text-3xl">
       <WorldMapDemo />
@@ -65,10 +65,10 @@ export const Home = () => {
       </div> */}
       <div className="flex flex-col ">
         <motion.div
-          initial={{ opacity: 0.2, scale: 0.95 }}
+          initial={{ opacity: 0.1, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3, ease: "linear" }}
-          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.5, ease: "linear" }}
+          viewport={{ once: false, amount: 0.4 }}
         >
           <div
             style={{
@@ -106,10 +106,10 @@ export const Home = () => {
           style={{ height: "200px", position: "relative", overflow: "hidden" }}
         >
           <motion.div
-            initial={{ opacity: 0.2, scale: 0.95 }}
+            initial={{ opacity: 0.1, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3, ease: "linear" }}
-            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.45, ease: "linear" }}
+            viewport={{ once: false, amount: 0.4 }}
           >
             {/* Basic horizontal loop */}
             <LogoLoop

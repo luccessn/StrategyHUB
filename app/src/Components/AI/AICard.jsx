@@ -374,7 +374,7 @@ export const AICard = () => {
                     state.subscription?.free?.freeAccess === "used") */}
 
               {(state.user && !state.user.trial?.isActive) ||
-              (!state.user && !state.subscription.free?.freeAccess) ? (
+              (!state.user && !state.subscription.free?.isUsed) ? (
                 <div className="relative top-2 z-50">
                   <div className="absolute inset-0 pointer-events-none" />
                   <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 py-20">
@@ -415,8 +415,7 @@ export const AICard = () => {
                 </div>
               ) : switchs === "strategy" &&
                 ((state.user && state.user.trial?.isUsed) ||
-                  (!state.user &&
-                    state.subscription.free?.freeAccess === "used")) ? (
+                  (!state.user && state.subscription.free.isUsed)) ? (
                 <div className="relative top-2 z-50">
                   <div className="absolute inset-0  pointer-events-none" />
                   <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 py-20">

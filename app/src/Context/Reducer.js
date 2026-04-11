@@ -22,6 +22,7 @@ const initials = {
   subscription: {
     free: {
       freeAccess: false,
+      isUsed: false,
       freeAccessExpiresAt: null,
     },
   },
@@ -34,11 +35,11 @@ const reducer = (state, action) => {
     case AppActions.AUTHENTICATED: {
       const user = payload;
       const savedCart = loadUserCart(user.id);
-      console.log("Authenticated Payload:", payload); // ნახე, რას იღებ
+
       return {
         ...state,
         isAuthenticated: true,
-        user,
+        user: payload,
         cartItems: savedCart.cartItems,
         subscription: savedCart.subscription,
       };
@@ -52,7 +53,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         isAuthenticated: true,
-        user,
+        user: user,
         token,
         cartItems: savedCart.cartItems,
         subscription: savedCart.subscription,
@@ -60,12 +61,14 @@ const reducer = (state, action) => {
     }
     case AppActions.LOG_OUT: {
       toggleLocalStorage();
+      const guestCart = loadUserCart(null);
       return {
         ...state,
         isAuthenticated: false,
         user: null,
         token: null,
-        cartItems: [],
+        cartItems: guestCart.cartItems,
+        subscription: guestCart.subscription,
       };
     }
     // Cart -
@@ -154,6 +157,7 @@ const reducer = (state, action) => {
         free: {
           ...state.subscription.free,
           freeAccess: true,
+          isUsed: true,
           freeAccessExpiresAt: expiresAt,
         },
       };
@@ -175,7 +179,8 @@ const reducer = (state, action) => {
         ...state.subscription,
         free: {
           ...state.subscription.free,
-          freeAccess: "used",
+          freeAccess: false,
+          isUsed: true,
           freeAccessExpiresAt: null,
         },
       };

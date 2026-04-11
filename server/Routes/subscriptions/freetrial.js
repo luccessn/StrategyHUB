@@ -14,8 +14,8 @@ export const checkTrialExpiration = async (req, res, next) => {
     const now = new Date();
 
     if (user.trial.isActive && user.trial.expiresAt < now) {
-      user.trial.isActive = false;
       user.trial.isUsed = true;
+      user.trial.isActive = false;
       await user.save();
     }
 
@@ -39,7 +39,7 @@ router.post(
       } else if (user.trial.isUsed) {
         return res.status(400).json({ message: "Trial Already Used" });
       }
-
+      user.trial.isUsed = true;
       user.trial.isActive = true;
       user.trial.startedAt = new Date();
       // user.trial.expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);

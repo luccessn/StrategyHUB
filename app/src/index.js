@@ -4,12 +4,14 @@ import "./index.css";
 import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AppContextProvider } from "./Context/AppContextProvider";
-
+import { ReactLenis } from "lenis/react";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <AppContextProvider>
-    <Router>
-      <App />
-    </Router>
+    <ReactLenis root>
+      <Router>
+        <App />
+      </Router>
+    </ReactLenis>
   </AppContextProvider>,
 );

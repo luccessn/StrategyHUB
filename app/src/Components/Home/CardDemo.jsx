@@ -37,8 +37,8 @@ export function ExpandableCardDemo() {
         <motion.div
           initial={{ opacity: 0, scale: 0.98 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.4, ease: "linear" }}
-          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: "linear" }}
+          viewport={{ once: true, amount: 0.4 }}
         >
           <div>
             <Trackloader />
@@ -69,10 +69,10 @@ export function ExpandableCardDemo() {
       ) : (
         <div>
           <motion.div
-            initial={{ opacity: 0.2, scale: 0.98 }}
+            initial={{ opacity: 0.1, scale: 0.98 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.35, ease: "linear" }}
-            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.55, ease: "linear" }}
+            viewport={{ once: false, amount: 0.5 }}
           >
             <div className="max-w-8xl  p-5 mx-auto">
               <div className="ml-4 z-20  relative top-48 ">

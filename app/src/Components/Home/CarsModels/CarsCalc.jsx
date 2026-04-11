@@ -193,8 +193,8 @@ export const CarsCalc = () => {
         <motion.div
           initial={{ opacity: 0, scale: 1 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.4, ease: "linear" }}
-          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: "linear" }}
+          viewport={{ once: false, amount: 0.4 }}
         >
           <div className="w-full flex flex-col items-center my-6 ">
             <div className="relative inline-block group">
@@ -338,10 +338,11 @@ export const CarsCalc = () => {
         <motion.div
           initial={{ opacity: 0.2, scale: 0.98 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.35, ease: "linear" }}
-          viewport={{ once: false, amount: 0.13 }}
+          transition={{ duration: 0.55, ease: "linear" }}
+          viewport={{ once: false, amount: 0.3 }}
         >
-          <div className="flex flex-row gap-5 bg-black w-4/4  mx-auto p-5 rounded-sm h-[800px] ">
+          {/* w-4/4  */}
+          <div className="flex flex-row gap-5 bg-white/0 border-2 border-white/15 backdrop-blur-xl w-[1800px] mx-auto p-5 rounded-sm h-[800px] ">
             <div className="">
               {data.map((card) => (
                 <motion.div

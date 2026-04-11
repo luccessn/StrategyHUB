@@ -1,4 +1,6 @@
 "use client";
+import { ReactLenis } from "lenis/dist/lenis-react";
+
 import { useEffect, useRef, useState } from "react";
 import "./App.css";
 
@@ -93,62 +95,73 @@ function App() {
   //     }
   //   };
   // }, []);
+  const userTarget = state?.user?.trial?.expiresAt;
+  const gsTarget = state.subscription.free.freeAccessExpiresAt;
+  const target = userTarget || gsTarget;
 
   return (
     <>
       <div className="relative  w-screen ">
-        <ClickSpark
-          sparkColor="#fff"
-          sparkSize={10}
-          sparkRadius={15}
-          sparkCount={8}
-          duration={400}
+        <ReactLenis
+          root
+          options={{
+            lerp: 0.03,
+            infinite: false,
+            syncTouch: false,
+          }}
         >
-          <div className="fixed inset-0 -z-10 w-screen h-screen overflow-hidden">
-            <StarsBackground />
-          </div>
-          <TargetCursor
-            spinDuration={2}
-            hideDefaultCursor={true}
-            parallaxOn={true}
-          />
-          <div
-            style={{ height: "100vh" }}
-            className="verflow-hidden h-screen bg-red-500   fixed z-50"
+          <ClickSpark
+            sparkColor="#fff"
+            sparkSize={10}
+            sparkRadius={15}
+            sparkCount={8}
+            duration={400}
           >
-            <StaggeredMenu
-              position="left"
-              items={menuItems}
-              socialItems={socialItems}
-              displaySocials
-              displayItemNumbering={true}
-              menuButtonColor="#ffffff"
-              openMenuButtonColor="#5227FF"
-              changeMenuColorOnOpen={true}
-              colors={["#B19EEF", "#5227FF"]}
-              logoUrl="/path-to-your-logo.svg"
-              accentColor="#5227FF"
-              // onMenuOpen={() => console.log("Menu opened")}
-              // onMenuClose={() => console.log("Menu closed")}
+            <div className="fixed inset-0 -z-10 w-screen h-screen overflow-hidden">
+              <StarsBackground />
+            </div>
+            <TargetCursor
+              spinDuration={2}
+              hideDefaultCursor={true}
+              parallaxOn={true}
             />
-          </div>
-          <Navbar>
-            <NavBody>
-              <NavbarLogo />
-              <NavItems />
-              <div className="flex  items-center gap-1">
-                {state.user ? (
-                  <NavbarButton
-                    variant="secondary"
-                    className=""
-                    // onClick={() => navigate(routes.SignUp)}
-                  >
-                    {/* <FaRegUser className="text-white text-xl font-bold " /> */}
-                    <UserDrawer />
-                  </NavbarButton>
-                ) : (
-                  <>
-                    {/* <NavbarButton
+            <div
+              style={{ height: "100vh" }}
+              className="verflow-hidden h-screen bg-red-500   fixed z-50"
+            >
+              <StaggeredMenu
+                position="left"
+                items={menuItems}
+                socialItems={socialItems}
+                displaySocials
+                displayItemNumbering={true}
+                menuButtonColor="#ffffff"
+                openMenuButtonColor="#5227FF"
+                changeMenuColorOnOpen={true}
+                colors={["#B19EEF", "#5227FF"]}
+                logoUrl="/path-to-your-logo.svg"
+                accentColor="#5227FF"
+                // onMenuOpen={() => console.log("Menu opened")}
+                // onMenuClose={() => console.log("Menu closed")}
+              />
+            </div>
+            <Navbar>
+              <NavBody>
+                <NavbarLogo />
+                <NavItems />
+                <div className="flex  items-center gap-1">
+                  {state.user ? (
+                    <NavbarButton
+                      variant="secondary"
+                      className=""
+                      // onClick={() => navigate(routes.SignUp)}
+                    >
+                      {/* <FaRegUser className="text-white text-xl font-bold " /> */}
+                      <UserDrawer />
+                    </NavbarButton>
+                  ) : (
+                    <>
+                      {/* <NavbarButton
                     variant="secondary"
                     className="cursor-target"
                     onClick={() => navigate(routes.SignUp)}
@@ -156,78 +169,77 @@ function App() {
                     SignUp
                   </NavbarButton> */}
 
-                    <NavbarButton
-                      className="cursor-target"
-                      onClick={() => navigate(routes.LogIn)}
-                      variant="primary"
-                    >
-                      Log In
-                    </NavbarButton>
-                  </>
-                )}
-                <NavbarButton
-                  variant="secondary"
-                  className=""
-                  // onClick={() => navigate(routes.SignUp)}
-                >
-                  {/* <CartDrawer /> */}
-                  {/* <FaShoppingCart className="text-white text-xl font-bold " /> */}
-                </NavbarButton>
-              </div>
-            </NavBody>
-
-            {/* Mobile Navigation */}
-            <MobileNav>
-              <MobileNavHeader>
-                <NavbarLogo />
-                <MobileNavToggle
-                  isOpen={isMobileMenuOpen}
-                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                />
-              </MobileNavHeader>
-
-              <MobileNavMenu
-                isOpen={isMobileMenuOpen}
-                onClose={() => setIsMobileMenuOpen(false)}
-              >
-                {navbarRT.map((item, idx) => (
-                  <button
-                    onClick={() => {
-                      setIsMobileMenuOpen(false);
-                      navigate(item.path);
-                    }}
-                    className="relative cursor-target text-neutral-300"
-                  >
-                    <span className="block">{item.name} </span>
-                  </button>
-                ))}
-                <div className="flex w-full flex-col gap-4">
+                      <NavbarButton
+                        className="cursor-target"
+                        onClick={() => navigate(routes.LogIn)}
+                        variant="primary"
+                      >
+                        Log In
+                      </NavbarButton>
+                    </>
+                  )}
                   <NavbarButton
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    variant="primary"
-                    className="w-full"
+                    variant="secondary"
+                    className=""
+                    // onClick={() => navigate(routes.SignUp)}
                   >
-                    Login
-                  </NavbarButton>
-                  <NavbarButton
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    variant="primary"
-                    className="w-full"
-                  >
-                    Book a call
+                    {/* <CartDrawer /> */}
+                    {/* <FaShoppingCart className="text-white text-xl font-bold " /> */}
                   </NavbarButton>
                 </div>
-              </MobileNavMenu>
-            </MobileNav>
-          </Navbar>
+              </NavBody>
 
-          {/* Main App Content */}
-          <div className="">
-            {/* <AppRouters /> */}
-            <AppRoutes />
-          </div>
-          {state.subscription.free?.freeAccess ||
-            (state.user?.trial?.isActive ? (
+              {/* Mobile Navigation */}
+              <MobileNav>
+                <MobileNavHeader>
+                  <NavbarLogo />
+                  <MobileNavToggle
+                    isOpen={isMobileMenuOpen}
+                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  />
+                </MobileNavHeader>
+
+                <MobileNavMenu
+                  isOpen={isMobileMenuOpen}
+                  onClose={() => setIsMobileMenuOpen(false)}
+                >
+                  {navbarRT.map((item, idx) => (
+                    <button
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        navigate(item.path);
+                      }}
+                      className="relative cursor-target text-neutral-300"
+                    >
+                      <span className="block">{item.name} </span>
+                    </button>
+                  ))}
+                  <div className="flex w-full flex-col gap-4">
+                    <NavbarButton
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      variant="primary"
+                      className="w-full"
+                    >
+                      Login
+                    </NavbarButton>
+                    <NavbarButton
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      variant="primary"
+                      className="w-full"
+                    >
+                      Book a call
+                    </NavbarButton>
+                  </div>
+                </MobileNavMenu>
+              </MobileNav>
+            </Navbar>
+
+            {/* Main App Content */}
+            <div className="">
+              {/* <AppRouters /> */}
+              <AppRoutes />
+            </div>
+            {target && (
               <div className="fixed left-4 bottom-4 z-30">
                 <img
                   onMouseEnter={() => setOnHovered(true)}
@@ -252,8 +264,9 @@ function App() {
                   )}
                 </AnimatePresence>
               </div>
-            ) : null)}
-        </ClickSpark>
+            )}
+          </ClickSpark>
+        </ReactLenis>
       </div>
     </>
   );

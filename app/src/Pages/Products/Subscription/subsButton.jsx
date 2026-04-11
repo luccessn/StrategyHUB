@@ -36,8 +36,8 @@ export const SubsButton = ({
   }, [isLoading, animate]);
   const isDisabled =
     planName === "Free" &&
-    ((state.user && state.user.trial?.isActive) ||
-      (!state.user && state.subscription.free.freeAccess === "used"));
+    ((state.user && state?.user?.trial?.isUsed) ||
+      (!state.user && state.subscription.free.isUsed));
 
   return (
     <motion.button

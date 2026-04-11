@@ -121,8 +121,8 @@ export const TyresModels = () => {
     <motion.div
       initial={{ opacity: 0, scale: 0.98 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.4, ease: "linear" }}
-      viewport={{ once: false, amount: 0.12 }}
+      transition={{ duration: 0.6, ease: "linear" }}
+      viewport={{ once: false, amount: 0.14 }}
     >
       <div className="w-full h-full ">
         <div className="w-full relative right-4    mx-auto justify-center items-center ">
