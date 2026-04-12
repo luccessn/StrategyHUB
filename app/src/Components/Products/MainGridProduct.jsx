@@ -65,7 +65,7 @@ export const MainGridProduct = ({ props }) => {
 
                   <div className="flex justify-center font-satosIT text-base items-center gap-10">
                     <span className="text-green-400 font-bold  sfm:text-medium  smm:text-lg">
-                      {props.price ? props.price : props.maxPrice} $
+                      {props.ourprice} $
                     </span>
                     <span className="text-purple-400  sfm:text-medium smm:text-lg font-mono">
                       Stock: {props.stock}

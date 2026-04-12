@@ -66,6 +66,7 @@ const TextType = ({
 
     return () => clearTimeout(timeout);
   }, [currentCharIndex, finalText, typingSpeed, initialDelay, isVisible]);
+  const [expanded, setExpanded] = useState(false);
 
   return createElement(
     Component,
@@ -76,9 +77,20 @@ const TextType = ({
       ...props,
     },
     <>
-      <div style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>
+      <div
+        className={` overflow-hidden lg:overflow-visible transition-all duration-300 
+            ${expanded ? "max-h-[450px] overflow-y-auto" : "max-h-[310px] overflow-hidden"} lg:max-h-none lg:overflow-visible
+          `}
+        style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}
+      >
         {displayedText}
       </div>
+      <button
+        onClick={() => setExpanded((prev) => !prev)}
+        className="mt-3 cursor-target text-blue-500 lg:hidden"
+      >
+        {expanded ? "Show less" : "Show more"}
+      </button>
       {/* {showCursor && (
         <span ref={cursorRef} className={`ml-1 ${cursorClassName}`}>
           {cursorCharacter}

@@ -22,6 +22,7 @@ import SuccessToaster from "../Loads/Toaster/SuccessToaster";
 import { useNavigate } from "react-router-dom";
 import { ErrorLoader } from "../Loads/error/ErrorLoader";
 import { useAppContext } from "../../Context/AppContextProvider";
+import { routes } from "../../Constants/Routes";
 // import { routes } from "../../Constants/ConstRouts/routes";
 const MainDTLCards = ({ data }) => {
   const [imgsChange, setImgsChange] = useState(null);
@@ -96,7 +97,7 @@ const MainDTLCards = ({ data }) => {
       printfulProductId: data.printfulProductId,
       name: data.name,
       image: data.images?.img1,
-      price: variant.retail_price,
+      price: data.ourprice,
       color: selectedColor.color,
       size: selectedSize,
       quantity: state.counter,
@@ -257,9 +258,7 @@ const MainDTLCards = ({ data }) => {
 
                 <div className="flex flex-row gap-4 items-center">
                   <h1 className="text-2xl ssm:text-3xl font-semibold text-green-500">
-                    {selectedSize
-                      ? `${getPriceBySize(selectedSize)} $`
-                      : `${data.price} $`}
+                    {data.ourprice}$
                   </h1>
                   {/* {data.orgprice && (
                   <h1 className="text-2xl line-through font-bold text-red-600">
@@ -400,7 +399,7 @@ const MainDTLCards = ({ data }) => {
                             if (Number(data.stock) === 0) return;
 
                             AddToCart();
-                            // navigate(routes.checkout);
+                            navigate(routes.CheckOut);
                           }}
                           disabled={Number(data.stock) === 0}
                           className={` rounded-lg cursor-target  text-white text-medium ssm:text-xl  ${
@@ -414,14 +413,13 @@ const MainDTLCards = ({ data }) => {
                               "Sold Out"
                             ) : (
                               <>
-                                Pay Now ({" "}
-                                {selectedSize
+                                Pay Now ( {data.ourprice} $ )
+                                {/* {selectedSize
                                   ? `${
                                       state.counter *
                                       getPriceBySize(selectedSize)
                                     } $`
-                                  : `${data.price} $`}{" "}
-                                )
+                                  : `${data.price} $`}{" "} */}
                               </>
                             )}
                           </span>
@@ -430,14 +428,13 @@ const MainDTLCards = ({ data }) => {
                               "Sold Out"
                             ) : (
                               <>
-                                Pay ({" "}
-                                {selectedSize
+                                Pay ( {data.ourprice} $ )
+                                {/* {selectedSize
                                   ? `${
                                       state.counter *
                                       getPriceBySize(selectedSize)
                                     } $`
-                                  : `${data.price} $`}{" "}
-                                )
+                                  : `${data.price} $`}{" "} */}
                               </>
                             )}
                           </span>
@@ -504,14 +501,13 @@ const MainDTLCards = ({ data }) => {
                               ) : (
                                 <>
                                   <ShoppingBasket className=" hidden ssm:block w-5 h-5" />
-                                  Add ({" "}
-                                  {selectedSize
+                                  Add ( {data.ourprice} $ )
+                                  {/* {selectedSize
                                     ? `${
                                         state.counter *
                                         getPriceBySize(selectedSize)
                                       } $`
-                                    : `${data.price} $`}{" "}
-                                  )
+                                    : `${data.price} $`}{" "} */}
                                 </>
                               )}
                             </span>

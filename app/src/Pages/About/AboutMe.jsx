@@ -77,7 +77,7 @@ const techLogos = [
 
 export const AboutMe = () => {
   return (
-    <div className="relative h-[2000px]  flex flex-col gap-5 ">
+    <div className="relative top-10 lg:top-0  flex flex-col gap-12 ">
       {/* <ReactLenis
         root
         options={{
@@ -92,13 +92,13 @@ export const AboutMe = () => {
       <section className="relative grid  w-full place-content-center  bg-neutral-950">
         <Cards />
       </section>
-      <div className="relative top-60 flex flex-col gap-14">
+      <div className="relative top-44 ssm:top-52 smm:top-64 flex flex-col gap-16">
         <div className="">
           <motion.div
             initial={{ opacity: 0.1, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.45, ease: "linear" }}
-            viewport={{ once: false, amount: 0.4 }}
+            viewport={{ once: true, amount: 0.4 }}
           >
             {/* Basic horizontal loop */}
             <LogoLoop
@@ -117,7 +117,19 @@ export const AboutMe = () => {
           </motion.div>
           {/* Vertical loop with deceleration on hover */}
         </div>
-        <ExpandleCardForAbout />
+        <div className="flex flex-col gap-5">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.55, ease: "linear" }}
+            viewport={{ once: true, amount: 0.5 }}
+          >
+            <h1 className="text-white text-3xl sfm:text-4xl ml-2 sfm:ml-10 font-title">
+              Other Projects
+            </h1>
+            <ExpandleCardForAbout />
+          </motion.div>
+        </div>
       </div>
     </div>
   );
@@ -151,58 +163,65 @@ const FirstTab = () => {
     }
   }, [isInView, hasAnimated]);
   return (
-    <div className="flex m-20 flex-row gap-5">
-      {/* LEFT SIDE */}
-      <div className="w-[400px] flex flex-col gap-5">
-        <ProfileCard
-          name="Lucca Gulua"
-          title="Developer"
-          handle="javicodes"
-          status="Online"
-          contactText="Contact Me"
-          avatarUrl="https://i.postimg.cc/NFxZbB0j/myprofile.png"
-          showUserInfo={false}
-          enableTilt={true}
-          enableMobileTilt={false}
-          onContactClick={() => console.log("Contact clicked")}
-          showIcon
-          showBehindGlow
-          behindGlowColor="rgba(125, 190, 255, 0.67)"
-          customInnerGradient="linear-gradient(145deg,#60496e8c 0%,#71C4FF44 100%)"
-        />
-
-        <div className="flex items-center justify-center w-full">
-          <FloatingDock mobileClassName="translate-y-20" items={links} />
-        </div>
+    <div className="flex flex-col gap-6 lg:none lg:flex-none">
+      <div className=" mx-auto block   lg:hidden  gap-8   text-center">
+        <p className="font-panchangSB text-white  text-3xl xl:text-4xl">
+          Welcome to
+          <span className="text-neutral-400 relative left-2">My Hub</span>
+        </p>
       </div>
+      <div className="flex m-2 mmd:m-5 lg:m-10 xl:m-14 flex-col sm:flex-row gap-5">
+        {/* LEFT SIDE */}
+        <div className="w-[400px] mx-auto sm:mx-0 flex flex-col gap-5">
+          <ProfileCard
+            name="Lucca Gulua"
+            title="Developer"
+            handle="javicodes"
+            status="Online"
+            contactText="Contact Me"
+            avatarUrl="https://i.postimg.cc/NFxZbB0j/myprofile.png"
+            showUserInfo={false}
+            enableTilt={true}
+            enableMobileTilt={false}
+            onContactClick={() => console.log("Contact clicked")}
+            showIcon
+            showBehindGlow
+            behindGlowColor="rgba(125, 190, 255, 0.67)"
+            customInnerGradient="linear-gradient(145deg,#60496e8c 0%,#71C4FF44 100%)"
+          />
 
-      {/* RIGHT SIDE */}
-      <div className="mt-5 flex flex-col  gap-10 text-white w-full">
-        <div className=" mx-auto text-center" ref={ref}>
-          <p className="font-panchangSB text-xl md:text-4xl">
-            Welcome to{" "}
-            <span className="text-neutral-400">
-              {"My Hub".split("").map((letter, idx) => (
-                <motion.span
-                  key={idx}
-                  className="inline-block"
-                  initial={{ x: -10, opacity: 0 }}
-                  animate={hasAnimated ? { x: 0, opacity: 1 } : {}}
-                  transition={{ duration: 0.5, delay: idx * 0.04 }}
-                >
-                  {letter}
-                </motion.span>
-              ))}
-            </span>
-          </p>
+          <div className="flex items-center justify-center w-full">
+            <FloatingDock items={links} />
+          </div>
         </div>
 
-        <div className="flex flex-row  ">
-          <div className="w-full mx-auto max-w-[1150px]  ">
-            <TextType
-              as="p"
-              className="text-xl font-satosIT font-bold"
-              text={`I would like to introduce my project, StrategyHub, which is created for every auto and motorsport fan who wants precise answers and effective strategies.
+        {/* RIGHT SIDE */}
+        <div className="mt-5  flex flex-col  gap-10 text-white w-full">
+          <div className=" mx-auto hidden lg:block text-center" ref={ref}>
+            <p className="font-panchangSB  text-3xl xl:text-4xl">
+              Welcome to{" "}
+              <span className="text-neutral-400">
+                {"My Hub".split("").map((letter, idx) => (
+                  <motion.span
+                    key={idx}
+                    className="inline-block"
+                    initial={{ x: -10, opacity: 0 }}
+                    animate={hasAnimated ? { x: 0, opacity: 1 } : {}}
+                    transition={{ duration: 0.5, delay: idx * 0.04 }}
+                  >
+                    {letter}
+                  </motion.span>
+                ))}
+              </span>
+            </p>
+          </div>
+
+          <div className="flex flex-row  ">
+            <div className="w-full mx-auto max-w-[1150px]">
+              <TextType
+                as="p"
+                className="text-base ssm:text-lg sm:text-base xl:text-xl font-satosIT font-bold"
+                text={`I would like to introduce my project, StrategyHub, which is created for every auto and motorsport fan who wants precise answers and effective strategies.
 
 This website provides valuable knowledge about major racing tracks, cars, and their conditions, all of which influence our AI-generated insights. Initially, the platform offers global information about well-known tracks and cars that have already been analyzed and measured.
 
@@ -211,8 +230,9 @@ In addition, we have an AI-powered system where users can receive personalized s
 I believe that this website will be especially helpful for motorsport enthusiasts like me who seek accurate and reliable information about tracks, cars, and their performance options. This opportunity gives users the confidence to move closer to their goals in motorsport.
 
 As for the technical side of the project, the frontend is built using React and Tailwind CSS. The backend is developed with Node.js and Express, with MongoDB as the database. The AI engine is implemented in Python using Flask.`}
-              typingSpeed={10}
-            />
+                typingSpeed={10}
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -279,7 +299,7 @@ const Cards = () => {
         rotate="6deg"
         top="55%"
         left="3%"
-        className="w-36 md:w-64"
+        className="w-52 ssm:w-64"
       />
       <Card
         containerRef={containerRef}
@@ -288,7 +308,7 @@ const Cards = () => {
         rotate="12deg"
         top="50%"
         left="19%"
-        className="w-24 md:w-64"
+        className="w-52 ssm:w-64"
       />
       <Card
         containerRef={containerRef}
@@ -297,7 +317,7 @@ const Cards = () => {
         rotate="-6deg"
         top="10%"
         left="65%"
-        className="w-52 md:w-80"
+        className=" w-64 ssm:w-80"
       />
       <Card
         containerRef={containerRef}
@@ -306,7 +326,7 @@ const Cards = () => {
         rotate="8deg"
         top="60%"
         left="83%"
-        className="w-48 md:w-72"
+        className=" w-60 ssm:w-72"
       />
       <Card
         containerRef={containerRef}
@@ -315,7 +335,7 @@ const Cards = () => {
         rotate="18deg"
         top="55%"
         left="50%"
-        className="w-40 md:w-64"
+        className=" w-52 ssm:w-64"
       />
       <Card
         containerRef={containerRef}
@@ -324,7 +344,7 @@ const Cards = () => {
         rotate="-3deg"
         top="70%"
         left="36%"
-        className="w-24 md:w-64"
+        className=" w-52 ssm:w-64"
       />
     </div>
   );

@@ -41,7 +41,6 @@ router.get("/sync", async (req, res) => {
       const existingDesign = await merch.findOne({
         printfulProductId: productId.toString(),
       });
-
       let images = existingDesign?.images || {
         img1: "",
         img2: "",

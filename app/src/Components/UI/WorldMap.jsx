@@ -77,7 +77,7 @@ export function WorldMap({ lineColor = "#0ea5e9" }) {
         alt="world map"
         draggable={false}
       />
-      {isLoading ? (
+      {/* {isLoading ? (
         <motion.div
           initial={{ opacity: 0, scale: 0.98 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -110,85 +110,84 @@ export function WorldMap({ lineColor = "#0ea5e9" }) {
             </div>
           </div>
         </motion.div>
-      ) : (
-        <div className="bg-red-400">
-          <svg
-            ref={svgRef}
-            viewBox="0 0 1056 495"
-            className="w-full h-full absolute inset-0 select-none"
-          >
-            <defs>
-              <filter
-                id="point-shadow"
-                x="-50%"
-                y="-50%"
-                width="200%"
-                height="200%"
+      ) : ( */}
+      <div className="bg-red-400">
+        <svg
+          ref={svgRef}
+          viewBox="0 0 1056 495"
+          className="w-full h-full absolute inset-0 select-none"
+        >
+          <defs>
+            <filter
+              id="point-shadow"
+              x="-50%"
+              y="-50%"
+              width="200%"
+              height="200%"
+            >
+              <feDropShadow
+                dx="0"
+                dy="-1"
+                stdDeviation="1"
+                floodColor={lineColor}
+                floodOpacity="0.6"
+              />
+              <feDropShadow
+                dx="0"
+                dy="1"
+                stdDeviation="1"
+                floodColor={lineColor}
+                floodOpacity="0.6"
+              />
+            </filter>
+          </defs>
+
+          {data?.map((dot, i) => {
+            const p = projectPoint(dot.start.lat, dot.start.lng);
+
+            return (
+              <g
+                key={i}
+                className="cursor-target pointer-events-auto"
+                onMouseEnter={(e) => handleMouseEnter(e, dot)}
+                onMouseLeave={handleMouseLeave}
               >
-                <feDropShadow
-                  dx="0"
-                  dy="-1"
-                  stdDeviation="1"
-                  floodColor={lineColor}
-                  floodOpacity="0.6"
+                <circle
+                  cx={p.x}
+                  cy={p.y}
+                  r="4"
+                  fill={lineColor}
+                  filter="url(#point-shadow)"
                 />
-                <feDropShadow
-                  dx="0"
-                  dy="1"
-                  stdDeviation="1"
-                  floodColor={lineColor}
-                  floodOpacity="0.6"
-                />
-              </filter>
-            </defs>
-
-            {data?.map((dot, i) => {
-              const p = projectPoint(dot.start.lat, dot.start.lng);
-
-              return (
-                <g
-                  key={i}
-                  className="cursor-target pointer-events-auto"
-                  onMouseEnter={(e) => handleMouseEnter(e, dot)}
-                  onMouseLeave={handleMouseLeave}
+                <circle
+                  cx={p.x}
+                  cy={p.y}
+                  r="4"
+                  fill={lineColor}
+                  opacity="0.5"
+                  filter="url(#point-shadow)"
                 >
-                  <circle
-                    cx={p.x}
-                    cy={p.y}
-                    r="4"
-                    fill={lineColor}
-                    filter="url(#point-shadow)"
+                  <animate
+                    attributeName="r"
+                    from="3"
+                    to="8"
+                    dur="1.5s"
+                    repeatCount="indefinite"
                   />
-                  <circle
-                    cx={p.x}
-                    cy={p.y}
-                    r="4"
-                    fill={lineColor}
-                    opacity="0.5"
-                    filter="url(#point-shadow)"
-                  >
-                    <animate
-                      attributeName="r"
-                      from="3"
-                      to="8"
-                      dur="1.5s"
-                      repeatCount="indefinite"
-                    />
-                    <animate
-                      attributeName="opacity"
-                      from="0.5"
-                      to="0"
-                      dur="1.5s"
-                      repeatCount="indefinite"
-                    />
-                  </circle>
-                </g>
-              );
-            })}
-          </svg>
-        </div>
-      )}
-
+                  <animate
+                    attributeName="opacity"
+                    from="0.5"
+                    to="0"
+                    dur="1.5s"
+                    repeatCount="indefinite"
+                  />
+                </circle>
+              </g>
+            );
+          })}
+        </svg>
+      </div>
+      {/* )} */}
       <AnimatePresence>
         {tooltip && (
           <motion.div

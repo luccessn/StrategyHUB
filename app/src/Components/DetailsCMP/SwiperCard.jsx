@@ -76,7 +76,7 @@ export const SwiperCard = ({ props }) => {
                   {/* ფასი და stock */}
                   <div className="flex justify-center items-center gap-10">
                     <span className="text-green-400 font-bold text-sm sfm:text-medium  smm:text-lg">
-                      {props.price ? props.price : props.maxPrice} $
+                      {props.ourprice} $
                     </span>
                     <span className="text-purple-400 text-sm sfm:text-medium smm:text-lg font-mono">
                       Stock: {props.stock}

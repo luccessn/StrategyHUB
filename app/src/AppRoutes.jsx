@@ -8,6 +8,10 @@ export const AppRoutes = () => {
   const location = useLocation();
 
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     setisLoading(true);
 
     const timer = setTimeout(() => {
@@ -15,8 +19,7 @@ export const AppRoutes = () => {
     }, 300);
 
     return () => clearTimeout(timer);
-  }, [location]); // 👈 ეს არის მთავარი
-
+  }, [location]);
   return (
     <>
       {isLoading ? (

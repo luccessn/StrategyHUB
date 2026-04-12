@@ -15,6 +15,8 @@ import getTrackRoute from "./Routes/Tracks/getTracks.js";
 import getCarRoute from "./Routes/Cars/getCars.js";
 import printfulAPI from "./Routes/PrintFull/getPrintfull.js";
 import freetrial from "./Routes/subscriptions/freetrial.js";
+import paypalOrder from "./Routes/payment/paypalOrder.js";
+import stockRoutes from "./Routes/PrintFull/stockRoutes.js";
 //
 // mongoose
 //   .connect(process.env.MONGO_URI, {
@@ -55,6 +57,9 @@ cron.schedule("*/5 * * * *", async () => {
 });
 //subs
 app.use("/server/subscription", freetrial);
+//paypal
+app.use("/server/api/paypal", paypalOrder);
+app.use("/server/api/stock", stockRoutes);
 const PORT = 5000;
 app.listen(PORT, () => {
   console.log(`Server is Working on ${PORT} port`);

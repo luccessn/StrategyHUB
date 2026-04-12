@@ -7,6 +7,10 @@ import { Products } from "../Pages/Products/Products";
 import { AboutMe } from "../Pages/About/AboutMe";
 import { ProductsDTL } from "../Pages/Products/ProductsDTL";
 import { Subs } from "../Pages/Products/Subscription/subs";
+import CheckOuts from "../Pages/Checkout/CheckOuts";
+import SuccessCheck from "../Pages/Checkout/SuccessCheck";
+import CancelCheck from "../Pages/Checkout/CancelCheck";
+
 export const RoutersConfig = [
   { path: routes.Home, Component: Home },
   { path: routes.SignUp, Component: SignUp },
@@ -15,4 +19,7 @@ export const RoutersConfig = [
   { path: routes.ProductsDTL, Component: ProductsDTL },
   { path: routes.Subscription, Component: Subs },
   { path: routes.About, Component: AboutMe },
+  { path: routes.CheckOut, Component: CheckOuts },
+  { path: routes.checksuccess, Component: SuccessCheck },
+  { path: routes.checkcancel, Component: CancelCheck },
 ];

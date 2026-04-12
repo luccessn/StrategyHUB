@@ -3,28 +3,12 @@
 import React, { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "../UI/Cursor/useOutsideClick";
+import { PrjCards } from "./PrjCards";
 
 export function ExpandleCardForAbout() {
   const [active, setActive] = useState(null);
   const id = useId();
   const ref = useRef(null);
-
-  useEffect(() => {
-    function onKeyDown(event) {
-      if (event.key === "Escape") {
-        setActive(false);
-      }
-    }
-
-    if (active && typeof active === "object") {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [active]);
 
   useOutsideClick(ref, () => setActive(null));
 
@@ -83,13 +67,13 @@ export function ExpandleCardForAbout() {
                   <div className="">
                     <motion.h3
                       layoutId={`title-${active.title}-${id}`}
-                      className="font-medium text-neutral-700 dark:text-neutral-200 text-base"
+                      className="font-medium font-title text-neutral-700 dark:text-neutral-200 text-base"
                     >
                       {active.title}
                     </motion.h3>
                     <motion.p
                       layoutId={`description-${active.description}-${id}`}
-                      className="text-neutral-600 dark:text-neutral-400 text-base"
+                      className="text-neutral-600 font-mono dark:text-neutral-400 text-base"
                     >
                       {active.description}
                     </motion.p>
@@ -113,7 +97,7 @@ export function ExpandleCardForAbout() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="text-neutral-600 text-xs md:text-sm lg:text-base h-40 md:h-fit pb-10 flex flex-col items-start gap-4 overflow-auto dark:text-neutral-400 [mask:linear-gradient(to_bottom,white,white,transparent)] [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
+                    className="text-neutral-600 font-satosIT text-xs md:text-sm lg:text-base h-40 md:h-fit pb-10 flex flex-col items-start gap-4 overflow-auto dark:text-neutral-400 [mask:linear-gradient(to_bottom,white,white,transparent)] [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
                   >
                     {typeof active.content === "function"
                       ? active.content()
@@ -125,8 +109,8 @@ export function ExpandleCardForAbout() {
           </div>
         ) : null}
       </AnimatePresence>
-      <ul className=" mx-auto w-full grid justify-center md:p-5  grid-cols-1 md:grid-cols-4  md:gap-20  items-start gap-4">
-        {cards.map((card, index) => (
+      <ul className=" overflow-x-hidden mx-auto w-full grid justify-center md:p-5  grid-cols-1 mmd:grid-cols-2 xxl:grid-cols-4  md:gap-20  items-start gap-4">
+        {PrjCards.map((card, index) => (
           <motion.div
             layoutId={`card-${card.title}-${id}`}
             key={card.title}
@@ -146,13 +130,13 @@ export function ExpandleCardForAbout() {
               <div className="flex justify-center items-center flex-col">
                 <motion.h3
                   layoutId={`title-${card.title}-${id}`}
-                  className="font-medium text-neutral-800 dark:text-neutral-200 text-center md:text-left text-base"
+                  className="font-medium font-panchangMD  text-neutral-800 dark:text-neutral-200 text-center md:text-left text-base"
                 >
                   {card.title}
                 </motion.h3>
                 <motion.p
                   layoutId={`description-${card.description}-${id}`}
-                  className="text-neutral-600 dark:text-neutral-400 text-center md:text-left text-base"
+                  className="text-neutral-600 font-satosIT dark:text-neutral-400 text-center md:text-left text-base"
                 >
                   {card.description}
                 </motion.p>

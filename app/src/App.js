@@ -105,7 +105,7 @@ function App() {
         <ReactLenis
           root
           options={{
-            lerp: 0.03,
+            lerp: 0.07,
             infinite: false,
             syncTouch: false,
           }}
@@ -127,12 +127,12 @@ function App() {
             />
             <div
               style={{ height: "100vh" }}
-              className="verflow-hidden h-screen bg-red-500   fixed z-50"
+              className="verflow-hidden h-screen  fixed z-50"
             >
               <StaggeredMenu
                 position="left"
-                items={menuItems}
-                socialItems={socialItems}
+                // items={menuItems}
+                // socialItems={socialItems}
                 displaySocials
                 displayItemNumbering={true}
                 menuButtonColor="#ffffff"

@@ -25,6 +25,7 @@ const merchSchema = new mongoose.Schema({
   ],
   // type: String,
   price: String,
+  ourprice: { type: String, default: "0" },
   minPrice: String,
   maxPrice: String,
   stock: { type: Number, default: 0 }, //  stock

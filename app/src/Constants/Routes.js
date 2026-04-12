@@ -6,6 +6,9 @@ export const routes = {
   Products: "/products",
   Subscription: "/subscription",
   ProductsDTL: "/productsdtl/:prID",
+  CheckOut: "/checkout",
+  checksuccess: "/success",
+  checkcancel: "/cancel",
   NotFound: "*",
 };
 
