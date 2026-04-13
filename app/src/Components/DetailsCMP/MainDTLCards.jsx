@@ -117,14 +117,14 @@ const MainDTLCards = ({ data }) => {
   const mainSwiperRef = useRef(null);
   return (
     <motion.div
-      className="text-5xl p-6 text-white"
+      className="text-5xl   text-white"
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
       <div className="text-5xl p-6  text-white flex  flex-col gap-20 items-center ">
         <div className="text-white p-6   items-center text-5xl">
-          <div className="flex flex-col   mmd:flex-row gap-14">
+          <div className="flex flex-col   clg:flex-row gap-14">
             {/* სურათების Swiper */}
             <div className="flex flex-col items-center ssm:items-start ssm:flex-row  ssmm:p-0 gap-5 ssmm:gap-14">
               <div className="flex flex-col gap-5 hidden ssm:flex ssmm:w-[100px] ssm:w-[250px] sm:w-[200px] h-[600px] mmd:h-[700px]">

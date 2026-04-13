@@ -5,11 +5,25 @@ import { Pagination } from "swiper/modules";
 const trackloader = () => {
   return (
     <div className="p-14 flex flex-col gap-5">
-      <div className=" pl-20 ">
+      <div className=" max-w-8xl p-5  relative ">
         <Swiper
           rewind={true}
-          slidesPerView={4}
-          spaceBetween={10}
+          slidesPerView={1}
+          breakpoints={{
+            320: {
+              slidesPerView: 1,
+            },
+            800: {
+              slidesPerView: 2,
+            },
+            1080: {
+              slidesPerView: 3,
+            },
+            1280: {
+              slidesPerView: 4,
+            },
+          }}
+          spaceBetween={30}
           modules={[Pagination]}
           className="mySwiper"
         >
@@ -39,9 +53,9 @@ const trackloader = () => {
           ))}
         </Swiper>
       </div>
-      <div className="flex flex-row">
-        <div className="w-2/4 h-[500px] p-4 border-r-4 border-gray-200 rounded shadow animate-pulse md:p-6 dark:border-gray-400">
-          <div className="flex items-center justify-center h-full  mb-4 bg-gray-300 rounded dark:bg-gray-400">
+      <div className="flex flex-col xl:flex-row">
+        <div className=" w-full xl:w-2/4 h-[500px] p-4 border-b-4 xl:border-b-0 xl:border-r-4 border-gray-200 rounded shadow animate-pulse md:p-6 dark:border-gray-400">
+          <div className="flex items-center justify-center h-full  mb-4 bg-gray-300 rounded ">
             <svg
               viewBox="0 0 16 20"
               fill="currentColor"
@@ -53,9 +67,9 @@ const trackloader = () => {
             </svg>
           </div>
         </div>
-        <div className="p-14">
+        <div className=" mx-auto p-14">
           <div className="flex flex-col gap-40">
-            <div className="flex flex-row  gap-32">
+            <div className="flex flex-row justify-between  w-full  border-b-2 p-5 border-gray-300   gap-32">
               <div>
                 <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-400 w-32 mb-4"></div>
                 <div className="h-6 bg-gray-200 rounded-sm dark:bg-gray-400 w-60 mb-4"></div>
@@ -65,7 +79,7 @@ const trackloader = () => {
                 <div className="h-6 bg-gray-200 rounded-sm dark:bg-gray-400 w-60 mb-4"></div>
               </div>
             </div>
-            <div className="flex flex-row  gap-32">
+            <div className="flex flex-row justify-between border-b-2 p-5 border-gray-300   gap-32">
               <div>
                 <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-400 w-32 mb-4"></div>
                 <div className="h-6 bg-gray-200 rounded-sm dark:bg-gray-400 w-60 mb-4"></div>

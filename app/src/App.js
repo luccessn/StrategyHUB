@@ -29,16 +29,25 @@ import { CartDrawer } from "./Components/NavBar/CartDrawer";
 import ClickSpark from "./Components/UI/Cursor/ClickSpark";
 import { UserDrawer } from "./Components/NavBar/UserDrawer";
 import StaggeredMenu from "./Components/UI/StraggeredMenu";
-import { LuTimerReset } from "react-icons/lu";
-import { AppActions } from "./Context/AppActions";
+import HomeIcon from "@mui/icons-material/Home";
+import CategoryIcon from "@mui/icons-material/Category";
+import LoyaltyIcon from "@mui/icons-material/Loyalty";
+import PermDataSettingIcon from "@mui/icons-material/PermDataSetting";
 
 function App() {
   const navbarRT = [
-    { name: "Home", path: routes.Home },
+    { name: "Home", path: routes.Home, icon: <HomeIcon /> },
     // { name: "SignUp", path: routes.SignUp },
     // { name: "LogIn", path: routes.LogIn },
-    { name: "Products", path: routes.Products },
-    { name: "About", path: routes.About },
+
+    { name: "Merch", path: routes.Products, icon: <CategoryIcon /> },
+    {
+      name: "Subscriptions",
+      path: routes.Subscription,
+      icon: <LoyaltyIcon />,
+    },
+
+    { name: "About", path: routes.About, icon: <PermDataSettingIcon /> },
   ];
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -98,7 +107,7 @@ function App() {
   const userTarget = state?.user?.trial?.expiresAt;
   const gsTarget = state.subscription.free.freeAccessExpiresAt;
   const target = userTarget || gsTarget;
-
+  const [hovered, setHovered] = useState(null);
   return (
     <>
       <div className="relative  w-screen ">
@@ -204,30 +213,44 @@ function App() {
                   onClose={() => setIsMobileMenuOpen(false)}
                 >
                   {navbarRT.map((item, idx) => (
-                    <button
-                      onClick={() => {
-                        setIsMobileMenuOpen(false);
-                        navigate(item.path);
-                      }}
-                      className="relative cursor-target text-neutral-300"
+                    <div
+                      key={idx}
+                      className="relative"
+                      onMouseEnter={() => setHovered(idx)}
                     >
-                      <span className="block">{item.name} </span>
-                    </button>
+                      <button
+                        onClick={() => {
+                          setIsMobileMenuOpen(false);
+                          navigate(item.path);
+                        }}
+                        className="relative hover:scale-110 duration-200 hover:text-neutral-500 text-neutral-300"
+                      >
+                        <span className="mr-2">{item.icon}</span>
+                        {item.name}
+                      </button>
+                    </div>
                   ))}
                   <div className="flex w-full flex-col gap-4">
-                    <NavbarButton
+                    {/* <NavbarButton
                       onClick={() => setIsMobileMenuOpen(false)}
+                      variant="primary"
+                      className="w-full"
+                      >
+                      Book a call
+                      </NavbarButton> */}
+                    <NavbarButton
+                      variant="primary"
+                      className="cursor-target"
+                      onClick={() => navigate(routes.SignUp)}
+                    >
+                      SignUp
+                    </NavbarButton>
+                    <NavbarButton
+                      onClick={() => navigate(routes.LogIn)}
                       variant="primary"
                       className="w-full"
                     >
                       Login
-                    </NavbarButton>
-                    <NavbarButton
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      variant="primary"
-                      className="w-full"
-                    >
-                      Book a call
                     </NavbarButton>
                   </div>
                 </MobileNavMenu>

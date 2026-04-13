@@ -2,12 +2,12 @@ import React from "react";
 
 export const GridPlaceHolder = ({ lenght }) => {
   return (
-    <div className="flex justify-center mt-28 ">
-      <div className=" grid grid-cols-1 ssm:grid-cols-2 mmd:grid-cols-3 gap-y-20 gap-4   ssm:gap-10 xl:grid-cols-4 xl:gap-10 xxl:gap-20 ">
+    <div className="flex justify-center mt-28 pl-5 ">
+      <div className=" grid grid-cols-1 ssm:grid-cols-2 clg:grid-cols-3 gap-y-20 gap-4   ssm:gap-10 xl:grid-cols-4 xl:gap-10 xxl:gap-20 ">
         {Array.from({ length: lenght }).map((_, index) => (
           <div
             key={index}
-            className=" max-w-sm p-4 border border-gray-200 rounded w-[380px]  h-[400px] shadow animate-pulse md:p-6 dark:border-gray-400"
+            className=" max-w-sm p-4 border border-gray-200 rounded w-[340px] h-[350px]  cxl:w-[380px] cxl:h-[400px] shadow animate-pulse md:p-6 dark:border-gray-400"
           >
             <div className="flex items-center justify-center h-3/4 mb-4 bg-gray-300 rounded dark:bg-gray-400">
               <svg

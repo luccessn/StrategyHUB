@@ -163,7 +163,7 @@ const FirstTab = () => {
     }
   }, [isInView, hasAnimated]);
   return (
-    <div className="flex flex-col gap-6 lg:none lg:flex-none">
+    <div className="flex flex-col gap-6 lg:none lg:flex-none overflow-x-hidden ">
       <div className=" mx-auto block   lg:hidden  gap-8   text-center">
         <p className="font-panchangSB text-white  text-3xl xl:text-4xl">
           Welcome to

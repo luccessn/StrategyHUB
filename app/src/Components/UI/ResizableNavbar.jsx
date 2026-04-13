@@ -65,7 +65,7 @@ export const NavBody = ({ children, className, visible }) => {
         minWidth: "800px",
       }}
       className={cn(
-        "relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-transparent px-4 py-2 lg:flex dark:bg-transparent",
+        "relative z-[60]  mx-auto hidden w-full max-w-3xl xl:max-w-5xl cxl:max-w-6xl xxl:max-w-7xl flex-row items-center justify-between self-start rounded-full bg-transparent px-4 py-2 lg:flex dark:bg-transparent",
         visible && "bg-neutral-950/80",
         className,
       )}
@@ -99,7 +99,7 @@ export const NavItems = ({ className, onItemClick }) => {
     <motion.div
       onMouseLeave={() => setHovered(null)}
       className={cn(
-        "absolute inset-0 hidden flex-1 flex-row items-center justify-center space-x-1 text-sm font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 lg:flex",
+        "absolute inset-0 hidden flex-1  flex-row items-center justify-center space-x-1 text-sm font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 lg:flex",
         className,
       )}
     >
@@ -171,7 +171,7 @@ export const MobileNav = ({ children, className, visible }) => {
         damping: 50,
       }}
       className={cn(
-        "relative z-50 mx-auto flex w-full max-w-[calc(100vw-2rem)] flex-col items-center justify-between bg-transparent px-0 py-2 lg:hidden",
+        "relative z-50 mx-auto flex w-full max-w-[calc(83vw-2rem)] flex-col items-center justify-between bg-transparent px-0 py-2 lg:hidden",
         visible && "bg-neutral-950/80",
         className,
       )}
@@ -221,11 +221,12 @@ export const MobileNavToggle = ({ isOpen, onClick }) => {
     <IconMenu2 className="text-white" onClick={onClick} />
   );
 };
-
 export const NavbarLogo = () => {
+  const navigate = useNavigate();
+
   return (
-    <a
-      href="#"
+    <button
+      onClick={() => navigate(routes.Home)}
       className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black"
     >
       <img
@@ -236,7 +237,7 @@ export const NavbarLogo = () => {
         height={43}
       />
       <span className=" font-satosIT font-bold  text-white">Strategy Hub</span>
-    </a>
+    </button>
   );
 };
 

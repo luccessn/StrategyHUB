@@ -39,7 +39,7 @@ const MainDTLCard = () => {
             640: {
               slidesPerView: 2,
             },
-            800: {
+            910: {
               slidesPerView: 3,
             },
             1280: {
@@ -49,7 +49,7 @@ const MainDTLCard = () => {
         >
           {data.map((item) => (
             <SwiperSlide key={item._id}>
-              <div className="relative  left-40  ssmm:left-0">
+              <div className="relative left-40  ssmm:left-0">
                 <SwiperCard key={item._id} props={item} />
               </div>
             </SwiperSlide>

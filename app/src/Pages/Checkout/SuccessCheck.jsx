@@ -13,7 +13,7 @@ const SuccessCheck = () => {
     const updateStock = async () => {
       try {
         const response = await fetch(
-          "http://localhost:5000/server/api/stock/update-stock",
+          "https://strategyhub.onrender.com/server/api/stock/update-stock",
           {
             method: "PATCH",
             headers: {

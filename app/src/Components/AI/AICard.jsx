@@ -131,8 +131,12 @@ function Model({ url, scale, position, rotation }) {
 // ];
 
 export const AICard = () => {
-  const [data] = useFetchData("http://localhost:5000/server/gettracks");
-  const [cardata] = useFetchData("http://localhost:5000/server/getcars");
+  const [data] = useFetchData(
+    "https://strategyhub.onrender.com/server/gettracks",
+  );
+  const [cardata] = useFetchData(
+    "https://strategyhub.onrender.com/server/getcars",
+  );
   const { state, dispatch } = useAppContext();
   const steps = [
     {

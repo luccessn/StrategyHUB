@@ -469,7 +469,7 @@ export const StaggeredMenu = ({
           </div> */}
           <button
             ref={toggleBtnRef}
-            className="sm-toggle  relative cursor-target p-2 inline-flex items-center gap-[0.3rem] bg-transparent border-0 cursor-pointer text-[#e9e9ef] font-medium leading-none overflow-visible pointer-events-auto"
+            className="sm-toggle -left-5 top-[10px] relative cursor-target p-2 inline-flex items-center gap-[0.3rem] bg-transparent border-0 cursor-pointer text-[#e9e9ef] font-medium leading-none overflow-visible pointer-events-auto"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             aria-controls="staggered-menu-panel"
@@ -517,7 +517,7 @@ export const StaggeredMenu = ({
         <aside
           id="staggered-menu-panel"
           ref={panelRef}
-          className="staggered-menu-panel absolute top-0 right-0 h-full bg-white flex flex-col p-[6em_2em_2em_2em] overflow-y-auto z-10 backdrop-blur-[12px] pointer-events-auto"
+          className="staggered-menu-panel  absolute top-0 right-0 h-full bg-white flex flex-col p-[6em_2em_2em_2em] overflow-y-auto z-10 backdrop-blur-[12px] pointer-events-auto"
           //   style={{ WebkitBackdropFilter: "blur(12px)" }}
           style={{
             WebkitBackdropFilter: "blur(12px)",
@@ -541,7 +541,7 @@ export const StaggeredMenu = ({
               </div>
             </div>
             <div
-              className={`sm-panel-list  ${state.cartItems.length > 3 ? "max-h-[700px]" : "max-h-[700px]"} sm-socials-link  overflow-y-auto  list-none m-0 p-0 flex flex-col gap-2`}
+              className={`sm-panel-list  ${state.cartItems.length > 3 ? "max-h-[650px]" : "max-h-[600px]"}  sm-socials-link  overflow-y-auto  list-none m-0 p-0 flex flex-col gap-2`}
               role="list"
               data-numbering={displayItemNumbering || undefined}
             >
@@ -635,7 +635,7 @@ export const StaggeredMenu = ({
                 </button>
                 <button
                   onClick={() => dispatch(clearCart())}
-                  className=" cursor-target  hover:scale-110 duration-300  text-medium ssm:text-xl flex items-center gap-2 px-4 py-2"
+                  className=" cursor-target   hover:scale-110 duration-300  text-medium ssm:text-xl flex items-center gap-2 px-4 py-2"
                 >
                   <CiTrash className="text-2xl text-red-700" />
                   <span className="btn-text text-red-600  text-sm hidden ssm:block">
@@ -689,11 +689,12 @@ sition: absolute; top: 0; right: 0; width: clamp(260px, 38vw, 420px); height: 10
 .sm-scope .sm-panel-item:hover { color: var(--sm-accent, #ff0000); }
 .sm-scope .sm-panel-list[data-numbering] { counter-reset: smItem; }
 .sm-scope .sm-panel-list[data-numbering] .sm-panel-item::after { counter-increment: smItem; content: counter(smItem, decimal-leading-zero); position: absolute; top: 0.1em; right: 3.2em; font-size: 18px; font-weight: 400; color: var(--sm-accent, #ff0000); letter-spacing: 0; pointer-events: none; user-select: none; opacity: var(--sm-num-opacity, 0); }
-@media (max-width: 1024px) { .sm-scope .staggered-menu-panel { width: 100%; left: 0; right: 0; } .sm-scope .staggered-menu-wrapper[data-open] .sm-logo-img { filter: invert(100%); } }
-@media (max-width: 640px) { .sm-scope .staggered-menu-panel { width: 100%; left: 0; right: 0; } .sm-scope .staggered-menu-wrapper[data-open] .sm-logo-img { filter: invert(100%); } }
+@media (max-width: 1024px) {.sm-scope .staggered-menu-panel {width: 400px;}}      
       `}</style>
     </div>
   );
 };
 
 export default StaggeredMenu;
+// @media (max-width: 1024px) { .sm-scope .staggered-menu-panel { width: 100%; left: 0; right: 0; } .sm-scope .staggered-menu-wrapper[data-open] .sm-logo-img { filter: invert(100%); } }
+// @media (max-width: 640px) { .sm-scope .staggered-menu-panel { width: 100%; left: 0; right: 0; } .sm-scope .staggered-menu-wrapper[data-open] .sm-logo-img { filter: invert(100%); } }

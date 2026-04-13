@@ -19,7 +19,7 @@ export const Products = () => {
   return (
     <>
       {isLoading ? (
-        <div className="relative top-10">
+        <div className="relative ">
           <GridPlaceHolder lenght={3} />
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
             <div className="flex items-center justify-center gap-6">
@@ -45,8 +45,8 @@ export const Products = () => {
         </div>
       ) : (
         <>
-          <div className="flex relative top-10 justify-center mt-28 ">
-            <div className=" grid grid-cols-1 ssm:grid-cols-2 mmd:grid-cols-3 gap-y-20 gap-4   ssm:gap-10 xl:grid-cols-4 xl:gap-10 xxl:gap-20 ">
+          <div className="flex relative top-0 clg:top-10  justify-center mt-28 ">
+            <div className=" grid grid-cols-1 pl-14 mmd:pl-20 clg:pl-8  w-full mx-auto ssm:grid-cols-2 clg:grid-cols-3 gap-y-20 gap-4   ssm:gap-10 xl:grid-cols-4 xl:gap-10 xxl:gap-20 ">
               {data.map((item) => (
                 <MainGridProduct props={item} />
               ))}

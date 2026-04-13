@@ -424,7 +424,8 @@ const CheckOuts = () => {
               forceReRender={[totalAmount]}
               createOrder={async () => {
                 const response = await fetch(
-                  "http://localhost:5000/server/api/paypal/create-paypal-order",
+                  "https://strategyhub.onrender.com/server/api/paypal/create-paypal-order",
+                  // "http://localhost:5000/server/api/paypal/create-paypal-order",
                   // "https://musiccrafters.onrender.com/server/api/paypal/create-paypal-order",
 
                   {
@@ -453,7 +454,7 @@ const CheckOuts = () => {
                   phone: Data.phone,
                 };
                 const response = await fetch(
-                  "http://localhost:5000/server/api/paypal/confirm",
+                  "https://strategyhub.onrender.com/server/api/paypal/confirm",
                   {
                     method: "POST",
                     headers: {

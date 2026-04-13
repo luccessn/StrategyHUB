@@ -40,7 +40,7 @@ export const SwiperCard = ({ props }) => {
       {props.images?.img1 ? (
         <div
           onClick={goDTL}
-          className=" w-[260px]   h-[320px] mt-10 mmd:m-0  ssmm:w-[180px] ssmm:h-[320px] ssm:w-[250px] ssm:h-[320px]  sfm:w-[260px] sfm:h-[350px] smm:w-[320px] smm:h-[370px]  sm:w-[340px] sm:h-[400px] xxxl:w-[380px] xxxl:h-[400px] flex flex-col rounded-xl relative shadow hover:shadow-md transition"
+          className=" w-[260px]   h-[320px] mt-10 mmd:m-0  ssmm:w-[180px] ssmm:h-[320px] ssm:w-[250px] ssm:h-[320px]  sfm:w-[260px] sfm:h-[350px] smm:w-[320px] smm:h-[370px]  sm:w-[340px] sm:h-[380px]  lg:w-[360px] lg:h-[360px]  xxxl:w-[400px] xxxl:h-[380px] flex flex-col rounded-xl relative shadow hover:shadow-md transition"
         >
           {/* ssmm:w-[190px] ssmm:h-[260px]  */}
           <div className="w-3/4  h-[380px] overflow-hidden relative left-10 ssmm:left-6 ssm:left-10 rounded-sm">
@@ -62,7 +62,7 @@ export const SwiperCard = ({ props }) => {
           ) : (
             ""
           )} */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 ">
             <div className="flex flex-row justify-center  ">
               <div className="flex flex-col gap-2  ">
                 <div className="flex flex-col gap-2 mt-4 items-center">
