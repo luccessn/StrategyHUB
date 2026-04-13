@@ -1,6 +1,6 @@
 import express from "express";
 import { UserModel } from "../../Models/users.js";
-import authMiddleware from "../authmiddleware.js";
+import authMiddleware from "../authMiddleware.js";
 const router = express.Router();
 
 export const checkTrialExpiration = async (req, res, next) => {
