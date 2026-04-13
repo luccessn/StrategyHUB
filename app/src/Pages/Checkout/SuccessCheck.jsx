@@ -42,7 +42,7 @@ const SuccessCheck = () => {
   }, [cartItems, dispatch]);
 
   return (
-    <div className="flex justify-center relative top-40">
+    <div className="flex justify-center relative top-52">
       <div className="w-full max-w-md">
         <div className="shadow-lg p-12 w-full text-center mt-10 border-b-4 border-green-500 rounded-xl ">
           <FaCheckCircle

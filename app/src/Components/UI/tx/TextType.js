@@ -14,12 +14,14 @@ const TextType = ({
   cursorClassName = "",
   cursorBlinkDuration = 0.5,
   startOnVisible = false,
+  inf,
   ...props
 }) => {
   const [displayedText, setDisplayedText] = useState("");
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(!startOnVisible);
-
+  const [isFinished, setIsFinished] = useState(false);
+  const hasTypedRef = useRef(false);
   const cursorRef = useRef(null);
   const containerRef = useRef(null);
 
@@ -54,7 +56,14 @@ const TextType = ({
   // Typing effect
   useEffect(() => {
     if (!isVisible) return;
-    if (currentCharIndex >= finalText.length) return;
+
+    // უკვე ერთხელ შესრულდა → აღარ გააკეთოს
+    if (hasTypedRef.current) return;
+
+    if (currentCharIndex >= finalText.length) {
+      hasTypedRef.current = true;
+      return;
+    }
 
     const timeout = setTimeout(
       () => {
@@ -65,7 +74,7 @@ const TextType = ({
     );
 
     return () => clearTimeout(timeout);
-  }, [currentCharIndex, finalText, typingSpeed, initialDelay, isVisible]);
+  }, [currentCharIndex, isVisible]);
   const [expanded, setExpanded] = useState(false);
 
   return createElement(
@@ -77,25 +86,68 @@ const TextType = ({
       ...props,
     },
     <>
-      <div
-        className={` overflow-hidden lg:overflow-visible transition-all duration-300 
+      {inf === "carscalc" ? (
+        <>
+          <div
+            className={`overflow-hidden xxxl:overflow-visible transition-all duration-300 
+            ${expanded ? " xl:max-h-[450px] overflow-y-auto" : "max-h-[250px] overflow-hidden"} xxxl:max-h-none xxxl:overflow-visible
+          `}
+            style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}
+          >
+            {displayedText}
+          </div>
+          <button
+            onClick={() => setExpanded((prev) => !prev)}
+            className="mt-3 cursor-target text-blue-500 block xl:hidden xxl:block xxxl:hidden"
+          >
+            {expanded ? "Show less" : "Show more"}
+          </button>
+        </>
+      ) : inf === "carscalc2" ? (
+        <>
+          <div
+            className={`overflow-hidden xl:overflow-visible transition-all duration-300 
+            ${expanded ? " max-h-[350px] overflow-y-auto" : "max-h-[250px] overflow-hidden"} xl:max-h-none xl:overflow-visible
+          `}
+            style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}
+          >
+            {displayedText}
+          </div>
+          <button
+            onClick={() => setExpanded((prev) => !prev)}
+            className="mt-3 cursor-target text-blue-500 block xl:hidden  "
+          >
+            {expanded ? "Show less" : "Show more"}
+          </button>
+        </>
+      ) : inf === "about" ? (
+        <>
+          {" "}
+          <div
+            className={` overflow-hidden lg:overflow-visible transition-all duration-300 
             ${expanded ? "max-h-[450px] overflow-y-auto" : "max-h-[310px] overflow-hidden"} lg:max-h-none lg:overflow-visible
           `}
-        style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}
-      >
-        {displayedText}
-      </div>
-      <button
-        onClick={() => setExpanded((prev) => !prev)}
-        className="mt-3 cursor-target text-blue-500 lg:hidden"
-      >
-        {expanded ? "Show less" : "Show more"}
-      </button>
-      {/* {showCursor && (
-        <span ref={cursorRef} className={`ml-1 ${cursorClassName}`}>
-          {cursorCharacter}
-        </span>
-      )} */}
+            style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}
+          >
+            {displayedText}
+          </div>
+          <button
+            onClick={() => setExpanded((prev) => !prev)}
+            className="mt-3 cursor-target text-blue-500 lg:hidden"
+          >
+            {expanded ? "Show less" : "Show more"}
+          </button>
+        </>
+      ) : (
+        <div
+          className={` overflow-visible transition-all duration-300 
+           max-h-none 
+          `}
+          style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}
+        >
+          {displayedText}
+        </div>
+      )}
     </>,
   );
 };

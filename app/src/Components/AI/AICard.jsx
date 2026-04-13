@@ -366,7 +366,7 @@ export const AICard = () => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 40, scale: 0.95 }}
               transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-              className="w-[1400px] h-[950px]  bg-white/5 backdrop-blur-xl text-white px-5 py-3 rounded-2xl shadow-2xl border border-white/10 flex flex-col"
+              className=" w-[800px] mmd:w-[900px] lg:w-[1000px] clg:w-[1100px] xl:w-[1270px] cxl:w-3/4 h-[950px]  bg-white/5 backdrop-blur-xl text-white px-5 py-3 rounded-2xl shadow-2xl border border-white/10 flex flex-col"
             >
               {/* && switchs === "strategy"  */}
               {/* ((state.user && !state.user?.trial?.isActive === false) ||
@@ -471,7 +471,7 @@ export const AICard = () => {
                               as="p"
                               className="text-lg font-satosIT font-bold leading-relaxed"
                               text={data.content}
-                              typingSpeed={10}
+                              typingSpeed={5}
                             />
                           </div>
                         </div>
@@ -509,12 +509,11 @@ export const AICard = () => {
                   )}
                 </div>
               )}
-              {/* INPUT (STICKY BOTTOM) */}
               {/* <div className=" bottom-0 z-50 flex  flex-row justify-center gap-4 ml-40  pt-4"> */}
-              <div className="  absolute bottom-10  left-1/2 -translate-x-1/2 z-50 flex flex-row gap-4 pt-4 px-6 py-4 bg-white/10  backdrop-blur-xl border border-white/30 rounded-2xl shadow-xl ">
-                <div>
+              <div className="    absolute bottom-10  left-1/2 -translate-x-1/2 z-50 flex flex-row gap-4 pt-4 px-6 py-4 bg-white/10  backdrop-blur-xl border border-white/30 rounded-2xl shadow-xl ">
+                <div className="">
                   {switchs === "chat" ? (
-                    <div className="z-50">
+                    <div className="z-50 w-[400px]">
                       {" "}
                       <PlaceholdersAndVanishInput
                         placeholders={placeholders}
@@ -524,7 +523,7 @@ export const AICard = () => {
                       />
                     </div>
                   ) : (
-                    <div className="  flex flex-row gap-10 mx-auto   ">
+                    <div className="   flex flex-row gap-10 mx-auto   ">
                       <div>
                         <p className="text-gray-400 text-sm mb-2">
                           Step {currentStep + 1} of {steps.length}

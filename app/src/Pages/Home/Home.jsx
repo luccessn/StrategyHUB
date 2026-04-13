@@ -47,7 +47,7 @@ export const Home = () => {
   const { state } = useAppContext();
   console.log(state);
   return (
-    <div className=" flex flex-col gap-20 text-white text-3xl">
+    <div className=" flex overflow-x-hidden flex-col gap-14 text-white text-3xl">
       <WorldMapDemo />
       {/* <MapTabsDemo /> */}
       <div className="">

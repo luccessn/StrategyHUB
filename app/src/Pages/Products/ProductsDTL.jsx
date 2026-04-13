@@ -15,7 +15,7 @@ export const ProductsDTL = () => {
   return (
     <>
       {isLoading ? (
-        <div>
+        <div className="relative top-40">
           <PlaceHolder />
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
             <div className="flex items-center justify-center gap-6">
@@ -40,7 +40,9 @@ export const ProductsDTL = () => {
           </div>
         </div>
       ) : (
-        <MainDTLCards data={data} />
+        <div className="relative top-20">
+          <MainDTLCards data={data} />
+        </div>
       )}
     </>
   );

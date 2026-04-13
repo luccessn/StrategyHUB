@@ -72,7 +72,7 @@ export const Subs = () => {
 
   return (
     <>
-      <div className="flex flex-row mt-28 mx-auto justify-center gap-10 ">
+      <div className="flex relative top-10 flex-row mt-28 mx-auto justify-center gap-10 ">
         {subsOption.map((option) => (
           <div key={option.id} className="w-full   max-w-[380px]">
             <div className="max-w-sm lg:max-w-none mx-auto pt-10 px-5 pb-8 bg-gradient-to-b  from-zinc-900 to-zinc-800 border border-zinc-700 rounded-3xl shadow-xl">

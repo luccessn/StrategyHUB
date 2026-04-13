@@ -235,7 +235,7 @@ function App() {
             </Navbar>
 
             {/* Main App Content */}
-            <div className="">
+            <div className="relative -top-10">
               {/* <AppRouters /> */}
               <AppRoutes />
             </div>

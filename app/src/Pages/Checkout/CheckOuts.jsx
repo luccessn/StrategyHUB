@@ -83,7 +83,7 @@ const CheckOuts = () => {
       return value.trim() !== "";
     }) && isChecked;
   return (
-    <div className="flex mt-10  flex-col items-center lg:items-start  xl:p-0 lg:flex-row  relative gap-14 lg:gap-24  xl:gap-40 justify-center text-white py-10">
+    <div className="flex mt-10  flex-col items-center lg:items-start p-0 lg:p-4  xl:p-0 lg:flex-row  relative gap-14 lg:gap-24 top-24   xl:gap-40 justify-center text-white py-10">
       <PanelGroup
         accordion
         defaultActiveKey={null}
@@ -91,7 +91,7 @@ const CheckOuts = () => {
       >
         <Panel
           header={
-            <div className=" w-full flex justify-between items-center px-2">
+            <div className=" w-full cursor-target ml-5 sfm:ml-0 p-2 flex gap-10 justify-between items-center px-2">
               <span className="text-base font-semibold">Your Order</span>
               <span className="text-base font-semibold text-green-400">
                 ${totalAmount}
@@ -99,9 +99,9 @@ const CheckOuts = () => {
             </div>
           }
           eventKey={1}
-          className=" w-[350px]  ssmm:w-[380px] ssm:w-[450px] sfm:w-[500px] smm:w-[600px] "
+          className="w-full   ssmm:w-[420px] ssm:w-[500px] sfm:w-[550px] smm:w-[600px] overflow-hidden "
         >
-          <div className="flex flex-col gap-8 rounded-2xl shadow-xl p-8">
+          <div className="flex flex-col  gap-8 rounded-xl shadow-xl p-8 bg-white/5 backdrop-blur-xl border-2 border-white/30 shadow-xl">
             <div
               className={`flex flex-col gap-5 overflow-y-auto ${
                 state.cartItems.length > 3 ? "max-h-[300px]" : ""
@@ -157,7 +157,7 @@ const CheckOuts = () => {
         </Panel>
       </PanelGroup>
 
-      <form className="flex p-10 ssmm:p-0 flex-col gap-4 rounded-lg w-[380px] ssm:w-[450px] sfm:w-[500px] smm:w-[600px] lg:w-[500px]">
+      <form className="flex p-8 ssxx:p-2 ssmm:p-0 flex-col gap-4 rounded-lg w-[380px] ssm:w-[450px] sfm:w-[500px] smm:w-[600px] lg:w-[500px]">
         {/* Payment Info */}
 
         <div>

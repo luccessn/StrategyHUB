@@ -6,6 +6,7 @@ import DottedMap from "dotted-map";
 import { AnimatePresence, motion } from "framer-motion";
 import Trackloader from "../Loads/trackloader";
 import { useFetchData } from "../../Hooks/useFetchData";
+import { useEffect } from "react";
 export function WorldMap({ lineColor = "#0ea5e9" }) {
   const svgRef = useRef(null);
   const containerRef = useRef(null);
@@ -40,8 +41,28 @@ export function WorldMap({ lineColor = "#0ea5e9" }) {
 
     return { x, y };
   };
+  const [pinnedTooltip, setPinnedTooltip] = useState(null);
+  const handleClick = (e, dot) => {
+    const rect = containerRef.current.getBoundingClientRect();
 
+    const newTooltip = {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+      label: dot.start.label,
+      src: dot.src,
+    };
+
+    setPinnedTooltip((prev) => {
+      if (prev) {
+        setTooltip(null);
+        return null; // unpin
+      }
+      setTooltip(newTooltip);
+      return newTooltip;
+    });
+  };
   const handleMouseEnter = (e, dot) => {
+    if (pinnedTooltip) return;
     const rect = containerRef.current.getBoundingClientRect();
     setTooltip({
       x: e.clientX - rect.left,
@@ -62,9 +83,20 @@ export function WorldMap({ lineColor = "#0ea5e9" }) {
   // };
 
   const handleMouseLeave = () => {
+    if (pinnedTooltip) return;
     setTooltip(null);
   };
+  useEffect(() => {
+    const handleGlobalClick = (e) => {
+      if (containerRef.current && !containerRef.current.contains(e.target)) {
+        setTooltip(null);
+        setPinnedTooltip(null);
+      }
+    };
 
+    document.addEventListener("mousedown", handleGlobalClick);
+    return () => document.removeEventListener("mousedown", handleGlobalClick);
+  }, []);
   return (
     <div
       ref={containerRef}
@@ -149,6 +181,7 @@ export function WorldMap({ lineColor = "#0ea5e9" }) {
               <g
                 key={i}
                 className="cursor-target pointer-events-auto"
+                onClick={(e) => handleClick(e, dot)}
                 onMouseEnter={(e) => handleMouseEnter(e, dot)}
                 onMouseLeave={handleMouseLeave}
               >

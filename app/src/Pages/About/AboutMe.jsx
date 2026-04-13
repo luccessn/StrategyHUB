@@ -77,7 +77,7 @@ const techLogos = [
 
 export const AboutMe = () => {
   return (
-    <div className="relative top-10 lg:top-0  flex flex-col gap-12 ">
+    <div className="relative top-32 lg:top-28  flex flex-col gap-12 ">
       {/* <ReactLenis
         root
         options={{
@@ -121,8 +121,8 @@ export const AboutMe = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.55, ease: "linear" }}
-            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.5, ease: "linear" }}
+            viewport={{ once: true, amount: 0.35 }}
           >
             <h1 className="text-white text-3xl sfm:text-4xl ml-2 sfm:ml-10 font-title">
               Other Projects
@@ -220,6 +220,7 @@ const FirstTab = () => {
             <div className="w-full mx-auto max-w-[1150px]">
               <TextType
                 as="p"
+                inf="about"
                 className="text-base ssm:text-lg sm:text-base xl:text-xl font-satosIT font-bold"
                 text={`I would like to introduce my project, StrategyHub, which is created for every auto and motorsport fan who wants precise answers and effective strategies.
 

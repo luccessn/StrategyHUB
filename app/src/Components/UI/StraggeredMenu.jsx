@@ -541,7 +541,7 @@ export const StaggeredMenu = ({
               </div>
             </div>
             <div
-              className={`sm-panel-list  ${state.cartItems.length > 4 ? "max-h-[650px]" : ""} sm-socials-link  overflow-y-auto  list-none m-0 p-0 flex flex-col gap-2`}
+              className={`sm-panel-list  ${state.cartItems.length > 3 ? "max-h-[700px]" : "max-h-[700px]"} sm-socials-link  overflow-y-auto  list-none m-0 p-0 flex flex-col gap-2`}
               role="list"
               data-numbering={displayItemNumbering || undefined}
             >

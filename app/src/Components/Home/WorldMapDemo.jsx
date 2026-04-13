@@ -126,9 +126,9 @@ export function WorldMapDemo() {
   // MST TO ADD ERROR TG ! !
   return (
     <>
-      <div className=" relative -top-20   w-full ">
+      <div className=" flex flex-col gap-20   w-full ">
         <WorldMap dots={data} isLoading={isLoading} />
-        <div className="top-shadow absolute left-0 top-2 w-full h-[180px] bg-gradient-to-b from-black to-transparent"></div>
+        <div className="top-shadow absolute left-0 -top-4 w-full h-[180px] bg-gradient-to-b from-black to-transparent"></div>
 
         <div className="max-w-7xl mx-auto text-center" ref={ref}>
           <p className="font-panchangSB text-xl md:text-4xl  text-white ">

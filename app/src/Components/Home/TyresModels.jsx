@@ -121,60 +121,26 @@ export const TyresModels = () => {
     <motion.div
       initial={{ opacity: 0, scale: 0.98 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.6, ease: "linear" }}
+      transition={{ duration: 0.45, ease: "linear" }}
       viewport={{ once: false, amount: 0.14 }}
     >
-      <div className="w-full h-full ">
-        <div className="w-full relative right-4    mx-auto justify-center items-center ">
-          {/* <div className="ml-4 z-50  relative translate-y-96  top-5">
-          <button
-            className="cursor-pointer cursor-target  swiper-button-prev-custom  duration-200 hover:scale-125 active:scale-100"
-            title="Go Back"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="70px"
-              height="70px"
-              viewBox="0 0 24 24"
-              className="stroke-blue-300"
-            >
-              <path
-                stroke-linejoin="round"
-                stroke-linecap="round"
-                stroke-width="1.5"
-                d="M11 6L5 12M5 12L11 18M5 12H19"
-              ></path>
-            </svg>
-          </button>
-        </div>
-        <div className="flex justify-end mr-4 right-6 z-50 relative translate-y-80 top-6 ">
-          <button
-            className=" swiper-button-next-custom 
-         cursor-pointer cursor-target  rotate-180
-         z-50 duration-200 hover:scale-125 active:scale-100"
-            title="Go Back"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="70px"
-              height="70px"
-              viewBox="0 0 24 24"
-              className="stroke-blue-300"
-            >
-              <path
-                stroke-linejoin="round"
-                stroke-linecap="round"
-                stroke-width="1.5"
-                d="M11 6L5 12M5 12L11 18M5 12H19"
-              ></path>
-            </svg>
-          </button>
-        </div> */}
-
+      <div className="w-full h-full  ">
+        <div className="w-full relative flex justify-center">
           <Swiper
             loop={true}
             centeredSlides={true}
             slidesPerView={3}
+            breakpoints={{
+              320: {
+                slidesPerView: 1,
+              },
+              640: {
+                slidesPerView: 2,
+              },
+              1280: {
+                slidesPerView: 3,
+              },
+            }}
             spaceBetween={60}
             modules={[Pagination, Navigation, Autoplay]}
             autoplay={{
@@ -185,7 +151,7 @@ export const TyresModels = () => {
               setActiveIndex(swiper.realIndex);
               setactive(tyreData[swiper.realIndex]);
             }}
-            className="mySwiper "
+            className="mySwiper w-full"
             navigation={{
               nextEl: ".swiper-button-next-custom",
               prevEl: ".swiper-button-prev-custom",
@@ -206,14 +172,16 @@ export const TyresModels = () => {
                       duration: 1.1,
                       ease: [0.4, 0.0, 0.2, 1],
                     }}
-                    className="p-4 flex flex-col bg-black/20 h-[700px] w-[650px]  rounded-sm cursor-pointer"
+                    className="p-4 flex flex-col bg-black/20 h-[440px] mmd:h-[480px] lg:h-[550px]  w-full xxxll:h-[700px] rounded-sm cursor-pointer mx-auto"
+                    // className="p-4 flex flex-col bg-black/20  h-[500px] xxxll:h-[700px] rounded-sm cursor-pointer"
                   >
-                    <div className="flex gap-4 flex-col  w-full">
+                    <div className="flex gap-4 flex-col h-full w-full">
                       <motion.div layoutId={`image-${card.title}-${id}`}>
                         <img
                           src={card.src}
                           alt={card.title}
-                          className=" h-[600px] w-full rounded-lg"
+                          className=" w-[330px] mmd:w-[380px]  lg:w-[450px] h-[350px]  mmd:h-[390px] lg:h-[420px] xl:h-[420px] xl:w-full xxl:h-[480px] mx-auto rounded-lg"
+                          // className=" h-[400px] xl:h-[420px] xxl:h-[480px] xxxll:h-[580px]  w-full rounded-lg"
                         />
                       </motion.div>
                       <div className="flex justify-center items-center flex-col">
@@ -252,9 +220,9 @@ export const TyresModels = () => {
             animate={{ opacity: 1, y: -20 }}
             exit={{ opacity: 0, y: 30 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className="m-16 flex items-center justify-center text-center w-full"
+            className="mt-10  flex items-center justify-center text-center w-full"
           >
-            <h1 className="text-2xl h-40 opacity-75 transition-all w-3/4 p-10   ">
+            <h1 className=" text-lg md:text-xl xl:text-2xl h-44 opacity-75 font-satosIT transition-all w-4/4 lg:w-3/4 p-5 xl:p-10   ">
               {active.description}
             </h1>
           </motion.div>
@@ -263,171 +231,3 @@ export const TyresModels = () => {
     </motion.div>
   );
 };
-
-{
-  /* <img src={soft} alt="" className="w-[300px]" />; */
-}
-// <div className="flex mx-auto h-[600px] justify-center gap-10 flex-row w-full">
-//   <div className=" w-4/12 flex h-full  ">
-//     <div className="w-full h-full">
-//       <motion.div className="flex h-full flex-col cursor-pointer bg-cover bg-center bg-no-repeat p-0">
-//         <div className="flex flex-col w-full h-full">
-//           <div className="w-full h-full ">
-//             <Canvas
-//               key="F1Tyres"
-//               shadows
-//               dpr={[1, 2]}
-//               gl={{
-//                 antialias: true,
-//                 physicallyCorrectLights: true,
-//                 outputColorSpace: THREE.SRGBColorSpace,
-//                 toneMappingExposure: 1,
-//               }}
-//               camera={{ position: [-5, 10, 0], fov: 45 }}
-//             >
-//               <Suspense fallback={<Loader />}>
-//                 <Model
-//                   url={bgtTyre}
-//                   scale={[1.7, 1.6, 1.6]}
-//                   position={[0, 0, -0.5]}
-//                   rotation={[0.5, 0, 1.9]}
-//                 />
-//                 <ambientLight intensity={0.3} />
-//                 <directionalLight
-//                   castShadow
-//                   position={[5, 10, 5]}
-//                   intensity={1.2}
-//                   shadow-mapSize-width={2048}
-//                   shadow-mapSize-height={2048}
-//                 />
-//                 <spotLight
-//                   castShadow
-//                   position={[-5, 8, -5]}
-//                   intensity={0.8}
-//                   angle={0.3}
-//                 />
-//                 <Environment preset="sunset" background={false} />
-//               </Suspense>
-//               <OrbitControls
-//                 target={[0, -0.6, 0]}
-//                 enableRotate={false}
-//                 enableZoom={false}
-//                 enablePan={false}
-//               />
-//             </Canvas>
-//           </div>
-//         </div>
-//       </motion.div>
-//     </div>
-//   </div>
-//   <div className=" w-3/4 flex h-full  ">
-//     <div className="w-full h-full">
-//       <motion.div className="flex h-full flex-col cursor-pointer bg-cover bg-center bg-no-repeat p-0">
-//         <div className="flex flex-col w-full h-full">
-//           <div className="flex flex-col pl-5 gap-2">
-//             <h1 className="font-panchangMD text-2xl tracking-wide">
-//               F1 Tyres
-//             </h1>
-//           </div>
-
-//           <div className="w-full h-full ">
-//             <Canvas
-//               key="F1Tyres"
-//               shadows
-//               dpr={[1, 2]}
-//               gl={{
-//                 antialias: true,
-//                 physicallyCorrectLights: true,
-//                 outputColorSpace: THREE.SRGBColorSpace,
-//                 toneMappingExposure: 1,
-//               }}
-//               camera={{ position: [-5, 10, 0], fov: 45 }}
-//             >
-//               <Suspense fallback={<Loader />}>
-//                 <Model
-//                   url={f1tyres}
-//                   scale={[4.1, 3.9, 3.9]}
-//                   position={[0, 3.5, -3.1]}
-//                   rotation={[0, 0, 40]}
-//                 />
-//                 <ambientLight intensity={0.3} />
-//                 <directionalLight
-//                   castShadow
-//                   position={[5, 10, 5]}
-//                   intensity={1.2}
-//                   shadow-mapSize-width={2048}
-//                   shadow-mapSize-height={2048}
-//                 />
-//                 <spotLight
-//                   castShadow
-//                   position={[-5, 8, -5]}
-//                   intensity={0.8}
-//                   angle={0.3}
-//                 />
-//                 <Environment preset="sunset" background={false} />
-//               </Suspense>
-//               <OrbitControls
-//                 target={[0, -0.6, 0]}
-//                 enableRotate={false}
-//                 enableZoom={false}
-//                 enablePan={false}
-//               />
-//             </Canvas>
-//           </div>
-//         </div>
-//       </motion.div>
-//     </div>
-//   </div>
-//   <div className=" w-5/12 flex h-full  ">
-//     <div className="w-full h-full">
-//       <motion.div className="flex h-full flex-col cursor-pointer bg-cover bg-center bg-no-repeat p-0">
-//         <div className="flex flex-col w-full h-full">
-//           <div className="w-full h-full ">
-//             <Canvas
-//               key="F1Tyres"
-//               shadows
-//               dpr={[1, 2]}
-//               gl={{
-//                 antialias: true,
-//                 physicallyCorrectLights: true,
-//                 outputColorSpace: THREE.SRGBColorSpace,
-//                 toneMappingExposure: 1,
-//               }}
-//               camera={{ position: [-5, 10, 0], fov: 45 }}
-//             >
-//               <Suspense fallback={<Loader />}>
-//                 <Model
-//                   url={interTyre}
-//                   scale={[4.1, 3.9, 3.9]}
-//                   position={[0, 2, -3.7]}
-//                   rotation={[-0.5, 0, 1.9]}
-//                 />
-//                 <ambientLight intensity={0.3} />
-//                 <directionalLight
-//                   castShadow
-//                   position={[5, 10, 5]}
-//                   intensity={1.2}
-//                   shadow-mapSize-width={2048}
-//                   shadow-mapSize-height={2048}
-//                 />
-//                 <spotLight
-//                   castShadow
-//                   position={[-5, 8, -5]}
-//                   intensity={0.8}
-//                   angle={0.3}
-//                 />
-//                 <Environment preset="sunset" background={false} />
-//               </Suspense>
-//               <OrbitControls
-//                 target={[0, -0.6, 0]}
-//                 enableRotate={false}
-//                 enableZoom={false}
-//                 enablePan={false}
-//               />
-//             </Canvas>
-//           </div>
-//         </div>
-//       </motion.div>
-//     </div>
-//   </div>
-// </div>

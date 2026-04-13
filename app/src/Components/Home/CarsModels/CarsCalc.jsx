@@ -15,7 +15,6 @@ import * as THREE from "three";
 // import mclaren1k from "./models/cars/gt3/mclaren_gt3.glb";
 
 // import { TestCharts } from "../TestCharts";
-import { carsConst } from "./Constants/CarsConst";
 import { Charts } from "./CarsDino/Charts";
 import TextType from "../../UI/tx/TextType";
 // import DecryptedText from "../../UI/tx/DecryptedText";
@@ -25,46 +24,10 @@ import { CarsFetch } from "./Constants/CarsFetch";
 // import mclaren2025 from "./models/cars/f1/2025_mclaren.glb";
 //
 //
-import { useTheme } from "@mui/material/styles";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
+import "./btc.css";
+
 //
-import { SiFerrari } from "react-icons/si";
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 450,
-    },
-  },
-};
-
-const names = [
-  "Oliver Hansen",
-  "Van Henry",
-  "April Tucker",
-  "Ralph Hubbard",
-  "Omar Alexander",
-  "Carlos Abbott",
-  "Miriam Wagner",
-  "Bradley Wilkerson",
-  "Virginia Andrews",
-  "Kelly Snyder",
-];
-
-function getStyles(name, personName, theme) {
-  return {
-    fontWeight: personName.includes(name)
-      ? theme.typography.fontWeightMedium
-      : theme.typography.fontWeightRegular,
-  };
-}
 ///
 function Loader() {
   const { progress } = useProgress();
@@ -146,7 +109,6 @@ export const CloseIcon = () => (
 );
 
 export const CarsCalc = () => {
-  const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
 
   const handleChange = (event) => {
@@ -162,7 +124,6 @@ export const CarsCalc = () => {
   // console.log(carsConst);
 
   const [carsConsta, error, isLoading] = CarsFetch();
-  console.log(carsConsta);
 
   const [selectedCard, setSelectedCard] = useState(null);
   const [active, setactive] = useState(null);
@@ -189,16 +150,19 @@ export const CarsCalc = () => {
 
   return (
     <>
-      <div className=" flex flex-col gap-2">
+      <div className=" flex flex-col gap-10 ">
         <motion.div
-          initial={{ opacity: 0, scale: 1 }}
+          initial={{ opacity: 0.1, scale: 1 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, ease: "linear" }}
-          viewport={{ once: false, amount: 0.4 }}
+          //dr:04, amount:34
+          transition={{ duration: 0.3, ease: "linear" }}
+          viewport={{ once: false, amount: 0.2 }}
         >
           <div className="w-full flex flex-col items-center my-6 ">
             <div className="relative inline-block group">
               <select
+                // className="select"
+                // className="rounded-sm cursor-target border-1  border-dashed border-black  px-6 py-3 font-semibold  text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
                 className="cursor-target w-[600px] px-5 py-3 text-xl uppercase font-bold text-white appearance-none cursor-pointer focus:outline-none font-panchangMD bg-[#0f1923]"
                 onChange={(e) => {
                   const chosen = carsConsta.find(
@@ -221,15 +185,15 @@ export const CarsCalc = () => {
                   </option>
                 ))}
               </select>
-              <span className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-white">
+              {/* <span className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-white">
                 ▼
-              </span>
+              </span> */}
             </div>
           </div>
 
-          <div className="flex flex-col h-full gap-20 ">
-            <div className="w-full flex h-[800px] flex-row gap-2">
-              <div className="w-full h-[800px]">
+          <div className="h-full  ">
+            <div className="w-full flex xxl:h-[800px] flex-col xxl:flex-row gap-2">
+              <div className="w-full h-[800px]  xxl:h-[800px] ">
                 {selectedCard && (
                   <motion.div
                     layoutId={`card-${selectedCard.title}-${id}`}
@@ -282,7 +246,7 @@ export const CarsCalc = () => {
                           <OrbitControls
                             target={[0, -0.6, 0]}
                             enableRotate
-                            enableZoom
+                            // enableZoom
                             enablePan={false}
                           />
                         </Canvas>
@@ -292,23 +256,32 @@ export const CarsCalc = () => {
                 )}
               </div>
 
-              <div className="w-8/12 text-white h-full flex flex-col gap-5 p-10">
+              <div className=" w-full  xxl:w-8/12   text-white h-[600px] xl:h-[600px] xxl:h-[800px] flex flex-col gap-2 xl:gap-5 p-5">
                 {selectedCard && (
                   <div className="flex flex-col gap-6">
                     <TextType
                       key={`about-title-${selectedCard.title}`}
                       as="h1"
-                      className="text-5xl font-array"
+                      className=" text-4xl xl:text-5xl font-array"
                       text={`About the ${selectedCard.title}`}
                       typingSpeed={40}
                     />
 
                     <TextType
                       key={`about-title-${selectedCard.about.about1}`}
+                      inf={"carscalc"}
                       as="p"
-                      className="text-xl font-array"
+                      className="text-xl hidden xxl:block font-array p-2"
                       text={`${selectedCard.about.about1}\n${selectedCard.about.about2}`}
-                      typingSpeed={10}
+                      typingSpeed={2}
+                    />
+                    <TextType
+                      key={`about-title-${selectedCard.about.about1}`}
+                      inf={"carscalc2"}
+                      as="p"
+                      className="text-xl rounded-xl rounded-br-none rounded-bl-none font-array p-2 block xxl:hidden bg-white/5 backdrop-blur-xl border border-white/30 shadow-xl"
+                      text={`${selectedCard.about.about1}\n${selectedCard.about.about2}`}
+                      typingSpeed={2}
                     />
 
                     {selectedCard.about2 && (
@@ -336,19 +309,20 @@ export const CarsCalc = () => {
           </div>
         </motion.div>
         <motion.div
-          initial={{ opacity: 0.2, scale: 0.98 }}
+          initial={{ opacity: 0.1, scale: 0.98 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.55, ease: "linear" }}
+          transition={{ duration: 0.35, ease: "linear" }}
           viewport={{ once: false, amount: 0.3 }}
         >
           {/* w-4/4  */}
-          <div className="flex flex-row gap-5 bg-white/0 border-2 border-white/15 backdrop-blur-xl w-[1800px] mx-auto p-5 rounded-sm h-[800px] ">
-            <div className="">
+          {/* 1500 mj  */}
+          <div className="flex flex-col xxxl:flex-row gap-5 bg-white/0 border-2 border-white/15 backdrop-blur-xl max-w-[785px] mmd:max-w-[900px] lg:max-w-[990px] clg:max-w-[1100px] xl:max-w-[1250px] cxl:max-w-[1400px] xxl:max-w-[1500px] xxxl:max-w-[1800px] mx-auto p-5 rounded-sm h-[800px] ">
+            <div className="flex flex-row xxxl:flex-col">
               {data.map((card) => (
                 <motion.div
                   layoutId={`card-${card.title}-${id}`}
                   onClick={() => setactive(card)}
-                  className={`p-4 flex flex-col backdrop-blur-md  cursor-target rounded-xl cursor-pointer transition ${
+                  className={`p-4  backdrop-blur-md  cursor-target rounded-xl cursor-pointer transition ${
                     active?.title === card.title
                       ? "bg-neutral-800"
                       : "hover:bg-neutral-800"
@@ -357,7 +331,7 @@ export const CarsCalc = () => {
                   <div className="flex justify-center items-center flex-col">
                     <motion.h3
                       layoutId={`title-${card.title}-${id}`}
-                      className="font-panchang text-neutral-200 text-center text-base"
+                      className="font-panchang text-neutral-200 text-center text-sm xxxl:text-base"
                     >
                       {card.title}
                     </motion.h3>
@@ -372,7 +346,7 @@ export const CarsCalc = () => {
               ))}
             </div>
             {selectedCard && (
-              <div className=" w-full   h-full  ">
+              <div className=" w-[750px] mmd:w-[850px] lg:w-[950px]  clg:w-[1050px]  xl:w-[1200px] cxl:w-[1350px] overflow-x-auto xxl:w-full   h-full mx-auto ">
                 {active && (
                   <motion.div
                     key={selectedCard.title}

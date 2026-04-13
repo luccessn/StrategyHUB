@@ -24,7 +24,7 @@ export const CartCard = ({ props }) => {
     }
   };
   return (
-    <div className="flex flex-col sffm:flex-row w-full justify-between items-start gap-4 border-b border-gray-200 py-4 px-2 sm:px-5 font-mono">
+    <div className="flex flex-col sffm:flex-row w-full justify-between items-start gap-4 border-b  border-gray-200 py-4 px-2 sm:px-5 font-mono">
       {/* Content: Image + Info */}
       <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto flex-1">
         <img
