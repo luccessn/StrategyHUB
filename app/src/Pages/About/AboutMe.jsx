@@ -77,7 +77,7 @@ const techLogos = [
 
 export const AboutMe = () => {
   return (
-    <div className="relative top-32 lg:top-28  flex flex-col gap-12 ">
+    <div className="relative top-28 lg:top-16  flex flex-col gap-12 ">
       {/* <ReactLenis
         root
         options={{

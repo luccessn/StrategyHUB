@@ -57,7 +57,7 @@ export const Subs = () => {
       try {
         setisLoading(id);
         const res = await fetch(
-          "http://localhost:5000/server/subscription/start-trial",
+          "https://strategyhub.onrender.com/server/subscription/start-trial",
           {
             method: "POST",
             headers: {
@@ -73,13 +73,16 @@ export const Subs = () => {
           return;
         }
         //
-        //
+        //http://localhost:5000/server/
         const token = localStorage.getItem("accesTokenHUB");
-        const userRef = await fetch("http://localhost:5000/server/refresh", {
-          headers: {
-            Authorization: `Bearer ${token}`,
+        const userRef = await fetch(
+          "https://strategyhub.onrender.com/server/refresh",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           },
-        });
+        );
         const freshUser = await userRef.json();
         dispatch({ type: AppActions.AUTHENTICATED, payload: freshUser });
         console.log("Trial started:", data);
