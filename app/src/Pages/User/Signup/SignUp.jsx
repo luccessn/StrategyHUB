@@ -63,7 +63,7 @@ export const SignUp = () => {
         console.log(error.message);
 
         setformErrors({
-          general: error.message || "Somethins is wrong , please try again",
+          general: error.message || "Something is wrong , please try again",
         });
       })
       .finally(() => setisLoading(false));
@@ -172,7 +172,10 @@ export const SignUp = () => {
             </p>
           )}
         </LabelInputContainer>
-        <button type="submit" className="flex    items-center justify-center">
+        <button
+          type="submit"
+          className="flex  cursor-target   items-center justify-center"
+        >
           <Button isLoading={isLoading}>
             Sign up
             <BottomGradient />

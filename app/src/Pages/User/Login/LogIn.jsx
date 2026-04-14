@@ -57,15 +57,16 @@ export const LogIn = () => {
         }
       })
       .catch((err) => {
-        console.log(err);
-        setformErrrors({ general: err || "ERRAR" });
+        setformErrrors({
+          general: err.message || "Something is wrong , please try again",
+        });
       })
       .finally(() => {
+        setisLoading(false);
         setuser({
           email: "",
           password: "",
         });
-        setisLoading(false);
       });
   };
 
@@ -108,7 +109,7 @@ export const LogIn = () => {
             name="password"
             onChange={ChangeInput}
             value={user.password}
-            className={`bg-zinc-800 text-zinc-200 ${
+            className={`bg-zinc-800 text-zinc-100 ${
               formErrrors.email ? "border-2 border-red-500" : ""
             }`}
           />
@@ -126,12 +127,20 @@ export const LogIn = () => {
           Log In
           <BottomGradient />
         </button> */}
-        <button type="submit" className="flex    items-center justify-center">
+        <button
+          type="submit"
+          className="flex cursor-target items-center justify-center"
+        >
           <Button isLoading={isLoading}>
             Log In
             <BottomGradient />
           </Button>
         </button>
+        {formErrrors.general && (
+          <p className="text-red-600 text-sm mt-2 text-center">
+            {formErrrors.general}
+          </p>
+        )}
         <p className="text-white text-center">
           Don't have an account?{" "}
           <button

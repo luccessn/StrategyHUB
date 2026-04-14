@@ -172,7 +172,7 @@ const CheckOuts = () => {
               onChange={ChangeInput}
               type="email"
               placeholder="example@email.com"
-              className="w-full bg-[#1b1b1b] p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-950"
+              className="w-full bg-[#1b1b1b] cursor-target p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-950"
             />
           </div>
         </div>
@@ -192,7 +192,7 @@ const CheckOuts = () => {
                   onChange={ChangeInput}
                   type="text"
                   placeholder="John"
-                  className="w-full bg-[#1b1b1b] p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-950"
+                  className="w-full bg-[#1b1b1b] cursor-target p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-950"
                 />
               </div>
               <div>
@@ -205,7 +205,7 @@ const CheckOuts = () => {
                   onChange={ChangeInput}
                   type="text"
                   placeholder="Doe"
-                  className="w-full bg-[#1b1b1b] p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-950"
+                  className="w-full bg-[#1b1b1b] cursor-target p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-950"
                 />
               </div>
             </div>
@@ -217,7 +217,7 @@ const CheckOuts = () => {
                 name="country"
                 value={Data.country}
                 onChange={ChangeInput}
-                className="w-full  bg-[#1b1b1b] text-white p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-950"
+                className="w-full  bg-[#1b1b1b] cursor-target text-white p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-950"
               >
                 <option value="">Select a country</option>
                 <option value="US">United States</option>
@@ -247,7 +247,7 @@ const CheckOuts = () => {
                   name="state"
                   value={Data.state}
                   onChange={ChangeInput}
-                  className="w-full bg-[#1b1b1b] p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-950"
+                  className="w-full bg-[#1b1b1b] cursor-target p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-950"
                 >
                   <option value="">Select a state</option>
                   {usStates.map((state) => (
@@ -264,7 +264,7 @@ const CheckOuts = () => {
                   type="text"
                   placeholder="State / Region"
                   disabled={Data.country === "US" ? false : false} // თუ არ გინდა ჩაკეტო, დააყენე false
-                  className="w-full bg-[#1b1b1b] p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-950"
+                  className="w-full bg-[#1b1b1b] cursor-target p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-950"
                 />
               )}
             </div>
@@ -279,7 +279,7 @@ const CheckOuts = () => {
                 onChange={ChangeInput}
                 type="text"
                 placeholder="Street address, building"
-                className="w-full bg-[#1b1b1b] p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-950"
+                className="w-full bg-[#1b1b1b] p-3 cursor-target rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-950"
               />
             </div>
             <div>
@@ -292,7 +292,7 @@ const CheckOuts = () => {
                 onChange={ChangeInput}
                 type="text"
                 placeholder="Apartment, suite, etc. (optional)"
-                className="w-full bg-[#1b1b1b] p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-950"
+                className="w-full bg-[#1b1b1b] p-3 cursor-target rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-950"
               />
             </div>
             <div className="flex flex-row gap-2">
@@ -306,7 +306,7 @@ const CheckOuts = () => {
                   onChange={ChangeInput}
                   type="text"
                   placeholder="Postal Code"
-                  className={`w-full bg-[#1b1b1b] p-3 rounded-lg focus:outline-none focus:ring-2 ${
+                  className={`w-full bg-[#1b1b1b] p-3 cursor-target rounded-lg focus:outline-none focus:ring-2 ${
                     zipError ? "ring-red-500" : "focus:ring-purple-950"
                   }`}
                 />
@@ -324,7 +324,7 @@ const CheckOuts = () => {
                   onChange={ChangeInput}
                   type="text"
                   placeholder="City"
-                  className="w-full bg-[#1b1b1b] p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-950"
+                  className="w-full bg-[#1b1b1b] p-3 cursor-target rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-950"
                 />
               </div>
             </div>
@@ -506,7 +506,7 @@ const CheckOuts = () => {
           <input
             type="text"
             placeholder="Promo Code"
-            className="w-full bg-[#1b1b1b] p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-950"
+            className="w-full bg-[#1b1b1b] cursor-target p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-950"
             value={promoCode}
             onChange={(e) => setPromoCode(e.target.value)}
           />
@@ -521,7 +521,7 @@ const CheckOuts = () => {
                 alert("Invalid Promo Code");
               }
             }}
-            className={`px-5 py-2 rounded-lg font-semibold transition duration-300 ${
+            className={`px-5 py-2 cursor-target rounded-lg font-semibold transition duration-300 ${
               isValidCode
                 ? "bg-green-600 text-white"
                 : "bg-gray-700 text-gray-300"

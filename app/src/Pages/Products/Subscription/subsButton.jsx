@@ -35,20 +35,23 @@ export const SubsButton = ({
     prevLoading.current = isLoading;
   }, [isLoading, animate]);
   const isDisabled =
-    planName === "Free" &&
+    planName.name === "Free" &&
     ((state.user && state?.user?.trial?.isUsed) ||
       (!state.user && state.subscription.free.isUsed));
+  const ntWrk = planName.add === "fixing";
 
   return (
     <motion.button
       ref={scope}
-      disabled={isDisabled || isLoading}
+      disabled={isDisabled || isLoading || ntWrk}
       className={cn(
         "relative flex items-center justify-center gap-2 cursor-pointer group inline-block transition-all hover:rounded-tr-xl hover:rounded-bl-xl hover:rounded-tl-none hover:rounded-br-none   hover:scale-105 text-md font-panchangMD w-full py-4 px-6 text-center  font-semibold rounded-sm overflow-hidden  duration-300",
 
         isDisabled
           ? "cursor-not-allowed bg-gray-500 border-gray-400 text-gray-300"
-          : "cursor-target hover:bg-white bg-purple-600 shadow-purple-100   hover:shadow-purple-200   drop-shadow-[0_10px_20px_rgba(139,92,246,0.5)] text-black ",
+          : ntWrk
+            ? "cursor-not-allowed bg-zinc-950 border-white/5 text-zinc-800"
+            : "cursor-target hover:bg-white bg-purple-600 shadow-purple-100   hover:shadow-purple-200   drop-shadow-[0_10px_20px_rgba(139,92,246,0.5)] text-black ",
       )}
       {...props}
     >
@@ -61,7 +64,11 @@ export const SubsButton = ({
             isLoading ? "opacity-50" : "opacity-100",
           )}
         >
-          {isDisabled ? "Already Used" : children}
+          {isDisabled
+            ? "Already Used"
+            : planName.add === "fixing"
+              ? "Not Working"
+              : children}
         </span>
       </span>
     </motion.button>
