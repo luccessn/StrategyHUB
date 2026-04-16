@@ -33,6 +33,8 @@ import HomeIcon from "@mui/icons-material/Home";
 import CategoryIcon from "@mui/icons-material/Category";
 import LoyaltyIcon from "@mui/icons-material/Loyalty";
 import PermDataSettingIcon from "@mui/icons-material/PermDataSetting";
+import MetallicPaint from "./Components/UI/MetallicPaint";
+import { useInView } from "framer-motion";
 
 function App() {
   const navbarRT = [
@@ -116,11 +118,90 @@ function App() {
       setOpenBlock(false);
     }
   }, []);
+
+  const ref = useRef(null);
+  const isInView = useInView(ref, {
+    margin: "-200px 0px 0px 0px",
+  });
+  const [hasAnimated, setHasAnimated] = useState(false);
+  useEffect(() => {
+    if (isInView && !hasAnimated) {
+      setHasAnimated(true);
+    }
+  }, [isInView, hasAnimated]);
   return (
     <>
       {openBlock ? (
         <div>
-          <h1 className="text-white">afafa</h1>
+          <div className="fixed inset-0 -z-10 w-screen h-screen overflow-hidden">
+            <StarsBackground />
+          </div>
+          <div style={{ width: "100%", height: "500px" }}>
+            <MetallicPaint
+              imageSrc="https://i.postimg.cc/zBJqhfT3/main3.png"
+              // Pattern
+              seed={42}
+              scale={4}
+              patternSharpness={1}
+              noiseScale={0.5}
+              // Animation
+              speed={0.3}
+              liquid={0.75}
+              mouseAnimation={false}
+              // Visual
+              brightness={2}
+              contrast={0.5}
+              refraction={0.01}
+              blur={0.015}
+              chromaticSpread={2}
+              fresnel={1}
+              angle={0}
+              waveAmplitude={1}
+              distortion={1}
+              contour={0.2}
+              // Colors
+              lightColor="#ffffff"
+              darkColor="#000000"
+              tintColor="#feb3ff"
+            />
+          </div>
+          <div className="max-w-7xl mx-auto text-center" ref={ref}>
+            {/* <p className="font-panchangSB text-xl md:text-4xl  text-white ">
+              Welcome to
+              <span className="text-neutral-400 px-3">
+                {"Strategy Hub".split("").map((letter, idx) => (
+                  <motion.span
+                    key={idx}
+                    className="inline-block"
+                    initial={{ x: -10, opacity: 0 }}
+                    animate={hasAnimated ? { x: 0, opacity: 1 } : {}}
+                    transition={{ duration: 0.5, delay: idx * 0.04 }}
+                  >
+                    {letter}
+                  </motion.span>
+                ))}
+              </span>
+            </p>
+            <p className="text-sm font-satosIT md:text-lg text-neutral-500 max-w-2xl mx-auto py-4">
+              We are analyzing your car, track, and intentions to build the
+              smartest strategy for your race — from high-pressure competition
+              to laid-back driving.
+            </p> */}
+            <div className="mx-auto block lg:hidden gap-8 text-center">
+              <p className="font-panchangSB text-white text-xl ssm:text-2xl smm:text-3xl xl:text-4xl">
+                WebSite is
+                <span className="text-red-600 relative left-2">
+                  Unavailable
+                </span>
+              </p>
+            </div>
+
+            <p className="font-satosIT text-sm ssm:text-base smm:text-lg text-neutral-300 max-w-2xl mx-auto py-4 p-10">
+              This website is not available for devices with a screen width
+              below 800px. Please switch to a larger screen for the best
+              experience.
+            </p>
+          </div>
         </div>
       ) : (
         <div className="relative  w-screen ">
