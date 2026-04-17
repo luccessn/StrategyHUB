@@ -50,7 +50,7 @@ export const SubsButton = ({
         isDisabled
           ? "cursor-not-allowed bg-gray-500 border-gray-400 text-gray-300"
           : ntWrk
-            ? "cursor-not-allowed bg-zinc-950 border-white/5 text-zinc-800"
+            ? "cursor-not-allowed bg-gray-500 border-gray-400 text-zinc-800"
             : "cursor-target hover:bg-white bg-purple-600 shadow-purple-100   hover:shadow-purple-200   drop-shadow-[0_10px_20px_rgba(139,92,246,0.5)] text-black ",
       )}
       {...props}

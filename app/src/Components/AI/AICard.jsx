@@ -207,9 +207,14 @@ export const AICard = () => {
   const [isLoading, setisLoading] = useState(false);
   const [switchs, setswitchs] = useState("chat");
   const openBlocked =
-    !state.subscription ||
-    state.subscription.free.freeAccess === "false" ||
-    state.subscription.free.freeAccess === "used";
+    (state.user && state.user.trial?.isUsed) ||
+    (state.user && !state.user.trial?.isUsed) ||
+    (!state.user && !state.subscription.free.freeAccessExpiresAt) ||
+    (!state.user && !state.subscription.free.isUsed);
+  // !state.subscription ||
+  // state.subscription.free.freeAccess === "false" ||
+  // state.subscription.free.freeAccess === "used";
+
   const [postStrategy, setpostStrategy] = useState({
     trackID: "",
     carID: "",
@@ -351,6 +356,8 @@ export const AICard = () => {
   const userActive =
     (state.user && state?.user?.trial?.isActive === false) ||
     (!state.user && state.subscription?.free?.freeAccess === "used");
+  console.log(state.subscription.free.isUsed);
+
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.98 }}
@@ -384,15 +391,15 @@ export const AICard = () => {
                   <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 py-20">
                     <div className="max-w-4xl text-center">
                       <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm text-white/70 backdrop-blur-sm">
-                        3-Hour Free Access for All Users →
+                        14-Days Free Access for All Users →
                       </div>
 
                       <h1 className="mb-6 text-3xl font-bold tracking-tight text-white sm:text-6xl md:text-8xl">
-                        Enjoy Full Access for 3 Hours — Free.
+                        Enjoy Full Access for 14 Days — Free.
                       </h1>
 
                       <p className="mx-auto mb-10 max-w-2xl text-base text-white/60 sm:text-xl">
-                        Every guest and registered user gets 3 hours of free
+                        Every guest and registered user gets 14 days of free
                         access to explore our strategy generation tools.
                         Experience personalized strategies, expert-level
                         insights, and powerful planning features — no commitment
@@ -419,7 +426,8 @@ export const AICard = () => {
                 </div>
               ) : switchs === "strategy" &&
                 ((state.user && state.user.trial?.isUsed) ||
-                  (!state.user && state.subscription.free.isUsed)) ? (
+                  (!state.user &&
+                    !state.subscription.free.freeAccessExpiresAt)) ? (
                 <div className="relative top-2 z-50">
                   <div className="absolute inset-0  pointer-events-none" />
                   <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 py-20">
@@ -454,7 +462,7 @@ export const AICard = () => {
                         >
                           View Documentation
                         </button>
-                        <MainModal />
+                        <MainModal props="used" />
                       </div>
                     </div>
                   </div>

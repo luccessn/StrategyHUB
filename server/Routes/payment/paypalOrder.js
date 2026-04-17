@@ -75,7 +75,7 @@ router.post("/confirm", async (req, res) => {
       return res.status(400).json({ error: "Payment not completed" });
     }
 
-    console.log("✅ Payment captured:", capture.result.id);
+    console.log(" Payment captured:", capture.result.id);
 
     const orderData = buildPrintfulOrderData(userData, cartItems);
     const printfulResponse = await createPrintfulOrder(orderData);
@@ -99,13 +99,13 @@ router.post("/confirm", async (req, res) => {
         Total: $${totalAmount}
       `;
 
-      const html = buildOrderEmail(userData.name, message);
+      // const html = buildOrderEmail(userData.name, message);
 
-      await sendEmail({
-        to: userData.email,
-        subject: "Order Confirmation",
-        html,
-      });
+      // await sendEmail({
+      //   to: userData.email,
+      //   subject: "Order Confirmation",
+      //   html,
+      // });
     } catch (emailErr) {
       console.log("⚠️ Email failed but order is OK");
     }

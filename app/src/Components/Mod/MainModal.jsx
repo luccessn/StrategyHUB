@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { FiAlertCircle } from "react-icons/fi";
 import { useAppContext } from "../../Context/AppContextProvider";
 import { closeModalAction } from "../../Context/AppActionsCreator";
-export const MainModal = () => {
+export const MainModal = ({ props }) => {
   const { state, dispatch } = useAppContext();
   return (
     <AnimatePresence>
@@ -30,20 +30,30 @@ export const MainModal = () => {
               <h3 className="text-3xl font-bold text-center mb-2">
                 One more thing!
               </h3>
-              <p className="text-center mb-6">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Id
-                aperiam vitae, sapiente ducimus eveniet in velit.
-              </p>
+              {props === "used" ? (
+                <p className="text-center mb-6 font-array text-lg">
+                  Your 14-day free trial has ended. You can continue using the
+                  AI chatbot for free, but to unlock the full power of the
+                  Strategy Chatbot AI, an active subscription is required.
+                </p>
+              ) : (
+                <p className="text-center mb-6 font-array text-lg">
+                  During the free plan, you get a 14-day free trial where both
+                  chatbots are available at no cost — the AI Chatbot and the
+                  Strategy Chatbot AI.
+                </p>
+              )}
+
               <div className="flex gap-2">
                 <button
                   onClick={() => dispatch(closeModalAction())}
-                  className="bg-transparent hover:bg-white/10 transition-colors text-white font-semibold w-full py-2 rounded"
+                  className="bg-transparent font-mono  text-2xl hover:bg-white/10 transition-colors text-white font-semibold w-full py-2 rounded"
                 >
                   Nah, go back
                 </button>
                 <button
                   onClick={() => dispatch(closeModalAction())}
-                  className="bg-white hover:opacity-90 transition-opacity text-indigo-600 font-semibold w-full py-2 rounded"
+                  className="bg-white hover:opacity-90 font-mono  text-2xl transition-opacity text-indigo-600 font-semibold w-full py-2 rounded"
                 >
                   Understood!
                 </button>

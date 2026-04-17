@@ -148,8 +148,9 @@ const reducer = (state, action) => {
       return { ...state, cursorBlack: false };
     //Free Access
     case AppActions.FREE_ACCESS: {
+      const accesDuration = 14 * 24 * 60 * 60 * 1000; // 2 week
       // const accesDuration = 7 * 24 * 60 * 60 * 1000; // 1 week
-      const accesDuration = 1 * 60 * 1000;
+      // const accesDuration = 1 * 60 * 1000;
       const expiresAt = Date.now() + accesDuration;
 
       const updatedSubscription = {

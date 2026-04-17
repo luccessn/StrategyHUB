@@ -15,7 +15,7 @@ export const Subs = () => {
         id: uuidv4(),
         name: "Free",
         price: "$0",
-        duration: "7 days",
+        duration: "14 days",
         add: "finished",
       },
       {
@@ -45,15 +45,12 @@ export const Subs = () => {
   // const [ShowModal, setShowModal] = useState(false);
   const [isLoading, setisLoading] = useState(null);
   const { state, dispatch } = useAppContext();
-  console.log(state.user);
   // console.log(state);
-  console.log("TOKEN:", state.token);
   const getSubscription = async (id) => {
     setisLoading(id);
 
     await new Promise((resolve) => setTimeout(resolve, 2000));
     if (state.user) {
-      console.log("Subscription successful!");
       try {
         setisLoading(id);
         const res = await fetch(
@@ -69,7 +66,7 @@ export const Subs = () => {
         );
         const data = await res.json();
         if (!res.ok) {
-          console.log(data.message);
+          // console.log(data.message);
           return;
         }
         //
@@ -85,7 +82,7 @@ export const Subs = () => {
         );
         const freshUser = await userRef.json();
         dispatch({ type: AppActions.AUTHENTICATED, payload: freshUser });
-        console.log("Trial started:", data);
+        // console.log("Trial started:", data);
       } catch (err) {
         console.error(err);
       } finally {
@@ -107,14 +104,14 @@ export const Subs = () => {
               key={option.id}
               className="w-full items-center flex justify-center  max-w-[380px] "
             >
-              {option.add === "fixing" && (
+              {/* {option.add === "fixing" && (
                 <div className="max-w-[380px] -top-20 h-[820px] bg-black/75 border-white/5 absolute flex items-center justify-center">
                   <h1 className="text-white font-satosIT text-center font-bold text-2xl p-5">
                     ⚠️ Subscriptions are temporarily unavailable. We’re fixing
                     the issue and they’ll be back very soon. ⚠️
                   </h1>
                 </div>
-              )}
+              )} */}
               <div>
                 {/* <div className={`${option.add === "fixing" ? "card_box" : ""}`}> */}
                 {/* ${option.add === "fixing" ? "bg-black/60"  :  */}
@@ -135,8 +132,8 @@ export const Subs = () => {
                   <div className="flex flex-col gap-5">
                     {option.name === "Free" ? (
                       <p className="ml-2 font-satosIT text-zinc-500">
-                        Free 7-Day Access for All Users as Guests. Enjoy full
-                        access to our Strategy Planner and AI Chat Bot for 7
+                        Free 14-Day Access for All Users as Guests. Enjoy full
+                        access to our Strategy Planner and AI Chat Bot for 14
                         days completely free. Whether you're a guest or a
                         registered user, you can explore all features, plan your
                         goals, build strategies, and interact with the AI
@@ -170,7 +167,7 @@ export const Subs = () => {
                               active: true,
                             },
                         option.name === "Free"
-                          ? { text: "7-Day Free Trial", active: true }
+                          ? { text: "14-Day Free Trial", active: true }
                           : { text: "Priority Support", active: true },
                         option.name === "Free"
                           ? {
