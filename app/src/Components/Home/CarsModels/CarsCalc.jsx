@@ -68,7 +68,6 @@ function Model({ url, scale, position, rotation }) {
     });
   }, [actions, scene]);
 
-  //   // ნელი ბრუნვა
   useFrame(() => {
     scene.rotation.y += 0.0008;
   });
@@ -163,7 +162,7 @@ export const CarsCalc = () => {
               <select
                 // className="select"
                 // className="rounded-sm cursor-target border-1  border-dashed border-black  px-6 py-3 font-semibold  text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
-                className="cursor-target w-[600px] px-5 py-3 text-xl uppercase font-bold text-white appearance-none cursor-pointer focus:outline-none font-panchangMD bg-[#0f1923]"
+                className=" w-[600px] px-5 py-3 text-xl uppercase font-bold text-white appearance-none cursor-pointer focus:outline-none font-panchangMD  pt-4  bg-black/75  backdrop-blur-xl border-2 border-white/65 rounded-full rounded-bl-none rounded-tr-none shadow-xl"
                 onChange={(e) => {
                   const chosen = carsConsta.find(
                     (c) => c.title === e.target.value,
@@ -179,7 +178,7 @@ export const CarsCalc = () => {
                   <option
                     key={card._id}
                     value={card.title}
-                    className="bg-[#0f1923] font-satosIT text-white"
+                    className="bg-black p-2  backdrop-blur-xl border-2  rounded-2xl  shadow-xl font-satosIT text-white"
                   >
                     {card.title}
                   </option>
@@ -275,15 +274,16 @@ export const CarsCalc = () => {
                       text={`${selectedCard.about.about1}\n${selectedCard.about.about2}`}
                       typingSpeed={2}
                     />
-                    <TextType
-                      key={`about-title-${selectedCard.about.about1}`}
-                      inf={"carscalc2"}
-                      as="p"
-                      className="text-xl rounded-xl rounded-br-none rounded-bl-none font-array p-2 block xxl:hidden bg-white/5 backdrop-blur-xl border border-white/30 shadow-xl"
-                      text={`${selectedCard.about.about1}\n${selectedCard.about.about2}`}
-                      typingSpeed={2}
-                    />
-
+                    <div className="block xxl:hidden">
+                      <TextType
+                        key={`about-title-${selectedCard.about.about1}`}
+                        inf={"carscalc2"}
+                        as="p"
+                        className="text-xl rounded-xl rounded-br-none rounded-bl-none font-array p-2 block xxl:hidden bg-white/5 backdrop-blur-xl border border-white/30 shadow-xl"
+                        text={`${selectedCard.about.about1}\n${selectedCard.about.about2}`}
+                        typingSpeed={2}
+                      />
+                    </div>
                     {selectedCard.about2 && (
                       <>
                         <hr className="border-white" />
