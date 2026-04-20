@@ -2,11 +2,16 @@ import React, { useMemo, useState } from "react";
 import { TestModal } from "./TestModal";
 // import { Button } from "../../../Components/UI/About/Stateful-Button";
 import { useAppContext } from "../../../Context/AppContextProvider";
-import { freeAccess, LogInAction } from "../../../Context/AppActionsCreator";
+import {
+  freeAccess,
+  LogInAction,
+  openNotfAction,
+} from "../../../Context/AppActionsCreator";
 import { v4 as uuidv4 } from "uuid";
 import { SubsButton } from "./subsButton";
 import { AppActions } from "../../../Context/AppActions";
 import "./subs.css";
+import { MainNotification } from "../../../Components/Loads/MainNotification";
 //
 export const Subs = () => {
   const subsOption = useMemo(
@@ -213,7 +218,10 @@ export const Subs = () => {
                   </span>{" "}
                 </button> */}
                     <SubsButton
-                      onClick={() => getSubscription(option.id)}
+                      onClick={() => {
+                        getSubscription(option.id);
+                        dispatch(openNotfAction(option.name));
+                      }}
                       isLoading={isLoading === option.id}
                       planName={option}
                     >
@@ -225,6 +233,7 @@ export const Subs = () => {
             </div>
           ))}
         </div>
+        <MainNotification />
       </div>
     </>
   );

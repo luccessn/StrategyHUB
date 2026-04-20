@@ -26,11 +26,16 @@ import { useFetchData } from "../../Hooks/useFetchData";
 import { CarsFetch } from "../Home/CarsModels/Constants/CarsFetch";
 import { BackgroundLines } from "../UI/Background-lines";
 import { useAppContext } from "../../Context/AppContextProvider";
-import { freeAccess, openModalAction } from "../../Context/AppActionsCreator";
+import {
+  freeAccess,
+  openModalAction,
+  openNotfAction,
+} from "../../Context/AppActionsCreator";
 import { AccessCountDown } from "./AccessCountDown";
 import { MainModal } from "../Mod/MainModal";
 import { useNavigate } from "react-router-dom";
 import { routes } from "../../Constants/Routes";
+import { MainNotification } from "../Loads/MainNotification";
 function Loader() {
   const { progress } = useProgress();
   return (
@@ -365,7 +370,7 @@ export const AICard = () => {
       transition={{ duration: 0.35, ease: "linear" }}
       viewport={{ once: false, amount: 0.2 }}
     >
-      <div className="  flex flex-col justify-center mt-10 mb-40  items-center px-4">
+      <div className="  flex flex-col justify-center mt-10 mb-10  items-center px-4">
         <h2 className=" font-panchangSB mb-10 sm:mb-20 text-3xl text-center sm:text-5xl text-white ">
           Ask For Your Strategy Hub
         </h2>
@@ -377,7 +382,7 @@ export const AICard = () => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 40, scale: 0.95 }}
               transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-              className=" w-[800px] mmd:w-[900px] lg:w-[1000px] clg:w-[1100px] xl:w-[1270px] cxl:w-3/4 h-[950px]  bg-white/5 backdrop-blur-xl text-white px-5 py-3 rounded-2xl shadow-2xl border border-white/10 flex flex-col"
+              className=" w-[800px] mmd:w-[900px] lg:w-[1000px] clg:w-[1100px] xl:w-[1270px] cxl:w-3/4 h-[1100px]  bg-white/5 backdrop-blur-xl text-white px-5 py-3 rounded-2xl shadow-2xl border border-white/10 flex flex-col"
             >
               {/* && switchs === "strategy"  */}
               {/* ((state.user && !state.user?.trial?.isActive === false) ||
@@ -408,7 +413,10 @@ export const AICard = () => {
 
                       <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
                         <button
-                          onClick={() => dispatch(freeAccess())}
+                          onClick={() => {
+                            dispatch(freeAccess());
+                            dispatch(openNotfAction());
+                          }}
                           className="group cursor-target relative inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-8 text-base font-medium text-black transition-all hover:bg-white/90 hover:scale-105"
                         >
                           Get Free Access
@@ -423,6 +431,7 @@ export const AICard = () => {
                     </div>
                   </div>
                   <MainModal />
+                  <MainNotification />
                 </div>
               ) : switchs === "strategy" &&
                 ((state.user && state.user.trial?.isUsed) ||
@@ -488,7 +497,6 @@ export const AICard = () => {
                           </div>
                         </div>
                       )}
-                      {/* USER MESSAGE */}
                       {data.role === "user" && (
                         <div className="flex justify-end gap-3 w-full">
                           <div className="bg-zinc-700/80 text-zinc-100 max-w-[450px] pb-2 px-4 rounded-2xl rounded-br-none shadow-lg break-words whitespace-pre-wrap">

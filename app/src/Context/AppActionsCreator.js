@@ -53,3 +53,9 @@ export const openModalAction = () => {
 export const closeModalAction = () => {
   return { type: AppActions.CLOSE_MODAL };
 };
+export const openNotfAction = (payload) => {
+  return { type: AppActions.OPEN_NOTF, payload };
+};
+export const closeNotfAction = () => {
+  return { type: AppActions.CLOSE_NOTF };
+};

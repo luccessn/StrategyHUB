@@ -26,4 +26,7 @@ export const AppActions = {
   //Modal
   OPEN_MODAL: "OPEN_MODAL",
   CLOSE_MODAL: "CLOSE_MODAL",
+  //Notification
+  OPEN_NOTF : "OPEN_NOTF",
+  CLOSE_NOTF:"CLOSE_NOTF"
 };

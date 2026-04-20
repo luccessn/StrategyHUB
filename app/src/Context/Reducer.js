@@ -26,6 +26,7 @@ const initials = {
       freeAccessExpiresAt: null,
     },
   },
+  notification: { isOpen: false, content: "" },
 };
 
 const reducer = (state, action) => {
@@ -203,6 +204,17 @@ const reducer = (state, action) => {
       return { ...state, modal: { isOpen: true } };
     case AppActions.CLOSE_MODAL:
       return { ...state, modal: { isOpen: false } };
+    case AppActions.OPEN_NOTF:
+      return {
+        ...state,
+        notification: {
+          isOpen: true,
+          content: action.payload,
+        },
+      };
+    case AppActions.CLOSE_NOTF:
+      console.log("dadada");
+      return { ...state, notification: { isOpen: false, content: "" } };
     default:
       return state;
   }
