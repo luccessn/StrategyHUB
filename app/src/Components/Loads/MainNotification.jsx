@@ -9,7 +9,7 @@ export const MainNotification = () => {
     const timeoutRef = setTimeout(() => {
       // removeNotif(id);
       dispatch(closeNotfAction());
-    }, 5000);
+    }, 8000);
     return () => clearTimeout(timeoutRef);
   }, []);
   const content = state.notification.content;

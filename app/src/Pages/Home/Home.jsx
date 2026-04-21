@@ -1,12 +1,8 @@
 import React, { useEffect, Suspense } from "react";
 import { WorldMapDemo } from "../../Components/Home/WorldMapDemo";
 import { motion } from "framer-motion";
-// import { MapTabsDemo } from "../../Components/Home/MapTabs/MapTabsDemo";
 import { ExpandableCardDemo } from "../../Components/Home/CardDemo";
-// import { WindTunnelDemo } from "../../Components/Home/CarsModels/FullWind";
-// import { CarsModels } from "../../Components/Home/CarsModels/CarsModels";
 import { CarsCalc } from "../../Components/Home/CarsModels/CarsCalc";
-// import { TestCharts } from "../../Components/Home/TestCharts";
 import LogoLoop from "../../Components/UI/Border/LogoLoop";
 import trackloader from "../../Components/Loads/trackloader";
 ///Logos
@@ -15,7 +11,6 @@ import { SiF1 } from "react-icons/si";
 import { SiFord } from "react-icons/si";
 import { SiBmw } from "react-icons/si";
 import { TbBrandMercedes } from "react-icons/tb";
-// import { SiMercedes } from "react-icons/si";
 import { GiRallyTheTroops } from "react-icons/gi";
 import { SiNissan } from "react-icons/si";
 import { SiMclaren } from "react-icons/si";
@@ -26,7 +21,6 @@ import { SiAstonmartin } from "react-icons/si";
 import { AICard } from "../../Components/AI/AICard";
 import { TyresModels } from "../../Components/Home/TyresModels";
 import { useAppContext } from "../../Context/AppContextProvider";
-//
 
 const techLogos = [
   { node: <SiF1 />, title: "F1" },
@@ -90,7 +84,6 @@ export const Home = () => {
               // fadeOutColor="#000000"
               ariaLabel="Technology partners"
             />
-            {/* Vertical loop with deceleration on hover */}
           </div>
         </motion.div>
         <div>
@@ -125,7 +118,6 @@ export const Home = () => {
               ariaLabel="Technology partners"
             />
           </motion.div>
-          {/* Vertical loop with deceleration on hover */}
         </div>
         <div>
           <AICard />

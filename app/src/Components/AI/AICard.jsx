@@ -431,7 +431,6 @@ export const AICard = () => {
                     </div>
                   </div>
                   <MainModal />
-                  <MainNotification />
                 </div>
               ) : switchs === "strategy" &&
                 ((state.user && state.user.trial?.isUsed) ||
@@ -697,6 +696,7 @@ active:border-b-[2px] active:brightness-90 active:translate-y-[2px]   ${currentS
           />
         )}
       </div>
+      <MainNotification />
     </motion.div>
   );
 };

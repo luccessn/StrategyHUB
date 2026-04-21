@@ -12,7 +12,7 @@ import { SubsButton } from "./subsButton";
 import { AppActions } from "../../../Context/AppActions";
 import "./subs.css";
 import { MainNotification } from "../../../Components/Loads/MainNotification";
-//
+//ffafa
 export const Subs = () => {
   const subsOption = useMemo(
     () => [
