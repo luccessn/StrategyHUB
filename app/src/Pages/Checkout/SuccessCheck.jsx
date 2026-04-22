@@ -7,6 +7,7 @@ const SuccessCheck = () => {
   const [animate, setAnimate] = useState(false);
   const { state, dispatch } = useAppContext();
   const cartItems = state.cartItems;
+  console.log(cartItems);
   useEffect(() => {
     setAnimate(true);
 
@@ -33,6 +34,7 @@ const SuccessCheck = () => {
         }
 
         dispatch(clearCart());
+        //there is cleared the cart
       } catch (error) {
         // console.error("Error updating stock:", error);
       }
