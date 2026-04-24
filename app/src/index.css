@@ -131,3 +131,17 @@ code {
     }
   }
 }
+.scrollbar-custom::-webkit-scrollbar {
+  height: 12px;
+  width: 12px;
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb {
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+
+.scrollbar-custom {
+  scrollbar-color: #ffffff transparent;
+  scrollbar-width: thin;
+}

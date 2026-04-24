@@ -346,13 +346,13 @@ export const CarsCalc = () => {
               ))}
             </div>
             {selectedCard && (
-              <div className=" w-[750px] mmd:w-[850px] lg:w-[950px]  clg:w-[1050px]  xl:w-[1200px] cxl:w-[1350px] overflow-x-auto xxl:w-full   h-full mx-auto ">
+              <div className=" scrollbar-custom w-[750px] mmd:w-[850px] lg:w-[950px]  clg:w-[1050px]   xl:w-[1200px] cxl:w-[1350px] overflow-x-auto xxl:w-full   h-full mx-auto ">
                 {active && (
                   <motion.div
                     key={selectedCard.title}
                     layoutId={`info-${selectedCard.title}-${id}`}
                     initial={{ opacity: 0, y: 5 }}
-                    animate={{ opacity: 1, y: 0 }} // გასწორებულია
+                    animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 5 }}
                     transition={{ duration: 0.5, ease: "easeOut" }}
                     className="mt-8 flex gap-6 flex-row mx-auto shadow p-6 rounded-xl"
