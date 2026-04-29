@@ -469,7 +469,7 @@ export const StaggeredMenu = ({
           </div> */}
           <button
             ref={toggleBtnRef}
-            className="sm-toggle -left-5 top-[10px] relative cursor-target p-2 inline-flex items-center gap-[0.3rem] bg-transparent border-0 cursor-pointer text-[#e9e9ef] font-medium leading-none overflow-visible pointer-events-auto"
+            className="sm-toggle -left-5 top-0 relative cursor-target p-2 inline-flex items-center gap-[0.3rem] bg-transparent border-0 cursor-pointer text-[#e9e9ef] font-medium leading-none overflow-visible pointer-events-auto"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             aria-controls="staggered-menu-panel"

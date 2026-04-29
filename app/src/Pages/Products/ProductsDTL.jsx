@@ -40,7 +40,7 @@ export const ProductsDTL = () => {
           </div>
         </div>
       ) : (
-        <div className="relative top-20">
+        <div className="relative top-24">
           <MainDTLCards data={data} />
         </div>
       )}

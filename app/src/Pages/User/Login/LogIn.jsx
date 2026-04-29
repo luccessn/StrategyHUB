@@ -70,9 +70,8 @@ export const LogIn = () => {
       });
   };
 
-  // const goReg = navigate(routes.SignUp);
   return (
-    <div className="shadow-input relative top-10 mx-auto mt-20 w-full max-w-xl p-4 rounded-lg  md:p-8 border-white/10 border-2 dark:bg-black">
+    <div className="shadow-input relative top-10 mx-auto mt-28 w-full max-w-xl p-4 rounded-lg  md:p-8 border-white/10 border-2 bg-black">
       <h2 className="text-3xl font-array font-bold text-neutral-200">
         Welcome to Strategy Hub
       </h2>

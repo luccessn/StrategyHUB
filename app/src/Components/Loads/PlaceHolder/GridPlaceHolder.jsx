@@ -2,7 +2,7 @@ import React from "react";
 
 export const GridPlaceHolder = ({ lenght }) => {
   return (
-    <div className="flex justify-center mt-28 pl-5 ">
+    <div className="flex justify-center mt-40 pl-5 ">
       <div className=" grid grid-cols-1 ssm:grid-cols-2 clg:grid-cols-3 gap-y-20 gap-4   ssm:gap-10 xl:grid-cols-4 xl:gap-10 xxl:gap-20 ">
         {Array.from({ length: lenght }).map((_, index) => (
           <div

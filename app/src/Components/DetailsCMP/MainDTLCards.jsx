@@ -151,7 +151,7 @@ const MainDTLCards = ({ data }) => {
                         <img
                           src={img}
                           alt=""
-                          className={`w-full h-[150px] sm:h-[200px] object-cover rounded cursor-pointer ${
+                          className={`w-full h-[150px] sm:h-[200px] object-cover rounded-sm  cursor-pointer ${
                             isLoading && index === 0 ? "invisible" : "visible"
                           }`}
                           onClick={() => setImgsChange(img)}
@@ -169,7 +169,7 @@ const MainDTLCards = ({ data }) => {
                     <img
                       src={imgsChange}
                       alt=""
-                      className=" cursor-target  w-[350px] h-[350px]  ssmm:w-[300px]  ssmm:h-[400px] ssm:w-[400px]  ssm:h-[400px] sm:w-[500px] sm:h-[500px] object-cover rounded-lg cursor-zoom-in"
+                      className=" cursor-target   w-[350px] h-[350px]  ssmm:w-[300px]  ssmm:h-[400px] ssm:w-[400px]  ssm:h-[400px] sm:w-[500px] sm:h-[500px] object-cover rounded-sm cursor-zoom-in"
                     />
                   </Zoom>
                 </div>
@@ -237,7 +237,7 @@ const MainDTLCards = ({ data }) => {
                         <img
                           src={img}
                           alt=""
-                          className={`w-full h-[120px] object-cover rounded cursor-pointer ${
+                          className={`w-full h-[120px] object-cover rounded-sm  cursor-pointer ${
                             isLoading && index === 0 ? "invisible" : "visible"
                           }`}
                           onClick={() => setImgsChange(img)}
@@ -249,7 +249,6 @@ const MainDTLCards = ({ data }) => {
                 </Swiper>
               </div>
             </div>
-            {/* მარჯვენა მხარე: ინფორმაცია, ფასი, ზომები */}
             {hasError ? (
               <ErrorLoader error="Product data is missing or corrupted" />
             ) : (
@@ -341,7 +340,12 @@ const MainDTLCards = ({ data }) => {
                     <h1 className=" text-medium ssm:text-xl">Quantity</h1>
                     <div className="text-medium ssm:text-xl flex flex-row items-center gap-3 relative left-10">
                       <button
-                        onClick={() => dispatch(CounterDecrement(1))}
+                        onClick={() => {
+                          if (state.counter > 1) {
+                            dispatch(CounterDecrement(1));
+                          }
+                        }}
+                        // disabled={state.counter === 1}
                         className={`px-3 py-1 rounded ${
                           state.counter === 1 ? "text-gray-600" : "text-white"
                         }`}
@@ -497,7 +501,7 @@ const MainDTLCards = ({ data }) => {
                           >
                             <span className="btn-text flex text-sm ssm:text-medium  items-center gap-2">
                               {data.stock === "0" ? (
-                                "გაყიდულია"
+                                "Sold Out"
                               ) : (
                                 <>
                                   <ShoppingBasket className=" hidden ssm:block w-5 h-5" />

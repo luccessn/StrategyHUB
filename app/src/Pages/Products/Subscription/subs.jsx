@@ -12,7 +12,6 @@ import { SubsButton } from "./subsButton";
 import { AppActions } from "../../../Context/AppActions";
 import "./subs.css";
 import { MainNotification } from "../../../Components/Loads/MainNotification";
-//ffafa
 export const Subs = () => {
   const subsOption = useMemo(
     () => [
@@ -103,7 +102,7 @@ export const Subs = () => {
   return (
     <>
       <div className=" h-full flex items-center justify-center">
-        <div className="relative top-28 grid grid-cols-2 xl:grid-cols-3 xxxl:grid-cols-4 gap-10 p-10 pt-0 ">
+        <div className="relative top-36 grid grid-cols-2 xl:grid-cols-3 xxxl:grid-cols-4 gap-10 p-10 pt-0 ">
           {subsOption.map((option) => (
             <div
               key={option.id}
@@ -112,8 +111,8 @@ export const Subs = () => {
               {/* {option.add === "fixing" && (
                 <div className="max-w-[380px] -top-20 h-[820px] bg-black/75 border-white/5 absolute flex items-center justify-center">
                   <h1 className="text-white font-satosIT text-center font-bold text-2xl p-5">
-                    ⚠️ Subscriptions are temporarily unavailable. We’re fixing
-                    the issue and they’ll be back very soon. ⚠️
+                     Subscriptions are temporarily unavailable. We’re fixing
+                    the issue and they’ll be back very soon. 
                   </h1>
                 </div>
               )} */}
@@ -121,7 +120,7 @@ export const Subs = () => {
                 {/* <div className={`${option.add === "fixing" ? "card_box" : ""}`}> */}
                 {/* ${option.add === "fixing" ? "bg-black/60"  :  */}
                 <div
-                  className={`max-w-sm lg:max-w-none mx-auto pt-10 px-5 pb-8 bg-gradient-to-b h-[720px] from-zinc-900 to-zinc-800 border border-zinc-700 rounded-3xl shadow-xl`}
+                  className={`max-w-sm lg:max-w-none mx-auto pt-10 px-5 pb-8 bg-gradient-to-b h-[720px] from-zinc-900 to-zinc-800 border border-zinc-700 rounded-lg shadow-xl`}
                 >
                   <div className="text-center mb-6">
                     <h5 className="text-2xl font-semibold text-white mb-3">

@@ -124,6 +124,7 @@ const reducer = (state, action) => {
       return { ...state, counter: state.counter + payload };
     case AppActions.DECREMENT:
       return { ...state, counter: state.counter - payload };
+    // state.counter > 1 ? state.counter - payload : 1
     case AppActions.RESET_COUNTER:
       return { ...state, counter: 1 };
     case AppActions.UPDATE_CART_ITEM_QUANTITY:

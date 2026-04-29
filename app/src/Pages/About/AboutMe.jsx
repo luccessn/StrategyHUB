@@ -77,7 +77,7 @@ const techLogos = [
 
 export const AboutMe = () => {
   return (
-    <div className="relative top-28 lg:top-16  flex flex-col gap-12 ">
+    <div className="relative top-28 lg:top-20  flex flex-col gap-12 ">
       {/* <ReactLenis
         root
         options={{
@@ -87,7 +87,6 @@ export const AboutMe = () => {
           //   syncTouch: true,
         }}
       > */}
-      {/* <Nav /> */}
       <FirstTab />
       <section className="relative grid  w-full place-content-center  bg-neutral-950">
         <Cards />
@@ -171,7 +170,6 @@ const FirstTab = () => {
         </p>
       </div>
       <div className="flex m-2 mmd:m-5 lg:m-10 xl:m-14 flex-col sm:flex-row gap-5">
-        {/* LEFT SIDE */}
         <div className="w-[400px] mx-auto sm:mx-0 flex flex-col gap-5">
           <ProfileCard
             name="Lucca Gulua"
@@ -195,11 +193,10 @@ const FirstTab = () => {
           </div>
         </div>
 
-        {/* RIGHT SIDE */}
         <div className="mt-5  flex flex-col  gap-10 text-white w-full">
           <div className=" mx-auto hidden lg:block text-center" ref={ref}>
             <p className="font-panchangSB  text-3xl xl:text-4xl">
-              Welcome to{" "}
+              {/* Welcome to{" "}
               <span className="text-neutral-400">
                 {"My Hub".split("").map((letter, idx) => (
                   <motion.span
@@ -212,7 +209,9 @@ const FirstTab = () => {
                     {letter}
                   </motion.span>
                 ))}
-              </span>
+              </span> */}
+              Welcome to
+              <span className="text-neutral-400 relative left-3">My Hub</span>
             </p>
           </div>
 

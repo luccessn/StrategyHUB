@@ -292,7 +292,6 @@ function App() {
                   </div>
                 </NavBody>
 
-                {/* Mobile Navigation */}
                 <MobileNav>
                   <MobileNavHeader>
                     <NavbarLogo />
@@ -351,8 +350,7 @@ function App() {
                 </MobileNav>
               </Navbar>
 
-              {/* Main App Content */}
-              <div className="relative -top-10">
+              <div className="relative -top-20">
                 {/* <AppRouters /> */}
                 <AppRoutes />
               </div>
