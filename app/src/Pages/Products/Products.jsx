@@ -22,7 +22,7 @@ export const Products = () => {
     <>
       {isLoading ? (
         <div className="relative ">
-          <GridPlaceHolder lenght={3} />
+          <GridPlaceHolder lenght={4} />
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
             <div className="flex items-center justify-center gap-6">
               <div className="load">
