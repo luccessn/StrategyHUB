@@ -37,6 +37,7 @@ export const SubsButton = ({
   const isDisabled =
     planName.name === "Free" &&
     ((state.user && state?.user?.trial?.isUsed) ||
+      (state.user && state?.user?.trial?.isActive) ||
       (!state.user && state.subscription.free.isUsed));
   const ntWrk = planName.add === "fixing";
 

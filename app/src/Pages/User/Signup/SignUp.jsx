@@ -7,6 +7,9 @@ import { useNavigate } from "react-router-dom";
 import { authActionTypes } from "../../../Constants/auth/authActions";
 import { routes } from "../../../Constants/Routes";
 import { Button } from "../../../Components/UI/About/Stateful-Button";
+import { BiHide } from "react-icons/bi";
+import { FaRegEye } from "react-icons/fa6";
+
 export const SignUp = () => {
   const [user, setuser] = useState({
     firstName: "",
@@ -68,6 +71,7 @@ export const SignUp = () => {
       })
       .finally(() => setisLoading(false));
   };
+  const [unhide, setUnhide] = useState(false);
   return (
     <div className="shadow-input relative top-10 mx-auto mt-28 w-full max-w-xl p-4 rounded-xl  md:p-8 border-white/10 border-2 bg-black">
       <h2 className="text-3xl font-array font-bold text-neutral-200">
@@ -136,16 +140,16 @@ export const SignUp = () => {
             </p>
           )}
         </LabelInputContainer>
-        <LabelInputContainer className="mb-4">
+        <LabelInputContainer className="mb-4 relative">
           <Label htmlFor="password">Password</Label>
           <Input
             placeholder="••••••••"
-            type="password"
+            type={unhide ? "text" : "password"}
             name="password"
             value={user.password}
             onChange={Changeinput}
-            className={`bg-zinc-800 text-zinc-200 ${
-              formErrors.email ? "border-2 border-red-500" : ""
+            className={`bg-zinc-800 text-zinc-200 pr-10 ${
+              formErrors.password ? "border-2 border-red-500" : ""
             }`}
           />
           {formErrors.password && (
@@ -153,12 +157,26 @@ export const SignUp = () => {
               {formErrors.password}
             </p>
           )}
+          <BiHide
+            onClick={() => setUnhide(true)}
+            className={`absolute right-3 top-7 text-white text-2xl cursor-pointer ${
+              unhide ? "hidden" : "block"
+            }`}
+          />
+          <FaRegEye
+            onClick={() => setUnhide(false)}
+            className={`absolute right-3 top-7 text-white text-2xl cursor-pointer ${
+              unhide ? "block" : "hidden"
+            }`}
+          />
         </LabelInputContainer>
+        {/* relative left-96 translate-x-20 -top-11 */}
+        {/* relative right-11 bottom-[365px] */}
         <LabelInputContainer className="mb-8">
-          <Label htmlFor="twitterpassword">Repeat your password</Label>
+          <Label>Repeat your password</Label>
           <Input
-            placeholder="••••••••"
-            type="twitterpassword"
+            placeholder="Bfga@1415"
+            type="text"
             name="confirmPassword"
             value={user.confirmPassword}
             onChange={Changeinput}

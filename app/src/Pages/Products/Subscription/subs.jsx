@@ -46,58 +46,106 @@ export const Subs = () => {
     ],
     [],
   );
-  // const [ShowModal, setShowModal] = useState(false);
   const [isLoading, setisLoading] = useState(null);
   const { state, dispatch } = useAppContext();
-  // console.log(state);
+  console.log(state);
   const getSubscription = async (id) => {
-    setisLoading(id);
-
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    if (state.user) {
-      try {
-        setisLoading(id);
-        const res = await fetch(
-          "https://strategyhub.onrender.com/server/subscription/start-trial",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${state.token}`,
-            },
-            body: JSON.stringify({}),
-          },
-        );
-        const data = await res.json();
-        if (!res.ok) {
-          // console.log(data.message);
-          return;
-        }
-        //
-        //http://localhost:5000/server/
-        const token = localStorage.getItem("accesTokenHUB");
-        const userRef = await fetch(
-          "https://strategyhub.onrender.com/server/refresh",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          },
-        );
-        const freshUser = await userRef.json();
-        dispatch({ type: AppActions.AUTHENTICATED, payload: freshUser });
-        // console.log("Trial started:", data);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setisLoading(null);
+    try {
+      setisLoading(id);
+      if (!state.user || !state.token) {
+        dispatch(freeAccess());
+        return;
       }
-    } else {
-      dispatch(freeAccess());
+      const res = await fetch(
+        "https://strategyhub.onrender.com/server/subscription/start-trial",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${state.token}`,
+          },
+        },
+      );
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+        return;
+      }
+      const userRef = await fetch(
+        "https://strategyhub.onrender.com/server/refresh",
+        {
+          headers: {
+            Authorization: `Bearer ${state.token}`,
+          },
+        },
+      );
+      const freshUser = await userRef.json();
+      if (!userRef.ok) {
+        // console.log(freshUser.message);
+        return;
+      }
+      localStorage.setItem("accesTokenHUB", freshUser.token);
+      dispatch({
+        type: AppActions.AUTHENTICATED,
+        payload: {
+          user: freshUser,
+          token: freshUser.token,
+        },
+      });
+      // console.log("Trial activated:", freshUser);
+    } catch (err) {
+      console.error("SUBSCRIPTION ERROR:", err);
+    } finally {
+      setisLoading(null);
     }
-
-    setisLoading(null);
   };
+  // const getSubscription = async (id) => {
+  //   setisLoading(id);
+
+  //   await new Promise((resolve) => setTimeout(resolve, 2000));
+  //   if (state.user) {
+  //     try {
+  //       setisLoading(id);
+  //       const res = await fetch(
+  //         "https://strategyhub.onrender.com/server/subscription/start-trial",
+  //         {
+  //           method: "POST",
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //             Authorization: `Bearer ${state.token}`,
+  //           },
+  //           body: JSON.stringify({}),
+  //         },
+  //       );
+  //       const data = await res.json();
+  //       if (!res.ok) {
+  //         // console.log(data.message);
+  //         return;
+  //       }
+  //       //
+  //       //http://localhost:5000/server/
+  //       const token = localStorage.getItem("accesTokenHUB");
+  //       const userRef = await fetch(
+  //         "https://strategyhub.onrender.com/server/refresh",
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         },
+  //       );
+  //       const freshUser = await userRef.json();
+  //       dispatch({ type: AppActions.AUTHENTICATED, payload: freshUser });
+  //       // console.log("Trial started:", data);
+  //     } catch (err) {
+  //       console.error(err);
+  //     } finally {
+  //       setisLoading(null);
+  //     }
+  //   } else {
+  //     dispatch(freeAccess());
+  //   }
+  //   setisLoading(null);
+  // };
 
   return (
     <>
@@ -117,8 +165,6 @@ export const Subs = () => {
                 </div>
               )} */}
               <div>
-                {/* <div className={`${option.add === "fixing" ? "card_box" : ""}`}> */}
-                {/* ${option.add === "fixing" ? "bg-black/60"  :  */}
                 <div
                   className={`max-w-sm lg:max-w-none mx-auto pt-10 px-5 pb-8 bg-gradient-to-b h-[720px] from-zinc-900 to-zinc-800 border border-zinc-700 rounded-lg shadow-xl`}
                 >
@@ -206,16 +252,6 @@ export const Subs = () => {
                         </li>
                       ))}
                     </ul>
-                    {/* <button
-                  onClick={() => getSubscription(option.id)}
-                  disabled={isLoading === option.id}
-                  className="relative cursor-target group inline-block w-full py-4 px-6 text-center bg-yellow-300 text-gray-800  font-semibold rounded-md overflow-hidden transition duration-200"
-                >
-                  <div className="absolute top-0 right-full w-full h-full bg-white transform group-hover:translate-x-full group-hover:scale-102 transition duration-500"></div>
-                  <span className="relative font-panchangSB">
-                    {isLoading === option.id ? "Processing..." : "Get Started"}
-                  </span>{" "}
-                </button> */}
                     <SubsButton
                       onClick={() => {
                         getSubscription(option.id);

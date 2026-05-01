@@ -17,7 +17,6 @@ router.post("/login", async (req, res) => {
       .status(400)
       .json({ message: "Email and password are required." });
   }
-
   UserModel.findOne({ email: email })
     .then(async (user) => {
       if (!user) {
@@ -25,31 +24,29 @@ router.post("/login", async (req, res) => {
           .status(404)
           .json({ message: "Account not exist or invalid credentials" });
       }
-
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
         return res.status(401).json({ message: "Invalid password" });
       }
-
       //  token generation place
       const payload = {
         id: user._id,
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
-        // trial: user.trial,
-        // subscription: user.subscription,
+        trial: user.trial,
+        subscription: user.subscription,
       };
-
+      // const payload = {
+      //   id: user._id,
+      // };
       const token = jwt.sign(payload, process.env.JWT_SECRET, {
         expiresIn: "12h",
       });
-
-      // success login // response for frontend
       return res.status(200).json({
         message: "Success",
-        token, //  token for Frontend
-        user: payload, // INFO
+        token,
+        user: payload,
       });
     })
     .catch((error) => {
@@ -58,7 +55,6 @@ router.post("/login", async (req, res) => {
     });
 });
 // registration
-
 router.post("/register", async (req, res) => {
   try {
     const { email, password, firstName, lastName } = req.body;
@@ -104,17 +100,23 @@ router.post("/register", async (req, res) => {
     res.status(500).json({ message: "Registration failed", err });
   }
 });
-//
 // refetch me
 router.get("/refresh", authMiddleware, async (req, res) => {
   const user = await UserModel.findById(req.user.id);
-  res.json({
+  const payload = {
     id: user._id,
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
     trial: user.trial,
     subscription: user.subscription,
+  };
+  const newToken = jwt.sign(payload, process.env.JWT_SECRET, {
+    expiresIn: "12h",
+  });
+  res.json({
+    token: newToken,
+    user: payload,
   });
 });
 export default router;

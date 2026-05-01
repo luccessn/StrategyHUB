@@ -9,6 +9,9 @@ import { useAppContext } from "../../../Context/AppContextProvider";
 import { LogInAction } from "../../../Context/AppActionsCreator";
 import { routes } from "../../../Constants/Routes";
 import { Button } from "../../../Components/UI/About/Stateful-Button";
+import { BiHide } from "react-icons/bi";
+import { FaRegEye } from "react-icons/fa6";
+
 export const LogIn = () => {
   const [user, setuser] = useState({
     email: "",
@@ -69,6 +72,7 @@ export const LogIn = () => {
         });
       });
   };
+  const [unhide, setUnhide] = useState(false);
 
   return (
     <div className="shadow-input relative top-10 mx-auto mt-28 w-full max-w-xl p-4 rounded-lg  md:p-8 border-white/10 border-2 bg-black">
@@ -100,11 +104,11 @@ export const LogIn = () => {
             </p>
           )}
         </LabelInputContainer>
-        <LabelInputContainer className="mb-4">
+        <LabelInputContainer className="mb-4 relative">
           <Label htmlFor="password">Password</Label>
           <Input
             placeholder="••••••••"
-            type="password"
+            type={unhide ? "text" : "password"}
             name="password"
             onChange={ChangeInput}
             value={user.password}
@@ -117,6 +121,18 @@ export const LogIn = () => {
               {formErrrors.password}
             </p>
           )}
+          <BiHide
+            onClick={() => setUnhide(true)}
+            className={`absolute right-3 top-7 text-white text-2xl cursor-pointer ${
+              unhide ? "hidden" : "block"
+            }`}
+          />
+          <FaRegEye
+            onClick={() => setUnhide(false)}
+            className={`absolute right-3 top-7 text-white text-2xl cursor-pointer ${
+              unhide ? "block" : "hidden"
+            }`}
+          />
         </LabelInputContainer>
 
         {/* <button

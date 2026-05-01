@@ -33,28 +33,59 @@ const reducer = (state, action) => {
   const { type, payload } = action;
   switch (type) {
     //User
-    case AppActions.AUTHENTICATED: {
-      const user = payload;
-      const savedCart = loadUserCart(user.id);
+    // case AppActions.AUTHENTICATED: {
+    //   const { user, token } = payload;
+    //   const savedCart = loadUserCart(user.id);
 
+    //   return {
+    //     ...state,
+    //     isAuthenticated: true,
+    //     user: payload,
+    //     token,
+    //     cartItems: savedCart.cartItems,
+    //     subscription: savedCart.subscription,
+    //   };
+    // }
+    case AppActions.AUTHENTICATED: {
+      const { user, token } = payload;
+      const savedCart = loadUserCart(user.id);
       return {
         ...state,
+
         isAuthenticated: true,
-        user: payload,
+
+        user: user,
+
+        token: token,
+
         cartItems: savedCart.cartItems,
+
         subscription: savedCart.subscription,
       };
     }
-    case AppActions.LOG_IN: {
-      const { token } = payload;
-      const user = jwtDecode(token);
+    // case AppActions.LOG_IN: {
+    //   const { token } = payload;
+    //   const user = jwtDecode(token);
 
+    //   toggleLocalStorage(token);
+    //   const savedCart = loadUserCart(user.id);
+    //   return {
+    //     ...state,
+    //     isAuthenticated: true,
+    //     user: user,
+    //     token,
+    //     cartItems: savedCart.cartItems,
+    //     subscription: savedCart.subscription,
+    //   };
+    // }
+    case AppActions.LOG_IN: {
+      const { token, user } = payload;
       toggleLocalStorage(token);
       const savedCart = loadUserCart(user.id);
       return {
         ...state,
         isAuthenticated: true,
-        user: user,
+        user,
         token,
         cartItems: savedCart.cartItems,
         subscription: savedCart.subscription,
