@@ -71,7 +71,6 @@ export const Home = () => {
               overflow: "hidden",
             }}
           >
-            {/* Basic horizontal loop */}
             <LogoLoop
               logos={techLogos}
               speed={120}
@@ -104,7 +103,6 @@ export const Home = () => {
             transition={{ duration: 0.45, ease: "linear" }}
             viewport={{ once: false, amount: 0.4 }}
           >
-            {/* Basic horizontal loop */}
             <LogoLoop
               logos={techLogos}
               speed={120}

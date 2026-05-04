@@ -151,7 +151,7 @@ export const CarsCalc = () => {
     <>
       <div className=" flex flex-col gap-10 ">
         <motion.div
-          initial={{ opacity: 0.1, scale: 1 }}
+          initial={{ opacity: 0, scale: 1 }}
           whileInView={{ opacity: 1, scale: 1 }}
           //dr:04, amount:34
           transition={{ duration: 0.3, ease: "linear" }}

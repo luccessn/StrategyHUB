@@ -213,7 +213,7 @@ export const AICard = () => {
   const [switchs, setswitchs] = useState("chat");
   const openBlocked =
     (state.user && state.user.trial?.isUsed) ||
-    (state.user && !state.user.trial?.isUsed) ||
+    // (state.user && !state.user.trial?.isUsed) ||
     (!state.user && !state.subscription.free.freeAccessExpiresAt) ||
     (!state.user && !state.subscription.free.isUsed);
   // !state.subscription ||
@@ -382,7 +382,33 @@ export const AICard = () => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 40, scale: 0.95 }}
               transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-              className=" w-[800px] mmd:w-[900px] lg:w-[1000px] clg:w-[1100px] xl:w-[1270px] cxl:w-3/4 h-[1100px]  bg-white/5 backdrop-blur-xl text-white px-5 py-3 rounded-2xl shadow-2xl border border-white/10 flex flex-col"
+              onWheel={(e) => {
+                e.stopPropagation();
+              }}
+              className="
+              w-[800px]
+              scrollbar-custom2
+              mmd:w-[900px]
+              overflow-y-auto
+              overscroll-contain
+              lg:w-[1000px]
+              clg:w-[1100px]
+              xl:w-[1270px]
+              cxl:w-3/4
+              h-[950px]
+              bg-white/5
+              backdrop-blur-xl
+              text-white
+              px-5
+              py-3
+              rounded-2xl
+              shadow-2xl
+              border
+              border-white/10
+              flex
+              flex-col
+              
+            "
             >
               {/* && switchs === "strategy"  */}
               {/* ((state.user && !state.user?.trial?.isActive === false) ||
@@ -477,7 +503,9 @@ export const AICard = () => {
                 </div>
               ) : (
                 <div className="flex-1 flex flex-col gap-8 overflow-y-auto pb-28">
-                  <AccessCountDown />
+                  <div className=" fixed justify-center w-full  ">
+                    <AccessCountDown />
+                  </div>
                   {submittedText.map((data, index) => (
                     <div key={index}>
                       {data.role === "Bot" && (
@@ -559,7 +587,7 @@ export const AICard = () => {
                             value={postStrategy[step.key]}
                             onChange={ChangeInput}
                             placeholder="Type here..."
-                            className="w-72 p-4   text-lg bg-[#302f2f] text-white"
+                            className="w-72 p-4  rounded-tl-2xl cursor-target rounded-br-2xl   text-lg bg-[#202020] text-white"
                           />
                         ) : (
                           <select

@@ -231,14 +231,13 @@ export function ExpandableCardDemo() {
             transition={{ duration: 0.3, ease: "linear" }}
             viewport={{ once: false, amount: 0.1 }}
           >
-            {/* Active card info (ქვემოთ) */}
             <div className=" w-full   mt-0   ">
               {active && (
                 <motion.div
                   key={active.name}
                   layoutId={`info-${active.name}-${id}`}
                   initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }} // გასწორებულია
+                  animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 5 }}
                   transition={{ duration: 0.5, ease: "easeOut" }}
                   className="mt-8 flex gap-2 xl:gap-6  flex-col xl:flex-row mx-auto shadow p-8 xl:p-6 rounded-xl"

@@ -48,8 +48,8 @@ export const AccessCountDown = () => {
     //   </p>
     //   <p> remaining </p>
     // </div>
-    <div className="bg-gradient-to-br  p-4">
-      <div className="mx-auto flex w-full max-w-[400px] h-[50px] items-center bg-white rounded-xl overflow-hidden">
+    <div className="bg-gradient-to-br   p-4">
+      <div className="mx-auto flex w-[400px] h-[60px] items-center bg-white rounded-xl overflow-hidden">
         <CountdownItem targetDate={targetDate} unit="Day" label="days" />
         <CountdownItem targetDate={targetDate} unit="Hour" label="hours" />
         <CountdownItem targetDate={targetDate} unit="Minute" label="minutes" />

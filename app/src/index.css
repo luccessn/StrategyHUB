@@ -145,3 +145,17 @@ code {
   scrollbar-color: #ffffff transparent;
   scrollbar-width: thin;
 }
+.scrollbar-custom2::-webkit-scrollbar {
+  height: 12px;
+  width: 12px;
+}
+
+.scrollbar-custom2::-webkit-scrollbar-thumb {
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+.scrollbar-custom2 {
+  scrollbar-color: #ffffff transparent;
+  scrollbar-width: thin;
+  overflow-x: hidden;
+}

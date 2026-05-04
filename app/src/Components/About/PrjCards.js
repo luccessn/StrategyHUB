@@ -24,7 +24,7 @@ export const PrjCards = [
   {
     description: "Georgia's tourist tour website",
     title: "Geo Trails",
-    src: "https://media.licdn.com/dms/image/v2/D5622AQGrhRjeX1xRrQ/feedshare-shrink_800/B56ZU3p6E_GsAg-/0/1740395489379?e=1777507200&v=beta&t=VcTlovUrGEBIDimxqfccCBJzhXGdB_obx8EW7tNRKBA",
+    src: "https://i.postimg.cc/m26cwk62/Screenshot-4.png",
     github: "",
     ctaText: "Visit",
     ctaLink: "https://geotrails.netlify.app/",
@@ -48,7 +48,7 @@ export const PrjCards = [
   {
     description: "a brand new online store",
     title: "MusiCrafters",
-    src: "https://media.licdn.com/dms/image/v2/D5622AQHU7zgnthQ6Cg/feedshare-shrink_2048_1536/B56ZhissFyHUAo-/0/1754002540855?e=1777507200&v=beta&t=oiW6HqPGyj6QvFX-NKzjQmRdXMgU0ihNxcd6rw_O2Cw",
+    src: "https://i.postimg.cc/9F1Pjc8g/Screenshot-2.png",
     ctaText: "Visit",
     ctaLink: "https://musiccrafters.netlify.app/",
     content: () => {
@@ -75,7 +75,7 @@ export const PrjCards = [
   {
     description: "geo zoo online store",
     title: "ZooWeb",
-    src: "https://media.licdn.com/dms/image/v2/D4D22AQFd0Sg7VLOWfQ/feedshare-shrink_2048_1536/B4DZtfTNsLK0Aw-/0/1766830435045?e=1777507200&v=beta&t=22P5XBQBK6cDnabq6xv7smue1i6qqY7KNG7CsrYWx0o",
+    src: "https://i.postimg.cc/W1hZLgJZ/Screenshot-3.png",
     ctaText: "Visit",
     ctaLink: "https://zoowebza.netlify.app/",
     content: () => {
