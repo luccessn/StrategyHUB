@@ -55,7 +55,7 @@ cron.schedule("*/5 * * * *", async () => {
     console.error("სინქრონიზაციის შეცდომა:", error.message);
   }
 });
-//subs
+//subs before wnds
 app.use("/server/subscription", freetrial);
 //paypal
 app.use("/server/api/paypal", paypalOrder);
