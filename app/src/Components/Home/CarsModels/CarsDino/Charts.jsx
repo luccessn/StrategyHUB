@@ -212,7 +212,7 @@ export const Charts = ({ title, dino }) => {
   const totalSlides = dino.chartData.valueScalesMX.length;
   return (
     <div className="flex flex-row   gap-5  items-center   ">
-      <div className="    ">
+      <div>
         <AgCharts options={options} />
       </div>
 

@@ -206,7 +206,12 @@ export const CarsCalc = () => {
                         </h1>
                       </div>
 
-                      <div className="w-full h-full">
+                      <div
+                        // onWheel={(e) => {
+                        //   e.preventDefault();
+                        // }}
+                        className="w-full  h-full "
+                      >
                         <Canvas
                           key={selectedCard.title}
                           shadows
@@ -245,7 +250,10 @@ export const CarsCalc = () => {
                           <OrbitControls
                             target={[0, -0.6, 0]}
                             enableRotate
-                            // enableZoom
+                            enableZoom={true}
+                            enableDamping
+                            dampingFactor={0.08}
+                            zoomSpeed={0.6}
                             enablePan={false}
                           />
                         </Canvas>
@@ -254,7 +262,6 @@ export const CarsCalc = () => {
                   </motion.div>
                 )}
               </div>
-
               <div className=" w-full  xxl:w-8/12   text-white h-[600px] xl:h-[600px] xxl:h-[800px] flex flex-col gap-2 xl:gap-5 p-5">
                 {selectedCard && (
                   <div className="flex flex-col gap-6">
@@ -314,8 +321,6 @@ export const CarsCalc = () => {
           transition={{ duration: 0.35, ease: "linear" }}
           viewport={{ once: false, amount: 0.3 }}
         >
-          {/* w-4/4  */}
-          {/* 1500 mj  */}
           <div className="flex flex-col xxxl:flex-row gap-5 bg-white/0 border-2 border-white/15 backdrop-blur-xl max-w-[785px] mmd:max-w-[900px] lg:max-w-[990px] clg:max-w-[1100px] xl:max-w-[1250px] cxl:max-w-[1400px] xxl:max-w-[1500px] xxxl:max-w-[1800px] mx-auto p-5 rounded-sm h-[800px] ">
             <div className="flex flex-row xxxl:flex-col">
               {data.map((card) => (
