@@ -38,20 +38,21 @@ export function WorldMap({ lineColor = "#0ea5e9" }) {
     const latRad = (lat * Math.PI) / 180;
     const mercN = Math.log(Math.tan(Math.PI / 4 + latRad / 2));
     const y = height / 2 - (width * mercN) / (2 * Math.PI);
-
     return { x, y };
   };
   const [pinnedTooltip, setPinnedTooltip] = useState(null);
   const handleClick = (e, dot) => {
     const rect = containerRef.current.getBoundingClientRect();
-
     const newTooltip = {
-      x: e.clientX - rect.left,
+      x:
+        dot.start.lng > 100
+          ? e.clientX - rect.left - 250
+          : e.clientX - rect.left,
+
       y: e.clientY - rect.top,
-      label: dot.start.label,
+      name: dot.name,
       src: dot.src,
     };
-
     setPinnedTooltip((prev) => {
       if (prev) {
         setTooltip(null);
@@ -64,12 +65,21 @@ export function WorldMap({ lineColor = "#0ea5e9" }) {
   const handleMouseEnter = (e, dot) => {
     if (pinnedTooltip) return;
     const rect = containerRef.current.getBoundingClientRect();
-    setTooltip({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-      label: dot.start.label,
-      src: dot.src,
-    });
+    if (dot.start.lng > 100) {
+      setTooltip({
+        x: e.clientX - rect.left - 250,
+        y: e.clientY - rect.top,
+        name: dot.name,
+        src: dot.src,
+      });
+    } else {
+      setTooltip({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+        name: dot.name,
+        src: dot.src,
+      });
+    }
   };
 
   // const handleMouseMove = (e) => {
@@ -232,7 +242,7 @@ export function WorldMap({ lineColor = "#0ea5e9" }) {
             style={{ top: tooltip.y, left: tooltip.x }}
           >
             <div className="bg-black/80 backdrop-blur-md text-white text-sm px-3 py-2 rounded-xl shadow-xl border border-white/10">
-              <p className="font-semibold mb-2">{tooltip.label}</p>
+              <p className="font-semibold mb-2">{tooltip.name}</p>
               <img
                 src={tooltip.src}
                 className="w-56 h-32 rounded-lg object-cover"
