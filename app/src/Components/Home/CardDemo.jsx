@@ -25,7 +25,7 @@ export function ExpandableCardDemo() {
 
   useEffect(() => {
     if (data && data.length > 0) {
-      setActive(data[0]); // პირველი ელემენტი
+      setActive(data[0]);
     }
   }, [data]);
 
