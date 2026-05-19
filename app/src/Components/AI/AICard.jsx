@@ -194,7 +194,6 @@ export const AICard = () => {
       ],
     },
   ];
-  console.log(steps);
 
   const [inputValue, setinputValue] = useState("");
   const [submittedText, setSubmittedText] = useState([]);
@@ -395,7 +394,7 @@ export const AICard = () => {
               clg:w-[1100px]
               xl:w-[1270px]
               cxl:w-3/4
-              h-[950px]
+              h-[900px]
               bg-white/5
               backdrop-blur-xl
               text-white
@@ -507,7 +506,7 @@ export const AICard = () => {
                     <AccessCountDown />
                   </div>
                   {submittedText.map((data, index) => (
-                    <div key={index}>
+                    <div key={index} className=" relative top-28 -z-50">
                       {data.role === "Bot" && (
                         <div className="flex flex-row  gap-3">
                           <div className="flex items-center justify-center w-11 h-11 bg-blue-600/80 rounded-full shadow-md">
@@ -561,7 +560,6 @@ export const AICard = () => {
                 <div className="">
                   {switchs === "chat" ? (
                     <div className="z-50 w-[400px]">
-                      {" "}
                       <PlaceholdersAndVanishInput
                         placeholders={placeholders}
                         onChange={handleChange}
