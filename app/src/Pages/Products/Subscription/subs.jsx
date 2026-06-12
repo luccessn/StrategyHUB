@@ -101,7 +101,6 @@ export const Subs = () => {
   };
   // const getSubscription = async (id) => {
   //   setisLoading(id);
-
   //   await new Promise((resolve) => setTimeout(resolve, 2000));
   //   if (state.user) {
   //     try {

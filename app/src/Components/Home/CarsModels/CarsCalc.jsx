@@ -110,8 +110,6 @@ export const CarsCalc = () => {
     setPersonName(typeof value === "string" ? value.split(",") : value);
   };
 
-  // console.log(carsConst);
-
   const [carsConsta, error, isLoading] = CarsFetch();
 
   const [selectedCard, setSelectedCard] = useState(null);
@@ -193,11 +191,9 @@ export const CarsCalc = () => {
       </div>
     );
   }
-
   if (error) {
     return <div className="text-red-500 text-center">{error}</div>;
   }
-
   return (
     <>
       <div className=" flex flex-col gap-10 ">
@@ -235,9 +231,6 @@ export const CarsCalc = () => {
                   </option>
                 ))}
               </select>
-              {/* <span className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-white">
-                ▼
-              </span> */}
             </div>
           </div>
 

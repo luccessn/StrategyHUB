@@ -190,7 +190,7 @@
 //                   textAlign: "center",
 //                   cursor: "pointer", // ხელის კურსორი
 //                 }}
-//                 onClick={() => setCarIndex(i)} // 👈 აი აქ ხდება მანქანის შეცვლა
+//                 onClick={() => setCarIndex(i)}
 //               >
 //                 <h3 style={{ margin: 0, fontSize: 14 }}>{car.name}</h3>
 //                 <p style={{ margin: 0, fontSize: 12, opacity: 0.7 }}>

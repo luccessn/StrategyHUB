@@ -43,8 +43,6 @@ const BarFillSchema = new mongoose.Schema(
   { _id: false },
 );
 
-/* ===================== Engine ===================== */
-
 const EngineSchema = new mongoose.Schema(
   {
     manufacturer: String,
@@ -58,8 +56,6 @@ const EngineSchema = new mongoose.Schema(
   { _id: false },
 );
 
-/* ===================== Gearbox ===================== */
-
 const GearboxSchema = new mongoose.Schema(
   {
     type: String,
@@ -69,8 +65,6 @@ const GearboxSchema = new mongoose.Schema(
   },
   { _id: false },
 );
-
-/* ===================== Chassis ===================== */
 
 const ChassisSchema = new mongoose.Schema(
   {
@@ -82,8 +76,6 @@ const ChassisSchema = new mongoose.Schema(
   { _id: false },
 );
 
-/* ===================== Aero ===================== */
-
 const AeroSchema = new mongoose.Schema(
   {
     maxDownforceLevel: Number,
@@ -93,8 +85,6 @@ const AeroSchema = new mongoose.Schema(
   },
   { _id: false },
 );
-
-/* ===================== Brakes ===================== */
 
 const BrakesSchema = new mongoose.Schema(
   {
@@ -107,8 +97,6 @@ const BrakesSchema = new mongoose.Schema(
   { _id: false },
 );
 
-/* ===================== Tyres ===================== */
-
 const TyresSchema = new mongoose.Schema(
   {
     supplier: String,
@@ -119,8 +107,6 @@ const TyresSchema = new mongoose.Schema(
   },
   { _id: false },
 );
-
-/* ===================== Performance ===================== */
 
 const PerformanceSchema = new mongoose.Schema(
   {
@@ -137,8 +123,6 @@ const PerformanceLimitsSchema = new mongoose.Schema(
   },
   { _id: false },
 );
-
-/* ===================== Dino / Charts ===================== */
 
 const ChartDataSchema = new mongoose.Schema(
   {
@@ -208,8 +192,6 @@ const AeroGforceSchema = new mongoose.Schema(
   },
   { _id: false },
 );
-
-/* ===================== Main Car Schema ===================== */
 
 const CarSchema = new mongoose.Schema(
   {

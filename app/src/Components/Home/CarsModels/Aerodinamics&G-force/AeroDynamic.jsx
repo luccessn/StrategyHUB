@@ -18,25 +18,6 @@ import React from "react";
 import { AgCharts } from "ag-charts-react";
 import { Sankey, ResponsiveContainer } from "recharts";
 import Shuffle from "../../../UI/tx/Shuffle";
-// const efficiencyData = [
-//   {
-//     category: "Downforce Efficiency",
-//     value: 8.0,
-//     description: "მაღალი downforce შედარებით დიდი drag-ის ფასად (1991 aero)",
-//   },
-//   {
-//     category: "Power-to-Weight",
-//     value: 9.0,
-//     description:
-//       "ძალიან მაღალი სიმძლავრე წონასთან მიმართებაში (~700+ hp / ~505 kg)",
-//   },
-//   {
-//     category: "Aero Balance",
-//     value: 7.5,
-//     description:
-//       "კარგი ბალანსი წინა/უკანა ღერძს შორის, მაგრამ აქტიური აეროს გარეშე",
-//   },
-// ];
 const qualityData = [
   { category: "Downforce Efficiency", value: 8 },
   { category: "Power-to-Weight", value: 9 },
@@ -56,9 +37,8 @@ const speedData = [
 ];
 export const AeroDynamic = ({ title, dino }) => {
   console.log(dino?.AeroGforce.GForce);
-
   //   const options = {
-  //     width: 1400, // 👈 გაზრდის სიგრძეს
+  //     width: 1400,
   //     height: 400,
 
   //     title: {
@@ -107,7 +87,6 @@ export const AeroDynamic = ({ title, dino }) => {
   //       },
   //     ],
   //   };
-
   const data = {
     nodes: [
       { name: "B" },
@@ -116,7 +95,7 @@ export const AeroDynamic = ({ title, dino }) => {
       { name: "D`" },
       { name: "D1" },
       { name: "D2" },
-      { name: "Spacer" }, // <-- dummy node for the gap
+      { name: "Spacer" },
       { name: "E" },
       { name: "F" },
       { name: "G" },
@@ -130,16 +109,12 @@ export const AeroDynamic = ({ title, dino }) => {
       { source: 4, target: 10, value: 1.2 }, // D1 → A
       { source: 5, target: 10, value: 2 }, // D2 → A
       { source: 4, target: 5, value: 1.2 }, // D1 → D2
-
-      // Transparent link for gap
       { source: 6, target: 10, value: 5, color: "rgba(0,0,0,0)" },
-
       { source: 7, target: 10, value: 2 }, // E → A
       { source: 8, target: 10, value: 3 }, // F → A
       { source: 9, target: 10, value: 3 }, // G → A
     ],
   };
-  ///2 circle
   const options = {
     background: { fill: "#000000" },
     width: 600,
@@ -208,9 +183,7 @@ export const AeroDynamic = ({ title, dino }) => {
         </h1>
         <div className="flex justify-center items-center p-8">
           <button className="relative font-extrabold text-black bg-red-500 px-6 py-3 transform -rotate-2 skew-x-[-3deg] skew-y-[1deg]">
-            {/* Inner container */}
             <div className="relative flex justify-center items-center overflow-hidden z-10">
-              {/* Shuffle text inside the button */}
               <Shuffle
                 className="text-xl font-panchangSB text-black uppercase tracking-wider z-20"
                 text={dino.AeroGforce.AeroDYN.Drag}
@@ -224,17 +197,10 @@ export const AeroDynamic = ({ title, dino }) => {
                 triggerOnce={true}
                 respectReducedMotion={true}
               />
-              {/* Halftone overlay */}
               <div className="absolute top-0 left-0 w-full h-full opacity-30 mix-blend-multiply bg-[radial-gradient(circle_at_30%_30%,rgba(0,0,0,0.2)_0.1em,transparent_0.1em)] bg-[length:0.5em_0.5em]"></div>
-
-              {/* Ink splatter */}
               <div className="absolute top-0 left-0 w-full h-full opacity-0 z-10 bg-[radial-gradient(circle_at_20%_30%,rgba(0,0,0,0.15)_0%,rgba(0,0,0,0.08)_20%,transparent_50%),radial-gradient(circle_at_70%_65%,rgba(0,0,0,0.15)_0%,rgba(0,0,0,0.08)_25%,transparent_50%),radial-gradient(circle_at_40%_50%,rgba(0,0,0,0.15)_0%,rgba(0,0,0,0.08)_30%,transparent_60%),radial-gradient(circle_at_85%_15%,rgba(0,0,0,0.15)_0%,rgba(0,0,0,0.08)_15%,transparent_40%)]"></div>
             </div>
-
-            {/* Button shadow */}
             <div className="absolute top-1 left-1 right-[-1px] bottom-[-1px] bg-black/35 z-0"></div>
-
-            {/* Button frame */}
             <div className="absolute top-2 left-2 right-2 bottom-2 bg-yellow-300 border-2 border-black z-0"></div>
           </button>
         </div>
@@ -244,18 +210,13 @@ export const AeroDynamic = ({ title, dino }) => {
             data={data}
             nodePadding={10}
             nodeWidth={10}
-            link={{ stroke: "#ffffff", opacity: 1 }} // visible links are white
-            node={{ fill: "#ffffff" }} // nodes are white
-          >
-            {/* <Tooltip /> */}
-          </Sankey>
-        </ResponsiveContainer>{" "}
+            link={{ stroke: "#ffffff", opacity: 1 }}
+            node={{ fill: "#ffffff" }}
+          ></Sankey>
+        </ResponsiveContainer>
         <div className="flex justify-center items-center p-8">
           <button className="relative font-extrabold text-black bg-blue-200 px-6 py-3 transform -rotate-2 skew-x-[-3deg] skew-y-[1deg]">
-            {/* Inner container */}
             <div className="relative flex justify-center items-center overflow-hidden z-10">
-              {/* Shuffle text inside the button */}
-
               <Shuffle
                 className="text-xl font-panchangSB text-black uppercase tracking-wider z-20"
                 text={dino.AeroGforce.AeroDYN.Downforce}
@@ -269,17 +230,10 @@ export const AeroDynamic = ({ title, dino }) => {
                 triggerOnce={true}
                 respectReducedMotion={true}
               />
-              {/* Halftone overlay */}
               <div className="absolute top-0 left-0 w-full h-full opacity-30 mix-blend-multiply bg-[radial-gradient(circle_at_30%_30%,rgba(0,0,0,0.2)_0.1em,transparent_0.1em)] bg-[length:0.5em_0.5em]"></div>
-
-              {/* Ink splatter */}
               <div className="absolute top-0 left-0 w-full h-full opacity-0 z-10 bg-[radial-gradient(circle_at_20%_30%,rgba(0,0,0,0.15)_0%,rgba(0,0,0,0.08)_20%,transparent_50%),radial-gradient(circle_at_70%_65%,rgba(0,0,0,0.15)_0%,rgba(0,0,0,0.08)_25%,transparent_50%),radial-gradient(circle_at_40%_50%,rgba(0,0,0,0.15)_0%,rgba(0,0,0,0.08)_30%,transparent_60%),radial-gradient(circle_at_85%_15%,rgba(0,0,0,0.15)_0%,rgba(0,0,0,0.08)_15%,transparent_40%)]"></div>
             </div>
-
-            {/* Button shadow */}
             <div className="absolute top-1 left-1 right-[-1px] bottom-[-1px] bg-black/35 z-0"></div>
-
-            {/* Button frame */}
             <div className="absolute top-2 left-2 right-2 bottom-2 bg-blue-500 border-2 border-black z-0"></div>
           </button>
         </div>

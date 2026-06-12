@@ -88,7 +88,6 @@ def calculate_strategy(car:dict, track:dict, req:StrategyRequest):
         "fastest lap": "All out pace, high risk for lap time"
     }
     strategy["pushMode"] = push_map.get(req.goal.lower(), "Adaptive pace")
-       # Engine & performance
     strategy["powerToWeight"] = f"{car['forai']['performance']['powerToWeight']:.2f} HP/kg"
     strategy["engineStressTolerance"] = f"{car['forai']['reliability']['engineStressTolerance']*100:.0f}%"
     strategy["maxBrakingG"] = f"{car['forai']['brakes']['maxBrakingG']}G"

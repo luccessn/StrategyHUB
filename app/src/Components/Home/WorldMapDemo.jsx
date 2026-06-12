@@ -122,8 +122,6 @@ export function WorldMapDemo() {
   const [data, error, isLoading] = useFetchData(
     "https://strategyhub.onrender.com/server/gettracks",
   );
-
-  // MST TO ADD ERROR TG ! !
   return (
     <>
       <div className=" flex flex-col gap-20   w-full ">

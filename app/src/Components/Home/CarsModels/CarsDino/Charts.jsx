@@ -9,12 +9,9 @@ import { AgCharts } from "ag-charts-react";
 // } from "@mui/x-charts/Gauge";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
-
 import "swiper/css";
-
 import { AgGauge } from "ag-charts-react";
 import "ag-charts-enterprise";
-
 export const Charts = ({ title, dino }) => {
   const [options, setOptions] = useState({});
   useEffect(() => {
@@ -26,8 +23,8 @@ export const Charts = ({ title, dino }) => {
         color: "#ffffff",
         fontFamily: "panchangMD",
       },
-      height: 600, // ⬅️ დაამატე ეს ხაზი
-      width: 700, // ⬅️ დაამატე ეს ხაზი
+      height: 600,
+      width: 700,
       series: [
         // {
         //   type: "line",
@@ -77,7 +74,6 @@ export const Charts = ({ title, dino }) => {
       },
     });
   }, [dino.chartData, title]);
-
   const [currentIndex, setcurrentIndex] = useState(0);
   const [options2, setOptions2] = useState({
     background: { fill: "#000000" },
@@ -86,7 +82,7 @@ export const Charts = ({ title, dino }) => {
       color: "#ffffff",
       fontSize: 16,
       fontWeight: "bold",
-      yOffset: 80, // რაც უნდა ქვემოთ იყოს
+      yOffset: 80,
       align: "center",
       fontFamily: "panchangMD",
     },
@@ -102,12 +98,12 @@ export const Charts = ({ title, dino }) => {
       max: dino.chartData.valueScalesMX[dino.chartData.valueScalesMX.length - 1]
         .sensor,
       label: {
-        color: "#ffffff", // ← თეთრი ციფრები
+        color: "#ffffff",
         fontSize: 10,
         fontFamily: "panchangSB",
       },
       tick: {
-        color: "#ffffff", // ← თეთრი ნიშნები
+        color: "#ffffff",
         width: 2,
         size: 10,
       },
@@ -116,8 +112,8 @@ export const Charts = ({ title, dino }) => {
       enabled: true,
       lengthRatio: 0.9,
       width: 4,
-      fill: "#FF0000", //
-      stroke: "#FF0000", //
+      fill: "#FF0000",
+      stroke: "#FF0000",
       innerGap: 5,
     },
     needleInnerCircle: {
@@ -132,11 +128,11 @@ export const Charts = ({ title, dino }) => {
     //-225, 50
     valueText: {
       enabled: true,
-      format: (v) => `${v}`, // მხოლოდ რიცხვი
+      format: (v) => `${v}`,
       color: "#ffffff",
       fontSize: 22,
       fontWeight: "bold",
-      yOffset: 30, // ზუსტი პოზიცია შედარებით
+      yOffset: 30,
     },
   });
   const lastobj = dino.chartData.valueScalesMX.length - 1;
@@ -148,7 +144,7 @@ export const Charts = ({ title, dino }) => {
       color: "#ffffff",
       fontSize: 16,
       fontWeight: "bold",
-      yOffset: 80, // რაც უნდა ქვემოთ იყოს
+      yOffset: 80,
       align: "center",
       fontFamily: "panchangMD",
     },
@@ -208,7 +204,6 @@ export const Charts = ({ title, dino }) => {
       value: dino.chartData.valueScalesMX[currentIndex].kmh,
     }));
   }, [currentIndex, dino.chartData.valueScalesMX]);
-  // max value
   const totalSlides = dino.chartData.valueScalesMX.length;
   return (
     <div className="flex flex-row   gap-5  items-center   ">

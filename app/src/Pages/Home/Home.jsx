@@ -43,20 +43,9 @@ export const Home = () => {
   return (
     <div className=" flex overflow-x-hidden flex-col gap-14 text-white text-3xl">
       <WorldMapDemo />
-      {/* <MapTabsDemo /> */}
       <div className="">
         <ExpandableCardDemo />
       </div>
-      {/* <div class="sketchfab-embed-wrapper">
-        {" "}
-        <iframe> </iframe>{" "}
-      </div> */}
-      {/* <div className="w-full">
-        <WindTunnelDemo />
-      </div> */}
-      {/* <div className="w-full">
-        <CarsModels />
-      </div> */}
       <div className="flex flex-col ">
         <motion.div
           initial={{ opacity: 0.1, scale: 0.95 }}

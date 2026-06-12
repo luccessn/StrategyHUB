@@ -44,8 +44,6 @@ def get_strategy(req: StrategyRequest):
         "strategy": strategy,
         "explanation": explanation
     }
-## second post chat
-
 
 @app.post("/chat")
 def chat(request:ChatRequest):

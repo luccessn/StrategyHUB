@@ -18,7 +18,6 @@ export function ExpandableCardDemo() {
   const [data, error, isLoading] = useFetchData(
     "https://strategyhub.onrender.com/server/gettracks",
     // "http://localhost:5000/server/gettracks",
-    // "https://strategyhub.onrender.com/server/gettracks",
   );
   console.log(data);
   const [active, setActive] = useState(null);
@@ -42,7 +41,6 @@ export function ExpandableCardDemo() {
         >
           <div>
             <Trackloader />
-
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
               <div className="flex items-center justify-center gap-6">
                 <div className="load">
@@ -138,20 +136,6 @@ export function ExpandableCardDemo() {
                 >
                   {data.map((card) => (
                     <SwiperSlide key={card.name}>
-                      {/* <ElectricBorder
-                color="#7df9ff"
-                speed={0.3}
-                chaos={0.5}
-                thickness={2}
-                style={{ borderRadius: 10 }}
-              > */}
-                      {/* <ElectricBorder
-                color="#7df9ff"
-                speed={1}
-                chaos={0.5}
-                thickness={2}
-                style={{ borderRadius: 16 }}
-              > */}
                       <motion.div
                         layoutId={`card-${card.name}-${id}`}
                         onClick={() => setActive(card)}

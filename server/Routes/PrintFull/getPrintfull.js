@@ -2,7 +2,6 @@ import express from "express";
 const router = express.Router();
 import { merch } from "../../Models/merch.js";
 import { printfulAPI } from "../../Utils/printful.js";
-
 router.get("/sync", async (req, res) => {
   try {
     const productsResponse = await printfulAPI.get("/store/products");
@@ -15,7 +14,7 @@ router.get("/sync", async (req, res) => {
       );
       const productDetails = productDetailsResponse.data.result;
 
-      const name = productDetails.sync_product?.name || "უცნობი სახელი";
+      const name = productDetails.sync_product?.name || "wrong name";
       const variants = productDetails.sync_variants || [];
       const files = productDetails.sync_product?.files || [];
       const price =
@@ -49,15 +48,12 @@ router.get("/sync", async (req, res) => {
         img5: "",
         img6: "",
       };
-
       const preparedVariants = await Promise.all(
         variants.map(async (variant) => {
           const variantName = variant.name || "";
-          const size = variant.size || "უცნობია";
-          const color = variant.color || "უცნობია";
+          const size = variant.size || "unknown size";
+          const color = variant.color || "unknown color";
           const retail_price = parseFloat(variant.retail_price || 0);
-
-          // დავაგენერიროთ დამატებითი ინფო detail call-ით
           let color_code = "N/A";
           try {
             const productDetail = await printfulAPI.get(
@@ -72,10 +68,9 @@ router.get("/sync", async (req, res) => {
               `Error fetching color_code for variant ${variant.variant_id}: ${e.message}`,
             );
           }
-
           return {
             variant_id: variant.variant_id,
-            sync_variant_id: variant.id, // <=== აქ არის მთავარი ცვლილება
+            sync_variant_id: variant.id,
             size,
             color,
             color_code,
@@ -105,7 +100,7 @@ router.get("/sync", async (req, res) => {
 
     res.json({ message: "Printful Designs synchronized successfully." });
   } catch (err) {
-    console.error("შეცდომა:", err.response?.data || err.message);
+    console.error("Error:", err.response?.data || err.message);
     res.status(500).json({ error: err.message });
   }
 });

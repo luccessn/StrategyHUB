@@ -37,14 +37,11 @@ const MainDTLCards = ({ data }) => {
   // const { state, dispatch } = useAppContext();
   //error
   const hasError = !data?.name;
-
-  // დაყენება images[0] სურათზე
   useEffect(() => {
     if (data && data.images?.img1) {
       setImgsChange(data.images.img1);
     }
   }, [data]);
-  // ზომების გამოტანა უნიკალურად variants-დან
   useEffect(() => {
     if (data && data.variants) {
       const uniqueSizes = Array.from(new Set(data.variants.map((v) => v.size)));
@@ -81,7 +78,7 @@ const MainDTLCards = ({ data }) => {
   const [showToaster, setShowToaster] = useState(false);
   const AddToCart = () => {
     if (!selectedSize || !selectedColor) {
-      return alert("აირჩიე ზომა და ფერი!");
+      return alert("Choose size and color before adding to cart!");
     }
 
     const variant = getVariantBySizeAndColor(
@@ -89,7 +86,8 @@ const MainDTLCards = ({ data }) => {
       selectedColor.color_code,
     );
 
-    if (!variant) return alert("ვარიანტი ვერ მოიძებნა");
+    if (!variant)
+      return alert("Variant not found for the selected size and color!");
     const itemToAdd = {
       id: `${data._id}-${selectedSize}-${selectedColor.color_code}`,
       sync_variant_id: variant.sync_variant_id,
@@ -125,7 +123,6 @@ const MainDTLCards = ({ data }) => {
       <div className="text-5xl p-6  text-white flex  flex-col gap-20 items-center ">
         <div className="text-white p-6   items-center text-5xl">
           <div className="flex flex-col   clg:flex-row gap-14">
-            {/* სურათების Swiper */}
             <div className="flex flex-col items-center ssm:items-start ssm:flex-row  ssmm:p-0 gap-5 ssmm:gap-14">
               <div className="flex flex-col gap-5 hidden ssm:flex ssmm:w-[100px] ssm:w-[250px] sm:w-[200px] h-[600px] mmd:h-[700px]">
                 <Swiper

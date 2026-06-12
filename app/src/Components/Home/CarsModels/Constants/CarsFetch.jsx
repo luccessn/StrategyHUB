@@ -77,12 +77,9 @@ export const CarsFetch = () => {
     "https://strategyhub.onrender.com/server/getcars",
     // "http://localhost:5000/server/getcars",
   );
-  // console.log(data);
   const carsWith3d = data.map((car) => ({
     ...car,
-    ...(car3DConfig[car.slug] || {}), // თუ არსებობს
+    ...(car3DConfig[car.slug] || {}),
   }));
-  // console.log(carsWith3d);
-
   return [carsWith3d, error, isLoading];
 };

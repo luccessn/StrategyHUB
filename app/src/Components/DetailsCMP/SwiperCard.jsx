@@ -66,14 +66,11 @@ export const SwiperCard = ({ props }) => {
             <div className="flex flex-row justify-center  ">
               <div className="flex flex-col gap-2  ">
                 <div className="flex flex-col gap-2 mt-4 items-center">
-                  {/* პროდუქტის სახელი */}
                   <div className="text-center w-full px-2">
                     <span className="text-sm ssm:w-full sfm:text-base smm:text-lg text-gray-100 font-semibold break-words leading-snug block">
                       {props.name}
                     </span>
                   </div>
-
-                  {/* ფასი და stock */}
                   <div className="flex justify-center items-center gap-10">
                     <span className="text-green-400 font-bold text-sm sfm:text-medium  smm:text-lg">
                       {props.ourprice} $

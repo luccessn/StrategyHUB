@@ -100,7 +100,7 @@ router.post("/register", async (req, res) => {
     res.status(500).json({ message: "Registration failed", err });
   }
 });
-// refetch me
+// refetch
 router.get("/refresh", authMiddleware, async (req, res) => {
   const user = await UserModel.findById(req.user.id);
   const payload = {

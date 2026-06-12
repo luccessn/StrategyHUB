@@ -1,20 +1,5 @@
 import React from "react";
 import { AgCharts } from "ag-charts-react";
-// import {
-//   BarSeriesModule,
-//   CategoryAxisModule,
-//   LegendModule,
-//   ModuleRegistry,
-//   NumberAxisModule,
-// } from "ag-charts-community";
-
-// ModuleRegistry.registerModules([
-//   BarSeriesModule,
-//   CategoryAxisModule,
-//   LegendModule,
-//   NumberAxisModule,
-// ]);
-
 export const BrakeAccelr = ({ title, dino }) => {
   const options = {
     background: { fill: "#000000" },

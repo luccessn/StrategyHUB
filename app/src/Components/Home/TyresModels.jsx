@@ -92,11 +92,6 @@ function Model({ url, scale, position, rotation }) {
     });
   }, [actions, scene]);
 
-  // 🔹 აქ შევძელით ბრუნვის ამოღება
-  // useFrame(() => {
-  //   scene.rotation.y += 0.0008;
-  // });
-
   return (
     <primitive
       object={scene}

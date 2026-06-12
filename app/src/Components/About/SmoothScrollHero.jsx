@@ -15,13 +15,11 @@ export const SmoothScrollHero = () => {
       <ReactLenis
         root
         options={{
-          // Learn more -> https://github.com/darkroomengineering/lenis?tab=readme-ov-file#instance-settings
           lerp: 0.03,
           //   infinite: true,
           //   syncTouch: true,
         }}
       >
-        {/* <Nav /> */}
         <Hero />
         <Schedule />
       </ReactLenis>

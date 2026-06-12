@@ -11,7 +11,6 @@ const sendEmail = async ({ to, subject, html }) => {
       pass: "rrct opio toua kqjd ",
     },
   });
-
   try {
     const info = await transporter.sendMail({
       from: '"StrategyHUB" <no-reply@yourshop.com>',

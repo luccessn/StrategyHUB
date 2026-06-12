@@ -74,7 +74,7 @@ export const TestCharts = ({ title, chartData }) => {
   //       stroke: "#00FFCC",
   //       strokeWidth: 3,
   //       marker: { enabled: true, size: 10 },
-  //       interpolation: { type: "smooth" }, // 💡 რბილი ხაზი
+  //       interpolation: { type: "smooth" },
   //     },
   //     {
   //       type: "line",
@@ -85,7 +85,7 @@ export const TestCharts = ({ title, chartData }) => {
   //       stroke: "#FFCC00",
   //       strokeWidth: 3,
   //       marker: { enabled: true, size: 10 },
-  //       interpolation: { type: "smooth" }, // 💡 რბილი ხაზი
+  //       interpolation: { type: "smooth" },
   //     },
   //   ],
   //   axes: [

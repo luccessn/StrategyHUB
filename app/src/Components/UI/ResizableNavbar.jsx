@@ -80,8 +80,6 @@ export const NavItems = ({ className, onItemClick }) => {
   const navigate = useNavigate();
   const items = [
     { name: "Home", path: routes.Home },
-    // { name: "SignUp", path: routes.SignUp },
-    // { name: "LogIn", path: routes.LogIn },
     {
       name: "Products",
       children: [
