@@ -115,3 +115,15 @@ export const Home = () => {
     </div>
   );
 };
+//  <motion.div
+//     initial={{ opacity: 0, scale: 0.9, filter: "blur(20px)" }}
+//     whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+//     transition={{
+//       duration: 0.9,
+//       ease: [0.25, 0.1, 0.25, 1],
+//     }}
+//     viewport={{
+//       once: true,
+//       amount: 0.3,
+//     }}
+//   ></motion.div>

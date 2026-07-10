@@ -49,8 +49,6 @@ export const SignUp = () => {
     } else if (user.password !== user.confirmPassword) {
       errors.confirmPassword = "Password dont match";
     }
-    setformErrors(errors);
-    return Object.keys(errors).length === 0;
   };
   const handleSubmit = (e) => {
     e.preventDefault();
