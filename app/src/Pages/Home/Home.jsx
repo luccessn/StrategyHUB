@@ -3,6 +3,7 @@ import { WorldMapDemo } from "../../Components/Home/WorldMapDemo";
 import { motion } from "framer-motion";
 import { ExpandableCardDemo } from "../../Components/Home/CardDemo";
 import { CarsCalc } from "../../Components/Home/CarsModels/CarsCalc";
+import CarsGridCard from "../../Components/Home/CarsModels/CarsCard/CarsGridCard";
 import LogoLoop from "../../Components/UI/Border/LogoLoop";
 import trackloader from "../../Components/Loads/trackloader";
 ///Logos
@@ -79,7 +80,8 @@ export const Home = () => {
         </div>
       </div>
       <div className="w-full  ">
-        <CarsCalc />
+        <CarsGridCard />
+        {/* <CarsCalc /> */}
       </div>
 
       <div className="flex flex-col ">
@@ -116,8 +118,8 @@ export const Home = () => {
   );
 };
 //  <motion.div
-//     initial={{ opacity: 0, scale: 0.9, filter: "blur(20px)" }}
-//     whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+// initial={{ opacity: 0, scale: 0.9, filter: "blur(20px)" }}
+// whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
 //     transition={{
 //       duration: 0.9,
 //       ease: [0.25, 0.1, 0.25, 1],
