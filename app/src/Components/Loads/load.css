@@ -1,4 +1,12 @@
 /* From Uiverse.io by JaydipPrajapati1910 */
+
+.mySwiper {
+  perspective: 1200px;
+}
+
+.swiper-slide {
+  transform-style: preserve-3d;
+}
 .load {
   --path: #fff;
   --dot: red;
