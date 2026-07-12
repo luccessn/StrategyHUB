@@ -191,7 +191,7 @@ export const TyresModels = () => {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 20%",
-          end: "+=1200",
+          end: "+=3000",
           scrub: 2,
           pin: true,
         },
@@ -216,7 +216,7 @@ export const TyresModels = () => {
           y: 150,
         },
         {
-          scale: 1,
+          scale: 1.8,
           y: 0,
           ease: "none",
           duration: 4,
@@ -227,13 +227,13 @@ export const TyresModels = () => {
         tyresRef.current[0],
         {
           x: 640,
-          opacity: 0,
+          visibility: "hidden",
           rotation: -360,
         },
         {
           x: 0,
           scale: 1,
-          opacity: 1,
+          visibility: "visible",
           rotation: 0,
           ease: "none",
           duration: 6,
@@ -245,19 +245,17 @@ export const TyresModels = () => {
         tyresRef.current[2],
         {
           x: -640,
-          scale: 1,
-          opacity: 0,
           rotation: 360,
+          visibility: "hidden",
         },
         {
           x: 0,
-          scale: 1,
-          opacity: 1,
           rotation: 0,
+          visibility: "visible",
           ease: "none",
           duration: 6,
         },
-        "<", // <-- აქ
+        "<",
       );
     }, sectionRef);
 
@@ -266,8 +264,11 @@ export const TyresModels = () => {
   return (
     <>
       <div ref={sectionRef} className=" w-full relative">
-        <h1 ref={textRef} className=" items-center text-center text-8xl ">
-          Tyres Types
+        <h1
+          ref={textRef}
+          className="font-RacingSans tracking-wider items-center text-center text-8xl "
+        >
+          TYRES TYPES
         </h1>
         <div className="flex flex-row  ">
           {tyreData.slice(0, 3).map((card, index) => (

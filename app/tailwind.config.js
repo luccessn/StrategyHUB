@@ -20,6 +20,7 @@ module.exports = {
         panchang: ["Panchang", "sans-serif"],
         panchangMD: ["PanchangMD", "sans-serif"],
         panchangSB: ["PanchangSB", "sans-serif"],
+        RacingSans: ["RacingSans", "sans-serif"],
       },
     },
     screens: {

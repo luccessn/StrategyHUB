@@ -27,6 +27,11 @@
   font-family: PanchangSB;
   src: url("./Assets/Fonts/Panchang-Semibold.otf");
 }
+@font-face {
+  font-family: RacingSans;
+  src: url("./Assets/Fonts/RacingSansOne-Regular.ttf");
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
