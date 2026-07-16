@@ -184,7 +184,9 @@ export const TyresModels = () => {
   //// New Gsap for new sight
   const sectionRef = useRef(null);
   const textRef = useRef(null);
-  const tyresRef = useRef([]);
+  const slidesRef = useRef([]);
+  const swiperRef = useRef(null);
+  const swiperContainerRef = useRef(null);
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
@@ -199,9 +201,9 @@ export const TyresModels = () => {
       // საბურავის შემოსვლა
 
       tl.fromTo(
-        tyresRef.current[1],
+        slidesRef.current[1],
         {
-          x: () => -window.innerWidth - tyresRef.current[1].offsetWidth,
+          x: () => -window.innerWidth - slidesRef.current[1].offsetWidth,
           scale: 1,
           y: 0,
           rotation: -720,
@@ -224,7 +226,7 @@ export const TyresModels = () => {
       );
       // მარცხენა საბურავი
       tl.fromTo(
-        tyresRef.current[0],
+        slidesRef.current[0],
         {
           x: 640,
           visibility: "hidden",
@@ -242,7 +244,7 @@ export const TyresModels = () => {
 
       // მარჯვენა საბურავი
       tl.fromTo(
-        tyresRef.current[2],
+        slidesRef.current[2],
         {
           x: -640,
           rotation: 360,
@@ -257,10 +259,38 @@ export const TyresModels = () => {
         },
         "<",
       );
+      // tl.to(slidesRef.current[0], {
+      //   x: -120,
+      //   scale: 0.75,
+      //   duration: 4,
+      // });
+      // tl.to(
+      //   slidesRef.current[2],
+      //   {
+      //     x: 120,
+      //     scale: 0.75,
+      //     duration: 4,
+      //   },
+      //   "<",
+      // );
+      // tl.to(
+      //   slidesRef.current[1],
+      //   {
+      //     scale: 1.2,
+      //     duration: 4,
+      //   },
+      //   "<",
+      // );
+      // tl.call(() => {
+      //   swiperRef.current.params.allowTouchMove = true;
+
+      //   swiperRef.current.update();
+      // });
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
+
   return (
     <>
       <div ref={sectionRef} className=" w-full relative">
@@ -270,7 +300,7 @@ export const TyresModels = () => {
         >
           TYRES TYPES
         </h1>
-        <div className="flex flex-row  ">
+        {/* <div className="flex flex-row  ">
           {tyreData.slice(0, 3).map((card, index) => (
             <img
               key={card.title}
@@ -280,6 +310,38 @@ export const TyresModels = () => {
               alt={card.title}
             />
           ))}
+        </div> */}
+        <div className="w-full h-full justify-center  ">
+          <div className="w-full relative flex justify-center ">
+            <Swiper
+              className="w-full"
+              onSwiper={(swiper) => {
+                swiperRef.current = swiper;
+              }}
+              centeredSlides
+              wrapperClass="!justify-center"
+              slidesPerView={3}
+              allowTouchMove={false}
+              loop={false}
+              spaceBetween={60}
+              className="flex mySwiper w-full flex-row "
+            >
+              {tyreData.slice(0, 3).map((card, index) => (
+                <SwiperSlide
+                  key={card.title}
+                  className="mx-auto justify-center items-center"
+                >
+                  <img
+                    ref={(el) => {
+                      if (el) slidesRef.current[index] = el;
+                    }}
+                    src={card.src}
+                    className="w-[450px] "
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
         </div>
       </div>
     </>
