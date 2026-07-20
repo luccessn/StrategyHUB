@@ -32,6 +32,7 @@ import hard from "../../Images/Tyres/hard.webp";
 import greenwet from "../../Images/Tyres/greenwet.webp";
 import bluewet from "../../Images/Tyres/bluewet.webp";
 import { useState } from "react";
+
 const tyreData = [
   {
     src: "https://i.postimg.cc/ZKM4YvGb/medium.webp",
@@ -51,18 +52,18 @@ const tyreData = [
     description:
       "The white tyre, known as the hard compound, offers maximum durability and longevity, ideal for long stints and hot conditions. Typically C1 compounds has white sidewalls, but also C2, C3 and C4 can be used.",
   },
-  {
-    src: "https://www.pirelli.com/tyres/car/next/motorsport/assets/images?url=https%3A%2F%2Ftyre24.pirelli.com%2Fmotorsport%2Fassets%2Fmotorsport%2Fbanners%2Fpirelli-motorsport-car-Formula1-WetTyres-green-senzaombra.png&w=1920&q=75",
-    title: "Intermediate",
-    description:
-      "The intermediates are the most versatile of the rain tyres. They can be used on a wet track with no standing water, as well as a drying surface. The compound has been designed to have a wide working range, guaranteeing a wide crossover window both with the slicks and the full wets.",
-  },
-  {
-    src: "https://www.pirelli.com/tyres/car/next/motorsport/assets/images?url=https%3A%2F%2Ftyre24.pirelli.com%2Fmotorsport%2Fassets%2Fmotorsport%2Fbanners%2Fpirelli-motorsport-car-Formula1-WetTyres-blue-senzaombra.png&w=1920&q=75",
-    title: "Full Wet",
-    description:
-      "The full wet tyres are the most effective for heavy rain, capable of dispersing impressive quantities of water. But if it rains heavily, visibility rather than grip causes issues, leading to race stoppages on occasions. The profile delivers increased resistance to aquaplaning, which gives the tyre more grip in heavy rain.",
-  },
+  // {
+  //   src: "https://www.pirelli.com/tyres/car/next/motorsport/assets/images?url=https%3A%2F%2Ftyre24.pirelli.com%2Fmotorsport%2Fassets%2Fmotorsport%2Fbanners%2Fpirelli-motorsport-car-Formula1-WetTyres-green-senzaombra.png&w=1920&q=75",
+  //   title: "Intermediate",
+  //   description:
+  //     "The intermediates are the most versatile of the rain tyres. They can be used on a wet track with no standing water, as well as a drying surface. The compound has been designed to have a wide working range, guaranteeing a wide crossover window both with the slicks and the full wets.",
+  // },
+  // {
+  //   src: "https://www.pirelli.com/tyres/car/next/motorsport/assets/images?url=https%3A%2F%2Ftyre24.pirelli.com%2Fmotorsport%2Fassets%2Fmotorsport%2Fbanners%2Fpirelli-motorsport-car-Formula1-WetTyres-blue-senzaombra.png&w=1920&q=75",
+  //   title: "Full Wet",
+  //   description:
+  //     "The full wet tyres are the most effective for heavy rain, capable of dispersing impressive quantities of water. But if it rains heavily, visibility rather than grip causes issues, leading to race stoppages on occasions. The profile delivers increased resistance to aquaplaning, which gives the tyre more grip in heavy rain.",
+  // },
 ];
 // function Loader() {
 //   const { progress } = useProgress();
@@ -187,7 +188,23 @@ export const TyresModels = () => {
   const slidesRef = useRef([]);
   const swiperRef = useRef(null);
   const swiperContainerRef = useRef(null);
+
   useLayoutEffect(() => {
+    const centerRect = slidesRef.current[1].getBoundingClientRect();
+    const leftRect = slidesRef.current[0].getBoundingClientRect();
+    const rightRect = slidesRef.current[2].getBoundingClientRect();
+
+    // ეკრანის ცენტრის X კოორდინატი — ყველა slide-ის "საწყისი" ვიზუალური სამიზნეა
+    const viewportCenterX = window.innerWidth / 2;
+
+    // თითოეული slide-ისთვის ვთვლით, რა x offset სჭირდება იმისთვის,
+    // რომ მისი ცენტრი ეკრანის ცენტრში აღმოჩნდეს (ე.ი. "ვიზუალურად ცენტრში დგას")
+    const centerOffset =
+      viewportCenterX - (centerRect.left + centerRect.width / 2);
+    const leftStartX = viewportCenterX - (leftRect.left + leftRect.width / 2);
+    const rightStartX =
+      viewportCenterX - (rightRect.left + rightRect.width / 2);
+
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -198,18 +215,25 @@ export const TyresModels = () => {
           pin: true,
         },
       });
-      // საბურავის შემოსვლა
 
+      // საბურავის შემოსვლა — ცენტრის slide შემოდის და ჩერდება
+      // ეკრანის ცენტრში. საბოლოო მდგომარეობა x:0-ს ნაცვლად
+      // ჯერ კიდევ centerOffset-ზე ჩერდება, რადგან ეს არის ის
+      // მომენტი, სანამ Swiper საერთოდ არ აკონტროლებს პოზიციას.
       tl.fromTo(
         slidesRef.current[1],
         {
-          x: () => -window.innerWidth - slidesRef.current[1].offsetWidth,
-          scale: 1,
-          y: 0,
+          x: -window.innerWidth - centerRect.width,
           rotation: -720,
         },
-        { x: 0, y: 0, scale: 1, rotation: 0, ease: "none", duration: 10 },
+        {
+          x: centerOffset,
+          rotation: 0,
+          duration: 10,
+          ease: "none",
+        },
       );
+
       // ტექსტის დაპატარავება და აწევა
       tl.fromTo(
         textRef.current,
@@ -224,11 +248,14 @@ export const TyresModels = () => {
           duration: 4,
         },
       );
-      // მარცხენა საბურავი
+
+      // მარცხენა საბურავი — შემოდის და ჩერდება ზუსტად იქ,
+      // სადაც Swiper-ი თავად დააყენებდა მას (ანუ x:0,
+      // რადგან spaceBetween/centeredSlides უკვე ზრუნავს დაშორებაზე)
       tl.fromTo(
         slidesRef.current[0],
         {
-          x: 640,
+          x: leftStartX,
           visibility: "hidden",
           rotation: -360,
         },
@@ -242,11 +269,11 @@ export const TyresModels = () => {
         },
       );
 
-      // მარჯვენა საბურავი
+      // მარჯვენა საბურავი — იგივე პრინციპით, x:0-ზე ჩერდება
       tl.fromTo(
         slidesRef.current[2],
         {
-          x: -640,
+          x: rightStartX,
           rotation: 360,
           visibility: "hidden",
         },
@@ -259,33 +286,54 @@ export const TyresModels = () => {
         },
         "<",
       );
-      // tl.to(slidesRef.current[0], {
-      //   x: -120,
-      //   scale: 0.75,
-      //   duration: 4,
-      // });
-      // tl.to(
-      //   slidesRef.current[2],
-      //   {
-      //     x: 120,
-      //     scale: 0.75,
-      //     duration: 4,
-      //   },
-      //   "<",
-      // );
-      // tl.to(
-      //   slidesRef.current[1],
-      //   {
-      //     scale: 1.2,
-      //     duration: 4,
-      //   },
-      //   "<",
-      // );
-      // tl.call(() => {
-      //   swiperRef.current.params.allowTouchMove = true;
 
+      // ცენტრის slide-იც საბოლოოდ უნდა დაბრუნდეს x:0-ზე,
+      // რომ Swiper-ის ბუნებრივ პოზიციას დაემთხვას handoff-ის დროს
+      tl.to(slidesRef.current[1], {
+        x: 0,
+        duration: 4,
+      });
+
+      tl.to(slidesRef.current[0], {
+        scale: 0.75,
+        duration: 4,
+      });
+
+      tl.to(
+        slidesRef.current[2],
+        {
+          scale: 0.75,
+          duration: 4,
+        },
+        "<",
+      );
+
+      tl.to(
+        slidesRef.current[1],
+        {
+          scale: 1.2,
+          duration: 4,
+        },
+        "<",
+      );
+
+      // handoff Swiper-ზე: keep-scale, გავწმენდოთ transform inline
+      // სტილები, რომ Swiper-ის საკუთარმა translate-მა არ დააჯახოს
+      // ჯერ კიდევ დარჩენილ GSAP inline x-ს. ეს უსაფრთხო გასუფთავებაა,
+      // რადგან x უკვე 0-ზეა დაბრუნებული ყველა slide-ისთვის.
+      // tl.call(() => {
+      //   gsap.set(slidesRef.current, { clearProps: "transform" });
+      //   swiperRef.current.params.allowTouchMove = true;
       //   swiperRef.current.update();
       // });
+      tl.call(() => {
+        gsap.set(slidesRef.current, {
+          x: 0,
+          rotation: 0,
+        });
+
+        swiperRef.current.update();
+      });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -300,47 +348,73 @@ export const TyresModels = () => {
         >
           TYRES TYPES
         </h1>
-        {/* <div className="flex flex-row  ">
-          {tyreData.slice(0, 3).map((card, index) => (
-            <img
-              key={card.title}
-              ref={(el) => (tyresRef.current[index] = el)}
-              className="w-[450px] items-center justify-center mx-auto"
-              src={card.src}
-              alt={card.title}
-            />
-          ))}
-        </div> */}
-        <div className="w-full h-full justify-center  ">
-          <div className="w-full relative flex justify-center ">
+        <div className="w-full h-full justify-center">
+          <div className="w-full relative flex justify-center">
             <Swiper
-              className="w-full"
               onSwiper={(swiper) => {
                 swiperRef.current = swiper;
               }}
+              modules={[Navigation]}
               centeredSlides
-              wrapperClass="!justify-center"
-              slidesPerView={3}
+              slidesPerView="auto"
               allowTouchMove={false}
               loop={false}
               spaceBetween={60}
-              className="flex mySwiper w-full flex-row "
+              initialSlide={1}
+              className="mySwiper w-full flex flex-row"
+              onSlideChange={(swiper) => {
+                setActiveIndex(swiper.realIndex);
+                setactive(tyreData[swiper.realIndex]);
+              }}
+              navigation={{
+                nextEl: ".swiper-button-next-custom",
+                prevEl: ".swiper-button-prev-custom",
+              }}
             >
               {tyreData.slice(0, 3).map((card, index) => (
                 <SwiperSlide
                   key={card.title}
-                  className="mx-auto justify-center items-center"
+                  className="!w-[450px] bg-red-400 flex justify-center items-center"
                 >
-                  <img
+                  <div
                     ref={(el) => {
                       if (el) slidesRef.current[index] = el;
                     }}
-                    src={card.src}
-                    className="w-[450px] "
-                  />
+                  >
+                    <img src={card.src} alt="" className="w-[450px]" />
+                  </div>
                 </SwiperSlide>
               ))}
             </Swiper>
+            {/* LEFT BUTTON */}
+            <button
+              className="
+        swiper-button-prev-custom
+        absolute left-10 top-1/2 -translate-y-1/2
+        z-10
+        w-12 h-12
+        rounded-full
+        bg-black text-white
+        flex items-center justify-center
+      "
+            >
+              ←
+            </button>
+
+            {/* RIGHT BUTTON */}
+            <button
+              className="
+        swiper-button-next-custom
+        absolute right-10 top-1/2 -translate-y-1/2
+        z-10
+        w-12 h-12
+        rounded-full
+        bg-black text-white
+        flex items-center justify-center
+      "
+            >
+              →
+            </button>
           </div>
         </div>
       </div>
@@ -378,15 +452,15 @@ export const TyresModels = () => {
     //           delay: 3000,
     //           disableOnInteraction: false,
     //         }}
-    //         onSlideChange={(swiper) => {
-    //           setActiveIndex(swiper.realIndex);
-    //           setactive(tyreData[swiper.realIndex]);
-    //         }}
-    //         className="mySwiper w-full"
-    //         navigation={{
-    //           nextEl: ".swiper-button-next-custom",
-    //           prevEl: ".swiper-button-prev-custom",
-    //         }}
+    // onSlideChange={(swiper) => {
+    //   setActiveIndex(swiper.realIndex);
+    //   setactive(tyreData[swiper.realIndex]);
+    // }}
+    // className="mySwiper w-full"
+    // navigation={{
+    //   nextEl: ".swiper-button-next-custom",
+    //   prevEl: ".swiper-button-prev-custom",
+    // }}
     //       >
     //         {tyreData.map((card, index) => {
     //           const isActive = index === activeIndex;
