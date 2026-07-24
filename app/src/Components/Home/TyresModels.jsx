@@ -4,6 +4,7 @@ import React, {
   useId,
   useRef,
   useLayoutEffect,
+  useMemo,
 } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { motion } from "framer-motion";
@@ -52,18 +53,6 @@ const tyreData = [
     description:
       "The white tyre, known as the hard compound, offers maximum durability and longevity, ideal for long stints and hot conditions. Typically C1 compounds has white sidewalls, but also C2, C3 and C4 can be used.",
   },
-  // {
-  //   src: "https://www.pirelli.com/tyres/car/next/motorsport/assets/images?url=https%3A%2F%2Ftyre24.pirelli.com%2Fmotorsport%2Fassets%2Fmotorsport%2Fbanners%2Fpirelli-motorsport-car-Formula1-WetTyres-green-senzaombra.png&w=1920&q=75",
-  //   title: "Intermediate",
-  //   description:
-  //     "The intermediates are the most versatile of the rain tyres. They can be used on a wet track with no standing water, as well as a drying surface. The compound has been designed to have a wide working range, guaranteeing a wide crossover window both with the slicks and the full wets.",
-  // },
-  // {
-  //   src: "https://www.pirelli.com/tyres/car/next/motorsport/assets/images?url=https%3A%2F%2Ftyre24.pirelli.com%2Fmotorsport%2Fassets%2Fmotorsport%2Fbanners%2Fpirelli-motorsport-car-Formula1-WetTyres-blue-senzaombra.png&w=1920&q=75",
-  //   title: "Full Wet",
-  //   description:
-  //     "The full wet tyres are the most effective for heavy rain, capable of dispersing impressive quantities of water. But if it rains heavily, visibility rather than grip causes issues, leading to race stoppages on occasions. The profile delivers increased resistance to aquaplaning, which gives the tyre more grip in heavy rain.",
-  // },
 ];
 // function Loader() {
 //   const { progress } = useProgress();
@@ -213,6 +202,7 @@ export const TyresModels = () => {
           end: "+=3000",
           scrub: 2,
           pin: true,
+          // once: true,
         },
       });
 
@@ -260,7 +250,7 @@ export const TyresModels = () => {
           rotation: -360,
         },
         {
-          x: 0,
+          x: -200,
           scale: 1,
           visibility: "visible",
           rotation: 0,
@@ -278,7 +268,7 @@ export const TyresModels = () => {
           visibility: "hidden",
         },
         {
-          x: 0,
+          x: 200,
           rotation: 0,
           visibility: "visible",
           ease: "none",
@@ -290,28 +280,16 @@ export const TyresModels = () => {
       // ცენტრის slide-იც საბოლოოდ უნდა დაბრუნდეს x:0-ზე,
       // რომ Swiper-ის ბუნებრივ პოზიციას დაემთხვას handoff-ის დროს
       tl.to(slidesRef.current[1], {
-        x: 0,
         duration: 4,
       });
 
       tl.to(slidesRef.current[0], {
-        scale: 0.75,
         duration: 4,
       });
 
       tl.to(
         slidesRef.current[2],
         {
-          scale: 0.75,
-          duration: 4,
-        },
-        "<",
-      );
-
-      tl.to(
-        slidesRef.current[1],
-        {
-          scale: 1.2,
           duration: 4,
         },
         "<",
@@ -326,19 +304,17 @@ export const TyresModels = () => {
       //   swiperRef.current.params.allowTouchMove = true;
       //   swiperRef.current.update();
       // });
-      tl.call(() => {
-        gsap.set(slidesRef.current, {
-          x: 0,
-          rotation: 0,
-        });
+      // tl.call(() => {
+      //   gsap.set(slidesRef.current, {
+      //     clearProps: "transform",
+      //   });
 
-        swiperRef.current.update();
-      });
+      //   swiperRef.current.update();
+      // });
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
-
   return (
     <>
       <div ref={sectionRef} className=" w-full relative">
@@ -350,7 +326,7 @@ export const TyresModels = () => {
         </h1>
         <div className="w-full h-full justify-center">
           <div className="w-full relative flex justify-center">
-            <Swiper
+            {/* <Swiper
               onSwiper={(swiper) => {
                 swiperRef.current = swiper;
               }}
@@ -359,7 +335,7 @@ export const TyresModels = () => {
               slidesPerView="auto"
               allowTouchMove={false}
               loop={false}
-              spaceBetween={60}
+              spaceBetween={150}
               initialSlide={1}
               className="mySwiper w-full flex flex-row"
               onSlideChange={(swiper) => {
@@ -370,51 +346,29 @@ export const TyresModels = () => {
                 nextEl: ".swiper-button-next-custom",
                 prevEl: ".swiper-button-prev-custom",
               }}
-            >
-              {tyreData.slice(0, 3).map((card, index) => (
-                <SwiperSlide
-                  key={card.title}
-                  className="!w-[450px] bg-red-400 flex justify-center items-center"
+            > */}
+            {tyreData.map((card, index) => {
+              // const isActive = index === activeIndex;
+              // setmdlImage(isActive);
+              const isActive = index === activeIndex;
+              return (
+                <motion.div
+                  animate={{
+                    scale: isActive ? 1.15 : 0.85,
+                    // opacity: isActive ? 1 : 0.6,
+                  }}
+                  transition={{
+                    duration: 0.6,
+                    ease: [0.4, 0, 0.2, 1],
+                  }}
+                  ref={(el) => {
+                    if (el) slidesRef.current[index] = el;
+                  }}
                 >
-                  <div
-                    ref={(el) => {
-                      if (el) slidesRef.current[index] = el;
-                    }}
-                  >
-                    <img src={card.src} alt="" className="w-[450px]" />
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-            {/* LEFT BUTTON */}
-            <button
-              className="
-        swiper-button-prev-custom
-        absolute left-10 top-1/2 -translate-y-1/2
-        z-10
-        w-12 h-12
-        rounded-full
-        bg-black text-white
-        flex items-center justify-center
-      "
-            >
-              ←
-            </button>
-
-            {/* RIGHT BUTTON */}
-            <button
-              className="
-        swiper-button-next-custom
-        absolute right-10 top-1/2 -translate-y-1/2
-        z-10
-        w-12 h-12
-        rounded-full
-        bg-black text-white
-        flex items-center justify-center
-      "
-            >
-              →
-            </button>
+                  <img src={card.src} alt="" className="w-[450px]" />
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -462,46 +416,46 @@ export const TyresModels = () => {
     //   prevEl: ".swiper-button-prev-custom",
     // }}
     //       >
-    //         {tyreData.map((card, index) => {
-    //           const isActive = index === activeIndex;
-    //           return (
-    //             <SwiperSlide key={card.title}>
-    //               <motion.div
-    //                 layoutId={`card-${card.title}-${id}`}
-    //                 //   onClick={() => setactive(card)} cursor-target
-    //                 animate={{
-    //                   scale: isActive ? 1.1 : 0.9,
-    //                   opacity: isActive ? 1 : 0.6,
-    //                 }}
-    //                 transition={{
-    //                   duration: 1.1,
-    //                   ease: [0.4, 0.0, 0.2, 1],
-    //                 }}
-    //                 className="p-4 flex flex-col bg-black/20 h-[440px] mmd:h-[480px] lg:h-[550px]  w-full xxxll:h-[700px] rounded-sm cursor-pointer mx-auto"
-    //                 // className="p-4 flex flex-col bg-black/20  h-[500px] xxxll:h-[700px] rounded-sm cursor-pointer"
-    //               >
-    //                 <div className="flex gap-4 flex-col h-full w-full">
-    //                   <motion.div layoutId={`image-${card.title}-${id}`}>
-    //                     <img
-    //                       src={card.src}
-    //                       alt={card.title}
-    //                       className=" w-[330px] mmd:w-[380px]  lg:w-[450px] h-[350px]  mmd:h-[390px] lg:h-[420px] xl:h-[420px] xl:w-full xxl:h-[480px] mx-auto rounded-lg"
-    //                       // className=" h-[400px] xl:h-[420px] xxl:h-[480px] xxxll:h-[580px]  w-full rounded-lg"
-    //                     />
-    //                   </motion.div>
-    //                   <div className="flex justify-center items-center flex-col">
-    //                     <motion.h3
-    //                       layoutId={`title-${card.title}-${id}`}
-    //                       className="font-panchangSB text-neutral-200 text-center text-base"
-    //                     >
-    //                       {card.title}
-    //                     </motion.h3>
-    //                   </div>
-    //                 </div>
-    //               </motion.div>
-    //             </SwiperSlide>
-    //           );
-    //         })}
+    // {tyreData.map((card, index) => {
+    //   const isActive = index === activeIndex;
+    //   return (
+    //     <SwiperSlide key={card.title}>
+    //       <motion.div
+    //         layoutId={`card-${card.title}-${id}`}
+    //         //   onClick={() => setactive(card)} cursor-target
+    //         animate={{
+    //           scale: isActive ? 1.1 : 0.9,
+    //           opacity: isActive ? 1 : 0.6,
+    //         }}
+    //         transition={{
+    //           duration: 1.1,
+    //           ease: [0.4, 0.0, 0.2, 1],
+    //         }}
+    //         className="p-4 flex flex-col bg-black/20 h-[440px] mmd:h-[480px] lg:h-[550px]  w-full xxxll:h-[700px] rounded-sm cursor-pointer mx-auto"
+    //         // className="p-4 flex flex-col bg-black/20  h-[500px] xxxll:h-[700px] rounded-sm cursor-pointer"
+    //       >
+    //         <div className="flex gap-4 flex-col h-full w-full">
+    //           <motion.div layoutId={`image-${card.title}-${id}`}>
+    //             <img
+    //               src={card.src}
+    //               alt={card.title}
+    //               className=" w-[330px] mmd:w-[380px]  lg:w-[450px] h-[350px]  mmd:h-[390px] lg:h-[420px] xl:h-[420px] xl:w-full xxl:h-[480px] mx-auto rounded-lg"
+    //               // className=" h-[400px] xl:h-[420px] xxl:h-[480px] xxxll:h-[580px]  w-full rounded-lg"
+    //             />
+    //           </motion.div>
+    //           <div className="flex justify-center items-center flex-col">
+    //             <motion.h3
+    //               layoutId={`title-${card.title}-${id}`}
+    //               className="font-panchangSB text-neutral-200 text-center text-base"
+    //             >
+    //               {card.title}
+    //             </motion.h3>
+    //           </div>
+    //         </div>
+    //       </motion.div>
+    //     </SwiperSlide>
+    //   );
+    // })}
     //       </Swiper>
     //     </div>
     //     {active && (
