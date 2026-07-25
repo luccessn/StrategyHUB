@@ -21,6 +21,8 @@ import { SiHonda } from "react-icons/si";
 import { SiAstonmartin } from "react-icons/si";
 import { AICard } from "../../Components/AI/AICard";
 import { TyresModels } from "../../Components/Home/TyresModels";
+import { WetTyres } from "../../Components/Home/WetTyres";
+
 import { useAppContext } from "../../Context/AppContextProvider";
 
 const techLogos = [
@@ -49,8 +51,10 @@ export const Home = () => {
       </div>
       <div className="flex flex-col ">
         <motion.div
-          initial={{ opacity: 0.1, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, scale: 0.99 }}
+          whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+          // initial={{ opacity: 0.1, scale: 0.98, filter: "blur(10px)" }}
+          // whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
           transition={{ duration: 0.5, ease: "linear" }}
           viewport={{ once: false, amount: 0.4 }}
         >
@@ -77,6 +81,7 @@ export const Home = () => {
         </motion.div>
         <div>
           <TyresModels />
+          <WetTyres />
         </div>
       </div>
       <div className="w-full  ">

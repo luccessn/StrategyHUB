@@ -541,7 +541,7 @@ export const AICard = () => {
                     </div>
                   ))}
                   {isLoading && (
-                    <div className="flex gap-3">
+                    <div className="flex relative top-32 gap-3">
                       <div className="flex items-center justify-center w-11 h-11 bg-blue-600/80 rounded-full shadow-md">
                         <RiRobot3Fill className="text-3xl text-white" />
                       </div>

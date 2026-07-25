@@ -32,10 +32,10 @@ export function ExpandableCardDemo() {
 
   return (
     <>
-      {isLoading ? (
+      {isLoading || error ? (
         <motion.div
-          initial={{ opacity: 0, scale: 0.98 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, scale: 0.98, filter: "blur(10px)" }}
+          whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
           transition={{ duration: 0.6, ease: "linear" }}
           viewport={{ once: true, amount: 0.4 }}
         >
@@ -67,8 +67,8 @@ export function ExpandableCardDemo() {
       ) : (
         <div className="">
           <motion.div
-            initial={{ opacity: 0.1, scale: 0.98 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, scale: 0.98, filter: "blur(10px)" }}
+            whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
             transition={{ duration: 0.35, ease: "linear" }}
             viewport={{ once: false, amount: 0.3 }}
           >
@@ -210,8 +210,8 @@ export function ExpandableCardDemo() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, scale: 0.98, filter: "blur(10px)" }}
+            whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
             transition={{ duration: 0.3, ease: "linear" }}
             viewport={{ once: false, amount: 0.1 }}
           >

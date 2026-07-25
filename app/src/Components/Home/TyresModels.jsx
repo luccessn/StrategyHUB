@@ -54,49 +54,7 @@ const tyreData = [
       "The white tyre, known as the hard compound, offers maximum durability and longevity, ideal for long stints and hot conditions. Typically C1 compounds has white sidewalls, but also C2, C3 and C4 can be used.",
   },
 ];
-// function Loader() {
-//   const { progress } = useProgress();
-//   return (
-//     <Html center>
-//       <div style={{ color: "white" }}>{Math.floor(progress)} %</div>
-//     </Html>
-//   );
-// }
-// function Model({ url, scale, position, rotation }) {
-//   const gltf = useGLTF(url);
-//   const { scene, animations } = gltf;
-//   const { actions } = useAnimations(animations, scene);
 
-//   useEffect(() => {
-//     if (actions) {
-//       Object.values(actions).forEach((action) => action.play());
-//     }
-
-//     scene.traverse((child) => {
-//       if (child.isMesh) {
-//         child.castShadow = true;
-//         child.receiveShadow = true;
-
-//         if (child.material) {
-//           if (child.material.map)
-//             child.material.map.colorSpace = THREE.SRGBColorSpace;
-//           if (child.material.emissiveMap)
-//             child.material.emissiveMap.colorSpace = THREE.SRGBColorSpace;
-//           child.material.envMapIntensity = 1.5;
-//         }
-//       }
-//     });
-//   }, [actions, scene]);
-
-//   return (
-//     <primitive
-//       object={scene}
-//       scale={scale}
-//       position={position}
-//       rotation={rotation}
-//     />
-//   );
-// }
 gsap.registerPlugin(ScrollTrigger);
 export const TyresModels = () => {
   console.log(tyreData);
@@ -108,72 +66,10 @@ export const TyresModels = () => {
     }
   }, [tyreData]);
   const id = useId();
-  // const sectionRef = useRef(null);
-  // const swiperRef = useRef(null);
-  // useLayoutEffect(() => {
-  //   gsap.registerPlugin(ScrollTrigger);
-  //   const slides = gsap.utils.toArray(".swiper-slide");
-  //   const ctx = gsap.context(() => {
-  //     const tl = gsap.timeline({
-  //       scrollTrigger: {
-  //         trigger: sectionRef.current,
-  //         start: "top top",
-  //         end: "+=700",
-  //         scrub: 1,
-  //         pin: true,
-  //         onEnter: () => {
-  //           if (swiperRef.current) {
-  //             swiperRef.current.allowTouchMove = false;
-  //             swiperRef.current.autoplay.stop();
-  //           }
-  //         },
-  //         onLeave: () => {
-  //           if (swiperRef.current) {
-  //             swiperRef.current.allowTouchMove = true;
-  //             swiperRef.current.autoplay.start();
-  //           }
-  //         },
-  //       },
-  //     });
-  //     // საწყისი მდგომარეობა
-  //     tl.set(slides, {
-  //       transformOrigin: "center center",
-  //     });
-  //     // შუა card წინ
-  //     tl.to(slides[1], {
-  //       scale: 1.25,
-  //       zIndex: 10,
-  //       y: -50,
-  //       duration: 1,
-  //     });
-  //     // მარცხენა card უკან
-  //     tl.to(
-  //       slides[0],
-  //       {
-  //         x: -300,
-  //         scale: 0.7,
-  //         opacity: 0.3,
-  //         duration: 1,
-  //       },
-  //       "<",
-  //     );
-  //     // მარჯვენა card უკან
-  //     tl.to(
-  //       slides[2],
-  //       {
-  //         x: 300,
-  //         scale: 0.7,
-  //         opacity: 0.3,
-  //         duration: 1,
-  //       },
-  //       "<",
-  //     );
-  //   }, sectionRef);
-  //   return () => ctx.revert();
-  // }, []);
-  //// New Gsap for new sight
+
   const sectionRef = useRef(null);
   const textRef = useRef(null);
+  const text2Ref = useRef(null);
   const slidesRef = useRef([]);
   const swiperRef = useRef(null);
   const swiperContainerRef = useRef(null);
@@ -198,8 +94,8 @@ export const TyresModels = () => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 20%",
-          end: "+=3000",
+          start: "top 15%",
+          end: "+=3100",
           scrub: 2,
           pin: true,
           // once: true,
@@ -228,14 +124,14 @@ export const TyresModels = () => {
       tl.fromTo(
         textRef.current,
         {
-          scale: 2.5,
+          // scale: 2.5,
           y: 150,
         },
         {
-          scale: 1.8,
+          // scale: 2.5,
           y: 0,
           ease: "none",
-          duration: 4,
+          duration: 3,
         },
       );
 
@@ -250,13 +146,15 @@ export const TyresModels = () => {
           rotation: -360,
         },
         {
-          x: -200,
+          // -200
+          x: 0,
           scale: 1,
           visibility: "visible",
           rotation: 0,
           ease: "none",
-          duration: 6,
+          duration: 4,
         },
+        // "<",
       );
 
       // მარჯვენა საბურავი — იგივე პრინციპით, x:0-ზე ჩერდება
@@ -268,33 +166,59 @@ export const TyresModels = () => {
           visibility: "hidden",
         },
         {
-          x: 200,
+          x: 0,
           rotation: 0,
           visibility: "visible",
           ease: "none",
-          duration: 6,
+          duration: 4,
         },
         "<",
       );
-
+      tl.fromTo(
+        text2Ref.current,
+        {
+          y: 50,
+          visibility: "hidden",
+        },
+        {
+          y: 0,
+          visibility: "visible",
+          ease: "none",
+          duration: 1,
+        },
+      );
       // ცენტრის slide-იც საბოლოოდ უნდა დაბრუნდეს x:0-ზე,
       // რომ Swiper-ის ბუნებრივ პოზიციას დაემთხვას handoff-ის დროს
       tl.to(slidesRef.current[1], {
-        duration: 4,
+        duration: 2,
       });
 
       tl.to(slidesRef.current[0], {
-        duration: 4,
+        duration: 2,
       });
 
       tl.to(
         slidesRef.current[2],
         {
-          duration: 4,
+          duration: 2,
         },
         "<",
       );
 
+      // tl.fromTo(
+      //   greenTyre.current,
+      //   {
+      //     x: window.innerWidth - centerRect.width,
+      //     rotation: -720,
+      //   },
+      //   {
+      //     x: 0,
+      //     rotation: 0,
+      //     duration: 10,
+      //     delay: 10,
+      //     ease: "none",
+      //   },
+      // );
       // handoff Swiper-ზე: keep-scale, გავწმენდოთ transform inline
       // სტილები, რომ Swiper-ის საკუთარმა translate-მა არ დააჯახოს
       // ჯერ კიდევ დარჩენილ GSAP inline x-ს. ეს უსაფრთხო გასუფთავებაა,
@@ -317,60 +241,91 @@ export const TyresModels = () => {
   }, []);
   return (
     <>
-      <div ref={sectionRef} className=" w-full relative">
-        <h1
-          ref={textRef}
-          className="font-RacingSans tracking-wider items-center text-center text-8xl "
+      <div
+        ref={sectionRef}
+        className="  m-2 clg:m-5 w-full relative flex flex-col gap-10"
+      >
+        <motion.div
+          initial={{ opacity: 0, scale: 0.98, filter: "blur(10px)" }}
+          whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+          transition={{ duration: 0.3, ease: "linear" }}
+          viewport={{ once: false, amount: 0.1 }}
+          className="flex flex-col gap-14"
         >
-          TYRES TYPES
-        </h1>
-        <div className="w-full h-full justify-center">
-          <div className="w-full relative flex justify-center">
-            {/* <Swiper
-              onSwiper={(swiper) => {
-                swiperRef.current = swiper;
-              }}
-              modules={[Navigation]}
-              centeredSlides
-              slidesPerView="auto"
-              allowTouchMove={false}
-              loop={false}
-              spaceBetween={150}
-              initialSlide={1}
-              className="mySwiper w-full flex flex-row"
-              onSlideChange={(swiper) => {
-                setActiveIndex(swiper.realIndex);
-                setactive(tyreData[swiper.realIndex]);
-              }}
-              navigation={{
-                nextEl: ".swiper-button-next-custom",
-                prevEl: ".swiper-button-prev-custom",
-              }}
-            > */}
-            {tyreData.map((card, index) => {
-              // const isActive = index === activeIndex;
-              // setmdlImage(isActive);
-              const isActive = index === activeIndex;
-              return (
-                <motion.div
-                  animate={{
-                    scale: isActive ? 1.15 : 0.85,
-                    // opacity: isActive ? 1 : 0.6,
-                  }}
-                  transition={{
-                    duration: 0.6,
-                    ease: [0.4, 0, 0.2, 1],
-                  }}
-                  ref={(el) => {
-                    if (el) slidesRef.current[index] = el;
-                  }}
-                >
-                  <img src={card.src} alt="" className="w-[450px]" />
-                </motion.div>
-              );
-            })}
+          <div>
+            <div className=" scale-110 lg:scale-125 xl:scale-150">
+              <h1
+                ref={textRef}
+                className="font-RacingSans tracking-wider items-center text-center text-8xl mmd:text-9xl  "
+              >
+                TYRES TYPES
+              </h1>
+            </div>
+            <div className="w-full h-full justify-center flex flex-col gap-10">
+              <div className="w-full relative flex flex-row justify-between   ">
+                {tyreData.map((card, index) => {
+                  const isActive = index === activeIndex;
+                  return (
+                    <motion.div
+                      transition={{
+                        duration: 0.6,
+                        ease: [0.4, 0, 0.2, 1],
+                      }}
+                      ref={(el) => {
+                        if (el) slidesRef.current[index] = el;
+                      }}
+                    >
+                      <img
+                        src={card.src}
+                        alt=""
+                        className=" w-[400px] clg:w-[450px] xxl:w-[480px] "
+                      />
+                    </motion.div>
+                  );
+                })}
+              </div>
+              <div
+                ref={text2Ref}
+                className="flex font-satosIT font-semibold items-center justify-center text-center w-full"
+              >
+                <p className=" text-base px-10 xl:px-0 w-full xl:w-3/4  lg:leading-3 clg:leading-8">
+                  Pirelli uses a color-coding system to identify the tyre
+                  compounds available during a Formula 1 race weekend. The
+                  colours
+                  <span className="text-gray-400 font-semibold text-base lg:text-lg clg:text-xl px-2">
+                    White
+                  </span>
+                  ,
+                  <span className="text-yellow-300 font-semibold text-base lg:text-lg clg:text-xl px-2">
+                    Yellow
+                  </span>
+                  , and
+                  <span className="text-red-600 font-semibold text-base lg:text-lg clg:text-xl px-2">
+                    Red
+                  </span>
+                  each represent a compound with different performance
+                  characteristics. The
+                  <span className="text-red-600 font-semibold text-base lg:text-lg clg:text-xl px-2">
+                    Soft
+                  </span>
+                  compound provides maximum grip and the fastest lap times but
+                  wears out quickly, making it ideal for qualifying and short
+                  stints. The
+                  <span className="text-yellow-300 font-semibold text-base lg:text-lg clg:text-xl px-2">
+                    Medium
+                  </span>
+                  compound offers a balance between performance and durability,
+                  making it suitable for a wide range of race conditions. The
+                  <span className="text-gray-400 font-semibold text-base lg:text-lg clg:text-xl px-2">
+                    Hard
+                  </span>
+                  compound delivers the greatest durability and is best suited
+                  for long stints and high-temperature conditions.
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </>
     // <motion.div

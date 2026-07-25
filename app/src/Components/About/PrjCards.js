@@ -22,24 +22,31 @@ export const PrjCards = [
     },
   },
   {
-    description: "Georgia's tourist tour website",
-    title: "Geo Trails",
-    src: "https://i.postimg.cc/m26cwk62/Screenshot-4.png",
+    description: "Professional DTF printing services",
+    title: "Neyt Store",
+    src: "https://i.postimg.cc/MZ3PtCF1/neyt.png",
     github: "",
     ctaText: "Visit",
-    ctaLink: "https://geotrails.netlify.app/",
+    ctaLink: "https://neyt.ge/",
     content: () => {
       return (
         <p>
-          We present GeoTrails, Georgia's tourist tour website. Here you can
-          choose a travel destination that best matches your interests and
-          desires. For more information, visit the website.
-          <br /> <br />
-          Whats about the website, it is built entirely with React JSX . used
-          TailwindCss for smooth responsive design. also i18n is used for text
-          translation, which makes the site more accessible and clearer for
-          visitors. also i used Aceternity, ReactBits, UIverse, HeadlessUI, and
-          other small graphic libraries.
+          This project represents the official website of a company that has
+          been operating in the market since 2023, earning a strong reputation
+          through consistent results, efficient production, and high-quality
+          products. The website showcases the company's services, values, and
+          commitment to building long-term partnerships by providing
+          personalized solutions tailored to each client's needs.
+          <br />
+          <br />
+          The website was built entirely with React JSX and Tailwind CSS,
+          ensuring a modern, responsive, and user-friendly experience across all
+          devices. It also includes i18n for multilingual support, making the
+          platform accessible to a wider audience. Throughout the project, I
+          integrated several modern UI libraries, including Aceternity UI,
+          ReactBits, UIverse, Headless UI, and other lightweight animation and
+          interface components to create a clean, interactive, and visually
+          engaging design.
         </p>
       );
     },
@@ -73,25 +80,48 @@ export const PrjCards = [
     },
   },
   {
-    description: "geo zoo online store",
-    title: "ZooWeb",
-    src: "https://i.postimg.cc/W1hZLgJZ/Screenshot-3.png",
+    description: "Georgia's tourist tour website",
+    title: "Geo Trails",
+    src: "https://i.postimg.cc/m26cwk62/Screenshot-4.png",
+    github: "",
     ctaText: "Visit",
-    ctaLink: "https://zoowebza.netlify.app/",
+    ctaLink: "https://geotrails.netlify.app/",
     content: () => {
       return (
         <p>
-          I would like to indroduce my team newly developed zoo-related project.
-          here is the prototype of the product available for testing. 🐾 This
-          project was created for zoo food , accessories and other pets
-          products. In this moment we are using the page based payment method,
-          we implemented a payment system where the borth registered users and
-          guest can purchase products. 🐶 <br /> <br />
-          There is two way communication payment status between the seller and
-          the buyer , which makes the platform more comfortable and
-          user-friendly for everyone .
+          We present GeoTrails, Georgia's tourist tour website. Here you can
+          choose a travel destination that best matches your interests and
+          desires. For more information, visit the website.
+          <br /> <br />
+          Whats about the website, it is built entirely with React JSX . used
+          TailwindCss for smooth responsive design. also i18n is used for text
+          translation, which makes the site more accessible and clearer for
+          visitors. also i used Aceternity, ReactBits, UIverse, HeadlessUI, and
+          other small graphic libraries.
         </p>
       );
     },
   },
+  // {
+  //   description: "geo zoo online store",
+  //   title: "ZooWeb",
+  //   src: "https://i.postimg.cc/W1hZLgJZ/Screenshot-3.png",
+  //   ctaText: "Visit",
+  //   ctaLink: "https://zoowebza.netlify.app/",
+  //   content: () => {
+  //     return (
+  //       <p>
+  //         I would like to indroduce my team newly developed zoo-related project.
+  //         here is the prototype of the product available for testing. 🐾 This
+  //         project was created for zoo food , accessories and other pets
+  //         products. In this moment we are using the page based payment method,
+  //         we implemented a payment system where the borth registered users and
+  //         guest can purchase products. 🐶 <br /> <br />
+  //         There is two way communication payment status between the seller and
+  //         the buyer , which makes the platform more comfortable and
+  //         user-friendly for everyone .
+  //       </p>
+  //     );
+  //   },
+  // },
 ];

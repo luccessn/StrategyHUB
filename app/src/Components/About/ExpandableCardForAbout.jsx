@@ -11,7 +11,7 @@ export function ExpandleCardForAbout() {
   const ref = useRef(null);
 
   useOutsideClick(ref, () => setActive(null));
-
+  const [loaded, setLoaded] = useState(false);
   return (
     <>
       <AnimatePresence>
@@ -118,13 +118,22 @@ export function ExpandleCardForAbout() {
             className="p-4 flex flex-col cursor-target hover:bg-neutral-800 rounded-md cursor-pointer"
           >
             <div className="flex gap-4 flex-col  w-full">
-              <motion.div layoutId={`image-${card.title}-${id}`}>
+              <motion.div
+                layoutId={`image-${card.title}-${id}`}
+                className="relative"
+              >
+                {!loaded && (
+                  <div className="absolute inset-0 animate-pulse rounded-lg bg-neutral-800" />
+                )}
+
                 <img
-                  width={100}
-                  height={100}
                   src={card.src}
                   alt={card.title}
-                  className="h-80 w-full  rounded-lg object-cover object-top"
+                  className={`h-80 w-full rounded-lg object-cover object-top transition-opacity duration-300 ${
+                    loaded ? "opacity-100" : "opacity-0"
+                  }`}
+                  onLoad={() => setLoaded(true)}
+                  onError={() => setLoaded(true)}
                 />
               </motion.div>
               <div className="flex justify-center items-center flex-col">
