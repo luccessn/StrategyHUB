@@ -23,7 +23,8 @@ Goal:{req.goal}
     """
     response = client.chat.completions.create(
         messages=[{"role": "user", "content": propmt}],
-        model="llama-3.3-70b-versatile",
+        model="openai/gpt-oss-120b",
+        # model="llama-3.3-70b-versatile",
         stream = False,
     )
     return response.choices[0].message.content

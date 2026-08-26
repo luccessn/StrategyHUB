@@ -29,7 +29,8 @@ def get_bot_response(user_message):
                 "content": message,
             }
         ],
-        model="llama-3.3-70b-versatile",
+        model="openai/gpt-oss-120b",
+        # llama-3.3-70b-versatile
         stream = False,
     )
     return chat_completion.choices[0].message.content
