@@ -6,6 +6,7 @@ export const routes = {
   Products: "/products",
   Subscription: "/subscription",
   ProductsDTL: "/productsdtl/:prID",
+  CarsDTL: "/carsdtl/:carID",
   CheckOut: "/checkout",
   checksuccess: "/success",
   checkcancel: "/cancel",

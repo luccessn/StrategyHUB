@@ -10,13 +10,14 @@ import { Subs } from "../Pages/Products/Subscription/subs";
 import CheckOuts from "../Pages/Checkout/CheckOuts";
 import SuccessCheck from "../Pages/Checkout/SuccessCheck";
 import CancelCheck from "../Pages/Checkout/CancelCheck";
-
+import { CarsProductDTL } from "../Components/Home/CarsModels/CarsCard/CarsProductDTL";
 export const RoutersConfig = [
   { path: routes.Home, Component: Home },
   { path: routes.SignUp, Component: SignUp },
   { path: routes.LogIn, Component: LogIn },
   { path: routes.Products, Component: Products },
   { path: routes.ProductsDTL, Component: ProductsDTL },
+  { path: routes.CarsDTL, Component: CarsProductDTL },
   { path: routes.Subscription, Component: Subs },
   { path: routes.About, Component: AboutMe },
   { path: routes.CheckOut, Component: CheckOuts },

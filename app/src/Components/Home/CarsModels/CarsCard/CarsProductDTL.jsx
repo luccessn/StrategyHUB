@@ -1,14 +1,18 @@
 import React from "react";
+import { CarsCalc } from "../CarsCalc";
+import { useParams } from "react-router-dom";
+import { useFetchData } from "../../../../Hooks/useFetchData";
+///
+///
+///
 import sennamclr1k from "../models/cars/f1/sennamclr.glb";
 import lotus49c from "../models/cars/f1/lotus_49c.glb";
 import mclarenmp427 from "../models/cars/f1/mclaren_mp4_27.glb";
-// import fr2021 from "../models/cars/f1/2021_ferrari.glb";
 import rb9 from "../models/cars/f1/rb9.glb";
 import rb19 from "../models/cars/f1/rb19.glb";
 import fr2019 from "../models/cars/f1/2019_f1_ferrari.glb";
 import w14 from "../models/cars/f1/amg_w14.glb";
 import mclaren_2023 from "../models/cars/f1/mclaren_2023.glb";
-import { useFetchData } from "../../../../Hooks/useFetchData";
 export const car3DConfig = {
   "mclaren-f1-1991": {
     src: sennamclr1k,
@@ -71,16 +75,37 @@ export const car3DConfig = {
   //   rotation: [0, -0.7, 0],
   // },
 };
-
-export const CarsFetch = () => {
+export const CarsProductDTL = () => {
+  const { carID } = useParams();
+  console.log("carID:", carID);
   const [data, error, isLoading] = useFetchData(
-    "https://strategyhub.onrender.com/server/getcars",
-    // "http://localhost:5000/server/getcars",
+    `http://localhost:5000/server/getcars?_id=${carID}`,
   );
-  const carsWith3d = data.map((car) => ({
-    ...car,
-    ...(car3DConfig[car.slug] || {}),
-  }));
-  console.log(carsWith3d);
-  return [carsWith3d, error, isLoading];
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <div>Error loading car: {error}</div>;
+  }
+  if (!data) {
+    return <div>Car not found</div>;
+  }
+  const config = car3DConfig[data.slug];
+  console.log("Database car:", data);
+  console.log("Slug:", data.slug);
+  console.log("3D config:", config);
+  const carWith3D = { ...data, ...(config || {}) };
+  console.log("Car with 3D:", carWith3D);
+  return (
+    <div className="text-white">
+      {" "}
+      <h1>{carWith3D.name}</h1> <p>Slug: {carWith3D.slug}</p>{" "}
+      <p> 3D model: {carWith3D.src ? "Found" : "Not found"} </p>{" "}
+      {carWith3D.src ? (
+        <CarsCalc car={carWith3D} />
+      ) : (
+        <div>3D model not configured for this car.</div>
+      )}
+    </div>
+  );
 };

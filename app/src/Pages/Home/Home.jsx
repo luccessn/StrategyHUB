@@ -24,6 +24,7 @@ import { TyresModels } from "../../Components/Home/TyresModels";
 import { WetTyres } from "../../Components/Home/WetTyres";
 
 import { useAppContext } from "../../Context/AppContextProvider";
+import { CarsProduct } from "../../Components/Home/CarsModels/CarsCard/CarsProduct";
 
 const techLogos = [
   { node: <SiF1 />, title: "F1" },
@@ -85,7 +86,8 @@ export const Home = () => {
         </div>
       </div>
       <div className="w-full  ">
-        <CarsGridCard />
+        {/* <CarsGridCard /> */}
+        <CarsProduct />
         {/* <CarsCalc /> */}
       </div>
 

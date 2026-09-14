@@ -100,100 +100,17 @@ export const CloseIcon = () => (
   </motion.svg>
 );
 
-export const CarsCalc = () => {
-  const [personName, setPersonName] = React.useState([]);
-
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setPersonName(typeof value === "string" ? value.split(",") : value);
-  };
-
-  const [carsConsta, error, isLoading] = CarsFetch();
-
-  const [selectedCard, setSelectedCard] = useState(null);
+export const CarsCalc = ({ car }) => {
+  console.log("care", car);
   const [active, setactive] = useState(null);
-  useEffect(() => {
-    if (carsConsta.length > 0 && !selectedCard) {
-      setSelectedCard(carsConsta[0]);
-      setactive({ ...data[0], card: data[0].card });
-    }
-  }, [carsConsta, selectedCard]);
-
   const id = useId();
   useEffect(() => {
     if (data && data.length > 0) {
       setactive(data[0]);
     }
   }, []);
-  // <div className="text-white text-center">Loading cars...</div>
-  if (isLoading) {
-    return (
-      <div>
-        <div className="flex flex-row justify-center gap-48">
-          <div className="candle-wrapper relative  -left-32">
-            <div className="candle-chart">
-              <div className="candle"></div>
-              <div className="candle"></div>
-              <div className="candle"></div>
-              <div className="candle"></div>
-              <div className="candle"></div>
-              <div className="candle"></div>
-              <div className="candle"></div>
-              <div className="candle"></div>
-              <div className="candle"></div>
-              <div className="candle"></div>
-              <div className="candle"></div>
-              <div className="candle"></div>
-              <div className="candle"></div>
-              <div className="candle"></div>
-              <div className="candle"></div>
-              <div className="candle"></div>
-              <div className="candle"></div>
-              <div className="candle"></div>
-            </div>
-          </div>
-          <div className="loader">
-            <svg
-              className="logo"
-              xmlns="http://www.w3.org/2000/svg"
-              width="150"
-              height="150"
-              fill="currentColor"
-              viewBox="-1 -1 18 18"
-            >
-              <path d="M13.545 2.907a13.227 13.227 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.19 12.19 0 0 0-3.658 0 8.258 8.258 0 0 0-.412-.833.051.051 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.041.041 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032c.001.014.01.028.021.037a13.276 13.276 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019c.308-.42.582-.863.818-1.329a.05.05 0 0 0-.01-.059.051.051 0 0 0-.018-.011 8.875 8.875 0 0 1-1.248-.595.05.05 0 0 1-.02-.066.051.051 0 0 1 .015-.019c.084-.063.168-.129.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.052.052 0 0 1 .053.007c.08.066.164.132.248.195a.051.051 0 0 1-.004.085 8.254 8.254 0 0 1-1.249.594.05.05 0 0 0-.03.03.052.052 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.235 13.235 0 0 0 4.001-2.02.049.049 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.034.034 0 0 0-.02-.019Zm-8.198 7.307c-.789 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612Zm5.316 0c-.788 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612Z"></path>
-            </svg>
-          </div>
-        </div>
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-          <div className="flex items-center justify-center gap-6">
-            <div className="load">
-              <svg viewBox="0 0 80 80">
-                <circle cx="40" cy="40" r="32" />
-              </svg>
-            </div>
+  <div className="text-white text-center">Loading cars...</div>;
 
-            <div className="load triangle">
-              <svg viewBox="0 0 86 80">
-                <polygon points="43 8 79 72 7 72" />
-              </svg>
-            </div>
-
-            <div className="load">
-              <svg viewBox="0 0 80 80">
-                <rect x="8" y="8" width="64" height="64" />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-  if (error) {
-    return <div className="text-red-500 text-center">{error}</div>;
-  }
   return (
     <>
       <div className=" flex flex-col gap-10 ">
@@ -204,157 +121,126 @@ export const CarsCalc = () => {
           transition={{ duration: 0.3, ease: "linear" }}
           viewport={{ once: false, amount: 0.2 }}
         >
-          <div className="w-full flex flex-col items-center my-6 ">
-            <div className="relative inline-block group">
-              <select
-                // className="select"
-                // className="rounded-sm cursor-target border-1  border-dashed border-black  px-6 py-3 font-semibold  text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
-                className=" w-[600px] px-5 py-3 text-xl uppercase font-bold text-white appearance-none cursor-pointer focus:outline-none font-panchangMD  pt-4  bg-black/75  backdrop-blur-xl border-2 border-white/65 rounded-full rounded-bl-none rounded-tr-none shadow-xl"
-                onChange={(e) => {
-                  const chosen = carsConsta.find(
-                    (c) => c.title === e.target.value,
-                  );
-                  setSelectedCard(chosen);
-                  setactive((prev) => ({
-                    ...prev,
-                    card: prev.card,
-                  }));
-                }}
-              >
-                {carsConsta.map((card) => (
-                  <option
-                    key={card._id}
-                    value={card.title}
-                    className="bg-black p-2  backdrop-blur-xl border-2  rounded-2xl  shadow-xl font-satosIT text-white"
-                  >
-                    {card.title}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
           <div className="h-full  ">
             <div className="w-full flex xxl:h-[800px] flex-col xxl:flex-row gap-2">
               <div className="w-full h-[800px]  xxl:h-[800px] ">
-                {selectedCard && (
-                  <motion.div
-                    layoutId={`card-${selectedCard.title}-${id}`}
-                    key={selectedCard.title}
-                    className="flex h-full flex-col  cursor-pointer bg-cover bg-center bg-no-repeat p-0"
-                  >
-                    <div className="flex flex-col w-full h-full">
-                      <div className="flex flex-col pl-5 gap-2">
-                        <h1 className="font-panchangMD text-2xl tracking-wide">
-                          {selectedCard.title}
-                        </h1>
-                      </div>
-
-                      <div
-                        // onWheel={(e) => {
-                        //   e.preventDefault();
-                        // }}
-                        className="w-full  h-full "
-                      >
-                        <Canvas
-                          key={selectedCard.title}
-                          shadows
-                          dpr={[1, 2]}
-                          gl={{
-                            antialias: true,
-                            physicallyCorrectLights: true,
-                            outputColorSpace: THREE.SRGBColorSpace,
-                            toneMappingExposure: 1,
-                          }}
-                          camera={{ position: [-25, 10, 0], fov: 45 }}
-                        >
-                          <Suspense fallback={<Loader />}>
-                            {selectedCard?.src && (
-                              <Model
-                                url={selectedCard.src}
-                                scale={selectedCard.scale}
-                                position={selectedCard.position}
-                                rotation={selectedCard.rotation}
-                              />
-                            )}
-                            <ambientLight intensity={0.3} />
-                            <directionalLight
-                              castShadow
-                              position={[5, 10, 5]}
-                              intensity={1.2}
-                            />
-                            <spotLight
-                              castShadow
-                              position={[-5, 8, -5]}
-                              intensity={0.8}
-                              angle={0.3}
-                            />
-                            <Environment preset="sunset" background={false} />
-                          </Suspense>
-                          <OrbitControls
-                            target={[0, -0.6, 0]}
-                            enableRotate
-                            enableZoom={true}
-                            enableDamping
-                            dampingFactor={0.08}
-                            zoomSpeed={0.6}
-                            enablePan={false}
-                          />
-                        </Canvas>
-                      </div>
+                {/* {selectedCard && ( */}
+                <motion.div
+                  layoutId={`card-${car.title}-${id}`}
+                  key={car.title}
+                  className="flex h-full flex-col  cursor-pointer bg-cover bg-center bg-no-repeat p-0"
+                >
+                  <div className="flex flex-col w-full h-full">
+                    <div className="flex flex-col pl-5 gap-2">
+                      <h1 className="font-panchangMD text-2xl tracking-wide">
+                        {car.title}
+                      </h1>
                     </div>
-                  </motion.div>
-                )}
+
+                    <div
+                      // onWheel={(e) => {
+                      //   e.preventDefault();
+                      // }}
+                      className="w-full  h-full "
+                    >
+                      <Canvas
+                        key={car.title}
+                        shadows
+                        dpr={[1, 2]}
+                        gl={{
+                          antialias: true,
+                          physicallyCorrectLights: true,
+                          outputColorSpace: THREE.SRGBColorSpace,
+                          toneMappingExposure: 1,
+                        }}
+                        camera={{ position: [-25, 10, 0], fov: 45 }}
+                      >
+                        <Suspense fallback={<Loader />}>
+                          {car?.src && (
+                            <Model
+                              url={car.src}
+                              scale={car.scale}
+                              position={car.position}
+                              rotation={car.rotation}
+                            />
+                          )}
+                          <ambientLight intensity={0.3} />
+                          <directionalLight
+                            castShadow
+                            position={[5, 10, 5]}
+                            intensity={1.2}
+                          />
+                          <spotLight
+                            castShadow
+                            position={[-5, 8, -5]}
+                            intensity={0.8}
+                            angle={0.3}
+                          />
+                          <Environment preset="sunset" background={false} />
+                        </Suspense>
+                        <OrbitControls
+                          target={[0, -0.6, 0]}
+                          enableRotate
+                          enableZoom={true}
+                          enableDamping
+                          dampingFactor={0.08}
+                          zoomSpeed={0.6}
+                          enablePan={false}
+                        />
+                      </Canvas>
+                    </div>
+                  </div>
+                </motion.div>
+                {/* )} */}
               </div>
               <div className=" w-full  xxl:w-8/12   text-white h-[600px] xl:h-[600px] xxl:h-[800px] flex flex-col gap-2 xl:gap-5 p-5">
-                {selectedCard && (
-                  <div className="flex flex-col gap-6">
-                    <TextType
-                      key={`about-title-${selectedCard.title}`}
-                      as="h1"
-                      className=" text-4xl xl:text-5xl font-array"
-                      text={`About the ${selectedCard.title}`}
-                      typingSpeed={40}
-                    />
+                {/* {selectedCard && ( */}
+                <div className="flex flex-col gap-6">
+                  <TextType
+                    key={`about-title-${car.title}`}
+                    as="h1"
+                    className=" text-4xl xl:text-5xl font-array"
+                    text={`About the ${car.title}`}
+                    typingSpeed={40}
+                  />
 
+                  <TextType
+                    key={`about-title-${car.about.about1}`}
+                    inf={"carscalc"}
+                    as="p"
+                    className="text-xl hidden xxl:block font-array p-2"
+                    text={`${car.about.about1}\n${car.about.about2}`}
+                    typingSpeed={2}
+                  />
+                  <div className="block xxl:hidden">
                     <TextType
-                      key={`about-title-${selectedCard.about.about1}`}
-                      inf={"carscalc"}
+                      key={`about-title-${car.about.about1}`}
+                      inf={"carscalc2"}
                       as="p"
-                      className="text-xl hidden xxl:block font-array p-2"
-                      text={`${selectedCard.about.about1}\n${selectedCard.about.about2}`}
+                      className="text-xl rounded-xl rounded-br-none rounded-bl-none font-array p-2 block xxl:hidden bg-white/5 backdrop-blur-xl border border-white/30 shadow-xl"
+                      text={`${car.about.about1}\n${car.about.about2}`}
                       typingSpeed={2}
                     />
-                    <div className="block xxl:hidden">
-                      <TextType
-                        key={`about-title-${selectedCard.about.about1}`}
-                        inf={"carscalc2"}
-                        as="p"
-                        className="text-xl rounded-xl rounded-br-none rounded-bl-none font-array p-2 block xxl:hidden bg-white/5 backdrop-blur-xl border border-white/30 shadow-xl"
-                        text={`${selectedCard.about.about1}\n${selectedCard.about.about2}`}
-                        typingSpeed={2}
-                      />
-                    </div>
-                    {selectedCard.about2 && (
-                      <>
-                        <hr className="border-white" />
-                        <TextType
-                          as="h1"
-                          className="text-4xl"
-                          text="Historical Moments"
-                          typingSpeed={40}
-                        />
-                        <TextType
-                          key={`about-title-${selectedCard.about2}`}
-                          as="p"
-                          className="text-xl"
-                          text={selectedCard.about2}
-                          typingSpeed={10}
-                        />
-                      </>
-                    )}
                   </div>
-                )}
+                  {/* {selectedCard.about2 && ( */}
+                  {/* <>
+                    <hr className="border-white" />
+                    <TextType
+                      as="h1"
+                      className="text-4xl"
+                      text="Historical Moments"
+                      typingSpeed={40}
+                    />
+                    <TextType
+                      key={`about-title-${car.about2}`}
+                      as="p"
+                      className="text-xl"
+                      text={car.about2}
+                      typingSpeed={10}
+                    />
+                  </> */}
+                </div>
+                {/* )} */}
               </div>
             </div>
           </div>
@@ -372,50 +258,47 @@ export const CarsCalc = () => {
                   layoutId={`card-${card.title}-${id}`}
                   onClick={() => setactive(card)}
                   className={`p-4  backdrop-blur-md  cursor-target rounded-xl cursor-pointer transition ${
-                    active?.title === card.title
+                    car?.title === car.title
                       ? "bg-neutral-800"
                       : "hover:bg-neutral-800"
                   }`}
                 >
                   <div className="flex justify-center items-center flex-col">
                     <motion.h3
-                      layoutId={`title-${card.title}-${id}`}
+                      layoutId={`title-${car.title}-${id}`}
                       className="font-panchang text-neutral-200 text-center text-sm xxxl:text-base"
                     >
                       {card.title}
                     </motion.h3>
-                    {/* <motion.p
+                    <motion.p
                       layoutId={`description-${card.description}-${id}`}
                       className="text-neutral-600 dark:text-neutral-400 text-center text-sm"
                     >
                       {card.descr}
-                    </motion.p> */}
+                    </motion.p>
                   </div>
                 </motion.div>
               ))}
             </div>
-            {selectedCard && (
-              <div className=" scrollbar-custom w-[750px] mmd:w-[850px] lg:w-[950px]  clg:w-[1050px]   xl:w-[1200px] cxl:w-[1350px] overflow-x-auto xxl:w-full   h-full mx-auto ">
-                {active && (
-                  <motion.div
-                    key={selectedCard.title}
-                    layoutId={`info-${selectedCard.title}-${id}`}
-                    initial={{ opacity: 0, y: 5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 5 }}
-                    transition={{ duration: 0.5, ease: "easeOut" }}
-                    className="mt-8 flex gap-6 flex-row mx-auto shadow p-6 rounded-xl"
-                  >
-                    <div className="h-full  w-full">
-                      <active.card
-                        title={selectedCard.title}
-                        dino={selectedCard.dino}
-                      />
-                    </div>
-                  </motion.div>
-                )}
-              </div>
-            )}
+            {/* {selectedCard && ( */}
+            <div className=" scrollbar-custom w-[750px] mmd:w-[850px] lg:w-[950px]  clg:w-[1050px]   xl:w-[1200px] cxl:w-[1350px] overflow-x-auto xxl:w-full   h-full mx-auto ">
+              {active && (
+                <motion.div
+                  key={car.title}
+                  layoutId={`info-${car.title}-${id}`}
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 5 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                  className="mt-8 flex gap-6 flex-row mx-auto shadow p-6 rounded-xl"
+                >
+                  <div className="h-full  w-full">
+                    <active.card title={car.title} dino={car.dino} />
+                  </div>
+                </motion.div>
+              )}
+            </div>
+            {/* )} */}
           </div>
         </motion.div>
         {/* <div className="flex flex-row gap-10 bg-red-400 w-full ">
@@ -446,85 +329,3 @@ export const CarsCalc = () => {
     </>
   );
 };
-//
-//
-{
-  /* <div>
-                <TextType
-                  text={["Text typing effect"]}
-                  typingSpeed={75}
-                  pauseDuration={1500}
-                  showCursor={true}
-                  cursorCharacter="|"
-                />
-                <h1 className="text-4xl"> About the {selectedCard.title}</h1>
-                <p className="text-xl">{selectedCard.about}</p>
-              </div>
-              {selectedCard.about2 && (
-                <div>
-                  <hr className="border-white" />
-                  <h1 className="text-4xl">Historical Moments</h1>
-                  <p className="text-xl">{selectedCard.about2}</p>
-                </div>
-              )} */
-}
-{
-  /* <DecryptedText text="Hover me!" /> */
-}
-
-{
-  /* <DecryptedText
-                text="Customize me"
-                speed={100}
-                maxIterations={20}
-                characters="ABCD1234!?"
-                className="revealed"
-                parentClassName="all-letters"
-                encryptedClassName="encrypted"
-              /> */
-}
-
-{
-  /* Example 3: Animate on view (runs once) */
-}
-{
-  /* <div className="flex flex-col gap-6">
-                <DecryptedText
-                  as="h1"
-                  className="text-4xl"
-                  text={`About the ${selectedCard.title}`}
-                  animateOn="view"
-                  revealDirection="center"
-                />
-
-                <DecryptedText
-                  as="p"
-                  className="text-xl"
-                  text={selectedCard.about}
-                  animateOn="view"
-                  revealDirection="center"
-                />
-
-                {selectedCard.about2 && (
-                  <>
-                    <hr className="border-white" />
-
-                    <DecryptedText
-                      as="h1"
-                      className="text-4xl"
-                      text="Historical Moments"
-                      animateOn="view"
-                      revealDirection="center"
-                    />
-
-                    <DecryptedText
-                      as="p"
-                      className="text-xl"
-                      text={selectedCard.about2}
-                      animateOn="view"
-                      revealDirection="center"
-                    />
-                  </>
-                )}
-              </div> */
-}
