@@ -49,6 +49,8 @@ export const SignUp = () => {
     } else if (user.password !== user.confirmPassword) {
       errors.confirmPassword = "Password dont match";
     }
+    setformErrors(errors);
+    return Object.keys(errors).length === 0;
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -190,7 +192,7 @@ export const SignUp = () => {
         </LabelInputContainer>
         <button
           type="submit"
-          className="flex  cursor-target   items-center justify-center"
+          className="flex text-white  cursor-target   items-center justify-center"
         >
           <Button isLoading={isLoading}>
             Sign up
