@@ -7,6 +7,8 @@ import { useFetchData } from "../../../../Hooks/useFetchData";
 ///
 import sennamclr1k from "../models/cars/f1/sennamclr.glb";
 import lotus49c from "../models/cars/f1/lotus_49c.glb";
+// Ferrari 2004
+import fr2004 from "../models/cars/f1/2004_ferrari_f2004.glb";
 import mclarenmp427 from "../models/cars/f1/mclaren_mp4_27.glb";
 import rb9 from "../models/cars/f1/rb9.glb";
 import rb19 from "../models/cars/f1/rb19.glb";
@@ -24,6 +26,12 @@ export const car3DConfig = {
     src: lotus49c,
     scale: [1.9, 1.7, 1.7],
     position: [0, 2.5, -2],
+    rotation: [0, -0.7, 0],
+  },
+  "ferrari-f2004": {
+    src: fr2004,
+    scale: [1, 1.05, 1.05],
+    position: [4.5, 0, 2.5],
     rotation: [0, -0.7, 0],
   },
   "mclaren-mp4-27": {
@@ -44,16 +52,16 @@ export const car3DConfig = {
     position: [0, 0, -2.2],
     rotation: [0, -0.7, 0],
   },
-  "redbull-rb19": {
-    src: rb19,
-    scale: [7.7, 7.5, 7.5],
-    position: [0, 0, -3.5],
-    rotation: [0, -0.7, 0],
-  },
   "fr-2019": {
     src: fr2019,
     scale: [5.1, 4.9, 4.9],
     position: [0, 0, -2.2],
+    rotation: [0, -0.7, 0],
+  },
+  "redbull-rb19": {
+    src: rb19,
+    scale: [7.7, 7.5, 7.5],
+    position: [0, 0, -3.5],
     rotation: [0, -0.7, 0],
   },
   "amg-w14": {

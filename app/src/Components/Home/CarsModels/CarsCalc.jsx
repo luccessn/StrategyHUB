@@ -122,25 +122,31 @@ export const CarsCalc = ({ car }) => {
           viewport={{ once: false, amount: 0.2 }}
         >
           <div className="h-full  ">
-            <div className="w-full flex xxl:h-[800px] flex-col xxl:flex-row gap-2">
-              <div className="w-full h-[800px]  xxl:h-[800px] ">
+            <div className="w-full flex xxl:h-[800px]  flex-col xxl:flex-row gap-2">
+              <div className="w-full h-[800px]  xxl:h-[800px]  ">
                 {/* {selectedCard && ( */}
                 <motion.div
                   layoutId={`card-${car.title}-${id}`}
                   key={car.title}
-                  className="flex h-full flex-col  cursor-pointer bg-cover bg-center bg-no-repeat p-0"
+                  className="
+    flex h-full flex-col
+    cursor-pointer
+    bg-cover bg-center bg-no-repeat
+    p-0
+    rounded-none
+  "
                 >
                   <div className="flex flex-col w-full h-full">
-                    <div className="flex flex-col pl-5 gap-2">
+                    {/* <div className="flex flex-col pl-5 gap-2">
                       <h1 className="font-panchangMD text-2xl tracking-wide">
                         {car.title}
                       </h1>
-                    </div>
+                    </div> */}
 
                     <div
-                      // onWheel={(e) => {
-                      //   e.preventDefault();
-                      // }}
+                      onWheel={(e) => {
+                        e.preventDefault();
+                      }}
                       className="w-full  h-full "
                     >
                       <Canvas
@@ -154,6 +160,9 @@ export const CarsCalc = ({ car }) => {
                           toneMappingExposure: 1,
                         }}
                         camera={{ position: [-25, 10, 0], fov: 45 }}
+                        // style={{
+                        //   background: "#ffffff",
+                        // }}
                       >
                         <Suspense fallback={<Loader />}>
                           {car?.src && (
@@ -200,7 +209,7 @@ export const CarsCalc = ({ car }) => {
                     key={`about-title-${car.title}`}
                     as="h1"
                     className=" text-4xl xl:text-5xl font-array"
-                    text={`About the ${car.title}`}
+                    text={`${car.title}`}
                     typingSpeed={40}
                   />
 
