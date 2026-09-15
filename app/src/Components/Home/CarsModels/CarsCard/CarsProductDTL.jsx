@@ -97,10 +97,7 @@ export const CarsProductDTL = () => {
   const carWith3D = { ...data, ...(config || {}) };
   console.log("Car with 3D:", carWith3D);
   return (
-    <div className="text-white">
-      {" "}
-      <h1>{carWith3D.name}</h1> <p>Slug: {carWith3D.slug}</p>{" "}
-      <p> 3D model: {carWith3D.src ? "Found" : "Not found"} </p>{" "}
+    <div className="text-white relative top-28 lg:top-36">
       {carWith3D.src ? (
         <CarsCalc car={carWith3D} />
       ) : (
