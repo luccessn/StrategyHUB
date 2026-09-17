@@ -113,7 +113,7 @@ export const CarsCalc = ({ car }) => {
 
   return (
     <>
-      <div className=" flex flex-col gap-10 ">
+      <div className=" flex flex-col gap-5 ">
         <motion.div
           initial={{ opacity: 0, scale: 1 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -261,26 +261,33 @@ export const CarsCalc = ({ car }) => {
           viewport={{ once: false, amount: 0.3 }}
         >
           <div className="flex flex-col xxxl:flex-row gap-5 bg-white/0 border-2 border-white/15 backdrop-blur-xl max-w-[785px] mmd:max-w-[900px] lg:max-w-[990px] clg:max-w-[1100px] xl:max-w-[1250px] cxl:max-w-[1400px] xxl:max-w-[1500px] xxxl:max-w-[1800px] mx-auto p-5 rounded-sm h-[800px] ">
-            <div className="flex flex-row xxxl:flex-col">
+            <div className="flex flex-row flex-nowrap xxxl:flex-col gap-2">
               {data.map((card) => (
                 <motion.div
                   layoutId={`card-${card.title}-${id}`}
                   onClick={() => setactive(card)}
-                  className={`p-4  backdrop-blur-md  cursor-target rounded-xl cursor-pointer transition ${
-                    car?.title === car.title
-                      ? "bg-neutral-800"
-                      : "hover:bg-neutral-800"
-                  }`}
+                  className={`
+      p-4
+      backdrop-blur-md
+      cursor-target
+      rounded-xl
+      cursor-pointer
+      transition
+      ${
+        active?.title === card.title ? "bg-neutral-800" : "hover:bg-neutral-800"
+      }
+    `}
                 >
                   <div className="flex justify-center items-center flex-col">
                     <motion.h3
-                      layoutId={`title-${car.title}-${id}`}
+                      layoutId={`title-${card.title}-${id}`}
                       className="font-panchang text-neutral-200 text-center text-sm xxxl:text-base"
                     >
                       {card.title}
                     </motion.h3>
+
                     <motion.p
-                      layoutId={`description-${card.description}-${id}`}
+                      layoutId={`description-${card.title}-${id}`}
                       className="text-neutral-600 dark:text-neutral-400 text-center text-sm"
                     >
                       {card.descr}
