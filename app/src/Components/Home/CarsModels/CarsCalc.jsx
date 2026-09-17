@@ -20,6 +20,7 @@ import TextType from "../../UI/tx/TextType";
 import { BrakeAccelr } from "./Brake&Accelr/BrakeAccelr";
 import { AeroDynamic } from "./Aerodinamics&G-force/AeroDynamic";
 import { CarsFetch } from "./Constants/CarsFetch";
+import { CarsSwiperCard } from "./CarsCard/CarsSwiperCard";
 // import mclaren2025 from "./models/cars/f1/2025_mclaren.glb";
 import "./btc.css";
 function Loader() {
@@ -113,126 +114,127 @@ export const CarsCalc = ({ car }) => {
 
   return (
     <>
-      <div className=" flex flex-col gap-5 ">
-        <motion.div
-          initial={{ opacity: 0, scale: 1 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          //dr:04, amount:34
-          transition={{ duration: 0.3, ease: "linear" }}
-          viewport={{ once: false, amount: 0.2 }}
-        >
-          <div className="h-full  ">
-            <div className="w-full flex xxl:h-[800px]  flex-col xxl:flex-row gap-2">
-              <div className="w-full h-[800px]  xxl:h-[800px]  ">
-                {/* {selectedCard && ( */}
-                <motion.div
-                  layoutId={`card-${car.title}-${id}`}
-                  key={car.title}
-                  className="
+      <div className="flex flex-col gap-36">
+        <div className=" flex flex-col gap-5 ">
+          <motion.div
+            initial={{ opacity: 0, scale: 1 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            //dr:04, amount:34
+            transition={{ duration: 0.3, ease: "linear" }}
+            viewport={{ once: false, amount: 0.2 }}
+          >
+            <div className="h-full  ">
+              <div className="w-full flex xxl:h-[800px]  flex-col xxl:flex-row gap-2">
+                <div className="w-full h-[800px]  xxl:h-[800px]  ">
+                  {/* {selectedCard && ( */}
+                  <motion.div
+                    layoutId={`card-${car.title}-${id}`}
+                    key={car.title}
+                    className="
     flex h-full flex-col
     cursor-pointer
     bg-cover bg-center bg-no-repeat
     p-0
     rounded-none
   "
-                >
-                  <div className="flex flex-col w-full h-full">
-                    {/* <div className="flex flex-col pl-5 gap-2">
+                  >
+                    <div className="flex flex-col w-full h-full">
+                      {/* <div className="flex flex-col pl-5 gap-2">
                       <h1 className="font-panchangMD text-2xl tracking-wide">
                         {car.title}
                       </h1>
                     </div> */}
 
-                    <div
-                      onWheel={(e) => {
-                        e.preventDefault();
-                      }}
-                      className="w-full  h-full "
-                    >
-                      <Canvas
-                        key={car.title}
-                        shadows
-                        dpr={[1, 2]}
-                        gl={{
-                          antialias: true,
-                          physicallyCorrectLights: true,
-                          outputColorSpace: THREE.SRGBColorSpace,
-                          toneMappingExposure: 1,
+                      <div
+                        onWheel={(e) => {
+                          e.preventDefault();
                         }}
-                        camera={{ position: [-25, 10, 0], fov: 45 }}
-                        // style={{
-                        //   background: "#ffffff",
-                        // }}
+                        className="w-full  h-full "
                       >
-                        <Suspense fallback={<Loader />}>
-                          {car?.src && (
-                            <Model
-                              url={car.src}
-                              scale={car.scale}
-                              position={car.position}
-                              rotation={car.rotation}
+                        <Canvas
+                          key={car.title}
+                          shadows
+                          dpr={[1, 2]}
+                          gl={{
+                            antialias: true,
+                            physicallyCorrectLights: true,
+                            outputColorSpace: THREE.SRGBColorSpace,
+                            toneMappingExposure: 1,
+                          }}
+                          camera={{ position: [-25, 10, 0], fov: 45 }}
+                          // style={{
+                          //   background: "#ffffff",
+                          // }}
+                        >
+                          <Suspense fallback={<Loader />}>
+                            {car?.src && (
+                              <Model
+                                url={car.src}
+                                scale={car.scale}
+                                position={car.position}
+                                rotation={car.rotation}
+                              />
+                            )}
+                            <ambientLight intensity={0.3} />
+                            <directionalLight
+                              castShadow
+                              position={[5, 10, 5]}
+                              intensity={1.2}
                             />
-                          )}
-                          <ambientLight intensity={0.3} />
-                          <directionalLight
-                            castShadow
-                            position={[5, 10, 5]}
-                            intensity={1.2}
+                            <spotLight
+                              castShadow
+                              position={[-5, 8, -5]}
+                              intensity={0.8}
+                              angle={0.3}
+                            />
+                            <Environment preset="sunset" background={false} />
+                          </Suspense>
+                          <OrbitControls
+                            target={[0, -0.6, 0]}
+                            enableRotate
+                            enableZoom={true}
+                            enableDamping
+                            dampingFactor={0.08}
+                            zoomSpeed={0.6}
+                            enablePan={false}
                           />
-                          <spotLight
-                            castShadow
-                            position={[-5, 8, -5]}
-                            intensity={0.8}
-                            angle={0.3}
-                          />
-                          <Environment preset="sunset" background={false} />
-                        </Suspense>
-                        <OrbitControls
-                          target={[0, -0.6, 0]}
-                          enableRotate
-                          enableZoom={true}
-                          enableDamping
-                          dampingFactor={0.08}
-                          zoomSpeed={0.6}
-                          enablePan={false}
-                        />
-                      </Canvas>
+                        </Canvas>
+                      </div>
                     </div>
-                  </div>
-                </motion.div>
-                {/* )} */}
-              </div>
-              <div className=" w-full  xxl:w-8/12   text-white h-[600px] xl:h-[600px] xxl:h-[800px] flex flex-col gap-2 xl:gap-5 p-5">
-                {/* {selectedCard && ( */}
-                <div className="flex flex-col gap-6">
-                  <TextType
-                    key={`about-title-${car.title}`}
-                    as="h1"
-                    className=" text-4xl xl:text-5xl font-array"
-                    text={`${car.title}`}
-                    typingSpeed={40}
-                  />
+                  </motion.div>
+                  {/* )} */}
+                </div>
+                <div className=" w-full  xxl:w-8/12   text-white h-[600px] xl:h-[600px] xxl:h-[800px] flex flex-col gap-2 xl:gap-5 p-5">
+                  {/* {selectedCard && ( */}
+                  <div className="flex flex-col gap-6">
+                    <TextType
+                      key={`about-title-${car.title}`}
+                      as="h1"
+                      className=" text-4xl xl:text-5xl font-array"
+                      text={`${car.title}`}
+                      typingSpeed={40}
+                    />
 
-                  <TextType
-                    key={`about-title-${car.about.about1}`}
-                    inf={"carscalc"}
-                    as="p"
-                    className="text-xl hidden xxl:block font-array p-2"
-                    text={`${car.about.about1}\n${car.about.about2}`}
-                    typingSpeed={2}
-                  />
-                  <div className="block xxl:hidden">
                     <TextType
                       key={`about-title-${car.about.about1}`}
-                      inf={"carscalc2"}
+                      inf={"carscalc"}
                       as="p"
-                      className="text-xl rounded-xl rounded-br-none rounded-bl-none font-array p-2 block xxl:hidden bg-white/5 backdrop-blur-xl border border-white/30 shadow-xl"
+                      className="text-xl hidden xxl:block font-array p-2"
                       text={`${car.about.about1}\n${car.about.about2}`}
                       typingSpeed={2}
                     />
-                  </div>
-                  {/* {selectedCard.about2 && ( */}
-                  {/* <>
+                    <div className="block xxl:hidden">
+                      <TextType
+                        key={`about-title-${car.about.about1}`}
+                        inf={"carscalc2"}
+                        as="p"
+                        className="text-xl rounded-xl rounded-br-none rounded-bl-none font-array p-2 block xxl:hidden bg-white/5 backdrop-blur-xl border border-white/30 shadow-xl"
+                        text={`${car.about.about1}\n${car.about.about2}`}
+                        typingSpeed={2}
+                      />
+                    </div>
+                    {/* {selectedCard.about2 && ( */}
+                    {/* <>
                     <hr className="border-white" />
                     <TextType
                       as="h1"
@@ -248,25 +250,25 @@ export const CarsCalc = ({ car }) => {
                       typingSpeed={10}
                     />
                   </> */}
+                  </div>
+                  {/* )} */}
                 </div>
-                {/* )} */}
               </div>
             </div>
-          </div>
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0.1, scale: 0.98 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.35, ease: "linear" }}
-          viewport={{ once: false, amount: 0.3 }}
-        >
-          <div className="flex flex-col xxxl:flex-row gap-5 bg-white/0 border-2 border-white/15 backdrop-blur-xl max-w-[785px] mmd:max-w-[900px] lg:max-w-[990px] clg:max-w-[1100px] xl:max-w-[1250px] cxl:max-w-[1400px] xxl:max-w-[1500px] xxxl:max-w-[1800px] mx-auto p-5 rounded-sm h-[800px] ">
-            <div className="flex flex-row flex-nowrap xxxl:flex-col gap-2">
-              {data.map((card) => (
-                <motion.div
-                  layoutId={`card-${card.title}-${id}`}
-                  onClick={() => setactive(card)}
-                  className={`
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0.1, scale: 0.98 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.35, ease: "linear" }}
+            viewport={{ once: false, amount: 0.3 }}
+          >
+            <div className="flex flex-col xxxl:flex-row gap-5 bg-white/0 border-2 border-white/15 backdrop-blur-xl max-w-[785px] mmd:max-w-[900px] lg:max-w-[990px] clg:max-w-[1100px] xl:max-w-[1250px] cxl:max-w-[1400px] xxl:max-w-[1500px] xxxl:max-w-[1800px] mx-auto p-5 rounded-sm h-[800px] ">
+              <div className="flex flex-row flex-nowrap xxxl:flex-col gap-2">
+                {data.map((card) => (
+                  <motion.div
+                    layoutId={`card-${card.title}-${id}`}
+                    onClick={() => setactive(card)}
+                    className={`
       p-4
       backdrop-blur-md
       cursor-target
@@ -277,47 +279,47 @@ export const CarsCalc = ({ car }) => {
         active?.title === card.title ? "bg-neutral-800" : "hover:bg-neutral-800"
       }
     `}
-                >
-                  <div className="flex justify-center items-center flex-col">
-                    <motion.h3
-                      layoutId={`title-${card.title}-${id}`}
-                      className="font-panchang text-neutral-200 text-center text-sm xxxl:text-base"
-                    >
-                      {card.title}
-                    </motion.h3>
+                  >
+                    <div className="flex justify-center items-center flex-col">
+                      <motion.h3
+                        layoutId={`title-${card.title}-${id}`}
+                        className="font-panchang text-neutral-200 text-center text-sm xxxl:text-base"
+                      >
+                        {card.title}
+                      </motion.h3>
 
-                    <motion.p
-                      layoutId={`description-${card.title}-${id}`}
-                      className="text-neutral-600 dark:text-neutral-400 text-center text-sm"
-                    >
-                      {card.descr}
-                    </motion.p>
-                  </div>
-                </motion.div>
-              ))}
+                      <motion.p
+                        layoutId={`description-${card.title}-${id}`}
+                        className="text-neutral-600 dark:text-neutral-400 text-center text-sm"
+                      >
+                        {card.descr}
+                      </motion.p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+              {/* {selectedCard && ( */}
+              <div className=" scrollbar-custom w-[750px] mmd:w-[850px] lg:w-[950px]  clg:w-[1050px]   xl:w-[1200px] cxl:w-[1350px] overflow-x-auto xxl:w-full   h-full mx-auto ">
+                {active && (
+                  <motion.div
+                    key={car.title}
+                    layoutId={`info-${car.title}-${id}`}
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 5 }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    className="mt-8 flex gap-6 flex-row mx-auto shadow p-6 rounded-xl"
+                  >
+                    <div className="h-full  w-full">
+                      <active.card title={car.title} dino={car.dino} />
+                    </div>
+                  </motion.div>
+                )}
+              </div>
+              {/* )} */}
             </div>
-            {/* {selectedCard && ( */}
-            <div className=" scrollbar-custom w-[750px] mmd:w-[850px] lg:w-[950px]  clg:w-[1050px]   xl:w-[1200px] cxl:w-[1350px] overflow-x-auto xxl:w-full   h-full mx-auto ">
-              {active && (
-                <motion.div
-                  key={car.title}
-                  layoutId={`info-${car.title}-${id}`}
-                  initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 5 }}
-                  transition={{ duration: 0.5, ease: "easeOut" }}
-                  className="mt-8 flex gap-6 flex-row mx-auto shadow p-6 rounded-xl"
-                >
-                  <div className="h-full  w-full">
-                    <active.card title={car.title} dino={car.dino} />
-                  </div>
-                </motion.div>
-              )}
-            </div>
-            {/* )} */}
-          </div>
-        </motion.div>
-        {/* <div className="flex flex-row gap-10 bg-red-400 w-full ">
+          </motion.div>
+          {/* <div className="flex flex-row gap-10 bg-red-400 w-full ">
             <select
               className="w-[200px] max-w-md p-3 rounded-xl border bg-red-400 text-neutral-800 dark:text-neutral-200"
               value={selectedCard.title}
@@ -341,6 +343,10 @@ export const CarsCalc = ({ car }) => {
               />
             </div>
           </div> */}
+        </div>
+        <div>
+          <CarsSwiperCard />
+        </div>
       </div>
     </>
   );

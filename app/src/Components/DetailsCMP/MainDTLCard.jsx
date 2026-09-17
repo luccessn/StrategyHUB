@@ -26,8 +26,9 @@ const MainDTLCard = () => {
           modules={[Autoplay]}
           className="mySwiper"
           autoplay={{
-            delay: 1500,
+            delay: 1800,
             disableOnInteraction: false,
+            pauseOnMouseEnter: true,
           }}
           breakpoints={{
             0: {
