@@ -4,11 +4,11 @@ import { motion } from "framer-motion";
 import CarsGridCard from "./CarsGridCard";
 import { CarsFetch } from "../Constants/CarsFetch";
 export const CarsProduct = () => {
-  const [data, error, isLoading] = CarsFetch();
+  // const [data, error, isLoading] = CarsFetch();
 
-  // const [data, error, isLoading] = useFetchData(
-  //   "http://localhost:5000/server/getcars",
-  // );
+  const [data, error, isLoading] = useFetchData(
+    "https://strategyhub.onrender.com/server/getcars",
+  );
   return (
     <>
       <div className="flex flex-col gap-5 p-4">

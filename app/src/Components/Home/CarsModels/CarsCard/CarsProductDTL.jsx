@@ -87,7 +87,7 @@ export const CarsProductDTL = () => {
   const { carID } = useParams();
   console.log("carID:", carID);
   const [data, error, isLoading] = useFetchData(
-    `http://localhost:5000/server/getcars?_id=${carID}`,
+    `https://strategyhub.onrender.com/server/getcars?_id=${carID}`,
   );
   if (isLoading) {
     return <div>Loading...</div>;

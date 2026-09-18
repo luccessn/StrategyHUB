@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 export const CarsSwiperCard = () => {
   const [data, error, isLoading] = useFetchData(
-    "http://localhost:5000/server/getcars",
+    "https://strategyhub.onrender.com/server/getcars",
   );
   const navigate = useNavigate();
   const goDTL = (carId) => {
