@@ -505,58 +505,67 @@ export const AICard = () => {
                   <div className=" fixed justify-center w-full  ">
                     <AccessCountDown />
                   </div>
-                  {submittedText.map((data, index) => (
-                    <div key={index} className=" relative top-28 -z-50">
-                      {data.role === "Bot" && (
-                        <div className="flex flex-row  gap-3">
+                  <div className="flex flex-col gap-48">
+                    <div className="flex flex-col gap-10">
+                      {submittedText.map((data, index) => (
+                        <div key={index} className=" relative top-28   -z-50">
+                          {data.role === "Bot" && (
+                            <div className="flex flex-row  gap-3">
+                              <div className="flex items-center justify-center w-11 h-11 bg-blue-600/80 rounded-full shadow-md">
+                                <RiRobot3Fill className="text-3xl text-white" />
+                              </div>
+
+                              <div className="bg-blue-600 max-w-[750px] text-zinc-100 p-3 px-4 rounded-2xl rounded-bl-none shadow-lg">
+                                <TextType
+                                  as="p"
+                                  className="text-lg font-satosIT font-bold leading-relaxed"
+                                  text={data.content}
+                                  typingSpeed={2}
+                                  animate={data.isNew}
+                                />
+                              </div>
+                            </div>
+                          )}
+                          {data.role === "user" && (
+                            <div className="flex justify-end gap-3 w-full">
+                              <div className="bg-zinc-700/80 text-zinc-100 max-w-[500px] pb-2 px-4 rounded-2xl rounded-br-none shadow-lg break-words whitespace-pre-wrap">
+                                <TextType
+                                  as="p"
+                                  className="text-lg font-satosIT font-bold leading-relaxed"
+                                  text={data.content}
+                                  typingSpeed={20}
+                                  animate={data.isNew}
+                                />
+                              </div>
+                              <div className="flex items-center justify-center w-11 h-11 bg-zinc-700 rounded-full shadow-md">
+                                <FaUserAstronaut className="text-blue-400 text-3xl" />
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+
+                      {isLoading && (
+                        <div className="flex relative top-32 gap-3">
                           <div className="flex items-center justify-center w-11 h-11 bg-blue-600/80 rounded-full shadow-md">
                             <RiRobot3Fill className="text-3xl text-white" />
                           </div>
 
-                          <div className="bg-blue-600 max-w-[550px] text-zinc-100 p-3 px-4 rounded-2xl rounded-bl-none shadow-lg">
-                            <TextType
-                              as="p"
-                              className="text-lg font-satosIT font-bold leading-relaxed"
-                              text={data.content}
-                              typingSpeed={5}
-                            />
-                          </div>
-                        </div>
-                      )}
-                      {data.role === "user" && (
-                        <div className="flex justify-end gap-3 w-full">
-                          <div className="bg-zinc-700/80 text-zinc-100 max-w-[450px] pb-2 px-4 rounded-2xl rounded-br-none shadow-lg break-words whitespace-pre-wrap">
-                            <TextType
-                              as="p"
-                              className="text-lg font-satosIT font-bold leading-relaxed"
-                              text={data.content}
-                              typingSpeed={20}
-                            />
-                          </div>
-                          <div className="flex items-center justify-center w-11 h-11 bg-zinc-700 rounded-full shadow-md">
-                            <FaUserAstronaut className="text-blue-400 text-3xl" />
+                          <div className="flex items-center gap-2 bg-blue-600/60 px-4 py-3 rounded-2xl rounded-bl-none shadow-lg">
+                            <span className="w-2.5 h-2.5 rounded-full bg-zinc-200 animate-bounce" />
+                            <span className="w-2.5 h-2.5 rounded-full bg-zinc-200 animate-bounce [animation-delay:-.2s]" />
+                            <span className="w-2.5 h-2.5 rounded-full bg-zinc-200 animate-bounce [animation-delay:-.4s]" />
                           </div>
                         </div>
                       )}
                     </div>
-                  ))}
-                  {isLoading && (
-                    <div className="flex relative top-32 gap-3">
-                      <div className="flex items-center justify-center w-11 h-11 bg-blue-600/80 rounded-full shadow-md">
-                        <RiRobot3Fill className="text-3xl text-white" />
-                      </div>
-
-                      <div className="flex items-center gap-2 bg-blue-600/60 px-4 py-3 rounded-2xl rounded-bl-none shadow-lg">
-                        <span className="w-2.5 h-2.5 rounded-full bg-zinc-200 animate-bounce" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-zinc-200 animate-bounce [animation-delay:-.2s]" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-zinc-200 animate-bounce [animation-delay:-.4s]" />
-                      </div>
-                    </div>
-                  )}
+                    <div>{/* <h1>bababa</h1> */}</div>
+                  </div>
                 </div>
               )}
               {/* <div className=" bottom-0 z-50 flex  flex-row justify-center gap-4 ml-40  pt-4"> */}
-              <div className="    absolute bottom-10  left-1/2 -translate-x-1/2 z-50 flex flex-row gap-4 pt-4 px-6 py-4 bg-white/10  backdrop-blur-xl border border-white/30 rounded-2xl shadow-xl ">
+              <div className="    absolute bottom-10  left-1/2 -translate-x-1/2 z-50 flex flex-row gap-4 pt-4 px-6 py-4  ">
+                {/* bg-white/10  backdrop-blur-xl border border-white/30 rounded-2xl shadow-xl */}
                 <div className="">
                   {switchs === "chat" ? (
                     <div className="z-50 w-[400px]">
