@@ -164,3 +164,11 @@ code {
   scrollbar-width: thin;
   overflow-x: hidden;
 }
+.canvas-wrap {
+  background: radial-gradient(
+    circle at center,
+    #e8e8e8 0%,
+    #c9c9c9 70%,
+    #b5b5b5 100%
+  );
+}

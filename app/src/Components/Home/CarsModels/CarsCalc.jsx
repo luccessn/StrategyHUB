@@ -1,4 +1,5 @@
 import React, { useEffect, Suspense, useId, useState } from "react";
+import { useRef } from "react";
 import { motion } from "framer-motion";
 // import { useOutsideClick } from "../../UI/use-outside-click";
 import { Canvas, useFrame } from "@react-three/fiber";
@@ -12,6 +13,7 @@ import {
   useAnimations,
 } from "@react-three/drei";
 import * as THREE from "three";
+import { RotateCcw, Maximize, Settings, Layers } from "lucide-react";
 // import mclaren1k from "./models/cars/gt3/mclaren_gt3.glb";
 // import { TestCharts } from "../TestCharts";
 import { Charts } from "./CarsDino/Charts";
@@ -23,58 +25,59 @@ import { CarsFetch } from "./Constants/CarsFetch";
 import { CarsSwiperCard } from "./CarsCard/CarsSwiperCard";
 // import mclaren2025 from "./models/cars/f1/2025_mclaren.glb";
 import "./btc.css";
-function Loader() {
-  const { progress } = useProgress();
-  return (
-    <Html center>
-      <div style={{ color: "white" }}>{Math.floor(progress)} %</div>
-    </Html>
-  );
-}
+// function Loader() {
+//   const { progress } = useProgress();
+//   return (
+//     <Html center>
+//       <div style={{ color: "white" }}>{Math.floor(progress)} %</div>
+//     </Html>
+//   );
+// }
+
 const data = [
   { title: "Analytics With Diagrams", card: Charts },
   { title: "Brake & Acceleration", card: BrakeAccelr },
   { title: "Aerodinamics", card: AeroDynamic },
 ];
-function Model({ url, scale, position, rotation }) {
-  const gltf = useGLTF(url);
-  const { scene, animations } = gltf;
-  const { actions } = useAnimations(animations, scene);
+// function Model({ url, scale, position, rotation }) {
+//   const gltf = useGLTF(url);
+//   const { scene, animations } = gltf;
+//   const { actions } = useAnimations(animations, scene);
 
-  useEffect(() => {
-    if (actions) {
-      Object.values(actions).forEach((action) => action.play());
-    }
+//   useEffect(() => {
+//     if (actions) {
+//       Object.values(actions).forEach((action) => action.play());
+//     }
 
-    scene.traverse((child) => {
-      if (child.isMesh) {
-        child.castShadow = true;
-        child.receiveShadow = true;
+//     scene.traverse((child) => {
+//       if (child.isMesh) {
+//         child.castShadow = true;
+//         child.receiveShadow = true;
 
-        if (child.material) {
-          if (child.material.map)
-            child.material.map.colorSpace = THREE.SRGBColorSpace;
-          if (child.material.emissiveMap)
-            child.material.emissiveMap.colorSpace = THREE.SRGBColorSpace;
-          child.material.envMapIntensity = 1.5;
-        }
-      }
-    });
-  }, [actions, scene]);
+//         if (child.material) {
+//           if (child.material.map)
+//             child.material.map.colorSpace = THREE.SRGBColorSpace;
+//           if (child.material.emissiveMap)
+//             child.material.emissiveMap.colorSpace = THREE.SRGBColorSpace;
+//           child.material.envMapIntensity = 1.5;
+//         }
+//       }
+//     });
+//   }, [actions, scene]);
 
-  useFrame(() => {
-    scene.rotation.y += 0.0008;
-  });
+//   useFrame(() => {
+//     scene.rotation.y += 0.0008;
+//   });
 
-  return (
-    <primitive
-      object={scene}
-      scale={scale}
-      position={position}
-      rotation={rotation}
-    />
-  );
-}
+//   return (
+//     <primitive
+//       object={scene}
+//       scale={scale}
+//       position={position}
+//       rotation={rotation}
+//     />
+//   );
+// }
 
 export const CloseIcon = () => (
   <motion.svg
@@ -102,9 +105,51 @@ export const CloseIcon = () => (
 );
 
 export const CarsCalc = ({ car }) => {
-  console.log("care", car);
+  // const [autoRotate, setAutoRotate] = useState(false);
   const [active, setactive] = useState(null);
   const id = useId();
+  const iframeRef = useRef(null);
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://static.sketchfab.com/api/sketchfab-viewer-1.12.1.js";
+    script.async = true;
+    script.onload = () => {
+      if (!iframeRef.current) return;
+
+      const client = new window.Sketchfab(iframeRef.current);
+
+      client.init("1890392142c54e98bf3c127002061cbb", {
+        autostart: 1,
+
+        success: (api) => {
+          api.start();
+
+          api.addEventListener("viewerready", () => {
+            console.log("Sketchfab ready");
+
+            // კამერა
+            api.setCameraLookAt([10, 5, 15], [0, 0, 0], 1);
+
+            // ავტომატური ბრუნვა
+            api.startAutospin(0.3);
+          });
+        },
+
+        error: (error) => {
+          console.error("Sketchfab error:", error);
+        },
+      });
+    };
+
+    document.body.appendChild(script);
+
+    return () => {
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
+    };
+  }, []);
+
   useEffect(() => {
     if (data && data.length > 0) {
       setactive(data[0]);
@@ -124,81 +169,29 @@ export const CarsCalc = ({ car }) => {
             viewport={{ once: false, amount: 0.2 }}
           >
             <div className="h-full  ">
-              <div className="w-full flex xxl:h-[800px]  flex-col xxl:flex-row gap-2">
-                <div className="w-full h-[800px]  xxl:h-[800px]  ">
-                  {/* {selectedCard && ( */}
+              <div className="w-full flex h-[800px]  flex-col xxl:flex-row gap-2">
+                <div className="w-full h-full">
                   <motion.div
                     layoutId={`card-${car.title}-${id}`}
                     key={car.title}
-                    className="
-    flex h-full flex-col
-    cursor-pointer
-    bg-cover bg-center bg-no-repeat
-    p-0
-    rounded-none
-  "
+                    className="w-full h-full"
                   >
-                    <div className="flex flex-col w-full h-full">
-                      {/* <div className="flex flex-col pl-5 gap-2">
-                      <h1 className="font-panchangMD text-2xl tracking-wide">
-                        {car.title}
-                      </h1>
-                    </div> */}
-
-                      <div
-                        onWheel={(e) => {
-                          e.preventDefault();
-                        }}
-                        className="w-full  h-full "
-                      >
-                        <Canvas
-                          key={car.title}
-                          shadows
-                          dpr={[1, 2]}
-                          gl={{
-                            antialias: true,
-                            physicallyCorrectLights: true,
-                            outputColorSpace: THREE.SRGBColorSpace,
-                            toneMappingExposure: 1,
-                          }}
-                          camera={{ position: [-25, 10, 0], fov: 45 }}
-                          // style={{
-                          //   background: "#ffffff",
-                          // }}
-                        >
-                          <Suspense fallback={<Loader />}>
-                            {car?.src && (
-                              <Model
-                                url={car.src}
-                                scale={car.scale}
-                                position={car.position}
-                                rotation={car.rotation}
-                              />
-                            )}
-                            <ambientLight intensity={0.3} />
-                            <directionalLight
-                              castShadow
-                              position={[5, 10, 5]}
-                              intensity={1.2}
-                            />
-                            <spotLight
-                              castShadow
-                              position={[-5, 8, -5]}
-                              intensity={0.8}
-                              angle={0.3}
-                            />
-                            <Environment preset="sunset" background={false} />
-                          </Suspense>
-                          <OrbitControls
-                            target={[0, -0.6, 0]}
-                            enableRotate
-                            enableZoom={true}
-                            enableDamping
-                            dampingFactor={0.08}
-                            zoomSpeed={0.6}
-                            enablePan={false}
-                          />
-                        </Canvas>
+                    <div className="w-full h-full">
+                      <div className="sketchfab-embed-wrapper w-full h-full">
+                        <iframe
+                          title="McLaren MP4/5 Formula One"
+                          className="w-full h-full"
+                          frameBorder="0"
+                          allowFullScreen
+                          mozallowfullscreen="true"
+                          webkitallowfullscreen="true"
+                          allow="autoplay; fullscreen; xr-spatial-tracking"
+                          xr-spatial-tracking="true"
+                          execution-while-out-of-viewport="true"
+                          execution-while-not-rendered="true"
+                          web-share="true"
+                          src="https://sketchfab.com/models/1890392142c54e98bf3c127002061cbb/embed?autostart=1&autospin=0.3&camera=1"
+                        />
                       </div>
                     </div>
                   </motion.div>
@@ -351,3 +344,91 @@ export const CarsCalc = ({ car }) => {
     </>
   );
 };
+
+{
+  /* <div
+                        onWheel={(e) => {
+                          e.preventDefault();
+                        }}
+                        className="canvas-wrap w-full h-full"
+                        id={`canvas-wrap-${car.title}`}
+                      >
+                        <Canvas
+                          key={car.title}
+                          shadows
+                          dpr={[1, 2]}
+                          gl={{
+                            antialias: true,
+                            physicallyCorrectLights: true,
+                            outputColorSpace: THREE.SRGBColorSpace,
+                            toneMappingExposure: 1,
+                          }}
+                          camera={{ position: [-25, 10, 0], fov: 45 }}
+                          // style={{
+                          //   background: "#ffffff",
+                          // }}
+                        >
+                          <Suspense fallback={<Loader />}>
+                            {car?.src && (
+                              <Model
+                                url={car.src}
+                                scale={car.scale}
+                                position={car.position}
+                                rotation={car.rotation}
+                              />
+                            )}
+                            <ambientLight intensity={0.3} />
+                            <directionalLight
+                              castShadow
+                              position={[5, 10, 5]}
+                              intensity={1.2}
+                            />
+                            <spotLight
+                              castShadow
+                              position={[-5, 8, -5]}
+                              intensity={0.8}
+                              angle={0.3}
+                            />
+                            <Environment preset="sunset" background={false} />
+                          </Suspense>
+
+                          <OrbitControls
+                            target={[0, -0.6, 0]}
+                            enableRotate
+                            enableZoom={true}
+                            enableDamping
+                            dampingFactor={0.08}
+                            zoomSpeed={0.8}
+                            rotateSpeed={0.6}
+                            enablePan={false}
+                            minDistance={5}
+                            maxDistance={40}
+                            minPolarAngle={Math.PI / 6}
+                            maxPolarAngle={Math.PI / 2.1}
+                            autoRotate={autoRotate}
+                            autoRotateSpeed={1.2}
+                          />
+                        </Canvas>
+                        <div className="absolute bottom-3 right-3 flex gap-2 z-10">
+                          <button
+                            onClick={() => setAutoRotate((p) => !p)}
+                            className="p-2 rounded-full bg-black/40 hover:bg-black/60 text-white/80 transition"
+                            title="Auto-rotate"
+                          >
+                            <RotateCcw size={16} />
+                          </button>
+                          <button
+                            onClick={() => {
+                              const el = document.getElementById(
+                                `canvas-wrap-${car.title}`,
+                              );
+                              el?.requestFullscreen?.();
+                            }}
+                            className="p-2 rounded-full bg-black/40 hover:bg-black/60 text-white/80 transition"
+                            title="Fullscreen"
+                          >
+                            <Maximize size={16} />
+                          </button>
+                        </div>
+                      </div> */
+}
