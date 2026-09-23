@@ -115,41 +115,29 @@ export const CarsCalc = ({ car }) => {
     script.async = true;
     script.onload = () => {
       if (!iframeRef.current) return;
-
       const client = new window.Sketchfab(iframeRef.current);
-
       client.init("1890392142c54e98bf3c127002061cbb", {
         autostart: 1,
-
         success: (api) => {
           api.start();
-
           api.addEventListener("viewerready", () => {
             console.log("Sketchfab ready");
-
-            // კამერა
             api.setCameraLookAt([10, 5, 15], [0, 0, 0], 1);
-
-            // ავტომატური ბრუნვა
             api.startAutospin(0.3);
           });
         },
-
         error: (error) => {
           console.error("Sketchfab error:", error);
         },
       });
     };
-
     document.body.appendChild(script);
-
     return () => {
       if (document.body.contains(script)) {
         document.body.removeChild(script);
       }
     };
   }, []);
-
   useEffect(() => {
     if (data && data.length > 0) {
       setactive(data[0]);
@@ -168,46 +156,36 @@ export const CarsCalc = ({ car }) => {
             transition={{ duration: 0.3, ease: "linear" }}
             viewport={{ once: false, amount: 0.2 }}
           >
-            <div className="h-full  ">
-              <div className="w-full flex h-[800px]  flex-col xxl:flex-row gap-2">
+            <div className="  h-[800px]  ">
+              <div className="w-full flex h-full flex-col xxl:flex-row gap-2">
                 <div className="w-full h-full">
-                  <motion.div
-                    layoutId={`card-${car.title}-${id}`}
-                    key={car.title}
-                    className="w-full h-full"
-                  >
-                    <div className="w-full h-full">
-                      <div className="sketchfab-embed-wrapper w-full h-full">
-                        <iframe
-                          title="McLaren MP4/5 Formula One"
-                          className="w-full h-full"
-                          frameBorder="0"
-                          allowFullScreen
-                          mozallowfullscreen="true"
-                          webkitallowfullscreen="true"
-                          allow="autoplay; fullscreen; xr-spatial-tracking"
-                          xr-spatial-tracking="true"
-                          execution-while-out-of-viewport="true"
-                          execution-while-not-rendered="true"
-                          web-share="true"
-                          src="https://sketchfab.com/models/1890392142c54e98bf3c127002061cbb/embed?autostart=1&autospin=0.3&camera=1"
-                        />
-                      </div>
-                    </div>
-                  </motion.div>
-                  {/* )} */}
+                  <div className="sketchfab-embed-wrapper w-full h-full">
+                    <iframe
+                      title={car.title}
+                      className="w-full h-full"
+                      frameBorder="0"
+                      allowFullScreen
+                      mozallowfullscreen="true"
+                      webkitallowfullscreen="true"
+                      allow="autoplay; fullscreen; xr-spatial-tracking"
+                      xr-spatial-tracking="true"
+                      execution-while-out-of-viewport="true"
+                      execution-while-not-rendered="true"
+                      web-share="true"
+                      src={car.src}
+                    />
+                  </div>
                 </div>
-                <div className=" w-full  xxl:w-8/12   text-white h-[600px] xl:h-[600px] xxl:h-[800px] flex flex-col gap-2 xl:gap-5 p-5">
-                  {/* {selectedCard && ( */}
+                <div className=" w-full  xxl:w-8/12   text-white h-[600px] xl:h-[600px] xxl:h-full flex flex-col gap-2 xl:gap-5 pl-2 pr-2  ">
                   <div className="flex flex-col gap-6">
-                    <TextType
+                    {/* <TextType
                       key={`about-title-${car.title}`}
                       as="h1"
                       className=" text-4xl xl:text-5xl font-array"
                       text={`${car.title}`}
                       typingSpeed={40}
                     />
-
+                      
                     <TextType
                       key={`about-title-${car.about.about1}`}
                       inf={"carscalc"}
@@ -215,7 +193,18 @@ export const CarsCalc = ({ car }) => {
                       className="text-xl hidden xxl:block font-array p-2"
                       text={`${car.about.about1}\n${car.about.about2}`}
                       typingSpeed={2}
-                    />
+                    /> */}
+                    <h1 className=" text-4xl xl:text-5xl font-array">
+                      {car.title}
+                    </h1>
+                    <div className="flex flex-col gap-0.5">
+                      <h1 className="text-xl hidden xxl:block font-array p-2">
+                        {car.about.about1}
+                      </h1>
+                      <h1 className="text-xl hidden xxl:block font-array p-2">
+                        {car.about.about2}
+                      </h1>
+                    </div>
                     <div className="block xxl:hidden">
                       <TextType
                         key={`about-title-${car.about.about1}`}
@@ -226,25 +215,25 @@ export const CarsCalc = ({ car }) => {
                         typingSpeed={2}
                       />
                     </div>
-                    {/* {selectedCard.about2 && ( */}
-                    {/* <>
-                    <hr className="border-white" />
-                    <TextType
-                      as="h1"
-                      className="text-4xl"
-                      text="Historical Moments"
-                      typingSpeed={40}
-                    />
-                    <TextType
-                      key={`about-title-${car.about2}`}
-                      as="p"
-                      className="text-xl"
-                      text={car.about2}
-                      typingSpeed={10}
-                    />
-                  </> */}
+                    {/* {car.about.about2 && (
+                      <div>
+                        <hr className="border-white" />
+                        <TextType
+                          as="h1"
+                          className="text-4xl"
+                          text="Historical Moments"
+                          typingSpeed={40}
+                        />
+                        <TextType
+                          key={`about-title-${car.about.about2}`}
+                          as="p"
+                          className="text-xl"
+                          text={car.about.about2}
+                          typingSpeed={10}
+                        />
+                      </div>
+                    )} */}
                   </div>
-                  {/* )} */}
                 </div>
               </div>
             </div>

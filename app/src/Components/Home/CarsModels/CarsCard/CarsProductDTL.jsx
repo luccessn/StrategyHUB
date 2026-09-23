@@ -106,8 +106,13 @@ export const CarsProductDTL = () => {
   console.log("Car with 3D:", carWith3D);
   return (
     <div className="text-white relative top-28 lg:top-36">
-      {carWith3D.src ? (
+      {/* {carWith3D.src ? (
         <CarsCalc car={carWith3D} />
+      ) : (
+        <div>3D model not configured for this car.</div>
+      )} */}
+      {carWith3D.about ? (
+        <CarsCalc car={data} />
       ) : (
         <div>3D model not configured for this car.</div>
       )}
