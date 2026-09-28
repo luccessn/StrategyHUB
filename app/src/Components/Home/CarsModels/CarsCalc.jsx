@@ -1,6 +1,7 @@
 import React, { useEffect, Suspense, useId, useState } from "react";
 import { useRef } from "react";
 import { motion } from "framer-motion";
+import { CarImgCRSL } from "./CarImgCRSL";
 // import { useOutsideClick } from "../../UI/use-outside-click";
 import { Canvas, useFrame } from "@react-three/fiber";
 // import { Swiper, SwiperSlide } from "swiper/react";
@@ -147,8 +148,8 @@ export const CarsCalc = ({ car }) => {
 
   return (
     <>
-      <div className="flex flex-col gap-36">
-        <div className=" flex flex-col gap-5 ">
+      <div className="flex flex-col gap-36  p-3">
+        <div className=" flex flex-col  gap-20 ">
           <motion.div
             initial={{ opacity: 0, scale: 1 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -156,7 +157,7 @@ export const CarsCalc = ({ car }) => {
             transition={{ duration: 0.3, ease: "linear" }}
             viewport={{ once: false, amount: 0.2 }}
           >
-            <div className="  h-[800px]  ">
+            <div className="  h-[750px]  ">
               <div className="w-full flex h-full flex-col xxl:flex-row gap-2">
                 <div className="w-full h-full">
                   <div className="sketchfab-embed-wrapper w-full h-full">
@@ -176,6 +177,7 @@ export const CarsCalc = ({ car }) => {
                     />
                   </div>
                 </div>
+
                 <div className=" w-full  xxl:w-8/12   text-white h-[600px] xl:h-[600px] xxl:h-full flex flex-col gap-2 xl:gap-5 pl-2 pr-2  ">
                   <div className="flex flex-col gap-6">
                     {/* <TextType
@@ -238,6 +240,9 @@ export const CarsCalc = ({ car }) => {
               </div>
             </div>
           </motion.div>
+          <div>
+            <CarImgCRSL />
+          </div>
           <motion.div
             initial={{ opacity: 0.1, scale: 0.98 }}
             whileInView={{ opacity: 1, scale: 1 }}
