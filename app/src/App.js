@@ -16,6 +16,7 @@ import {
   MobileNavToggle,
   MobileNavMenu,
 } from "./Components/UI/ResizableNavbar";
+import { ShootingStars } from "./Components/UI/shooting-stars";
 import { StarsBackground } from "./Components/UI/Stars-background";
 import { motion, AnimatePresence } from "framer-motion";
 // import { AppRouters } from "./AppRouters";
@@ -135,6 +136,7 @@ function App() {
       {openBlock ? (
         <div>
           <div className="fixed inset-0 -z-10 w-screen h-screen overflow-hidden">
+            <ShootingStars />
             <StarsBackground />
           </div>
           <div style={{ width: "100%", height: "500px" }}>
@@ -222,6 +224,7 @@ function App() {
               duration={400}
             >
               <div className="fixed inset-0 -z-10 w-screen h-screen overflow-hidden">
+                <ShootingStars />
                 <StarsBackground />
               </div>
               <TargetCursor
