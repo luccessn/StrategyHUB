@@ -30,6 +30,7 @@ import { RiTailwindCssFill } from "react-icons/ri";
 import { RiPhpLine } from "react-icons/ri";
 import { FaLaravel } from "react-icons/fa";
 import { BiLogoFlask } from "react-icons/bi";
+import { SiFastapi } from "react-icons/si";
 import { BiLogoDjango } from "react-icons/bi";
 import { ExpandleCardForAbout } from "../../Components/About/ExpandableCardForAbout";
 const links = [
@@ -70,6 +71,7 @@ const techLogos = [
   { node: <RiPhpLine />, title: "php" },
   { node: <FaLaravel />, title: "laravel" },
   { node: <BiLogoFlask />, title: "flask" },
+  { node: <SiFastapi />, title: "fastapi" },
   { node: <BiLogoDjango />, title: "django" },
 ];
 ///
@@ -177,7 +179,8 @@ const FirstTab = () => {
             handle="javicodes"
             status="Online"
             contactText="Contact Me"
-            avatarUrl="https://i.postimg.cc/NFxZbB0j/myprofile.png"
+            avatarUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRn-jkFyFnu0LQor-Dl1JBws4CDNzEJnkSftSW4Fz1T1q8T7YKURWLWHCEc&s=10"
+            // avatarUrl="https://i.postimg.cc/NFxZbB0j/myprofile.png" -- IRL MG
             showUserInfo={false}
             enableTilt={true}
             enableMobileTilt={false}
@@ -229,7 +232,7 @@ In addition, we have an AI-powered system where users can receive personalized s
 
 I believe that this website will be especially helpful for motorsport enthusiasts like me who seek accurate and reliable information about tracks, cars, and their performance options. This opportunity gives users the confidence to move closer to their goals in motorsport.
 
-As for the technical side of the project, the frontend is built using React and Tailwind CSS. The backend is developed with Node.js and Express, with MongoDB as the database. The AI engine is implemented in Python using Flask.`}
+As for the technical side of the project, the frontend is built using React and Tailwind CSS. The backend is developed with Node.js and Express, with MongoDB as the database. The AI engine is implemented in Python using FastAPI.`}
                 typingSpeed={10}
               />
             </div>

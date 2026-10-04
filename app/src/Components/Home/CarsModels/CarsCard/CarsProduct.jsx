@@ -2,7 +2,6 @@ import React from "react";
 import { useFetchData } from "../../../../Hooks/useFetchData";
 import { motion } from "framer-motion";
 import CarsGridCard from "./CarsGridCard";
-import { CarsFetch } from "../Constants/CarsFetch";
 export const CarsProduct = () => {
   // const [data, error, isLoading] = CarsFetch();
 
@@ -75,7 +74,7 @@ export const CarsProduct = () => {
           </div>
         ) : (
           <div className="grid grid-cols-2 clg:grid-cols-3  gap-[6px] ">
-            {data.map((item, index) => (
+            {data.slice(0, 9).map((item, index) => (
               <CarsGridCard props={item} index={index} />
             ))}
           </div>

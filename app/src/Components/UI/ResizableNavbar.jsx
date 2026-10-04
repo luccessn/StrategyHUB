@@ -1,5 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 "use client";
+import { Link } from "react-router-dom";
+
 import { cn } from "../../Lib/utils";
 import { IconMenu2, IconX } from "@tabler/icons-react";
 import {
@@ -107,12 +109,20 @@ export const NavItems = ({ className, onItemClick }) => {
           className="relative"
           onMouseEnter={() => setHovered(idx)}
         >
-          <button
+          <Link
+            to={item.path}
+            key={idx}
             onClick={() => {
               if (!item.children) navigate(item.path);
             }}
             className="relative font-panchangSB cursor-target px-4 py-2 text-white"
           >
+            {/* <button
+              onClick={() => {
+                if (!item.children) navigate(item.path);
+              }}
+              className="relative font-panchangSB cursor-target px-4 py-2 text-white"
+            > */}
             {hovered === idx && (
               <motion.div
                 layoutId="hovered"
@@ -121,7 +131,8 @@ export const NavItems = ({ className, onItemClick }) => {
             )}
 
             <span className="relative z-20">{item.name}</span>
-          </button>
+            {/* </button> */}
+          </Link>
           {item.children && hovered === idx && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -130,16 +141,25 @@ export const NavItems = ({ className, onItemClick }) => {
               className="absolute left-1/2 top-full z-50 mt-2 w-44 -translate-x-1/2 rounded-xl bg-neutral-900 p-2 shadow-lg"
             >
               {item.children.map((child, childIndx) => (
-                <button
+                <Link
+                  to={child.path}
                   key={childIndx}
                   onClick={() => {
                     navigate(child.path);
                   }}
                   className="block font-satosIT font-bold cursor-target w-full rounded-lg px-3 py-2 text-left text-sm text-zinc-300 hover:bg-neutral-800 hover:text-white"
                 >
+                  {/* <button
+                    key={childIndx}
+                    onClick={() => {
+                      navigate(child.path);
+                    }}
+                    className="block font-satosIT font-bold cursor-target w-full rounded-lg px-3 py-2 text-left text-sm text-zinc-300 hover:bg-neutral-800 hover:text-white"
+                  > */}
                   <span className="mr-2">{child.icon}</span>
                   {child.name}
-                </button>
+                  {/* </button> */}
+                </Link>
               ))}
             </motion.div>
           )}

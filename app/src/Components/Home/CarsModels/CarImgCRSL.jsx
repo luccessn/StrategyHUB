@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { motion, useMotionValue } from "framer-motion";
+import { useFetchData } from "../../../Hooks/useFetchData";
 
-const imgs = [
-  "https://www.snaplap.net/wp-content/uploads/2017/05/senna-prost-1989.jpg",
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDN6mblaYYuIcJ2xyTdsRorootgEv0RevotWyJAEK3GuBWUFFVxwrPPy0&s=10",
-  "https://images.ctfassets.net/gy95mqeyjg28/1VziyCN4VtI749x3dvgTDk/3c6894541a5872fd4058a57b7f8b5430/1989_1.jpg",
-  "https://legacymedia.sportsplatform.io/img/slides/photos/003/961/174/hi-res-8d13e8962db4d3e581ce8e3f8088e6b9_crop_exact.jpg?w=1200&h=630&q=85",
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9GIAnzNoqOWMC88fxplTMfVb3GLAy4xYr29WdzNiwWlJOjINERrFPF4L-&s=10",
-  "https://www.snaplap.net/wp-content/uploads/2017/05/senna-prost-1989.jpg",
-];
-
+// const imgs = [
+//   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlp0SFBCBzWSG97MOwnXZDCXlMy_NKw_N-BaEn_sLGRsNbOUqXlkJMPJhK&s=10",
+//   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLVSWRr1GEKmck2uCZf3pFrvT1sqC86TqvB9jjlX2JORniF0D_2dguZu-5&s=10",
+//   "https://i.postimg.cc/T34grc9W/sparks-fly-in-the-desertfaa.jpg",
+// ];
 const ONE_SECOND = 1000;
 const AUTO_DELAY = ONE_SECOND * 5;
 const DRAG_BUFFER = 50;
@@ -20,7 +17,10 @@ const SPRING_OPTIONS = {
   stiffness: 400,
   damping: 50,
 };
-export const CarImgCRSL = () => {
+// const [imgs, error, isLoading] = useFetchData(
+//   "https://strategyhub.onrender.com/server/getcars",
+// );
+export const CarImgCRSL = ({ imgs }) => {
   const [imgIndex, setImgIndex] = useState(0);
 
   const dragX = useMotionValue(0);
@@ -71,16 +71,16 @@ export const CarImgCRSL = () => {
         onDragEnd={onDragEnd}
         className="flex cursor-grab items-center active:cursor-grabbing"
       >
-        <Images imgIndex={imgIndex} />
+        <Images imgIndex={imgIndex} imgs={imgs} />
       </motion.div>
 
-      <Dots imgIndex={imgIndex} setImgIndex={setImgIndex} />
+      <Dots imgIndex={imgIndex} setImgIndex={setImgIndex} imgs={imgs} />
       <GradientEdges />
     </div>
   );
 };
 
-const Images = ({ imgIndex }) => {
+const Images = ({ imgIndex, imgs }) => {
   return (
     <>
       {imgs.map((imgSrc, idx) => (
@@ -103,7 +103,7 @@ const Images = ({ imgIndex }) => {
   );
 };
 
-const Dots = ({ imgIndex, setImgIndex }) => {
+const Dots = ({ imgIndex, setImgIndex, imgs }) => {
   return (
     <div className="mt-4 flex w-full justify-center gap-2">
       {imgs.map((_, idx) => {

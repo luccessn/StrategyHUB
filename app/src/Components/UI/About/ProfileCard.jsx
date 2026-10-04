@@ -510,7 +510,8 @@ const ProfileCardComponent = ({
               }}
             >
               <img
-                className="w-full absolute left-1/2 top-[130px] backface-hidden will-change-transform transition-transform duration-[120ms] ease-out"
+                // top-[130px] for IRL IMGA
+                className="w-full h-full absolute left-1/2  backface-hidden will-change-transform transition-transform duration-[120ms] ease-out"
                 src={avatarUrl}
                 alt={`${name || "User"} avatar`}
                 loading="lazy"
@@ -607,7 +608,7 @@ const ProfileCardComponent = ({
                 style={{ top: "3em", display: "flex", gridArea: "auto" }}
               >
                 <h3
-                  className="font-semibold m-0"
+                  className="font-semibold  m-0"
                   style={{
                     fontSize: "min(5svh, 3em)",
                     backgroundImage:
@@ -625,7 +626,7 @@ const ProfileCardComponent = ({
                   {name}
                 </h3>
                 <p
-                  className="font-semibold whitespace-nowrap mx-auto w-min"
+                  className="font-bold font-panchangSB whitespace-nowrap mx-auto w-min"
                   style={{
                     position: "relative",
                     top: "-12px",

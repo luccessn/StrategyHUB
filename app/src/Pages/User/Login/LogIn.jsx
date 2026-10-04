@@ -11,7 +11,7 @@ import { routes } from "../../../Constants/Routes";
 import { Button } from "../../../Components/UI/About/Stateful-Button";
 import { BiHide } from "react-icons/bi";
 import { FaRegEye } from "react-icons/fa6";
-
+import { Link } from "react-router-dom";
 export const LogIn = () => {
   const [user, setuser] = useState({
     email: "",
@@ -158,12 +158,12 @@ export const LogIn = () => {
         )}
         <p className="text-white text-center">
           Don't have an account?{" "}
-          <button
-            className="text-blue-600  hover:scale-110 duration-150 cursor-target p-2"
-            onClick={() => navigate(routes.SignUp)}
+          <Link
+            to={routes.SignUp}
+            className="text-blue-600 hover:scale-110 duration-150 cursor-pointer p-2"
           >
             Register
-          </button>
+          </Link>
         </p>
         <div className="my-8 h-[1px] w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-neutral-700" />
       </form>

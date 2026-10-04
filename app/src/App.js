@@ -3,6 +3,7 @@ import { ReactLenis } from "lenis/dist/lenis-react";
 
 import { useEffect, useRef, useState } from "react";
 import "./App.css";
+import { Link } from "react-router-dom";
 
 import {
   Navbar,
@@ -274,10 +275,10 @@ function App() {
 
                         <NavbarButton
                           className="cursor-target"
-                          onClick={() => navigate(routes.LogIn)}
+                          // onClick={() => navigate(routes.LogIn)}
                           variant="primary"
                         >
-                          Log In
+                          <Link to={routes.LogIn}>Log In</Link>
                         </NavbarButton>
                       </>
                     )}
@@ -324,13 +325,6 @@ function App() {
                       </div>
                     ))}
                     <div className="flex w-full flex-col gap-4">
-                      {/* <NavbarButton
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      variant="primary"
-                      className="w-full"
-                      >
-                      Book a call
-                      </NavbarButton> */}
                       <NavbarButton
                         variant="primary"
                         className="cursor-target"

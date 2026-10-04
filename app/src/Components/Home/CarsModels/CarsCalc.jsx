@@ -241,7 +241,7 @@ export const CarsCalc = ({ car }) => {
             </div>
           </motion.div>
           <div>
-            <CarImgCRSL />
+            <CarImgCRSL imgs={car.imgs} />
           </div>
           <motion.div
             initial={{ opacity: 0.1, scale: 0.98 }}

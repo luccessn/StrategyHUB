@@ -2,7 +2,7 @@ import React from "react";
 import { useFetchData } from "../../../../Hooks/useFetchData";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 const CarsGridCard = ({ props, index }) => {
   const navigate = useNavigate();
   console.log(props._id);
@@ -78,7 +78,17 @@ const CarsGridCard = ({ props, index }) => {
             </div>
           </div>
         ) : ( */}
-      <div
+      <Link
+        to={`/carsdtl/${props._id}`}
+        onClick={() => window.scrollTo(0, 0)}
+        className={`
+    rounded-sm border border-[#4a4a4a] bg-[#1d1d1d]
+    p-5 transition-all duration-500
+    text-white hover:text-red-600 hover:border-red-800
+    ${index % 3 === 2 ? "col-span-2 clg:col-span-1" : ""}
+  `}
+      >
+        {/* <div
         onClick={goDTL}
         key={props.id}
         className={`
@@ -87,7 +97,7 @@ const CarsGridCard = ({ props, index }) => {
                     text-white hover:text-red-600 hover:border-red-800
                     ${index % 3 === 2 ? "col-span-2 clg:col-span-1" : ""}
                   `}
-      >
+      > */}
         <div className="h-20 ">
           <h2 className=" text-[18px] clg:text-[15px] xl:text-[18px] font-array font-semibold uppercase  line-clamp-2">
             {props.title}
@@ -120,7 +130,8 @@ const CarsGridCard = ({ props, index }) => {
             />
           </div>
         </motion.div>
-      </div>
+        {/* </div> */}
+      </Link>
       {/* )}
       </div> */}
     </>
