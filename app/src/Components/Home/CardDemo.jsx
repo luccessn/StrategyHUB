@@ -14,6 +14,8 @@ import { Pagination, Navigation, Mousewheel } from "swiper/modules";
 import { useFetchData } from "../../Hooks/useFetchData";
 // import ElectricBorder from "../UI/Border/ElectricBorder";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import AnimatedContent from "../UI/Animations/AnimatedContent";
+import FadeContent from "../UI/Animations/FadeContent";
 export function ExpandableCardDemo() {
   const [data, error, isLoading] = useFetchData(
     "https://strategyhub.onrender.com/server/gettracks",
@@ -66,34 +68,31 @@ export function ExpandableCardDemo() {
         </motion.div>
       ) : (
         <div className="">
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, scale: 0.98, filter: "blur(10px)" }}
             whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
             transition={{ duration: 0.35, ease: "linear" }}
             viewport={{ once: false, amount: 0.3 }}
+          > */}
+
+          <AnimatedContent
+            distance={180}
+            direction="horizontal"
+            duration={1.5}
+            ease="power3.out"
+            blur={0}
+            stagger={0.16}
+            threshold={0.15}
           >
+            {/* <FadeContent
+              effect="mist"
+              duration={1.8}
+              ease="power2.out"
+              stagger={0.1}
+              threshold={0.1}
+            > */}
             <div className="max-w-8xl p-5 mx-auto relative">
-              {/* <button
-                  class="cursor-pointer cursor-target swiper-button-prev-custom    duration-200 hover:scale-125 active:scale-100"
-                  title="Go Back"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="70px"
-                    height="70px"
-                    viewBox="0 0 24 24"
-                    class="stroke-blue-300 hover:stroke-red-400"
-                  >
-                    <path
-                      stroke-linejoin="round"
-                      stroke-linecap="round"
-                      stroke-width="1.5"
-                      d="M11 6L5 12M5 12L11 18M5 12H19"
-                    ></path>
-                  </svg>
-                </button> */}
               <button className="absolute left-5 top-1/2 -translate-y-1/2 z-30  swiper-button-prev-custom cursor-pointer duration-200 hover:scale-125 active:scale-100">
-                {/* <ArrowBackIosIcon /> */}
                 <div className="relative w-[25px] h-[35px] lg:w-[30px] lg:h-[40px] rotate-180">
                   <div className="absolute top-1/2 left-[-5px] w-full h-[4px] bg-white rotate-45 origin-bottom-right transition-colors duration-300 group-hover:bg-red-500">
                     <span className="absolute top-0 left-full w-0 h-full bg-red-500 transition-all duration-150 group-hover:left-0 group-hover:w-full"></span>
@@ -104,7 +103,6 @@ export function ExpandableCardDemo() {
                   </div>
                 </div>
               </button>
-              {/* Swiper */}
               <div className="">
                 <Swiper
                   rewind={true}
@@ -172,27 +170,6 @@ export function ExpandableCardDemo() {
                   ))}
                 </Swiper>
               </div>
-              {/* <button
-                  class=" swiper-button-next-custom 
-         cursor-pointer cursor-target  rotate-180 
-         z-50 duration-200 hover:scale-125 active:scale-100"
-                  title="Go Back"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="69px"
-                    height="65px"
-                    viewBox="0 0 24 24"
-                    className="stroke-white hover:stroke-red-500 duration-300"
-                  >
-                    <path
-                      stroke-linejoin="round"
-                      stroke-linecap="round"
-                      stroke-width="1.5"
-                      d="M11 6L5 12M5 12L11 18M5 12H19"
-                    ></path>
-                  </svg>
-                </button> */}
               <div>
                 <button className="absolute right-5 top-1/2 -translate-y-1/2 z-30 swiper-button-next-custom cursor-pointer duration-200 hover:scale-125 active:scale-100">
                   <div className="relative w-[25px] h-[35px] lg:w-[30px] lg:h-[40px] ">
@@ -207,17 +184,56 @@ export function ExpandableCardDemo() {
                 </button>
               </div>
             </div>
-          </motion.div>
-
-          <motion.div
+            {/* </FadeContent> */}
+          </AnimatedContent>
+          {/* </motion.div> */}
+          {/* <motion.div
             initial={{ opacity: 0, scale: 0.98, filter: "blur(10px)" }}
             whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
             transition={{ duration: 0.3, ease: "linear" }}
             viewport={{ once: false, amount: 0.1 }}
+          > */}
+          {/* <FadeContent
+            effect="mist"
+            duration={1.8}
+            ease="power2.out"
+            stagger={0.1}
+            threshold={0.1}
+          > */}
+          <AnimatedContent
+            distance={150}
+            direction="horizontal"
+            duration={1.8}
+            ease="power3.out"
+            blur={0}
+            stagger={0.16}
+            threshold={0.15}
           >
             <div className=" w-full   mt-0   ">
               {active && (
-                <motion.div
+                <AnimatedContent
+                  key={active.name}
+                  distance={130}
+                  direction="horizontal"
+                  duration={1.4}
+                  ease="power3.out"
+                  blur={0}
+                  stagger={0.16}
+                  threshold={0.15}
+                  trigger="mount"
+                  className="mt-8 flex gap-2 xl:gap-6 flex-col xl:flex-row mx-auto shadow p-8 xl:p-6 rounded-xl"
+                >
+                  {/* <FadeContent
+                    key={active.name}
+                    effect="mist"
+                    duration={1.8}
+                    ease="power2.out"
+                    stagger={0.1}
+                    threshold={0.1}
+                    trigger="mount"
+                    className="mt-8 flex gap-2 xl:gap-6 flex-col xl:flex-row mx-auto shadow p-8 xl:p-6 rounded-xl"
+                  > */}
+                  {/* <motion.div
                   key={active.name}
                   layoutId={`info-${active.name}-${id}`}
                   initial={{ opacity: 0, y: 5 }}
@@ -225,7 +241,7 @@ export function ExpandableCardDemo() {
                   exit={{ opacity: 0, y: 5 }}
                   transition={{ duration: 0.5, ease: "easeOut" }}
                   className="mt-8 flex gap-2 xl:gap-6  flex-col xl:flex-row mx-auto shadow p-8 xl:p-6 rounded-xl"
-                >
+                > */}
                   <div className="w-full block xl:hidden  border-b-[3px] xl:border-b-0 h-full  rounded-2xl  border-zinc-700 ">
                     <h3 className="text-xl  font-panchangMD text-neutral-200 block xl:hidden">
                       {active.name} / {active.country}
@@ -285,10 +301,14 @@ export function ExpandableCardDemo() {
                       {active.descr}
                     </h3>
                   </div>
-                </motion.div>
+                  {/* </motion.div> */}
+                  {/* </FadeContent> */}
+                </AnimatedContent>
               )}
             </div>
-          </motion.div>
+          </AnimatedContent>
+          {/* </FadeContent> */}
+          {/* </motion.div> */}
         </div>
       )}
     </>

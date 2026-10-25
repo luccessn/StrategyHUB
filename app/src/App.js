@@ -319,6 +319,7 @@ function App() {
                           onClick={() => {
                             setIsMobileMenuOpen(false);
                             navigate(item.path);
+                            window.scrollTo(0, 0);
                           }}
                           className="relative hover:scale-110 duration-200 hover:text-neutral-500 text-neutral-300"
                         >
@@ -331,12 +332,18 @@ function App() {
                       <NavbarButton
                         variant="primary"
                         className="cursor-target"
-                        onClick={() => navigate(routes.SignUp)}
+                        onClick={() => {
+                          navigate(routes.SignUp);
+                          window.scrollTo(0, 0);
+                        }}
                       >
                         SignUp
                       </NavbarButton>
                       <NavbarButton
-                        onClick={() => navigate(routes.LogIn)}
+                        onClick={() => {
+                          navigate(routes.LogIn);
+                          window.scrollTo(0, 0);
+                        }}
                         variant="primary"
                         className="w-full"
                       >

@@ -26,6 +26,8 @@ import { CarsFetch } from "./Constants/CarsFetch";
 import { CarsSwiperCard } from "./CarsCard/CarsSwiperCard";
 // import mclaren2025 from "./models/cars/f1/2025_mclaren.glb";
 import "./btc.css";
+import AnimatedContent from "../../UI/Animations/AnimatedContent";
+import FadeContent from "../../UI/Animations/FadeContent";
 // function Loader() {
 //   const { progress } = useProgress();
 //   return (
@@ -145,42 +147,46 @@ export const CarsCalc = ({ car }) => {
     }
   }, []);
   <div className="text-white text-center">Loading cars...</div>;
-
+  const [isLoading, setIsLoading] = useState(true);
   return (
     <>
-      <div className="flex flex-col gap-36  p-3">
+      <div className="flex flex-col  gap-36  p-3">
         <div className=" flex flex-col  gap-20 ">
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, scale: 1 }}
             whileInView={{ opacity: 1, scale: 1 }}
             //dr:04, amount:34
             transition={{ duration: 0.3, ease: "linear" }}
             viewport={{ once: false, amount: 0.2 }}
-          >
-            <div className="  h-[750px]  ">
-              <div className="w-full flex h-full flex-col xxl:flex-row gap-2">
-                <div className="w-full h-full">
-                  <div className="sketchfab-embed-wrapper w-full h-full">
+          > */}
+          <div className="  h-[750px]  ">
+            <div className="w-full flex h-full flex-col xxl:flex-row gap-2">
+              <div className="w-full h-full">
+                <div className="relative h-full w-full">
+                  {isLoading && (
+                    <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 rounded-xl bg-neutral-900">
+                      <div className="h-12 w-12 animate-spin rounded-full border-4 border-gray-600 border-t-white" />
+                      <p className="animate-pulse text-sm text-gray-300">
+                        Loading 3D Model...
+                      </p>
+                    </div>
+                  )}
+                  <div className="sketchfab-embed-wrapper h-full w-full">
                     <iframe
                       title={car.title}
-                      className="w-full h-full"
+                      className="h-full w-full"
                       frameBorder="0"
                       allowFullScreen
-                      mozallowfullscreen="true"
-                      webkitallowfullscreen="true"
                       allow="autoplay; fullscreen; xr-spatial-tracking"
-                      xr-spatial-tracking="true"
-                      execution-while-out-of-viewport="true"
-                      execution-while-not-rendered="true"
-                      web-share="true"
+                      onLoad={() => setIsLoading(false)}
                       src={car.src}
                     />
                   </div>
                 </div>
-
-                <div className=" w-full  xxl:w-8/12   text-white h-[600px] xl:h-[600px] xxl:h-full flex flex-col gap-2 xl:gap-5 pl-2 pr-2  ">
-                  <div className="flex flex-col gap-6">
-                    {/* <TextType
+              </div>
+              <div className=" w-full  xxl:w-8/12   text-white h-[600px] xl:h-[600px] xxl:h-full flex flex-col gap-2 xl:gap-5 pl-2 pr-2  ">
+                <div className="flex flex-col gap-6">
+                  {/* <TextType
                       key={`about-title-${car.title}`}
                       as="h1"
                       className=" text-4xl xl:text-5xl font-array"
@@ -196,6 +202,15 @@ export const CarsCalc = ({ car }) => {
                       text={`${car.about.about1}\n${car.about.about2}`}
                       typingSpeed={2}
                     /> */}
+                  <AnimatedContent
+                    distance={180}
+                    direction="horizontal"
+                    duration={2.3}
+                    ease="power3.out"
+                    blur={0}
+                    stagger={0.16}
+                    threshold={0.15}
+                  >
                     <h1 className=" text-4xl xl:text-5xl font-array">
                       {car.title}
                     </h1>
@@ -207,17 +222,18 @@ export const CarsCalc = ({ car }) => {
                         {car.about.about2}
                       </h1>
                     </div>
-                    <div className="block xxl:hidden">
-                      <TextType
-                        key={`about-title-${car.about.about1}`}
-                        inf={"carscalc2"}
-                        as="p"
-                        className="text-xl rounded-xl rounded-br-none rounded-bl-none font-array p-2 block xxl:hidden bg-white/5 backdrop-blur-xl border border-white/30 shadow-xl"
-                        text={`${car.about.about1}\n${car.about.about2}`}
-                        typingSpeed={2}
-                      />
-                    </div>
-                    {/* {car.about.about2 && (
+                  </AnimatedContent>
+                  <div className="block xxl:hidden">
+                    <TextType
+                      key={`about-title-${car.about.about1}`}
+                      inf={"carscalc2"}
+                      as="p"
+                      className="text-xl rounded-xl rounded-br-none rounded-bl-none font-array p-2 block xxl:hidden bg-white/5 backdrop-blur-xl border border-white/30 shadow-xl"
+                      text={`${car.about.about1}\n${car.about.about2}`}
+                      typingSpeed={2}
+                    />
+                  </div>
+                  {/* {car.about.about2 && (
                       <div>
                         <hr className="border-white" />
                         <TextType
@@ -235,19 +251,38 @@ export const CarsCalc = ({ car }) => {
                         />
                       </div>
                     )} */}
-                  </div>
                 </div>
               </div>
             </div>
-          </motion.div>
-          <div>
-            <CarImgCRSL imgs={car.imgs} />
           </div>
-          <motion.div
+          {/* </motion.div> */}
+
+          <FadeContent
+            effect="dissolve"
+            duration={6}
+            ease="power2.out"
+            stagger={0.1}
+            threshold={0.1}
+          >
+            <div>
+              <CarImgCRSL imgs={car.imgs} />
+            </div>
+          </FadeContent>
+          {/* <motion.div
             initial={{ opacity: 0.1, scale: 0.98 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.35, ease: "linear" }}
             viewport={{ once: false, amount: 0.3 }}
+          > */}
+          <AnimatedContent
+            distance={150}
+            direction="horizontal"
+            wipe="center"
+            duration={3.2}
+            ease="elastic.out(0.8, 0.7)"
+            blur={0}
+            stagger={0.16}
+            threshold={0.15}
           >
             <div className="flex flex-col xxxl:flex-row gap-5 bg-white/0 border-2 border-white/15 backdrop-blur-xl max-w-[785px] mmd:max-w-[900px] lg:max-w-[990px] clg:max-w-[1100px] xl:max-w-[1250px] cxl:max-w-[1400px] xxl:max-w-[1500px] xxxl:max-w-[1800px] mx-auto p-5 rounded-sm h-[800px] ">
               <div className="flex flex-row flex-nowrap xxxl:flex-col gap-2">
@@ -305,7 +340,8 @@ export const CarsCalc = ({ car }) => {
               </div>
               {/* )} */}
             </div>
-          </motion.div>
+          </AnimatedContent>
+          {/* </motion.div> */}
           {/* <div className="flex flex-row gap-10 bg-red-400 w-full ">
             <select
               className="w-[200px] max-w-md p-3 rounded-xl border bg-red-400 text-neutral-800 dark:text-neutral-200"

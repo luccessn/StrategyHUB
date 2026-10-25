@@ -33,6 +33,8 @@ import { BiLogoFlask } from "react-icons/bi";
 import { SiFastapi } from "react-icons/si";
 import { BiLogoDjango } from "react-icons/bi";
 import { ExpandleCardForAbout } from "../../Components/About/ExpandableCardForAbout";
+import FadeContent from "../../Components/UI/Animations/FadeContent";
+import AnimatedContent from "../../Components/UI/Animations/AnimatedContent";
 const links = [
   {
     title: "Github",
@@ -119,17 +121,25 @@ export const AboutMe = () => {
           {/* Vertical loop with deceleration on hover */}
         </div>
         <div className="flex flex-col gap-5">
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, ease: "linear" }}
             viewport={{ once: true, amount: 0.35 }}
+          > */}
+          <h1 className="text-white text-3xl sfm:text-4xl ml-2 sfm:ml-10 font-title">
+            Other Projects
+          </h1>
+          <FadeContent
+            effect="dissolve"
+            duration={4.4}
+            ease="power2.out"
+            stagger={1.1}
+            threshold={0.15}
           >
-            <h1 className="text-white text-3xl sfm:text-4xl ml-2 sfm:ml-10 font-title">
-              Other Projects
-            </h1>
             <ExpandleCardForAbout />
-          </motion.div>
+          </FadeContent>
+          {/* </motion.div> */}
         </div>
       </div>
     </div>
@@ -173,29 +183,35 @@ const FirstTab = () => {
       </div>
       <div className="flex m-2 mmd:m-5 lg:m-10 xl:m-14 flex-col sm:flex-row gap-5">
         <div className="w-[400px] mx-auto sm:mx-0 flex flex-col gap-5">
-          <ProfileCard
-            name="Lucca Gulua"
-            title="Developer"
-            handle="javicodes"
-            status="Online"
-            contactText="Contact Me"
-            avatarUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRn-jkFyFnu0LQor-Dl1JBws4CDNzEJnkSftSW4Fz1T1q8T7YKURWLWHCEc&s=10"
-            // avatarUrl="https://i.postimg.cc/NFxZbB0j/myprofile.png" -- IRL MG
-            showUserInfo={false}
-            enableTilt={true}
-            enableMobileTilt={false}
-            onContactClick={() => console.log("Contact clicked")}
-            showIcon
-            showBehindGlow
-            behindGlowColor="rgba(125, 190, 255, 0.67)"
-            customInnerGradient="linear-gradient(145deg,#60496e8c 0%,#71C4FF44 100%)"
-          />
-
+          <FadeContent
+            effect="pixel"
+            duration={1.8}
+            ease="power2.out"
+            stagger={0.1}
+            threshold={0.1}
+          >
+            <ProfileCard
+              name="Lucca Gulua"
+              title="Developer"
+              handle="javicodes"
+              status="Online"
+              contactText="Contact Me"
+              avatarUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRn-jkFyFnu0LQor-Dl1JBws4CDNzEJnkSftSW4Fz1T1q8T7YKURWLWHCEc&s=10"
+              // avatarUrl="https://i.postimg.cc/NFxZbB0j/myprofile.png" -- IRL MG
+              showUserInfo={false}
+              enableTilt={true}
+              enableMobileTilt={false}
+              onContactClick={() => console.log("Contact clicked")}
+              showIcon
+              showBehindGlow
+              behindGlowColor="rgba(125, 190, 255, 0.67)"
+              customInnerGradient="linear-gradient(145deg,#60496e8c 0%,#71C4FF44 100%)"
+            />
+          </FadeContent>
           <div className="flex items-center justify-center w-full">
             <FloatingDock items={links} />
           </div>
         </div>
-
         <div className="mt-5  flex flex-col  gap-10 text-white w-full">
           <div className=" mx-auto hidden lg:block text-center" ref={ref}>
             <p className="font-panchangSB  text-3xl xl:text-4xl">
@@ -220,7 +236,49 @@ const FirstTab = () => {
 
           <div className="flex flex-row  ">
             <div className="w-full mx-auto max-w-[1150px]">
-              <TextType
+              <AnimatedContent
+                distance={180}
+                direction="horizontal"
+                duration={1.8}
+                ease="power3.out"
+                blur={0}
+                stagger={0.16}
+                threshold={0.15}
+                className="text-base ssm:text-lg sm:text-base xl:text-xl font-satosIT font-bold flex flex-col gap-4"
+              >
+                <h1>
+                  I would like to introduce my project, StrategyHub, which is
+                  created for every auto and motorsport fan who wants precise
+                  answers and effective strategies. This website provides
+                  valuable knowledge about major racing tracks, cars, and their
+                  conditions, all of which influence our AI-generated insights.
+                  Initially, the platform offers global information about
+                  well-known tracks and cars that have already been analyzed and
+                  measured.
+                </h1>
+                <h1>
+                  In addition, we have an AI-powered system where users can
+                  receive personalized strategies and knowledge based on their
+                  specific goals. Whether the purpose is improving driving
+                  skills, preparing for qualifying, winning a race, or achieving
+                  the fastest lap, the platform delivers tailored strategic
+                  plans.
+                </h1>
+                <h1>
+                  I believe that this website will be especially helpful for
+                  motorsport enthusiasts like me who seek accurate and reliable
+                  information about tracks, cars, and their performance options.
+                  This opportunity gives users the confidence to move closer to
+                  their goals in motorsport.
+                </h1>
+                <h1>
+                  As for the technical side of the project, the frontend is
+                  built using React and Tailwind CSS. The backend is developed
+                  with Node.js and Express, with MongoDB as the database. The AI
+                  engine is implemented in Python using FastAPI.
+                </h1>
+              </AnimatedContent>
+              {/* <TextType
                 as="p"
                 inf="about"
                 className="text-base ssm:text-lg sm:text-base xl:text-xl font-satosIT font-bold"
@@ -234,7 +292,7 @@ I believe that this website will be especially helpful for motorsport enthusiast
 
 As for the technical side of the project, the frontend is built using React and Tailwind CSS. The backend is developed with Node.js and Express, with MongoDB as the database. The AI engine is implemented in Python using FastAPI.`}
                 typingSpeed={10}
-              />
+              /> */}
             </div>
           </div>
         </div>
@@ -295,60 +353,126 @@ const Cards = () => {
 
   return (
     <div className="absolute inset-0 z-10" ref={containerRef}>
-      <Card
-        containerRef={containerRef}
-        src="https://i.postimg.cc/prCjGpXL/Tato-s-ideal-project-feedback.png"
-        alt="Example image"
-        rotate="6deg"
-        top="55%"
-        left="3%"
-        className="w-52 ssm:w-64"
-      />
-      <Card
-        containerRef={containerRef}
-        src="https://i.postimg.cc/MGggHGw5/Positive-testimonial-on-Strategy-Hub-tools.png "
-        alt="Example image"
-        rotate="12deg"
-        top="50%"
-        left="19%"
-        className="w-52 ssm:w-64"
-      />
-      <Card
-        containerRef={containerRef}
-        src="https://i.postimg.cc/0Q0YKtm9/Screenshot-1gt'u.png"
-        alt="Example image"
-        rotate="-6deg"
-        top="10%"
-        left="65%"
-        className=" w-64 ssm:w-80"
-      />
-      <Card
-        containerRef={containerRef}
-        src="https://i.postimg.cc/Kjkx1Wkd/DRt-AR.jpg"
-        alt="Example image"
-        rotate="8deg"
-        top="60%"
-        left="83%"
-        className=" w-60 ssm:w-72"
-      />
-      <Card
-        containerRef={containerRef}
-        src="https://i.postimg.cc/0yP5nPzj/R1Yyq.jpg"
-        alt="Example image"
-        rotate="18deg"
-        top="55%"
-        left="50%"
-        className=" w-52 ssm:w-64"
-      />
-      <Card
-        containerRef={containerRef}
-        src="https://i.postimg.cc/W3V2f8y3/Screenshot-1sandro.png "
-        alt="Example image"
-        rotate="-3deg"
-        top="70%"
-        left="36%"
-        className=" w-52 ssm:w-64"
-      />
+      <AnimatedContent
+        distance={150}
+        direction="vertical"
+        wipe="none"
+        duration={2.9}
+        ease="elastic.out(0.8, 0.7)"
+        blur={0}
+        stagger={0}
+        threshold={0.18}
+      >
+        <Card
+          containerRef={containerRef}
+          src="https://i.postimg.cc/prCjGpXL/Tato-s-ideal-project-feedback.png"
+          alt="Example image"
+          rotate="6deg"
+          top="55%"
+          left="3%"
+          className="w-52 ssm:w-64"
+        />
+      </AnimatedContent>
+      <AnimatedContent
+        distance={100}
+        direction="vertical"
+        wipe="none"
+        duration={3.4}
+        ease="elastic.out(0.8, 0.7)"
+        blur={0}
+        stagger={0}
+        threshold={0.18}
+      >
+        <Card
+          containerRef={containerRef}
+          src="https://i.postimg.cc/MGggHGw5/Positive-testimonial-on-Strategy-Hub-tools.png "
+          alt="Example image"
+          rotate="12deg"
+          top="50%"
+          left="19%"
+          className="w-52 ssm:w-64"
+        />
+      </AnimatedContent>
+      <AnimatedContent
+        distance={180}
+        direction="vertical"
+        wipe="none"
+        duration={2.6}
+        ease="elastic.out(0.8, 0.7)"
+        blur={0}
+        stagger={0}
+        threshold={0.18}
+      >
+        <Card
+          containerRef={containerRef}
+          src="https://i.postimg.cc/0Q0YKtm9/Screenshot-1gt'u.png"
+          alt="Example image"
+          rotate="-6deg"
+          top="10%"
+          left="65%"
+          className=" w-64 ssm:w-80"
+        />
+      </AnimatedContent>
+      <AnimatedContent
+        distance={120}
+        direction="vertical"
+        wipe="none"
+        duration={3}
+        ease="elastic.out(0.8, 0.7)"
+        blur={0}
+        stagger={0}
+        threshold={0.18}
+      >
+        <Card
+          containerRef={containerRef}
+          src="https://i.postimg.cc/Kjkx1Wkd/DRt-AR.jpg"
+          alt="Example image"
+          rotate="8deg"
+          top="60%"
+          left="83%"
+          className=" w-60 ssm:w-72"
+        />
+      </AnimatedContent>
+      <AnimatedContent
+        distance={90}
+        direction="vertical"
+        wipe="none"
+        duration={2.2}
+        ease="elastic.out(0.8, 0.7)"
+        blur={0}
+        stagger={0}
+        threshold={0.18}
+      >
+        <Card
+          containerRef={containerRef}
+          src="https://i.postimg.cc/0yP5nPzj/R1Yyq.jpg"
+          alt="Example image"
+          rotate="18deg"
+          top="55%"
+          left="50%"
+          className=" w-52 ssm:w-64"
+        />
+      </AnimatedContent>
+      <AnimatedContent
+        distance={150}
+        direction="vertical"
+        wipe="none"
+        duration={3.3}
+        ease="elastic.out(0.8, 0.7)"
+        blur={0}
+        stagger={0}
+        threshold={0.18}
+      >
+        <Card
+          containerRef={containerRef}
+          src="https://i.postimg.cc/W3V2f8y3/Screenshot-1sandro.png "
+          alt="Example image"
+          rotate="-3deg"
+          top="70%"
+          left="36%"
+          className=" w-52 ssm:w-64"
+        />
+      </AnimatedContent>
     </div>
   );
 };

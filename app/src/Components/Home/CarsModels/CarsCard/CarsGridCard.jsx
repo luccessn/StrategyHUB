@@ -78,9 +78,10 @@ const CarsGridCard = ({ props, index }) => {
             </div>
           </div>
         ) : ( */}
-      <Link
-        to={`/carsdtl/${props._id}`}
-        onClick={() => window.scrollTo(0, 0)}
+      <div
+        // to={`/carsdtl/${props._id}`}
+        // onClick={() => window.scrollTo(0, 0)}
+        onClick={goDTL}
         className={`
     rounded-sm border border-[#4a4a4a] bg-[#1d1d1d]
     p-5 transition-all duration-500
@@ -131,7 +132,7 @@ const CarsGridCard = ({ props, index }) => {
           </div>
         </motion.div>
         {/* </div> */}
-      </Link>
+      </div>
       {/* )}
       </div> */}
     </>

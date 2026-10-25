@@ -6,6 +6,7 @@ import { useInView } from "framer-motion";
 // import { LinkPreview } from "../UI/WorldMap/link-preview";
 import { useFetchData } from "../../Hooks/useFetchData";
 import Trackloader from "../Loads/trackloader";
+import FadeContent from "../UI/Animations/FadeContent";
 const demoDots = [
   {
     start: { lat: -40.8497, lng: 144.968, label: "Australia GP" },
@@ -125,7 +126,16 @@ export function WorldMapDemo() {
   return (
     <>
       <div className=" flex flex-col gap-20   w-full ">
-        <WorldMap dots={data} isLoading={isLoading} />
+        <FadeContent
+          effect="mist"
+          duration={1.8}
+          ease="power2.out"
+          stagger={0.1}
+          threshold={0.1}
+        >
+          <WorldMap dots={data} isLoading={isLoading} />
+        </FadeContent>
+
         <div className="top-shadow absolute left-0 -top-4 w-full h-[180px] bg-gradient-to-b from-black to-transparent"></div>
 
         <div className="max-w-7xl mx-auto text-center" ref={ref}>

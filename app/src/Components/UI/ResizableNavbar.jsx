@@ -113,7 +113,10 @@ export const NavItems = ({ className, onItemClick }) => {
             to={item.path}
             key={idx}
             onClick={() => {
-              if (!item.children) navigate(item.path);
+              if (!item.children) {
+                navigate(item.path);
+                window.scrollTo(0, 0);
+              }
             }}
             className="relative font-panchangSB cursor-target px-4 py-2 text-white"
           >
@@ -146,6 +149,7 @@ export const NavItems = ({ className, onItemClick }) => {
                   key={childIndx}
                   onClick={() => {
                     navigate(child.path);
+                    window.scrollTo(0, 0);
                   }}
                   className="block font-satosIT font-bold cursor-target w-full rounded-lg px-3 py-2 text-left text-sm text-zinc-300 hover:bg-neutral-800 hover:text-white"
                 >

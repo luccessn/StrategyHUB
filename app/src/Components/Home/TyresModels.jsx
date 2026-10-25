@@ -78,12 +78,7 @@ export const TyresModels = () => {
     const centerRect = slidesRef.current[1].getBoundingClientRect();
     const leftRect = slidesRef.current[0].getBoundingClientRect();
     const rightRect = slidesRef.current[2].getBoundingClientRect();
-
-    // ეკრანის ცენტრის X კოორდინატი — ყველა slide-ის "საწყისი" ვიზუალური სამიზნეა
     const viewportCenterX = window.innerWidth / 2;
-
-    // თითოეული slide-ისთვის ვთვლით, რა x offset სჭირდება იმისთვის,
-    // რომ მისი ცენტრი ეკრანის ცენტრში აღმოჩნდეს (ე.ი. "ვიზუალურად ცენტრში დგას")
     const centerOffset =
       viewportCenterX - (centerRect.left + centerRect.width / 2);
     const leftStartX = viewportCenterX - (leftRect.left + leftRect.width / 2);
@@ -101,11 +96,6 @@ export const TyresModels = () => {
           // once: true,
         },
       });
-
-      // საბურავის შემოსვლა — ცენტრის slide შემოდის და ჩერდება
-      // ეკრანის ცენტრში. საბოლოო მდგომარეობა x:0-ს ნაცვლად
-      // ჯერ კიდევ centerOffset-ზე ჩერდება, რადგან ეს არის ის
-      // მომენტი, სანამ Swiper საერთოდ არ აკონტროლებს პოზიციას.
       tl.fromTo(
         slidesRef.current[1],
         {

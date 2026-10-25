@@ -36,6 +36,7 @@ import { MainModal } from "../Mod/MainModal";
 import { useNavigate } from "react-router-dom";
 import { routes } from "../../Constants/Routes";
 import { MainNotification } from "../Loads/MainNotification";
+import ElectricBorder from "../UI/Animations/ElectricBorder";
 function Loader() {
   const { progress } = useProgress();
   return (
@@ -568,14 +569,24 @@ export const AICard = () => {
                 {/* bg-white/10  backdrop-blur-xl border border-white/30 rounded-2xl shadow-xl */}
                 <div className="">
                   {switchs === "chat" ? (
-                    <div className="z-50 w-[400px]">
-                      <PlaceholdersAndVanishInput
-                        placeholders={placeholders}
-                        onChange={handleChange}
-                        onSubmit={onSubmit}
-                        value={inputValue}
-                      />
-                    </div>
+                    <ElectricBorder
+                      color="#7df9ff"
+                      speed={1}
+                      chaos={0.5}
+                      spread={0.6}
+                      strands={3}
+                      thickness={1.5}
+                      borderRadius={24}
+                    >
+                      <div className="z-50 w-[400px]">
+                        <PlaceholdersAndVanishInput
+                          placeholders={placeholders}
+                          onChange={handleChange}
+                          onSubmit={onSubmit}
+                          value={inputValue}
+                        />
+                      </div>
+                    </ElectricBorder>
                   ) : (
                     <div className="   flex flex-row gap-10 mx-auto   ">
                       <div>
@@ -723,12 +734,22 @@ active:border-b-[2px] active:brightness-90 active:translate-y-[2px]   ${currentS
           // </BackgroundLines>
         )}
         {submittedText.length == 0 && (
-          <PlaceholdersAndVanishInput
-            placeholders={placeholders}
-            onChange={handleChange}
-            onSubmit={onSubmit}
-            value={inputValue}
-          />
+          <ElectricBorder
+            color="#7df9ff"
+            speed={1}
+            chaos={0.5}
+            spread={0.6}
+            strands={3}
+            thickness={1.5}
+            borderRadius={24}
+          >
+            <PlaceholdersAndVanishInput
+              placeholders={placeholders}
+              onChange={handleChange}
+              onSubmit={onSubmit}
+              value={inputValue}
+            />
+          </ElectricBorder>
         )}
       </div>
       <MainNotification />
