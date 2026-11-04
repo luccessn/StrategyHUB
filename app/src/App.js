@@ -131,6 +131,7 @@ function App() {
       setHasAnimated(true);
     }
   }, [isInView, hasAnimated]);
+  const lenisRef = useRef(null);
   return (
     <>
       {openBlock ? (
@@ -209,9 +210,10 @@ function App() {
       ) : (
         <div className="relative  w-screen ">
           <ReactLenis
+            ref={lenisRef}
             root
             options={{
-              lerp: 0.07,
+              lerp: 0.02,
               infinite: false,
               syncTouch: false,
             }}

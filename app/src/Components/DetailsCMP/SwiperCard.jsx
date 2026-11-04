@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ErrorLoader } from "../Loads/error/ErrorLoader";
+import ElectricBorder from "../UI/Animations/ElectricBorder";
 
 export const SwiperCard = ({ props }) => {
   const hasError = !props?.price || !props?.name;
@@ -40,17 +41,27 @@ export const SwiperCard = ({ props }) => {
       {props.images?.img1 ? (
         <div
           onClick={goDTL}
-          className=" w-[260px]   h-[320px] mt-10 mmd:m-0  ssmm:w-[180px] ssmm:h-[320px] ssm:w-[250px] ssm:h-[320px]  sfm:w-[260px] sfm:h-[350px] smm:w-[320px] smm:h-[370px]  sm:w-[340px] sm:h-[380px]  lg:w-[360px] lg:h-[360px]  xxxl:w-[400px] xxxl:h-[380px] flex flex-col rounded-xl relative shadow hover:shadow-md transition"
+          className=" w-[260px]  items-center   h-[320px] mt-10 mmd:m-0 justify-center ssmm:w-[180px] ssmm:h-[320px] ssm:w-[250px] ssm:h-[320px]  sfm:w-[260px] sfm:h-[350px] smm:w-[320px] smm:h-[370px]  sm:w-[340px] sm:h-[380px]  lg:w-[360px] lg:h-[360px]  xxxl:w-[400px] xxxl:h-[380px] flex flex-col rounded-xl relative shadow hover:shadow-md transition"
         >
           {/* ssmm:w-[190px] ssmm:h-[260px]  */}
-          <div className="w-3/4  h-[380px] overflow-hidden relative left-10 ssmm:left-6 ssm:left-10 rounded-sm">
-            <img
-              src={image}
-              alt=""
-              className="w-full cursor-target h-full object-fill transition-transform duration-1000 ease-in-out transform hover:scale-125"
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-            />
+          <div className="w-3/4  h-[380px] overflow-hidden  rounded-sm">
+            <ElectricBorder
+              color="#9D00FF"
+              speed={1}
+              chaos={0.5}
+              spread={0.6}
+              strands={3}
+              thickness={1.5}
+              borderRadius={8}
+            >
+              <img
+                src={image}
+                alt=""
+                className="w-full cursor-target h-full object-fill transition-transform duration-1000 ease-in-out transform hover:scale-125"
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              />
+            </ElectricBorder>
           </div>
           {/* {props.sale ? (
             <div className="absolute overflow-hidden  w-[130px] h-[200px]  flex items-center justify-center">
@@ -62,26 +73,36 @@ export const SwiperCard = ({ props }) => {
           ) : (
             ""
           )} */}
-          <div className="flex flex-col gap-4 ">
-            <div className="flex flex-row justify-center  ">
-              <div className="flex flex-col gap-2  ">
-                <div className="flex flex-col gap-2 mt-4 items-center">
-                  <div className="text-center w-full px-2">
-                    <span className="text-sm ssm:w-full sfm:text-base smm:text-lg text-gray-100 font-semibold break-words leading-snug block">
-                      {props.name}
-                    </span>
-                  </div>
-                  <div className="flex justify-center items-center gap-10">
-                    <span className="text-green-400 font-bold text-sm sfm:text-medium  smm:text-lg">
-                      {props.ourprice} $
-                    </span>
-                    <span className="text-purple-400 text-sm sfm:text-medium smm:text-lg font-mono">
-                      Stock: {props.stock}
-                    </span>
+          <div className="flex flex-col w-3/4  gap-4 ">
+            <ElectricBorder
+              color="#A020F0"
+              speed={1}
+              chaos={0.5}
+              spread={0.6}
+              strands={3}
+              thickness={1.5}
+              borderRadius={8}
+            >
+              <div className="flex flex-row justify-center mb-2  ">
+                <div className="flex flex-col  gap-2  ">
+                  <div className="flex flex-col gap-2 mt-2 items-center">
+                    <div className="text-center w-full px-2">
+                      <span className="text-sm ssm:w-full sfm:text-base smm:text-lg text-gray-100 font-semibold break-words leading-snug block">
+                        {props.name}
+                      </span>
+                    </div>
+                    <div className="flex justify-center items-center gap-10">
+                      <span className="text-green-400 font-bold text-sm sfm:text-medium  smm:text-lg">
+                        {props.ourprice} $
+                      </span>
+                      <span className="text-purple-400 text-sm sfm:text-medium smm:text-lg font-mono">
+                        Stock: {props.stock}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </ElectricBorder>
           </div>
         </div>
       ) : null}

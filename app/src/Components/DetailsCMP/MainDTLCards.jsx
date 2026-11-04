@@ -23,6 +23,7 @@ import { useNavigate } from "react-router-dom";
 import { ErrorLoader } from "../Loads/error/ErrorLoader";
 import { useAppContext } from "../../Context/AppContextProvider";
 import { routes } from "../../Constants/Routes";
+import ElectricBorder from "../UI/Animations/ElectricBorder";
 // import { routes } from "../../Constants/ConstRouts/routes";
 const MainDTLCards = ({ data }) => {
   const [imgsChange, setImgsChange] = useState(null);
@@ -145,15 +146,25 @@ const MainDTLCards = ({ data }) => {
                             <span className="loader border-4 border-purple-800 border-t-transparent rounded-full w-10 h-10 animate-spin"></span>
                           </div>
                         )}
-                        <img
-                          src={img}
-                          alt=""
-                          className={`w-full h-[150px] sm:h-[200px] object-cover rounded-sm  cursor-pointer ${
-                            isLoading && index === 0 ? "invisible" : "visible"
-                          }`}
-                          onClick={() => setImgsChange(img)}
-                          onLoad={() => index === 0 && setIsLoading(false)}
-                        />
+                        <ElectricBorder
+                          color="#B266FF"
+                          speed={1}
+                          chaos={0.5}
+                          spread={0.6}
+                          strands={3}
+                          thickness={1.5}
+                          borderRadius={10}
+                        >
+                          <img
+                            src={img}
+                            alt=""
+                            className={`w-full h-[150px] sm:h-[200px] object-cover rounded-sm  cursor-pointer ${
+                              isLoading && index === 0 ? "invisible" : "visible"
+                            }`}
+                            onClick={() => setImgsChange(img)}
+                            onLoad={() => index === 0 && setIsLoading(false)}
+                          />
+                        </ElectricBorder>
                       </div>
                     </SwiperSlide>
                   ))}
@@ -163,11 +174,21 @@ const MainDTLCards = ({ data }) => {
               {imgsChange && (
                 <div className="relative">
                   <Zoom>
-                    <img
-                      src={imgsChange}
-                      alt=""
-                      className=" cursor-target   w-[350px] h-[350px]  ssmm:w-[300px]  ssmm:h-[400px] ssm:w-[400px]  ssm:h-[400px] sm:w-[500px] sm:h-[500px] object-cover rounded-sm cursor-zoom-in"
-                    />
+                    <ElectricBorder
+                      color="#9D00FF"
+                      speed={1}
+                      chaos={0.5}
+                      spread={0.6}
+                      strands={3}
+                      thickness={1.5}
+                      borderRadius={10}
+                    >
+                      <img
+                        src={imgsChange}
+                        alt=""
+                        className=" cursor-target   w-[350px] h-[350px]  ssmm:w-[300px]  ssmm:h-[400px] ssm:w-[400px]  ssm:h-[400px] sm:w-[500px] sm:h-[500px] object-cover rounded-lg cursor-zoom-in"
+                      />
+                    </ElectricBorder>
                   </Zoom>
                 </div>
               )}

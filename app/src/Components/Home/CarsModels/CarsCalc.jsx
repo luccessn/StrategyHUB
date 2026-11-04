@@ -205,7 +205,7 @@ export const CarsCalc = ({ car }) => {
                   <AnimatedContent
                     distance={180}
                     direction="horizontal"
-                    duration={2.3}
+                    duration={2.6}
                     ease="power3.out"
                     blur={0}
                     stagger={0.16}
@@ -223,6 +223,7 @@ export const CarsCalc = ({ car }) => {
                       </h1>
                     </div>
                   </AnimatedContent>
+
                   <div className="block xxl:hidden">
                     <TextType
                       key={`about-title-${car.about.about1}`}
@@ -374,91 +375,3 @@ export const CarsCalc = ({ car }) => {
     </>
   );
 };
-
-{
-  /* <div
-                        onWheel={(e) => {
-                          e.preventDefault();
-                        }}
-                        className="canvas-wrap w-full h-full"
-                        id={`canvas-wrap-${car.title}`}
-                      >
-                        <Canvas
-                          key={car.title}
-                          shadows
-                          dpr={[1, 2]}
-                          gl={{
-                            antialias: true,
-                            physicallyCorrectLights: true,
-                            outputColorSpace: THREE.SRGBColorSpace,
-                            toneMappingExposure: 1,
-                          }}
-                          camera={{ position: [-25, 10, 0], fov: 45 }}
-                          // style={{
-                          //   background: "#ffffff",
-                          // }}
-                        >
-                          <Suspense fallback={<Loader />}>
-                            {car?.src && (
-                              <Model
-                                url={car.src}
-                                scale={car.scale}
-                                position={car.position}
-                                rotation={car.rotation}
-                              />
-                            )}
-                            <ambientLight intensity={0.3} />
-                            <directionalLight
-                              castShadow
-                              position={[5, 10, 5]}
-                              intensity={1.2}
-                            />
-                            <spotLight
-                              castShadow
-                              position={[-5, 8, -5]}
-                              intensity={0.8}
-                              angle={0.3}
-                            />
-                            <Environment preset="sunset" background={false} />
-                          </Suspense>
-
-                          <OrbitControls
-                            target={[0, -0.6, 0]}
-                            enableRotate
-                            enableZoom={true}
-                            enableDamping
-                            dampingFactor={0.08}
-                            zoomSpeed={0.8}
-                            rotateSpeed={0.6}
-                            enablePan={false}
-                            minDistance={5}
-                            maxDistance={40}
-                            minPolarAngle={Math.PI / 6}
-                            maxPolarAngle={Math.PI / 2.1}
-                            autoRotate={autoRotate}
-                            autoRotateSpeed={1.2}
-                          />
-                        </Canvas>
-                        <div className="absolute bottom-3 right-3 flex gap-2 z-10">
-                          <button
-                            onClick={() => setAutoRotate((p) => !p)}
-                            className="p-2 rounded-full bg-black/40 hover:bg-black/60 text-white/80 transition"
-                            title="Auto-rotate"
-                          >
-                            <RotateCcw size={16} />
-                          </button>
-                          <button
-                            onClick={() => {
-                              const el = document.getElementById(
-                                `canvas-wrap-${car.title}`,
-                              );
-                              el?.requestFullscreen?.();
-                            }}
-                            className="p-2 rounded-full bg-black/40 hover:bg-black/60 text-white/80 transition"
-                            title="Fullscreen"
-                          >
-                            <Maximize size={16} />
-                          </button>
-                        </div>
-                      </div> */
-}

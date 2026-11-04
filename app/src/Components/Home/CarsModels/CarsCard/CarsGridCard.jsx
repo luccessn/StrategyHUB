@@ -1,5 +1,4 @@
 import React from "react";
-import { useFetchData } from "../../../../Hooks/useFetchData";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -10,9 +9,6 @@ const CarsGridCard = ({ props, index }) => {
     navigate(`/carsdtl/${props._id}`);
     window.scrollTo(0, 0);
   };
-  // _id
-
-  // console.log(props);
   return (
     <>
       {/* <div className="flex flex-col gap-5 p-4">
