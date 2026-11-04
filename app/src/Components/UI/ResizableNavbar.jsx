@@ -86,7 +86,7 @@ export const NavItems = ({ className, onItemClick }) => {
     {
       name: "Products",
       children: [
-        { name: "Museum", path: routes.Products, icon: <BakeryDiningIcon /> },
+        { name: "Museum", path: routes.Museum, icon: <BakeryDiningIcon /> },
         { name: "Merch", path: routes.Products, icon: <CategoryIcon /> },
         {
           name: "Subscriptions",

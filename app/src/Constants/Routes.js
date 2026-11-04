@@ -3,6 +3,7 @@ export const routes = {
   SignUp: "/signup",
   LogIn: "/login",
   About: "/about",
+  Museum: "/museum",
   Products: "/products",
   Subscription: "/subscription",
   ProductsDTL: "/productsdtl/:prID",
