@@ -209,7 +209,7 @@ function App() {
         </div>
       ) : (
         <div className="relative  w-screen ">
-          <ReactLenis
+          {/* <ReactLenis
             ref={lenisRef}
             root
             options={{
@@ -217,60 +217,60 @@ function App() {
               infinite: false,
               syncTouch: false,
             }}
+          > */}
+          <ClickSpark
+            sparkColor="#fff"
+            sparkSize={10}
+            sparkRadius={15}
+            sparkCount={8}
+            duration={400}
           >
-            <ClickSpark
-              sparkColor="#fff"
-              sparkSize={10}
-              sparkRadius={15}
-              sparkCount={8}
-              duration={400}
+            <div className="fixed inset-0 -z-10 w-screen h-screen overflow-hidden">
+              <ShootingStars />
+              <StarsBackground />
+            </div>
+            <TargetCursor
+              spinDuration={2}
+              hideDefaultCursor={true}
+              parallaxOn={true}
+            />
+            <div
+              style={{ height: "100vh" }}
+              className="verflow-hidden h-screen  fixed z-50"
             >
-              <div className="fixed inset-0 -z-10 w-screen h-screen overflow-hidden">
-                <ShootingStars />
-                <StarsBackground />
-              </div>
-              <TargetCursor
-                spinDuration={2}
-                hideDefaultCursor={true}
-                parallaxOn={true}
+              <StaggeredMenu
+                position="left"
+                // items={menuItems}
+                // socialItems={socialItems}
+                displaySocials
+                displayItemNumbering={true}
+                menuButtonColor="#ffffff"
+                openMenuButtonColor="#5227FF"
+                changeMenuColorOnOpen={true}
+                colors={["#B19EEF", "#5227FF"]}
+                logoUrl="/path-to-your-logo.svg"
+                accentColor="#5227FF"
+                // onMenuOpen={() => console.log("Menu opened")}
+                // onMenuClose={() => console.log("Menu closed")}
               />
-              <div
-                style={{ height: "100vh" }}
-                className="verflow-hidden h-screen  fixed z-50"
-              >
-                <StaggeredMenu
-                  position="left"
-                  // items={menuItems}
-                  // socialItems={socialItems}
-                  displaySocials
-                  displayItemNumbering={true}
-                  menuButtonColor="#ffffff"
-                  openMenuButtonColor="#5227FF"
-                  changeMenuColorOnOpen={true}
-                  colors={["#B19EEF", "#5227FF"]}
-                  logoUrl="/path-to-your-logo.svg"
-                  accentColor="#5227FF"
-                  // onMenuOpen={() => console.log("Menu opened")}
-                  // onMenuClose={() => console.log("Menu closed")}
-                />
-              </div>
-              <Navbar>
-                <NavBody>
-                  <NavbarLogo />
-                  <NavItems />
-                  <div className="flex  items-center gap-1">
-                    {state.user ? (
-                      <NavbarButton
-                        variant="secondary"
-                        className=""
-                        // onClick={() => navigate(routes.SignUp)}
-                      >
-                        {/* <FaRegUser className="text-white text-xl font-bold " /> */}
-                        <UserDrawer />
-                      </NavbarButton>
-                    ) : (
-                      <>
-                        {/* <NavbarButton
+            </div>
+            <Navbar>
+              <NavBody>
+                <NavbarLogo />
+                <NavItems />
+                <div className="flex  items-center gap-1">
+                  {state.user ? (
+                    <NavbarButton
+                      variant="secondary"
+                      className=""
+                      // onClick={() => navigate(routes.SignUp)}
+                    >
+                      {/* <FaRegUser className="text-white text-xl font-bold " /> */}
+                      <UserDrawer />
+                    </NavbarButton>
+                  ) : (
+                    <>
+                      {/* <NavbarButton
                     variant="secondary"
                     className="cursor-target"
                     onClick={() => navigate(routes.SignUp)}
@@ -278,116 +278,116 @@ function App() {
                     SignUp
                   </NavbarButton> */}
 
-                        <NavbarButton
-                          className="cursor-target"
-                          // onClick={() => navigate(routes.LogIn)}
-                          variant="primary"
-                        >
-                          <Link to={routes.LogIn}>Log In</Link>
-                        </NavbarButton>
-                      </>
-                    )}
-                    <NavbarButton
-                      variant="secondary"
-                      className=""
-                      // onClick={() => navigate(routes.SignUp)}
+                      <NavbarButton
+                        className="cursor-target"
+                        // onClick={() => navigate(routes.LogIn)}
+                        variant="primary"
+                      >
+                        <Link to={routes.LogIn}>Log In</Link>
+                      </NavbarButton>
+                    </>
+                  )}
+                  <NavbarButton
+                    variant="secondary"
+                    className=""
+                    // onClick={() => navigate(routes.SignUp)}
+                  >
+                    {/* <CartDrawer /> */}
+                    {/* <FaShoppingCart className="text-white text-xl font-bold " /> */}
+                  </NavbarButton>
+                </div>
+              </NavBody>
+
+              <MobileNav>
+                <MobileNavHeader>
+                  <NavbarLogo />
+                  <MobileNavToggle
+                    isOpen={isMobileMenuOpen}
+                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  />
+                </MobileNavHeader>
+
+                <MobileNavMenu
+                  isOpen={isMobileMenuOpen}
+                  onClose={() => setIsMobileMenuOpen(false)}
+                >
+                  {navbarRT.map((item, idx) => (
+                    <div
+                      key={idx}
+                      className="relative"
+                      onMouseEnter={() => setHovered(idx)}
                     >
-                      {/* <CartDrawer /> */}
-                      {/* <FaShoppingCart className="text-white text-xl font-bold " /> */}
+                      <button
+                        onClick={() => {
+                          setIsMobileMenuOpen(false);
+                          navigate(item.path);
+                          window.scrollTo(0, 0);
+                        }}
+                        className="relative hover:scale-110 duration-200 hover:text-neutral-500 text-neutral-300"
+                      >
+                        <span className="mr-2">{item.icon}</span>
+                        {item.name}
+                      </button>
+                    </div>
+                  ))}
+                  <div className="flex w-full flex-col gap-4">
+                    <NavbarButton
+                      variant="primary"
+                      className="cursor-target"
+                      onClick={() => {
+                        navigate(routes.SignUp);
+                        window.scrollTo(0, 0);
+                      }}
+                    >
+                      SignUp
+                    </NavbarButton>
+                    <NavbarButton
+                      onClick={() => {
+                        navigate(routes.LogIn);
+                        window.scrollTo(0, 0);
+                      }}
+                      variant="primary"
+                      className="w-full"
+                    >
+                      Login
                     </NavbarButton>
                   </div>
-                </NavBody>
+                </MobileNavMenu>
+              </MobileNav>
+            </Navbar>
 
-                <MobileNav>
-                  <MobileNavHeader>
-                    <NavbarLogo />
-                    <MobileNavToggle
-                      isOpen={isMobileMenuOpen}
-                      onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    />
-                  </MobileNavHeader>
+            <div className="relative -top-20">
+              {/* <AppRouters /> */}
+              <AppRoutes />
+            </div>
+            {target && (
+              <div className="fixed left-4 bottom-4 z-30">
+                <img
+                  onMouseEnter={() => setOnHovered(true)}
+                  onMouseLeave={() => setOnHovered(false)}
+                  src="https://i.postimg.cc/bwv0fsRX/waste.png"
+                  alt=""
+                  className="animate-bounce cursor-target w-14"
+                />
 
-                  <MobileNavMenu
-                    isOpen={isMobileMenuOpen}
-                    onClose={() => setIsMobileMenuOpen(false)}
-                  >
-                    {navbarRT.map((item, idx) => (
-                      <div
-                        key={idx}
-                        className="relative"
-                        onMouseEnter={() => setHovered(idx)}
-                      >
-                        <button
-                          onClick={() => {
-                            setIsMobileMenuOpen(false);
-                            navigate(item.path);
-                            window.scrollTo(0, 0);
-                          }}
-                          className="relative hover:scale-110 duration-200 hover:text-neutral-500 text-neutral-300"
-                        >
-                          <span className="mr-2">{item.icon}</span>
-                          {item.name}
-                        </button>
-                      </div>
-                    ))}
-                    <div className="flex w-full flex-col gap-4">
-                      <NavbarButton
-                        variant="primary"
-                        className="cursor-target"
-                        onClick={() => {
-                          navigate(routes.SignUp);
-                          window.scrollTo(0, 0);
-                        }}
-                      >
-                        SignUp
-                      </NavbarButton>
-                      <NavbarButton
-                        onClick={() => {
-                          navigate(routes.LogIn);
-                          window.scrollTo(0, 0);
-                        }}
-                        variant="primary"
-                        className="w-full"
-                      >
-                        Login
-                      </NavbarButton>
-                    </div>
-                  </MobileNavMenu>
-                </MobileNav>
-              </Navbar>
-
-              <div className="relative -top-20">
-                {/* <AppRouters /> */}
-                <AppRoutes />
+                <AnimatePresence>
+                  {onHovered && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      transition={{ duration: 0.25, ease: "easeInOut" }}
+                      className="absolute bottom-20 left-12 w-44 rounded-2xl rounded-bl-none bg-white/10 backdrop-blur-xl border border-white/30 shadow-xl p-3 text-white"
+                    >
+                      <h1 className="text-sm font-medium">Subscription</h1>
+                      <p className="text-xs mt-1">{formattedExpiredDate}</p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
-              {target && (
-                <div className="fixed left-4 bottom-4 z-30">
-                  <img
-                    onMouseEnter={() => setOnHovered(true)}
-                    onMouseLeave={() => setOnHovered(false)}
-                    src="https://i.postimg.cc/bwv0fsRX/waste.png"
-                    alt=""
-                    className="animate-bounce cursor-target w-14"
-                  />
-
-                  <AnimatePresence>
-                    {onHovered && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 10 }}
-                        transition={{ duration: 0.25, ease: "easeInOut" }}
-                        className="absolute bottom-20 left-12 w-44 rounded-2xl rounded-bl-none bg-white/10 backdrop-blur-xl border border-white/30 shadow-xl p-3 text-white"
-                      >
-                        <h1 className="text-sm font-medium">Subscription</h1>
-                        <p className="text-xs mt-1">{formattedExpiredDate}</p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              )}
-            </ClickSpark>
-          </ReactLenis>
+            )}
+          </ClickSpark>
+          {/* </ReactLenis> */}
         </div>
       )}
     </>

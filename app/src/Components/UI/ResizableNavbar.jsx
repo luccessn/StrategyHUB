@@ -12,6 +12,7 @@ import {
 } from "framer-motion";
 import CategoryIcon from "@mui/icons-material/Category";
 import LoyaltyIcon from "@mui/icons-material/Loyalty";
+import BakeryDiningIcon from "@mui/icons-material/BakeryDining";
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { routes } from "../../Constants/Routes";
@@ -85,6 +86,7 @@ export const NavItems = ({ className, onItemClick }) => {
     {
       name: "Products",
       children: [
+        { name: "Museum", path: routes.Products, icon: <BakeryDiningIcon /> },
         { name: "Merch", path: routes.Products, icon: <CategoryIcon /> },
         {
           name: "Subscriptions",
@@ -118,7 +120,7 @@ export const NavItems = ({ className, onItemClick }) => {
                 window.scrollTo(0, 0);
               }
             }}
-            className="relative font-panchangSB cursor-target px-4 py-2 text-white"
+            className="relative font-panchangSB  cursor-target px-4 py-2 text-white"
           >
             {/* <button
               onClick={() => {
