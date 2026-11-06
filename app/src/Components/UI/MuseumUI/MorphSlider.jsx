@@ -185,10 +185,11 @@ void main() {
 
   vec3 col = mix(colC, colN, m);
 
-  float vig = smoothstep(1.25, 0.25, length(uv - 0.5));
-  col = mix(col, uOverlay, (1.0 - vig) * 0.28);
+  float aC = texture2D(tCurrent, sC).a;
+  float aN = texture2D(tNext, sN).a;
+  float a = mix(aC, aN, m);
 
-  gl_FragColor = vec4(col, 1.0);
+  gl_FragColor = vec4(col * a, a);
 }
 `;
 
@@ -196,10 +197,10 @@ function makeFallbackTexture(gl) {
   const size = 4;
   const data = new Uint8Array(size * size * 4);
   for (let i = 0; i < size * size; i++) {
-    data[i * 4] = 24;
-    data[i * 4 + 1] = 24;
-    data[i * 4 + 2] = 28;
-    data[i * 4 + 3] = 255;
+    data[i * 4] = 0;
+    data[i * 4 + 1] = 0;
+    data[i * 4 + 2] = 0;
+    data[i * 4 + 3] = 0;
   }
   return new Texture(gl, {
     image: data,
@@ -240,12 +241,13 @@ class MorphEngine {
     this.tween = null;
 
     this.renderer = new Renderer({
-      alpha: false,
+      alpha: true,
+      premultipliedAlpha: true,
       antialias: true,
       dpr: Math.min(window.devicePixelRatio || 1, dprCap),
     });
     this.gl = this.renderer.gl;
-    this.gl.clearColor(0.05, 0.05, 0.06, 1);
+    this.gl.clearColor(0, 0, 0, 0);
 
     this.canvas = this.gl.canvas;
     this.canvas.className = "block w-full h-full";
@@ -260,6 +262,7 @@ class MorphEngine {
     this.program = new Program(this.gl, {
       vertex: vertexShader,
       fragment: fragmentShader,
+      transparent: true,
       uniforms: {
         tCurrent: { value: this.textures[this.current] },
         tNext: { value: this.textures[this.current] },
@@ -636,7 +639,7 @@ export default function MorphSlider({
 
   return (
     <div
-      className={`relative w-full h-full overflow-hidden select-none bg-[#0c0c0e] ${className}`.trim()}
+      className={`relative w-full h-full overflow-hidden select-none ${className}`.trim()}
       style={{
         borderRadius: `${radius}px`,
         "--ms-swap": `${(duration * 0.66).toFixed(3)}s`,

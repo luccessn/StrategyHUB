@@ -1,6 +1,7 @@
 import React from "react";
 import { useFetchData } from "../../../Hooks/useFetchData";
 import MorphSlider from "../../../Components/UI/MuseumUI/MorphSlider";
+import MusGridCard from "../../../Components/Museum/MusGridCard";
 export const Museum = () => {
   const [data, error, isLoading] = useFetchData(
     "https://strategyhub.onrender.com/server/getcars",
@@ -18,8 +19,8 @@ export const Museum = () => {
     },
   ];
   return (
-    <div className="relative">
-      <div style={{ height: "800px", position: "relative" }}>
+    <div className="relative backdrop-blur-sm h-full w-full flex flex-col gap-5 p-4">
+      <div style={{ height: "1000px", position: "relative" }}>
         <MorphSlider
           items={items}
           transition="melt"
@@ -39,6 +40,12 @@ export const Museum = () => {
           showControls
           showIndicators
         />
+      </div>
+      <div className="grid grid-cols-2   gap-[6px] ">
+        {data.slice(0, 4).map((item, index) => (
+          // <CarsGridCard props={item} index={index} />
+          <MusGridCard props={item} index={index} />
+        ))}
       </div>
     </div>
   );
