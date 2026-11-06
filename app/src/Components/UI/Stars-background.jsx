@@ -42,7 +42,7 @@ export const StarsBackground = ({
       twinkleProbability,
       minTwinkleSpeed,
       maxTwinkleSpeed,
-    ]
+    ],
   );
 
   useEffect(() => {
@@ -102,7 +102,7 @@ export const StarsBackground = ({
             star.opacity =
               0.5 +
               Math.abs(
-                Math.sin(now / star.twinkleSpeed + star.initialPhase) * 0.5
+                Math.sin(now / star.twinkleSpeed + star.initialPhase) * 0.5,
               );
           }
         });
@@ -128,7 +128,7 @@ export const StarsBackground = ({
       ref={canvasRef}
       className={cn(
         "h-full w-full absolute inset-0 pointer-events-none z-[-1]", // VERY IMPORTANT
-        className
+        className,
       )}
     />
   );

@@ -6,29 +6,6 @@ import { gsap } from "gsap";
 
 const TRANSITIONS = { melt: 0, ripple: 1, shear: 2, swirl: 3 };
 
-const DEFAULT_ITEMS = [
-  {
-    image:
-      "https://images.unsplash.com/photo-1782977389500-dd7adad33ebe?q=80&w=1600&auto=format&fit=crop",
-    caption: "One",
-  },
-  {
-    image:
-      "https://images.unsplash.com/photo-1781499455083-6ccc3beb20cd?q=80&w=1600&auto=format&fit=crop",
-    caption: "Two",
-  },
-  {
-    image:
-      "https://images.unsplash.com/photo-1776394254711-4a0d7345269a?q=80&w=1600&auto=format&fit=crop",
-    caption: "Three",
-  },
-  {
-    image:
-      "https://images.unsplash.com/photo-1781242629922-6f39cc3671cd?q=80&w=1600&auto=format&fit=crop",
-    caption: "Four",
-  },
-];
-
 const vertexShader = `
 attribute vec2 position;
 attribute vec2 uv;
@@ -58,6 +35,11 @@ uniform float uTime;
 uniform float uReduce;
 uniform vec2 uPointer;
 uniform vec3 uOverlay;
+uniform float uStartScale;
+uniform float uEndScale;
+uniform float uKen;
+uniform float uIntro;
+uniform float uBase;
 
 varying vec2 vUv;
 
@@ -165,10 +147,29 @@ void main() {
       uvN = uv - g * uIntensity * 0.5 * (1.0 - p);
       m = smoothstep(nn - 0.15, nn + 0.15, p);
     }
+
+    // ---- ZOOM: new image starts small and zooms in, old one zooms out ----
+    float e = 1.0 - pow(1.0 - p, 3.0);            // easeOutCubic
+    float zN = mix(uStartScale, 1.0, e);          // next: small -> 1
+    float zC = mix(1.0, uEndScale, e) * uKen;     // current: 1 -> bigger
+    uvN = (uvN - 0.5) / zN + 0.5;
+    uvC = (uvC - 0.5) / zC + 0.5;
+
+    // first load intro
+    float zi = mix(0.55, 1.0, uIntro);
+    uvC = (uvC - 0.5) / zi + 0.5;
   }
+
+  // resting size of the photo inside the frame (1.0 = full, 0.8 = smaller)
+  uvC = (uvC - 0.5) / uBase + 0.5;
+  uvN = (uvN - 0.5) / uBase + 0.5;
 
   vec2 sC = coverUV(uvC, uResolution, uCurrentSize);
   vec2 sN = coverUV(uvN, uResolution, uNextSize);
+
+  // transparent outside the (scaled) image so edges don't stretch
+  float inC = step(0.0, sC.x) * step(sC.x, 1.0) * step(0.0, sC.y) * step(sC.y, 1.0);
+  float inN = step(0.0, sN.x) * step(sN.x, 1.0) * step(0.0, sN.y) * step(sN.y, 1.0);
 
   float ca = uReduce < 0.5 ? uAberration * env * 0.03 : 0.0;
 
@@ -183,13 +184,16 @@ void main() {
     texture2D(tNext, sN - vec2(ca, 0.0)).b
   );
 
-  vec3 col = mix(colC, colN, m);
+  float aC = texture2D(tCurrent, sC).a * inC * uIntro;
+  float aN = texture2D(tNext, sN).a * inN;
 
-  float aC = texture2D(tCurrent, sC).a;
-  float aN = texture2D(tNext, sN).a;
+  vec3 premC = colC * aC;
+  vec3 premN = colN * aN;
+
+  vec3 col = mix(premC, premN, m);
   float a = mix(aC, aN, m);
 
-  gl_FragColor = vec4(col * a, a);
+  gl_FragColor = vec4(col, a);
 }
 `;
 
@@ -239,6 +243,9 @@ class MorphEngine {
     this.dragDir = 0;
     this.shownIndex = startIndex;
     this.tween = null;
+    this.kenTween = null;
+    this.introTween = null;
+    this.introPlayed = false;
 
     this.renderer = new Renderer({
       alpha: true,
@@ -280,6 +287,11 @@ class MorphEngine {
         uReduce: { value: reducedMotion ? 1 : 0 },
         uPointer: { value: [0.5, 0.5] },
         uOverlay: { value: hexToRgb(opts.overlayColor) },
+        uStartScale: { value: opts.startScale },
+        uEndScale: { value: opts.endScale },
+        uKen: { value: 1 },
+        uIntro: { value: reducedMotion ? 1 : 0 },
+        uBase: { value: opts.imageScale },
       },
     });
 
@@ -309,7 +321,7 @@ class MorphEngine {
     this.items.forEach((item, index) => {
       const img = new Image();
       img.crossOrigin = "anonymous";
-      img.src = item.image;
+      img.src = item.img;
       img.onload = () => {
         const texture = new Texture(this.gl, { generateMipmaps: false });
         texture.image = img;
@@ -318,9 +330,38 @@ class MorphEngine {
         if (index === this.current) {
           this.program.uniforms.tCurrent.value = texture;
           this.program.uniforms.uCurrentSize.value = this.sizes[index];
+          this.playIntro();
         }
       };
       img.onerror = () => {};
+    });
+  }
+
+  playIntro() {
+    if (this.introPlayed) return;
+    this.introPlayed = true;
+    if (this.reducedMotion) {
+      this.program.uniforms.uIntro.value = 1;
+      return;
+    }
+    this.introTween = gsap.to(this.program.uniforms.uIntro, {
+      value: 1,
+      duration: 1.6,
+      ease: "power3.out",
+      onComplete: () => this.startKen(),
+    });
+  }
+
+  startKen() {
+    if (this.reducedMotion) return;
+    const k = this.getOptions().kenBurns;
+    if (this.kenTween) this.kenTween.kill();
+    this.program.uniforms.uKen.value = 1;
+    if (!k) return;
+    this.kenTween = gsap.to(this.program.uniforms.uKen, {
+      value: 1 + k,
+      duration: 8,
+      ease: "none",
     });
   }
 
@@ -343,6 +384,9 @@ class MorphEngine {
     this.program.uniforms.uAberration.value = opts.aberration;
     this.program.uniforms.uDrift.value = opts.drift;
     this.program.uniforms.uOverlay.value = hexToRgb(opts.overlayColor);
+    this.program.uniforms.uStartScale.value = opts.startScale;
+    this.program.uniforms.uEndScale.value = opts.endScale;
+    this.program.uniforms.uBase.value = opts.imageScale;
   }
 
   loop(t) {
@@ -407,6 +451,7 @@ class MorphEngine {
     this.animating = false;
     this.tween = null;
     this.announce(target);
+    this.startKen();
   }
 
   next() {
@@ -489,6 +534,8 @@ class MorphEngine {
   destroy() {
     cancelAnimationFrame(this.raf);
     if (this.tween) this.tween.kill();
+    if (this.kenTween) this.kenTween.kill();
+    if (this.introTween) this.introTween.kill();
     this.resizeObserver.disconnect();
     this.canvas.removeEventListener("webglcontextlost", this.boundContextLost);
     this.textures.forEach((tex) => {
@@ -503,17 +550,21 @@ class MorphEngine {
 }
 
 export default function MorphSlider({
-  items = DEFAULT_ITEMS,
+  items,
   startIndex = 0,
   transition = "melt",
-  duration = 1.1,
-  ease = "power2.inOut",
+  duration = 1.5,
+  ease = "power3.inOut",
   intensity = 0.55,
   scale = 2.4,
   aberration = 0.35,
   drift = 0.4,
-  autoplay = false,
-  autoplayDelay = 4,
+  imageScale = 0.8, // resting photo size inside the frame (1 = full)
+  startScale = 0.6, // new image starts at 60% size
+  endScale = 1.2, // old image zooms out to 120%
+  kenBurns = 0.1, // slow zoom after slide settles (0 = off)
+  autoplay = true,
+  autoplayDelay = 6,
   loop = true,
   radius = 16,
   overlayColor = "#000000",
@@ -527,6 +578,7 @@ export default function MorphSlider({
   const engineRef = useRef(null);
   const [index, setIndex] = useState(startIndex);
   const [hovering, setHovering] = useState(false);
+  const activeItem = items[index] ?? items[0];
 
   const optsRef = useRef();
   optsRef.current = {
@@ -539,6 +591,10 @@ export default function MorphSlider({
     drift,
     overlayColor,
     loop,
+    imageScale,
+    startScale,
+    endScale,
+    kenBurns,
   };
 
   useEffect(() => {
@@ -659,6 +715,27 @@ export default function MorphSlider({
         tabIndex={0}
         onKeyDown={onKeyDown}
       />
+
+      {/* Independent text overlay: stays above the image and is not affected by image scaling */}
+      {activeItem && (
+        <div
+          key={index}
+          className="pointer-events-none absolute left-6 top-8 z-[5] max-w-[min(90%,42rem)] sm:left-10 sm:top-10 md:left-14 md:top-14 animate-caption"
+          aria-live="polite"
+        >
+          <p className="mb-3 text-xs font-medium uppercase tracking-[0.3em] text-white/65 drop-shadow-lg sm:text-sm">
+            {activeItem.author}
+          </p>
+
+          <h2 className="mb-4 text-3xl font-semibold tracking-tight text-white drop-shadow-lg sm:text-5xl md:text-6xl">
+            {activeItem.name}
+          </h2>
+
+          <p className="max-w-lg text-sm leading-relaxed text-white/80 drop-shadow-md sm:text-base md:text-lg">
+            “{activeItem.title}”
+          </p>
+        </div>
+      )}
 
       {/* {showCaptions && hasCaptions && (
         <div

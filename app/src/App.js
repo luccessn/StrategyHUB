@@ -170,27 +170,6 @@ function App() {
             />
           </div>
           <div className="max-w-7xl mx-auto text-center" ref={ref}>
-            {/* <p className="font-panchangSB text-xl md:text-4xl  text-white ">
-              Welcome to
-              <span className="text-neutral-400 px-3">
-                {"Strategy Hub".split("").map((letter, idx) => (
-                  <motion.span
-                    key={idx}
-                    className="inline-block"
-                    initial={{ x: -10, opacity: 0 }}
-                    animate={hasAnimated ? { x: 0, opacity: 1 } : {}}
-                    transition={{ duration: 0.5, delay: idx * 0.04 }}
-                  >
-                    {letter}
-                  </motion.span>
-                ))}
-              </span>
-            </p>
-            <p className="text-sm font-satosIT md:text-lg text-neutral-500 max-w-2xl mx-auto py-4">
-              We are analyzing your car, track, and intentions to build the
-              smartest strategy for your race — from high-pressure competition
-              to laid-back driving.
-            </p> */}
             <div className="mx-auto block lg:hidden gap-8 text-center">
               <p className="font-panchangSB text-white text-xl ssm:text-2xl smm:text-3xl xl:text-4xl">
                 WebSite is
@@ -356,7 +335,7 @@ function App() {
               </MobileNav>
             </Navbar>
 
-            <div className="relative -top-20">
+            <div className="relative -top-20 ">
               {/* <AppRouters /> */}
               <AppRoutes />
             </div>
