@@ -15,8 +15,8 @@ const MusGridCard = ({ props, index }) => {
       // onClick={() => window.scrollTo(0, 0)}
       onClick={goDTL}
       className={`
-      rounded-sm border border-[#4a4a4a] bg-[#1d1d1d]
-      p-5 transition-all duration-500
+        bg-[#0c0c0c] hover:scale-95  duration-500
+      p-2 transition-all 
       text-white hover:text-red-600 hover:border-red-800
       ${index % 3 === 2 ? "col-span-2 clg:col-span-1" : ""}
     `}
@@ -50,10 +50,11 @@ const MusGridCard = ({ props, index }) => {
         transition={{ duration: 0.6, ease: "linear" }}
         viewport={{ once: false, amount: 0.45 }}
       >
+        {/* cursor-target  bg-[#2c2c2c]*/}
         <div
           className={`
-                   mt-5 flex h-[280px] items-center justify-center  cursor-target hover:scale-95  duration-500 bg-[#2c2c2c]
-                      ${index % 3 === 2 ? " h-[360px] mmd:h-[380px] clg:h-[280px]" : "h-[280px]"}
+                   mt-5 flex h-[280px] items-center justify-center  
+                      ${index % 3 === 2 ? " h-[360px] mmd:h-[380px] clg:h-[500px]" : "h-[500px]"}
                     `}
         >
           <img

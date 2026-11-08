@@ -3,6 +3,7 @@ import { useFetchData } from "../../../Hooks/useFetchData";
 import MorphSlider from "../../../Components/UI/MuseumUI/MorphSlider";
 import FlexCarousel from "../../../Components/UI/MuseumUI/FlexCarousel";
 import MusGridCard from "../../../Components/Museum/MusGridCard";
+import MuseumTabs from "../../../Components/Museum/MuseumTabs";
 export const Museum = () => {
   const [data, error, isLoading] = useFetchData(
     "https://strategyhub.onrender.com/server/getcars",
@@ -56,70 +57,88 @@ export const Museum = () => {
   ];
   const items2 = [
     {
-      src: "https://i.postimg.cc/yYMjJYtz/car-no-bg-10.png",
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsNFd2QtLTuzqHVnw25bSFviSO6vYt-1pd5xn92geIhq1axKidyRs4gfg&s=10",
       alt: "A chrome sculpture",
       title: "Iridescence",
     },
+
     {
-      src: "https://i.postimg.cc/zG6jNhT9/sennmclr.png",
-      alt: "A figure on a white set",
-      title: "White Room",
-    },
-    {
-      src: "https://i.postimg.cc/4dp7Sswt/Yellow-and-Black-Porsche-GT-Race-Car.png",
+      src: "https://hips.hearstapps.com/hmg-prod/images/2025-lotus-evija-120-68780193b1201.jpg?crop=1xw:1xh;center,top",
       alt: "A clay bust in profile",
       title: "Clay Study",
       subtitle: "Studio 04",
     },
+    // {
+    //   src: "https://i.postimg.cc/6p6xfBb7/Ferrari-Enzo-Ferrari-Logo-Rain-Wheel-3Wallpapers-i-Phone-Parallax.jpg",
+    //   alt: "A figure on a white set",
+    //   title: "White Room",
+    // },
+    {
+      src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8rWABj1F57MWIBdgCxRHxK2F7Une7dn5EKDLbq7xJ66st41jk1CUBBQur&s=10",
+      alt: "A clay bust in profile",
+      title: "Clay Study",
+      subtitle: "Studio 04",
+    },
+    {
+      src: "https://i.postimg.cc/SRZf07q4/mclra.jpg",
+      title: "Mclaren",
+    },
+    {
+      src: "https://i.postimg.cc/XJYgszSC/FORD.jpg",
+      title: "Ford",
+    },
   ];
 
   return (
-    <div className="relative bg-[#000000]  h-full w-full flex flex-col gap-5 p-4">
-      <div
-        style={{ height: "1000px", position: "relative" }}
-        className="bg-[#0c0c0c] w-full"
-      >
-        <MorphSlider
-          items={items}
-          transition="melt"
-          intensity={0.55}
-          aberration={0.35}
-          drift={0.4}
-          autoplay={true}
-          overlayColor="#05060a"
-          duration={1.1}
-          ease="power2.inOut"
-          caption
-          imageScale={0.8}
-          startScale={0.5}
-          autoplayDelay={6}
-          loop
-          radius={0.5}
-          showCaptions
-          showControls
-          showIndicators
-        />
+    <div className="relative  h-full w-full flex flex-col gap-14 ">
+      {/* bg-[#000000]  */}
+      <div className="">
+        <div
+          style={{ height: "1000px", position: "relative" }}
+          className="bg-[#0c0c0c] w-full"
+        >
+          <MorphSlider
+            items={items}
+            transition="melt"
+            intensity={0.55}
+            aberration={0.35}
+            drift={0.4}
+            autoplay={true}
+            overlayColor="#05060a"
+            duration={1.1}
+            ease="power2.inOut"
+            caption
+            imageScale={0.8}
+            startScale={0.5}
+            autoplayDelay={6}
+            loop
+            radius={0.5}
+            showCaptions
+            showControls
+            showIndicators
+          />
+        </div>
+        <div className="grid grid-cols-2   gap-[2px] ">
+          {data.slice(0, 4).map((item, index) => (
+            // <CarsGridCard props={item} index={index} />
+            <MusGridCard props={item} index={index} />
+          ))}
+        </div>
       </div>
-      <div className="grid grid-cols-2   gap-[6px] ">
-        {data.slice(0, 4).map((item, index) => (
-          // <CarsGridCard props={item} index={index} />
-          <MusGridCard props={item} index={index} />
-        ))}
-      </div>
-      <div style={{ width: "100%", height: "560px", position: "relative" }}>
+      <div style={{ width: "100%", height: "800px", position: "relative" }}>
         <FlexCarousel
           items={items2}
           preset="liquid"
           intro="rise"
-          cardHeight={0.5}
+          cardHeight={0.65}
           gap={12}
           squeeze={0.2}
           focusOnClick
           captions
           fit="natural"
           radius={0}
-          lensWidth={0.74}
-          lensHeight={1.18}
+          lensWidth={1}
+          lensHeight={1.28}
           tilt={62}
           roundness={1}
           bend={0.34}
@@ -128,10 +147,13 @@ export const Museum = () => {
           dispersion={0.45}
           liquid={0}
           followCursor={false}
-          autoplay={false}
+          autoplay={true}
           interval={4}
           captureWheel
         />
+      </div>
+      <div>
+        <MuseumTabs />
       </div>
     </div>
   );
