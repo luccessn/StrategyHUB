@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { Renderer, Triangle, Program, Mesh, Texture } from "ogl";
 import { gsap } from "gsap";
+import FadeContent from "../Animations/FadeContent";
 
 const TRANSITIONS = { melt: 0, ripple: 1, shear: 2, swirl: 3 };
 
@@ -720,20 +721,27 @@ export default function MorphSlider({
       {activeItem && (
         <div
           key={index}
-          className="pointer-events-none absolute left-6 top-8 z-[5] max-w-[min(90%,42rem)] sm:left-10 sm:top-10 md:left-14 md:top-14 animate-caption"
+          className="pointer-events-none absolute left-6  z-[5] max-w-[min(90%,52rem)] sm:left-10  md:left-14 top-32 animate-caption"
           aria-live="polite"
         >
-          <p className="mb-3 text-xs font-medium uppercase tracking-[0.3em] text-white/65 drop-shadow-lg sm:text-sm">
-            {activeItem.author}
-          </p>
+          <FadeContent
+            effect="mist"
+            duration={2}
+            ease="power2.out"
+            stagger={0.1}
+            threshold={0.1}
+          >
+            <h2 className="mb-3 text-3xl font-semibold tracking-tight text-white drop-shadow-lg sm:text-5xl md:text-6xl">
+              {activeItem.name}
+            </h2>
 
-          <h2 className="mb-4 text-3xl font-semibold tracking-tight text-white drop-shadow-lg sm:text-5xl md:text-6xl">
-            {activeItem.name}
-          </h2>
-
-          <p className="max-w-lg text-sm leading-relaxed text-white/80 drop-shadow-md sm:text-base md:text-lg">
-            “{activeItem.title}”
-          </p>
+            <p className="max-w-lg text-sm font-satosIT leading-relaxed text-white/80 drop-shadow-md sm:text-base md:text-lg">
+              “{activeItem.title}”
+            </p>
+            <p className=" text-xs font-medium uppercase tracking-[0.3em] text-white/65 drop-shadow-lg sm:text-base">
+              {activeItem.author}
+            </p>
+          </FadeContent>
         </div>
       )}
 

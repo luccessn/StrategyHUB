@@ -105,7 +105,7 @@ export const Museum = () => {
             drift={0.4}
             autoplay={true}
             overlayColor="#05060a"
-            duration={1.1}
+            duration={1.5}
             ease="power2.inOut"
             caption
             imageScale={0.8}

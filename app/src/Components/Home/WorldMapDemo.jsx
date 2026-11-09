@@ -128,7 +128,7 @@ export function WorldMapDemo() {
       <div className=" flex flex-col gap-20   w-full ">
         <FadeContent
           effect="mist"
-          duration={1.8}
+          duration={2.2}
           ease="power2.out"
           stagger={0.1}
           threshold={0.1}
